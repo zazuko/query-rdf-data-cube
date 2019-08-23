@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`avg avg 1`] = `
+"SELECT ?raum (AVG(?tmpVar3) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?tmpVar0.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar3.
+}
+GROUP BY (?raum)
+LIMIT 10"
+`;
+
+exports[`avg avg distinct 1`] = `
+"SELECT DISTINCT ?betriebsart ?geschlecht ?raum ?zeit (AVG(DISTINCT ?tmpVar0) AS ?bep) ?quelle ?glossar ?fussnote ?datenstand ?erwarteteAktualisierung ?korrektur FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?betriebsart.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?geschlecht.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar0.
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/DATENSTAND> ?datenstand. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/ERWARTETE_AKTUALISIERUNG> ?erwarteteAktualisierung. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR> ?korrektur. }
+}
+GROUP BY (?betriebsart) (?geschlecht) (?raum) (?zeit) (?quelle) (?glossar) (?fussnote) (?datenstand) (?erwarteteAktualisierung) (?korrektur)
+LIMIT 10"
+`;
+
+exports[`basic 1`] = `
+"SELECT ?betriebsart ?geschlecht ?raum ?zeit ?bep ?quelle ?glossar ?fussnote ?datenstand ?erwarteteAktualisierung ?korrektur FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?betriebsart.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?geschlecht.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/DATENSTAND> ?datenstand. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/ERWARTETE_AKTUALISIERUNG> ?erwarteteAktualisierung. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR> ?korrektur. }
+}
+LIMIT 10"
+`;
+
+exports[`distinct 1`] = `
+"SELECT DISTINCT ?raum FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?tmpVar0.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
+}
+LIMIT 10"
+`;
+
+exports[`groupBy doesn't duplicate 1`] = `
+"SELECT ?betriebsart ?geschlecht ?raum ?zeit ?bep ?quelle ?glossar ?fussnote FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?betriebsart.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?geschlecht.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
+}
+GROUP BY (?zeit) (?raum)
+LIMIT 10"
+`;
+
+exports[`groupBy groups with a function 1`] = `
+"SELECT ?betriebsart ?geschlecht ?raum ?zeit ?bep ?quelle ?glossar ?fussnote FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?betriebsart.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?geschlecht.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
+}
+GROUP BY (?zeit) (?raum)
+LIMIT 10"
+`;
+
+exports[`groupBy with avg doesn't duplicate groupby vars 1`] = `
+"SELECT DISTINCT ?raum ?zeit (AVG(DISTINCT ?tmpVar2) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar0.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar1.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar2.
+}
+GROUP BY (?raum) (?zeit)
+LIMIT 10"
+`;

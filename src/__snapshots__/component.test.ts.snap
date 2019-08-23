@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filters bound 1`] = `
+Operator {
+  "args": Array [
+    Dimension {
+      "componentType": "dimension",
+      "iri": NamedNode {
+        "value": "http://example.com/d",
+      },
+      "isDistinct": false,
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "d",
+      },
+    },
+  ],
+  "operator": "bound",
+}
+`;
+
+exports[`filters not bound 1`] = `
+Operator {
+  "args": Array [
+    Operator {
+      "args": Array [
+        Dimension {
+          "componentType": "dimension",
+          "iri": NamedNode {
+            "value": "http://example.com/d",
+          },
+          "isDistinct": false,
+          "label": Literal {
+            "datatype": NamedNode {
+              "value": "http://www.w3.org/2001/XMLSchema#string",
+            },
+            "language": "",
+            "value": "d",
+          },
+        },
+      ],
+      "operator": "bound",
+    },
+  ],
+  "operator": "!",
+}
+`;
+
+exports[`filters not in 1`] = `
+Operator {
+  "args": Array [
+    Operator {
+      "args": Array [
+        Dimension {
+          "componentType": "dimension",
+          "iri": NamedNode {
+            "value": "http://example.com/d",
+          },
+          "isDistinct": false,
+          "label": Literal {
+            "datatype": NamedNode {
+              "value": "http://www.w3.org/2001/XMLSchema#string",
+            },
+            "language": "",
+            "value": "d",
+          },
+        },
+        TermExpr {
+          "term": NamedNode {
+            "value": "http://foo",
+          },
+        },
+      ],
+      "operator": "in",
+    },
+  ],
+  "operator": "!",
+}
+`;

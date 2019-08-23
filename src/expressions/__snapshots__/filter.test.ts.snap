@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic 1`] = `
+Array [
+  Binding {
+    "name": "a",
+  },
+]
+`;
+
+exports[`basic 2`] = `
+Array [
+  Binding {
+    "name": "a",
+  },
+  Binding {
+    "name": "b",
+  },
+  Operator {
+    "args": Array [
+      Binding {
+        "name": "a",
+      },
+      Binding {
+        "name": "b",
+      },
+    ],
+    "operator": "gte",
+  },
+]
+`;
+
+exports[`basic 3`] = `
+Array [
+  Operator {
+    "args": Array [
+      Binding {
+        "name": "a",
+      },
+      Binding {
+        "name": "b",
+      },
+    ],
+    "operator": "gte",
+  },
+]
+`;
+
+exports[`basic 4`] = `
+Array [
+  Operator {
+    "args": Array [
+      Operator {
+        "args": Array [
+          Binding {
+            "name": "a",
+          },
+          Numeric {
+            "val": 10,
+          },
+        ],
+        "operator": "gte",
+      },
+    ],
+    "operator": "!",
+  },
+]
+`;
+
+exports[`basic 5`] = `
+Operator {
+  "args": Array [
+    Dimension {
+      "componentType": "dimension",
+      "iri": NamedNode {
+        "value": "http://aaaa.aaa",
+      },
+      "isDistinct": false,
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "aaaa",
+      },
+    },
+    Numeric {
+      "val": 10,
+    },
+  ],
+  "operator": "gte",
+}
+`;

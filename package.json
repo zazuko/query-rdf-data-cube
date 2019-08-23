@@ -1,0 +1,27 @@
+{
+  "name": "sparql-builder",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "__prepare": "npm run build",
+    "start": "ts-node src/index.ts",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "clone": "^2.1.2",
+    "fetch-sparql-endpoint": "^1.4.0",
+    "sparqljs": "^3.0.0-beta.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "typescript": "^3.5.3"
+  }
+}
