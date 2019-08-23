@@ -7,7 +7,10 @@
     "build": "tsc",
     "__prepare": "npm run build",
     "start": "ts-node src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "docs:compile": "npm run typedoc -- --exclude '**/*.test.ts' ./src/ --includes ./doc --out ./docs",
+    "docs:publish": "gh-pages -d docs",
+    "typedoc": "typedoc"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -18,10 +21,12 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "gh-pages": "^2.1.1",
     "jest": "^24.9.0",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.19.0",
+    "typedoc": "^0.15.0",
     "typescript": "^3.5.3"
   }
 }
