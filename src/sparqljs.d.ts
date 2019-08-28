@@ -1,4 +1,4 @@
-import { Term, Variable } from "rdf-js";
+import { Term, Variable, NamedNode } from "rdf-js";
 
 // Type definitions for sparqljs 2.1
 // Project: https://github.com/RubenVerborgh/SPARQL.js
@@ -260,7 +260,7 @@ export interface OperationExpression extends BaseExpression {
 
 export interface FunctionCallExpression extends BaseExpression {
     type: 'functionCall';
-    function: string;
+    function: NamedNode;
     args: Expression[];
 }
 

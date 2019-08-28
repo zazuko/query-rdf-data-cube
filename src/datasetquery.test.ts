@@ -101,7 +101,6 @@ test("distinct", async () => {
 
 describe("avg", () => {
   test("avg", async () => {
-    const x = raumDimension.not.in([namedNode("http://foo")]);
     const query = dataset
       .query()
       .select({
@@ -109,6 +108,17 @@ describe("avg", () => {
         bep: beschaeftigteMeasure.avg(),
       });
     const sparql = await query.toSparql();
+    expect(sparql).toMatchSnapshot();
+  });
+  test("avg and filter", async () => {
+    const query = dataset
+      .query()
+      .select({
+        raum: raumDimension,
+        bep: beschaeftigteMeasure.avg(),
+      })
+    .filter(raumDimension.not.in([namedNode("http://foo")]));
+    const sparql = await query.toSparql({ limit: 50, offset: 150 });
     expect(sparql).toMatchSnapshot();
   });
 

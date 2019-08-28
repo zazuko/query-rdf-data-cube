@@ -3,6 +3,7 @@ import namespace from "@rdfjs/namespace";
 import { Literal } from "rdf-js";
 
 const xsd = namespace("http://www.w3.org/2001/XMLSchema#");
+
 const dateTime = /^\d{4}(-[01]\d(-[0-3]\d(T[0-2]\d:[0-5]\d:?([0-5]\d(\.\d+)?)?([+-][0-2]\d:[0-5]\d)?Z?)?)?)$/;
 const bool = /^(true|false)$/;
 const numb = /^[\-+]?(?:\d+\.?\d*([eE](?:[\-\+])?\d+)|\d*\.?\d+)$/;

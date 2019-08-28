@@ -1,6 +1,7 @@
 // tslint:disable: max-classes-per-file
 import { blankNode, defaultGraph, literal, namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode, Term } from "rdf-js";
+import { toLiteral } from "../toLiteral";
 import Numeric from "./numeric";
 
 export interface IExpr {
@@ -54,4 +55,18 @@ export function into(what: IntoExpr): IExpr {
       }
       return what;
   }
+}
+
+export function ensureTerm(arg: any): Term|TermExpr {
+  if (arg.hasOwnProperty("componentType")) {
+    return arg;
+  }
+  if (isTerm(arg)) {
+    return new TermExpr(arg);
+  }
+  const iriRegExp = new RegExp("^https?://");
+  if (typeof arg === "string" && iriRegExp.test(arg)) {
+    return new TermExpr(namedNode(arg));
+  }
+  return new TermExpr(toLiteral(arg));
 }

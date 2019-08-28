@@ -24,8 +24,10 @@ const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
   ),
   graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics")
 });
-const a: any = new Dimension({ label: "aaaa", iri: "http://aaaa.aaa" });
-const b: any = new Dimension({ label: "bbbb", iri: "http://bbbb.bbb" });
+const a: any = new Dimension({ label: "aaaa", iri: "http://aaaa.aa" });
+const b: any = new Dimension({ label: "bbbb", iri: "http://bbbb.bb" });
+const c: any = new Dimension({ label: "cccc", iri: "http://cccc.cc" });
+const d: any = new Dimension({ label: "dddd", iri: "http://dddd.dd" });
 
 test("basic", async () => {
   let sparql = await dataset
@@ -48,18 +50,50 @@ test("basic", async () => {
     .filter(a.not.gte(10))
     .toSparql();
   expect(extractFilter(sparql)).toMatchInlineSnapshot(`"FILTER(!(?a >= 10 ))"`);
-
-  sparql = await dataset
-    .query()
-    .select({ a, b })
-    .filter(a.not.in([namedNode("http://example.com"), literal("foo", "en")]))
-    .toSparql();
-  expect(extractFilter(sparql)).toMatchInlineSnapshot(
-    `"FILTER(!(?a IN(<http://example.com>, \\"foo\\"@en)))"`
-  );
 });
 
 describe("fixtures", () => {
+  it("NOT IN, !IN", async () => {
+    const sparqlA = await dataset
+      .query()
+      .select({ a, b })
+      .filter(a.not.in([namedNode("http://example.com"), literal("foo", "en")]))
+      .toSparql();
+    expect(extractFilter(sparqlA)).toMatchInlineSnapshot(
+      `"FILTER(?a NOT IN(<http://example.com>, \\"foo\\"@en))"`
+    );
+    const sparqlB = await dataset
+      .query()
+      .select({ a, b })
+      .filter(a.notIn([namedNode("http://example.com"), literal("foo", "en")]))
+      .toSparql();
+    expect(extractFilter(sparqlB)).toBe(extractFilter(sparqlA));
+  });
+
+  it("!=", async () => {
+    const sparqlA = await dataset
+      .query()
+      .select({ a, b })
+      .filter(a.not.equals(10))
+      .toSparql();
+    expect(extractFilter(sparqlA)).toMatchInlineSnapshot(`"FILTER(?a != 10 )"`);
+    const sparqlB = await dataset
+      .query()
+      .select({ a, b })
+      .filter(a.notEquals(10))
+      .toSparql();
+    expect(extractFilter(sparqlB)).toBe(extractFilter(sparqlA));
+  });
+
+  it("equals binding", async () => {
+    const sparqlA = await dataset
+      .query()
+      .select({ a, b })
+      .filter(a.not.equals(b))
+      .toSparql();
+    expect(extractFilter(sparqlA)).toMatchInlineSnapshot(`"FILTER(?a != ?b)"`);
+  });
+
   it('FILTER regex(?title, "^SPARQL") .', async () => {
     const query = dataset
       .query()
@@ -160,133 +194,71 @@ describe("fixtures", () => {
     );
   });
 
-  // it('FILTER regex(str(?mbox), "@work.example") .', async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toMatchInlineSnapshot('FILTER regex(str(?mbox), "@work.example") .' );
-  // });
+  it('FILTER regex(str(?mbox), "@work.example") .', async () => {
+    const query = dataset
+      .query()
+      .select({ mbox: a })
+      .filter(a.str().regex("@work.example"));
+    const sparql: string = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER(REGEX(STR(?mbox), \\"@work.example\\"^^<http://www.w3.org/2001/XMLSchema#string>))"`
+    );
+  });
 
-  // it('FILTER (lang(?name) = "ES") .', async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toMatchInlineSnapshot('FILTER (lang(?name) = "ES") .' );
-  // });
+  it('FILTER (lang(?name) = "ES") .', async () => {
+    const query = dataset
+      .query()
+      .select({ name: a })
+      .filter(a.lang().equals("ES"));
+    const sparql: string = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER((LANG(?name)) = \\"ES\\"^^<http://www.w3.org/2001/XMLSchema#string>)"`
+    );
+  });
 
-  // it("FILTER (datatype(?shoeSize) = xsd:integer) ." , async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toBe("FILTER (datatype(?shoeSize) = xsd:integer) ." );
-  // });
+  it("FILTER (datatype(?shoeSize) = xsd:integer) .", async () => {
+    const query = dataset
+      .query()
+      .select({ shoeSize: a })
+      .filter(a.datatype().equals("http://www.w3.org/2001/XMLSchema#integer"));
+    const sparql: string = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER((DATATYPE(?shoeSize)) = <http://www.w3.org/2001/XMLSchema#integer>)"`
+    );
+  });
 
-  // it("FILTER (?mbox1 = ?mbox2 && ?name1 != ?name2) ." , async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toBe("FILTER (?mbox1 = ?mbox2 && ?name1 != ?name2) ." );
-  // });
+  it("FILTER (?mbox1 = ?mbox2 && ?name1 != ?name2) .", async () => {
+    const query = dataset
+      .query()
+      .select({ mbox1: a, mbox2: b, name1: c, name2: d })
+      .filter(a.equals(b))
+      .filter(c.not.equals(d));
+    const sparql: string = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER((?mbox1 = ?mbox2) && (?name1 != ?name2))"`
+    );
+  });
 
-  // it('FILTER (?date = xsd:dateTime("2005-01-01T00:00:00Z")) .', async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toMatchInlineSnapshot('FILTER (?date = xsd:dateTime("2005-01-01T00:00:00Z")) .' );
-  // });
+  it("FILTER (sameTerm(?mbox1, ?mbox2) && !sameTerm(?name1, ?name2)) .", async () => {
+    const query = dataset
+      .query()
+      .select({ mbox1: a, mbox2: b, name1: c, name2: d })
+      .filter(a.sameTerm(b))
+      .filter(c.not.sameTerm(d));
+    const sparql: string = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER((SAMETERM(?mbox1, ?mbox2)) && (!(SAMETERM(?name1, ?name2))))"`
+    );
+  });
 
-  // it("FILTER (sameTerm(?mbox1, ?mbox2) && !sameTerm(?name1, ?name2)) ." , async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toBe("FILTER (sameTerm(?mbox1, ?mbox2) && !sameTerm(?name1, ?name2)) ." );
-  // });
-
-  // it("FILTER (sameTerm(?aWeight, ?bWeight) && !sameTerm(?aDisp, ?bDisp)) ." , async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toBe("FILTER (sameTerm(?aWeight, ?bWeight) && !sameTerm(?aDisp, ?bDisp)) ." );
-  // });
-
-  // it('FILTER langMatches(lang(?title), "FR") .', async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toMatchInlineSnapshot('FILTER langMatches(lang(?title), "FR") .' );
-  // });
-
-  // it('FILTER langMatches(lang(?title), "*") .', async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toMatchInlineSnapshot('FILTER langMatches(lang(?title), "*") .' );
-  // });
-
-  // it('FILTER regex(?name, "^ali", "i") .', async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toMatchInlineSnapshot('FILTER regex(?name, "^ali", "i") .' );
-  // });
-
-  // it('FILTER("2015-01-01"^^xsd:dateTime <= ?dob && ?dob < "2016-01-01"^^xsd:dateTime) .', async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toMatchInlineSnapshot('FILTER("2015-01-01"^^xsd:dateTime <= ?dob && ?dob < "2016-01-01"^^xsd:dateTime) .');
-  // });
-
-  // it("FILTER(?raum IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>)) .", async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toBe("FILTER(?raum IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>)) .");
-  // });
-
-  // it("FILTER(?raum NOT IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>)) .", async () => {
-  //   const query = dataset
-  //     .query()
-  //     .select({ a: a })
-  //     .filter();
-  //   const sparql: string = await query.toSparql();
-  //   expect(extractFilter(sparql))
-  //     .toBe("FILTER(?raum NOT IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>)) .");
-  // });
+  it("FILTER(?raum IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>)) .", async () => {
+    const query = dataset
+      .query()
+      .select({ raum: a })
+      .filter(a.in(["https://ld.stadt-zuerich.ch/statistics/code/R30000"]));
+    const sparql: string = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER(?raum IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>))"`
+    );
+  });
 });

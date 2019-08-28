@@ -52,33 +52,28 @@ Operator {
 exports[`filters not in 1`] = `
 Operator {
   "args": Array [
-    Operator {
-      "args": Array [
-        Dimension {
-          "componentType": "dimension",
-          "iri": NamedNode {
-            "value": "http://example.com/d",
-          },
-          "isDistinct": false,
-          "label": Literal {
-            "datatype": NamedNode {
-              "value": "http://www.w3.org/2001/XMLSchema#string",
-            },
-            "language": "",
-            "value": "d",
-          },
+    Dimension {
+      "componentType": "dimension",
+      "iri": NamedNode {
+        "value": "http://example.com/d",
+      },
+      "isDistinct": false,
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
         },
-        ArrayExpr {
-          "xs": Array [
-            NamedNode {
-              "value": "http://foo",
-            },
-          ],
+        "language": "",
+        "value": "d",
+      },
+    },
+    ArrayExpr {
+      "xs": Array [
+        NamedNode {
+          "value": "http://foo",
         },
       ],
-      "operator": "in",
     },
   ],
-  "operator": "!",
+  "operator": "notin",
 }
 `;

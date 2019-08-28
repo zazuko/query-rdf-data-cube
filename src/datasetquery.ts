@@ -35,42 +35,46 @@ function l(obj: any) {
   return inspect(obj, false, 10000, true);
 }
 
+function operatorArgsToExpressions(operator: Operator): Expression[] {
+  const expressions = operator.args.map((arg: IExpr): Expression => {
+    if (isTerm(arg)) {
+      return arg;
+    }
+    if (arg instanceof Binding) {
+      return variable(arg.name);
+    }
+    if (arg instanceof Operator) {
+      return createOperationExpression(arg);
+    }
+    if (arg instanceof TermExpr) {
+      return arg.term;
+    }
+    if (arg instanceof ArrayExpr) {
+      const tuple: Tuple = Array.from(arg.xs);
+      return tuple;
+    }
+  }).filter((x) => {
+    const transformed = Boolean(x);
+    if (!transformed) {
+      console.error(operator);
+      throw new Error("Unrecognized filter argument type");
+    }
+    return transformed;
+  });
+  return expressions;
+}
+
 function createOperationExpression(operator: Operator): OperationExpression {
   const operationExpression: OperationExpression = {
     type: "operation",
     operator: operator.operator,
-    args: operator.args.map((arg: IExpr): Expression => {
-      if (isTerm(arg)) {
-        return arg;
-      }
-      if (arg instanceof Binding) {
-        return variable(arg.name);
-      }
-      if (arg instanceof Operator) {
-        const more = createOperationExpression(arg);
-        return more;
-      }
-      if (arg instanceof TermExpr) {
-        return arg.term;
-      }
-      if (arg instanceof ArrayExpr) {
-        const tuple: Tuple = Array.from(arg.xs);
-        return tuple;
-      }
-    }).filter((x) => {
-      const transformed = Boolean(x);
-      if (!transformed) {
-        console.error(operator.args);
-        throw new Error("Unrecognized filter argument type");
-      }
-      return transformed;
-    }),
+    args: operatorArgsToExpressions(operator),
   };
   return operationExpression;
 }
 
 function combineFilters(operations: OperationExpression[]): FilterPattern {
-  let combined: OperationExpression;
+  let combined;
   if (operations.length > 1) {
     combined = operations
       .reduce((acc, op) => {
