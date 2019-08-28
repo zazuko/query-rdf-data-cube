@@ -13,10 +13,10 @@ describe("filters", () => {
   });
 
   test("not bound", () => {
-    expect(d.bound().not).toMatchSnapshot();
+    expect(d.not.bound()).toMatchSnapshot();
   });
 
   test("not in", () => {
-    expect(d.in([namedNode("http://foo")]).not).toMatchSnapshot();
+    expect(d.not.in([namedNode("http://foo")])).toMatchSnapshot();
   });
 });

@@ -1,26 +1,25 @@
-import { literal, namedNode, quad, variable } from "@rdfjs/data-model";
+import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
-import { Quad, Term, Variable } from "rdf-js";
 import {Generator as SparqlGenerator} from "sparqljs";
-// import { Wildcard } from "sparqljs/lib/Wildcard";
 import {inspect} from "util";
 import DataSet from "./dataset";
-import Attribute from "./expressions/attribute";
+import Binding from "./expressions/binding";
 import Component from "./expressions/component";
-import Dimension from "./expressions/dimension";
-import Measure from "./expressions/measure";
+import Operator from "./expressions/operator";
+import { IExpr, TermExpr } from "./expressions/utils";
 import SparqlFetcher from "./sparqlfetcher";
-import { BgpPattern, Expression, SelectQuery, VariableExpression } from "./sparqljs";
+import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery } from "./sparqljs";
 
-interface ISelectObject {
-  [bindingName: string]: Dimension|Measure|Attribute;
-}
+type PredicateFunction = (data: Selects) => Component;
+type Selects = Record<string, Component>;
 
-type PredicateFunction = (data: ISelectObject) => Component;
+type Filter = IExpr;
+type FilterResolver = (selects: Selects) => Filter;
+type FilterArg = Filter | FilterResolver;
 
 interface IState {
-  selects: ISelectObject;
-  filters: PredicateFunction[];
+  selects: Selects;
+  filters: FilterArg[];
   groupBys: Array<PredicateFunction | string>;
   havings: PredicateFunction[];
 }
@@ -36,12 +35,54 @@ function l(obj: any) {
   return inspect(obj, false, 10000, true);
 }
 
+function createOperationExpression(operator: Operator): OperationExpression {
+  const operationExpression: OperationExpression = {
+    type: "operation",
+    operator: operator.operator,
+    args: operator.args.map((arg: IExpr): Expression => {
+      if (arg instanceof Binding) {
+        return variable(arg.name);
+      }
+      if (arg instanceof Operator) {
+        const more = createOperationExpression(arg);
+        return more;
+      }
+      if (arg instanceof TermExpr) {
+        return arg.term;
+      }
+    }).filter((x) => {
+      const transformed = Boolean(x);
+      if (!transformed) {
+        console.warn("failed", l(x));
+      }
+      return transformed;
+    }),
+  };
+  return operationExpression;
+}
+
+function combineFilters(operations: OperationExpression[]): FilterPattern {
+  const combined: OperationExpression = operations
+    .reduce((acc, op) => {
+      acc.args.push(op);
+      return acc;
+    }, {
+      operator: "&&",
+      type: "operation",
+      args: [],
+    });
+  return {
+    type: "filter",
+    expression: combined,
+  };
+}
+
 class DataSetQuery {
   public dataSet: DataSet;
   public state: IState;
   // one map from bindingName to Component, one from component IRI to bindingName
-  public bindingToComponent: {[bindingName: string]: Component} = {};
-  public iriToBinding: {[componentIri: string]: string} = {};
+  public bindingToComponent: Map<string, Component> = new Map();
+  public iriToBinding: Map<string, string> = new Map();
   private fetcher: SparqlFetcher;
   private tmpVarCount: number = 0;
   private debug: boolean = false;
@@ -53,21 +94,24 @@ class DataSetQuery {
   }
 
   public clone() {
-    return new DataSetQuery(this.dataSet, clone(this.state));
+    const dsq = new DataSetQuery(this.dataSet, clone(this.state));
+    dsq.iriToBinding = clone(this.iriToBinding);
+    dsq.bindingToComponent = clone(this.bindingToComponent);
+    return dsq;
   }
 
   public select(selects: IState["selects"]) {
     const self = this.clone();
     Object.assign(self.state.selects, selects);
     Object.entries(self.state.selects).forEach(([bindingName, component]) => {
-      self.bindingToComponent[bindingName] = component;
-      self.iriToBinding[component.iri.value] = bindingName;
+      self.bindingToComponent.set(bindingName, component);
+      self.iriToBinding.set(component.iri.value, bindingName);
       self.state.selects[bindingName] = component;
     });
     return self;
   }
 
-  public filter(fn: PredicateFunction) {
+  public filter(fn: FilterArg) {
     const self = this.clone();
     self.state.filters.push(fn);
     return self;
@@ -85,15 +129,25 @@ class DataSetQuery {
     return self;
   }
 
-  public async execute() {
-    const query = await this.toSparql();
+  public async execute({ offset = 0, limit = 10 } = {}) {
+    const query = await this.toSparql({ offset, limit });
     if (this.debug) {
       console.warn(`executing query`, l(query));
     }
     return await this.fetcher.select(query);
   }
 
-  public async toSparql(): Promise<string> {
+  public applyFilters(): FilterPattern {
+    const selects = this.state.selects;
+    const filters = this.state.filters
+      .map((op) => typeof op === "function" ? op(selects) : op)
+      .map((op) => op.resolve(this.iriToBinding))
+      .map(createOperationExpression);
+    const filterExpression = combineFilters(filters);
+    return filterExpression;
+  }
+
+  public async toSparql({ offset = 0, limit = 10 } = {}): Promise<string> {
     if (this.debug) {
       console.warn(`building query from state`, l(this.state));
     }
@@ -124,22 +178,8 @@ class DataSetQuery {
       },
       distinct: hasDistinct,
       where: [],
-      // having: [
-      //   {
-      //     type: "operation",
-      //     operator: ">",
-      //     args: [
-      //       {
-      //         expression: variable("size"),
-      //         type: "aggregate",
-      //         aggregation: "avg",
-      //         distinct: false,
-      //       },
-      //       literal("10", namedNode("http://www.w3.org/2001/XMLSchema#integer")),
-      //     ],
-      //   },
-      // ],
-      limit: 10,
+      offset,
+      limit,
     };
 
     const mainWhereClauses: BgpPattern = {
@@ -232,6 +272,10 @@ class DataSetQuery {
           }],
         });
       });
+
+    if (this.state.filters.length) {
+      query.where.push(this.applyFilters());
+    }
 
     if (hasAggregate) {
       query.group = query.variables

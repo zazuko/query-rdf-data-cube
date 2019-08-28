@@ -1,11 +1,8 @@
-import { literal, namedNode, variable } from "@rdfjs/data-model";
-import clone from "clone";
-import { NamedNode, Term, Variable } from "rdf-js";
-import { Expression, FilterPattern, OperationExpression } from "../sparqljs";
+import { literal, namedNode } from "@rdfjs/data-model";
+import { Term } from "rdf-js";
 import BaseExpr from "./base";
 import Binding from "./binding";
-import Operator from "./operator";
-import { IExpr, IntoExpr } from "./utils";
+import { IExpr } from "./utils";
 
 class Component extends BaseExpr {
   public label: Term;
@@ -49,59 +46,9 @@ class Component extends BaseExpr {
     return self;
   }
 
-  public resolve(mapping: Map<IExpr, string>): IExpr {
-    return new Binding(mapping.get(this));
+  public resolve(mapping: Map<string, string>): IExpr {
+    return new Binding(mapping.get(this.iri.value));
   }
-
-  // // filter generator
-  // public getFilter(bindingName: string): FilterPattern {
-  //   let filterToApply;
-  //   let result = variable(bindingName);
-
-  //   do {
-  //     filterToApply = this.filters.pop();
-  //     result = filterToApply(result);
-  //   } while (this.filters.length);
-
-  //   return {
-  //     type: "filter",
-  //     expression: result,
-  //   };
-  // }
-
-  // public pushFilter(filterFn) {
-  //   const self = this.clone();
-  //   self.filters.push(filterFn);
-  //   return self;
-  // }
 }
 
-// const operatorsMap = {
-//   "not": "!",
-//   "gt": ">",
-//   "gte": ">=",
-//   "lt": "<",
-//   "lte": "<=",
-//   "equals": "=",
-//   "and": "&&",
-//   "or": "||",
-//   "not in": "notin",
-// };
-
-// function filter(operator: string, ...args: any[]): ((args: any[]) => OperationExpression) {
-//   // if (args.length) {
-//   //   return () => ({
-//   //     type: "operation",
-//   //     operator,
-//   //     args,
-//   //   });
-//   // }
-//   return (...argsToApply) => {
-//     return {
-//       type: "operation",
-//       operator,
-//       args: argsToApply.concat(...args),
-//     };
-//   };
-// }
 export default Component;

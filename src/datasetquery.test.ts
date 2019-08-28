@@ -231,6 +231,7 @@ describe("groupBy", () => {
       // .filter(raumDimension.equals("https://ld.stadt-zuerich.ch/statistics/code/R30000"))
       // .filter(zeitDim.between("now-24h", "now"))
       // .filter(helDim.match(/^s.*/))
+      // .filter(betriebsartDimension.gte(200).in([namedNode("http://foo.bar")]).not)
       .groupBy("zeit")
       .groupBy(({ zeit }) => zeit)
       .groupBy(({ zeit }) => zeit)
@@ -240,4 +241,28 @@ describe("groupBy", () => {
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
+});
+
+test("filters", async () => {
+  const base = dataset
+    .query()
+    .select({
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
+
+      bep: beschaeftigteMeasure,
+
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+    });
+  const query = base
+    .filter(raumDimension.gte(literal("12")))
+    .filter(beschaeftigteMeasure.gte(literal("12")))
+    .groupBy(({ zeit }) => zeit)
+    .groupBy(({ raum }) => raum);
+  const sparql = await query.toSparql();
+  expect(sparql).toMatchSnapshot();
 });

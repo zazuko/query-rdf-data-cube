@@ -65,6 +65,24 @@ WHERE {
 LIMIT 10"
 `;
 
+exports[`filters 1`] = `
+"SELECT ?betriebsart ?geschlecht ?raum ?zeit ?bep ?quelle ?glossar ?fussnote FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?betriebsart.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?geschlecht.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
+  FILTER((?raum >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>) && (?bep >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>))
+}
+GROUP BY (?zeit) (?raum)
+LIMIT 10"
+`;
+
 exports[`groupBy doesn't duplicate 1`] = `
 "SELECT ?betriebsart ?geschlecht ?raum ?zeit ?bep ?quelle ?glossar ?fussnote FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {

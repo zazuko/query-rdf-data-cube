@@ -2,8 +2,8 @@ import BaseExpr from "./base";
 import { IExpr, into, IntoExpr } from "./utils";
 
 class Operator extends BaseExpr implements IExpr {
-  private operator: string;
-  private args: IExpr[];
+  public operator: string;
+  public args: IExpr[];
 
   public constructor(operator: string, args: IntoExpr[]) {
     super();
@@ -11,7 +11,7 @@ class Operator extends BaseExpr implements IExpr {
     this.args = args.map(into);
   }
 
-  public resolve(mapping: Map<IExpr, string>): Operator {
+  public resolve(mapping: Map<string, string>): Operator {
     return new Operator(this.operator, this.args.map((arg) => arg.resolve(mapping)));
   }
 }

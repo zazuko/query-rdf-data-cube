@@ -6,32 +6,60 @@ function l(obj: any) {
   return inspect(obj, false, 10000, true);
 }
 
+function notable(operator: string, self: BaseExpr, extraArgs = []) {
+  let op: Operator;
+  if (self instanceof Operator) {
+    if (self.operator === "!") {
+      op = new Operator(operator, [...self.args, ...extraArgs]);
+      op = new Operator("!", [op]);
+    }
+  }
+  if (!op) {
+    op = new Operator(operator, [self, ...extraArgs]);
+  }
+  return op;
+}
+
 class BaseExpr implements IExpr {
-  public resolve(mapping: Map<IExpr, string>): IExpr {
+  public resolve(mapping: Map<string, string>): IExpr {
     return this;
   }
 
   // filters
+  public get and() {
+    return new Operator("&&", [this]);
+  }
+
+  public get or() {
+    return new Operator("||", [this]);
+  }
+
   public get not() {
     return new Operator("!", [this]);
   }
 
   public bound() {
-    return new Operator("bound", [this]);
+    return notable("bound", this, []);
   }
 
-  public gte(inArg: IntoExpr) {
-    return new Operator("gte", [this, inArg]);
+  public gte(arg: IntoExpr) {
+    return notable(">=", this, [arg]);
   }
 
-  public in(inArg: NamedNode[]) {
-    return new Operator("in", [this, ...inArg]);
-    // const lastFilter = this.filters.pop();
-    // if (lastFilter && lastFilter([]).operator === "!") {
-    //   return this.pushFilter(filter("notin", ...inArg));
-    // }
-    // this.filters.push(lastFilter);
-    // return this.pushFilter(filter("in", inArg));
+  public gt(arg: IntoExpr) {
+    return notable("<", this, [arg]);
+  }
+
+  public lte(arg: IntoExpr) {
+    return notable(">=", this, [arg]);
+  }
+
+  public lt(arg: IntoExpr) {
+    return notable(">", this, [arg]);
+  }
+
+  public in(arg: NamedNode[]) {
+    return notable("in", this, arg);
   }
 }
 

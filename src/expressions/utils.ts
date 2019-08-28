@@ -3,18 +3,28 @@ import { NamedNode, Term } from "rdf-js";
 import Numeric from "./numeric";
 
 export interface IExpr {
-  resolve(mapping: Map<IExpr, string>): IExpr;
+  resolve(mapping: Map<string, string>): IExpr;
 }
 export type IntoExpr = Term | number | IExpr;
 
-class TermExpr implements IExpr {
+export class TermExpr implements IExpr {
   public term: Term;
 
   constructor(term: Term) {
     this.term = term;
   }
-  public resolve(mapping: Map<IExpr, string>): TermExpr {
+
+  public resolve(): TermExpr {
     return this;
+  }
+
+  public toString() {
+    if (this.term instanceof namedNode("").constructor) {
+      return `<${this.term.value}>`;
+    }
+    if (this.term instanceof literal("").constructor) {
+      return `"${this.term.value}"`;
+    }
   }
 }
 
