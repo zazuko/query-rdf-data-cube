@@ -7,10 +7,6 @@ class Numeric extends BaseExpr implements IExpr {
     super();
     this.val = value;
   }
-
-  public toString() {
-    return this.val;
-  }
 }
 
 export default Numeric;

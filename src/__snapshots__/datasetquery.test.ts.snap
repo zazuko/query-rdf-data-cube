@@ -65,7 +65,7 @@ WHERE {
 LIMIT 10"
 `;
 
-exports[`filters 1`] = `
+exports[`group and filter 1`] = `
 "SELECT ?betriebsart ?geschlecht ?raum ?zeit ?bep ?quelle ?glossar ?fussnote FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.

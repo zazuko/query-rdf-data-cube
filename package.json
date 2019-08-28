@@ -15,6 +15,7 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
+    "@rdfjs/namespace": "^1.1.0",
     "clone": "^2.1.2",
     "fetch-sparql-endpoint": "^1.4.0",
     "sparqljs": "^3.0.0-beta.0"
@@ -23,6 +24,7 @@
     "@types/jest": "^24.0.18",
     "gh-pages": "^2.1.1",
     "jest": "^24.9.0",
+    "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.19.0",

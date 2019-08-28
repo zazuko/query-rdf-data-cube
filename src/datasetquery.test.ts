@@ -1,8 +1,17 @@
 import { literal, namedNode } from "@rdfjs/data-model";
+import { inspect } from "util";
 import DataSet from "./dataset";
 import Attribute from "./expressions/attribute";
 import Dimension from "./expressions/dimension";
 import Measure from "./expressions/measure";
+
+function l(obj: any) {
+  return inspect(obj, false, 10000, true);
+}
+
+function extractFilter(sparql: string) {
+  return sparql.split("\n").find((line) => line.trim().startsWith("FILTER")).trim();
+}
 
 const betriebsartDimension = new Dimension({
   label: "Betriebsart",
@@ -243,7 +252,7 @@ describe("groupBy", () => {
   });
 });
 
-test("filters", async () => {
+test("group and filter", async () => {
   const base = dataset
     .query()
     .select({

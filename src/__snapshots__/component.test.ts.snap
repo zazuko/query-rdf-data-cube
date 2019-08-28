@@ -68,10 +68,12 @@ Operator {
             "value": "d",
           },
         },
-        TermExpr {
-          "term": NamedNode {
-            "value": "http://foo",
-          },
+        ArrayExpr {
+          "xs": Array [
+            NamedNode {
+              "value": "http://foo",
+            },
+          ],
         },
       ],
       "operator": "in",

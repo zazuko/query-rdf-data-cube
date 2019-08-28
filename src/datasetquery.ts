@@ -6,9 +6,9 @@ import DataSet from "./dataset";
 import Binding from "./expressions/binding";
 import Component from "./expressions/component";
 import Operator from "./expressions/operator";
-import { IExpr, TermExpr } from "./expressions/utils";
+import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions/utils";
 import SparqlFetcher from "./sparqlfetcher";
-import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery } from "./sparqljs";
+import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery, Tuple } from "./sparqljs";
 
 type PredicateFunction = (data: Selects) => Component;
 type Selects = Record<string, Component>;
@@ -40,6 +40,9 @@ function createOperationExpression(operator: Operator): OperationExpression {
     type: "operation",
     operator: operator.operator,
     args: operator.args.map((arg: IExpr): Expression => {
+      if (isTerm(arg)) {
+        return arg;
+      }
       if (arg instanceof Binding) {
         return variable(arg.name);
       }
@@ -50,10 +53,15 @@ function createOperationExpression(operator: Operator): OperationExpression {
       if (arg instanceof TermExpr) {
         return arg.term;
       }
+      if (arg instanceof ArrayExpr) {
+        const tuple: Tuple = Array.from(arg.xs);
+        return tuple;
+      }
     }).filter((x) => {
       const transformed = Boolean(x);
       if (!transformed) {
-        console.warn("failed", l(x));
+        console.error(operator.args);
+        throw new Error("Unrecognized filter argument type");
       }
       return transformed;
     }),
@@ -62,15 +70,20 @@ function createOperationExpression(operator: Operator): OperationExpression {
 }
 
 function combineFilters(operations: OperationExpression[]): FilterPattern {
-  const combined: OperationExpression = operations
-    .reduce((acc, op) => {
-      acc.args.push(op);
-      return acc;
-    }, {
-      operator: "&&",
-      type: "operation",
-      args: [],
-    });
+  let combined: OperationExpression;
+  if (operations.length > 1) {
+    combined = operations
+      .reduce((acc, op) => {
+        acc.args.push(op);
+        return acc;
+      }, {
+        operator: "&&",
+        type: "operation",
+        args: [],
+      });
+  } else {
+    combined = operations[0];
+  }
   return {
     type: "filter",
     expression: combined,

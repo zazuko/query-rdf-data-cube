@@ -1,3 +1,4 @@
+// tslint:disable: max-classes-per-file
 import { blankNode, defaultGraph, literal, namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode, Term } from "rdf-js";
 import Numeric from "./numeric";
@@ -17,18 +18,20 @@ export class TermExpr implements IExpr {
   public resolve(): TermExpr {
     return this;
   }
+}
+export class ArrayExpr implements IExpr {
+  public xs: Term[];
 
-  public toString() {
-    if (this.term instanceof namedNode("").constructor) {
-      return `<${this.term.value}>`;
-    }
-    if (this.term instanceof literal("").constructor) {
-      return `"${this.term.value}"`;
-    }
+  constructor(xs: Term[]) {
+    this.xs = xs;
+  }
+
+  public resolve(mapping: Map<string, string>): ArrayExpr {
+    return this;
   }
 }
 
-function isTerm(term: any): term is Term {
+export function isTerm(term: any): term is Term {
   return (
     term instanceof namedNode("").constructor ||
     term instanceof literal("").constructor ||
@@ -43,6 +46,9 @@ export function into(what: IntoExpr): IExpr {
     case "number":
       return new Numeric(what);
     default:
+      if (Array.isArray(what)) {
+        return new ArrayExpr(what);
+      }
       if (isTerm(what)) {
         return new TermExpr(what);
       }
