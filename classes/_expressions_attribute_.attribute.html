@@ -120,10 +120,24 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#avg" class="tsd-kind-icon">avg</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#bound" class="tsd-kind-icon">bound</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#clone" class="tsd-kind-icon">clone</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#datatype" class="tsd-kind-icon">datatype</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#distinct" class="tsd-kind-icon">distinct</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#equals" class="tsd-kind-icon">equals</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#gt" class="tsd-kind-icon">gt</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#gte" class="tsd-kind-icon">gte</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#in" class="tsd-kind-icon">in</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#isblank" class="tsd-kind-icon">is<wbr>Blank</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#isiri" class="tsd-kind-icon">isIRI</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#isliteral" class="tsd-kind-icon">is<wbr>Literal</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#lang" class="tsd-kind-icon">lang</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#lt" class="tsd-kind-icon">lt</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#lte" class="tsd-kind-icon">lte</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#notequals" class="tsd-kind-icon">not<wbr>Equals</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#notin" class="tsd-kind-icon">not<wbr>In</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#regex" class="tsd-kind-icon">regex</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#resolve" class="tsd-kind-icon">resolve</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#sameterm" class="tsd-kind-icon">same<wbr>Term</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_expressions_attribute_.attribute.html#str" class="tsd-kind-icon">str</a></li>
 							</ul>
 						</section>
 					</div>
@@ -142,7 +156,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L15">expressions/component.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L12">expressions/component.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,10 +165,10 @@
 									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BlankNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultGraph</span></h5>
+											<h5>iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BlankNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultGraph</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BlankNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultGraph</span></h5>
+											<h5>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BlankNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultGraph</span></h5>
 										</li>
 									</ul>
 								</li>
@@ -173,7 +187,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#aggregatetype">aggregateType</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L13">expressions/component.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L10">expressions/component.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -184,7 +198,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#componenttype">componentType</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/attribute.ts#L4">expressions/attribute.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/attribute.ts#L4">expressions/attribute.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,7 +209,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#iri">iri</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L12">expressions/component.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L9">expressions/component.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -206,7 +220,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#isdistinct">isDistinct</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L14">expressions/component.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L11">expressions/component.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,7 +231,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#label">label</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L11">expressions/component.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L8">expressions/component.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -235,7 +249,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#not">not</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/base.ts#L15">expressions/base.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L33">expressions/base.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
@@ -256,7 +270,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#avg">avg</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L40">expressions/component.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L37">expressions/component.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -274,7 +288,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#bound">bound</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/base.ts#L19">expressions/base.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L37">expressions/base.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
@@ -292,10 +306,28 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#clone">clone</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L31">expressions/component.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L28">expressions/component.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="datatype" class="tsd-anchor"></a>
+					<h3>datatype</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">datatype<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#datatype">datatype</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L121">expressions/base.ts:121</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -310,7 +342,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#distinct">distinct</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L46">expressions/component.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L43">expressions/component.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -318,23 +350,71 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="equals" class="tsd-anchor"></a>
+					<h3>equals</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#equals">equals</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L142">expressions/base.ts:142</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="gt" class="tsd-anchor"></a>
+					<h3>gt</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">gt<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#gt">gt</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L45">expressions/base.ts:45</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="gte" class="tsd-anchor"></a>
 					<h3>gte</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">gte<span class="tsd-signature-symbol">(</span>inArg<span class="tsd-signature-symbol">: </span><a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+						<li class="tsd-signature tsd-kind-icon">gte<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#gte">gte</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/base.ts#L23">expressions/base.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L41">expressions/base.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>inArg: <a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a></h5>
+									<h5>arg: <a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
@@ -345,20 +425,215 @@
 					<a name="in" class="tsd-anchor"></a>
 					<h3>in</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">in<span class="tsd-signature-symbol">(</span>inArg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+						<li class="tsd-signature tsd-kind-icon">in<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#in">in</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/base.ts#L27">expressions/base.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L57">expressions/base.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>inArg: <span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>arg: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="isblank" class="tsd-anchor"></a>
+					<h3>is<wbr>Blank</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Blank<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#isblank">isBlank</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L100">expressions/base.ts:100</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="isiri" class="tsd-anchor"></a>
+					<h3>isIRI</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">isIRI<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#isiri">isIRI</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L93">expressions/base.ts:93</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="isliteral" class="tsd-anchor"></a>
+					<h3>is<wbr>Literal</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Literal<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#isliteral">isLiteral</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L107">expressions/base.ts:107</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="lang" class="tsd-anchor"></a>
+					<h3>lang</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">lang<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#lang">lang</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L114">expressions/base.ts:114</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="lt" class="tsd-anchor"></a>
+					<h3>lt</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">lt<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#lt">lt</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L53">expressions/base.ts:53</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="lte" class="tsd-anchor"></a>
+					<h3>lte</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">lte<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#lte">lte</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L49">expressions/base.ts:49</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-signature-type">IntoExpr</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="notequals" class="tsd-anchor"></a>
+					<h3>not<wbr>Equals</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">not<wbr>Equals<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#notequals">notEquals</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L149">expressions/base.ts:149</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="notin" class="tsd-anchor"></a>
+					<h3>not<wbr>In</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">not<wbr>In<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#notin">notIn</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L71">expressions/base.ts:71</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="regex" class="tsd-anchor"></a>
+					<h3>regex</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">regex<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span>, flag<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#regex">regex</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L85">expressions/base.ts:85</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span></h5>
+								</li>
+								<li>
+									<h5>flag: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Literal</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
@@ -369,7 +644,7 @@
 					<a name="resolve" class="tsd-anchor"></a>
 					<h3>resolve</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>mapping<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a></li>
+						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>mapping<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -378,16 +653,58 @@
 								<p>Inherited from <a href="_expressions_component_.component.html">Component</a>.<a href="_expressions_component_.component.html#resolve">resolve</a></p>
 								<p>Overrides <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#resolve">resolve</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/expressions/component.ts#L52">expressions/component.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/component.ts#L49">expressions/component.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>mapping: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>mapping: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="sameterm" class="tsd-anchor"></a>
+					<h3>same<wbr>Term</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">same<wbr>Term<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#sameterm">sameTerm</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L135">expressions/base.ts:135</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="str" class="tsd-anchor"></a>
+					<h3>str</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">str<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_expressions_base_.baseexpr.html">BaseExpr</a>.<a href="_expressions_base_.baseexpr.html#str">str</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/expressions/base.ts#L128">expressions/base.ts:128</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -438,6 +755,12 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_sparqlfetcher_.html">"sparqlfetcher"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_toliteral_.html">"to<wbr>Literal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_toliteral_spec_.html">"to<wbr>Literal.spec"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -478,7 +801,16 @@
 								<a href="_expressions_attribute_.attribute.html#clone" class="tsd-kind-icon">clone</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#datatype" class="tsd-kind-icon">datatype</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_expressions_attribute_.attribute.html#distinct" class="tsd-kind-icon">distinct</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#equals" class="tsd-kind-icon">equals</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#gt" class="tsd-kind-icon">gt</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_expressions_attribute_.attribute.html#gte" class="tsd-kind-icon">gte</a>
@@ -486,8 +818,41 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_expressions_attribute_.attribute.html#in" class="tsd-kind-icon">in</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#isblank" class="tsd-kind-icon">is<wbr>Blank</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#isiri" class="tsd-kind-icon">isIRI</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#isliteral" class="tsd-kind-icon">is<wbr>Literal</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#lang" class="tsd-kind-icon">lang</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#lt" class="tsd-kind-icon">lt</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#lte" class="tsd-kind-icon">lte</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#notequals" class="tsd-kind-icon">not<wbr>Equals</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#notin" class="tsd-kind-icon">not<wbr>In</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#regex" class="tsd-kind-icon">regex</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="_expressions_attribute_.attribute.html#resolve" class="tsd-kind-icon">resolve</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#sameterm" class="tsd-kind-icon">same<wbr>Term</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_expressions_attribute_.attribute.html#str" class="tsd-kind-icon">str</a>
 							</li>
 						</ul>
 					</li>

@@ -79,20 +79,26 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported"><a href="../interfaces/_datasetquery_.iselectobject.html" class="tsd-kind-icon">ISelect<wbr>Object</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported"><a href="../interfaces/_datasetquery_.istate.html" class="tsd-kind-icon">IState</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#filter" class="tsd-kind-icon">Filter</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#filterarg" class="tsd-kind-icon">Filter<wbr>Arg</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#filterresolver" class="tsd-kind-icon">Filter<wbr>Resolver</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#selects" class="tsd-kind-icon">Selects</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#combinefilters" class="tsd-kind-icon">combine<wbr>Filters</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#createoperationexpression" class="tsd-kind-icon">create<wbr>Operation<wbr>Expression</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#l" class="tsd-kind-icon">l</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_datasetquery_.html#operatorargstoexpressions" class="tsd-kind-icon">operator<wbr>Args<wbr>ToExpressions</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
@@ -107,12 +113,32 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="predicatefunction" class="tsd-anchor"></a>
-					<h3>Predicate<wbr>Function</h3>
-					<div class="tsd-signature tsd-kind-icon">Predicate<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<a name="filter" class="tsd-anchor"></a>
+					<h3>Filter</h3>
+					<div class="tsd-signature tsd-kind-icon">Filter<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L19">datasetquery.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L16">datasetquery.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="filterarg" class="tsd-anchor"></a>
+					<h3>Filter<wbr>Arg</h3>
+					<div class="tsd-signature tsd-kind-icon">Filter<wbr>Arg<span class="tsd-signature-symbol">:</span> <a href="_datasetquery_.html#filter" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol"> | </span><a href="_datasetquery_.html#filterresolver" class="tsd-signature-type">FilterResolver</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L18">datasetquery.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="filterresolver" class="tsd-anchor"></a>
+					<h3>Filter<wbr>Resolver</h3>
+					<div class="tsd-signature tsd-kind-icon">Filter<wbr>Resolver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L17">datasetquery.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -120,14 +146,45 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="../interfaces/_datasetquery_.iselectobject.html" class="tsd-signature-type">ISelectObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_expressions_component_.component.html" class="tsd-signature-type">Component</a></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>selects<span class="tsd-signature-symbol">: </span><a href="_datasetquery_.html#selects" class="tsd-signature-type">Selects</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_datasetquery_.html#filter" class="tsd-signature-type">Filter</a></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>data: <a href="../interfaces/_datasetquery_.iselectobject.html" class="tsd-signature-type">ISelectObject</a></h5>
+												<h5>selects: <a href="_datasetquery_.html#selects" class="tsd-signature-type">Selects</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <a href="_datasetquery_.html#filter" class="tsd-signature-type">Filter</a></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="predicatefunction" class="tsd-anchor"></a>
+					<h3>Predicate<wbr>Function</h3>
+					<div class="tsd-signature tsd-kind-icon">Predicate<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L13">datasetquery.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="_datasetquery_.html#selects" class="tsd-signature-type">Selects</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_expressions_component_.component.html" class="tsd-signature-type">Component</a></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>data: <a href="_datasetquery_.html#selects" class="tsd-signature-type">Selects</a></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <a href="../classes/_expressions_component_.component.html" class="tsd-signature-type">Component</a></h4>
@@ -137,9 +194,65 @@
 						</ul>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="selects" class="tsd-anchor"></a>
+					<h3>Selects</h3>
+					<div class="tsd-signature tsd-kind-icon">Selects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../classes/_expressions_component_.component.html" class="tsd-signature-type">Component</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L14">datasetquery.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="combinefilters" class="tsd-anchor"></a>
+					<h3>combine<wbr>Filters</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">combine<wbr>Filters<span class="tsd-signature-symbol">(</span>operations<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OperationExpression</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FilterPattern</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L76">datasetquery.ts:76</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>operations: <span class="tsd-signature-type">OperationExpression</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">FilterPattern</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="createoperationexpression" class="tsd-anchor"></a>
+					<h3>create<wbr>Operation<wbr>Expression</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Operation<wbr>Expression<span class="tsd-signature-symbol">(</span>operator<span class="tsd-signature-symbol">: </span><a href="../classes/_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OperationExpression</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L67">datasetquery.ts:67</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>operator: <a href="../classes/_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OperationExpression</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="l" class="tsd-anchor"></a>
 					<h3>l</h3>
@@ -150,7 +263,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L35">datasetquery.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L34">datasetquery.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -163,6 +276,29 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="operatorargstoexpressions" class="tsd-anchor"></a>
+					<h3>operator<wbr>Args<wbr>ToExpressions</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">operator<wbr>Args<wbr>ToExpressions<span class="tsd-signature-symbol">(</span>operator<span class="tsd-signature-symbol">: </span><a href="../classes/_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Expression</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L38">datasetquery.ts:38</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>operator: <a href="../classes/_expressions_operator_.operator.html" class="tsd-signature-type">Operator</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Expression</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Object literals</h2>
@@ -172,7 +308,7 @@
 					<div class="tsd-signature tsd-kind-icon">base<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L28">datasetquery.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L27">datasetquery.ts:27</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
@@ -181,7 +317,7 @@
 						<div class="tsd-signature tsd-kind-icon">filters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L30">datasetquery.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L29">datasetquery.ts:29</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -191,7 +327,7 @@
 						<div class="tsd-signature tsd-kind-icon">group<wbr>Bys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L31">datasetquery.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L30">datasetquery.ts:30</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -201,17 +337,17 @@
 						<div class="tsd-signature tsd-kind-icon">havings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L32">datasetquery.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L31">datasetquery.ts:31</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="basestate.selects" class="tsd-anchor"></a>
+						<a name="basestate.selects-1" class="tsd-anchor"></a>
 						<h3>selects</h3>
 						<div class="tsd-signature tsd-kind-icon">selects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L29">datasetquery.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L28">datasetquery.ts:28</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-type-declaration">
@@ -268,6 +404,12 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_sparqlfetcher_.html">"sparqlfetcher"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_toliteral_.html">"to<wbr>Literal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_toliteral_spec_.html">"to<wbr>Literal.spec"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -276,16 +418,34 @@
 						<a href="../classes/_datasetquery_.datasetquery.html" class="tsd-kind-icon">Data<wbr>Set<wbr>Query</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../interfaces/_datasetquery_.iselectobject.html" class="tsd-kind-icon">ISelect<wbr>Object</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../interfaces/_datasetquery_.istate.html" class="tsd-kind-icon">IState</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_datasetquery_.html#filter" class="tsd-kind-icon">Filter</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_datasetquery_.html#filterarg" class="tsd-kind-icon">Filter<wbr>Arg</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_datasetquery_.html#filterresolver" class="tsd-kind-icon">Filter<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_datasetquery_.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_datasetquery_.html#selects" class="tsd-kind-icon">Selects</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_datasetquery_.html#combinefilters" class="tsd-kind-icon">combine<wbr>Filters</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_datasetquery_.html#createoperationexpression" class="tsd-kind-icon">create<wbr>Operation<wbr>Expression</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_datasetquery_.html#l" class="tsd-kind-icon">l</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_datasetquery_.html#operatorargstoexpressions" class="tsd-kind-icon">operator<wbr>Args<wbr>ToExpressions</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_datasetquery_.html#basestate" class="tsd-kind-icon">base<wbr>State</a>

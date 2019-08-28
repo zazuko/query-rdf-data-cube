@@ -102,6 +102,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datasetquery_.datasetquery.html#applyfilters" class="tsd-kind-icon">apply<wbr>Filters</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datasetquery_.datasetquery.html#clone" class="tsd-kind-icon">clone</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datasetquery_.datasetquery.html#execute" class="tsd-kind-icon">execute</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datasetquery_.datasetquery.html#filter" class="tsd-kind-icon">filter</a></li>
@@ -127,7 +128,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L47">datasetquery.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L105">datasetquery.ts:105</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -149,20 +150,12 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="bindingtocomponent" class="tsd-anchor"></a>
 					<h3>binding<wbr>ToComponent</h3>
-					<div class="tsd-signature tsd-kind-icon">binding<wbr>ToComponent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-signature tsd-kind-icon">binding<wbr>ToComponent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_expressions_component_.component.html" class="tsd-signature-type">Component</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L43">datasetquery.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L101">datasetquery.ts:101</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>bindingName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_expressions_component_.component.html" class="tsd-signature-type">Component</a></h5>
-							</li>
-						</ul>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="dataset" class="tsd-anchor"></a>
@@ -170,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>Set<span class="tsd-signature-symbol">:</span> <a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L40">datasetquery.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L98">datasetquery.ts:98</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -180,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L47">datasetquery.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L105">datasetquery.ts:105</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -190,27 +183,19 @@
 					<div class="tsd-signature tsd-kind-icon">fetcher<span class="tsd-signature-symbol">:</span> <a href="_sparqlfetcher_.sparqlfetcher.html" class="tsd-signature-type">SparqlFetcher</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L45">datasetquery.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L103">datasetquery.ts:103</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="iritobinding" class="tsd-anchor"></a>
 					<h3>iri<wbr>ToBinding</h3>
-					<div class="tsd-signature tsd-kind-icon">iri<wbr>ToBinding<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-signature tsd-kind-icon">iri<wbr>ToBinding<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L44">datasetquery.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L102">datasetquery.ts:102</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>componentIri: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="state" class="tsd-anchor"></a>
@@ -218,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_datasetquery_.istate.html" class="tsd-signature-type">IState</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L41">datasetquery.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L99">datasetquery.ts:99</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -228,13 +213,30 @@
 					<div class="tsd-signature tsd-kind-icon">tmp<wbr>Var<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L46">datasetquery.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L104">datasetquery.ts:104</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="applyfilters" class="tsd-anchor"></a>
+					<h3>apply<wbr>Filters</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Filters<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FilterPattern</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L157">datasetquery.ts:157</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">FilterPattern</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="clone" class="tsd-anchor"></a>
 					<h3>clone</h3>
@@ -245,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L55">datasetquery.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L113">datasetquery.ts:113</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></h4>
@@ -256,15 +258,29 @@
 					<a name="execute" class="tsd-anchor"></a>
 					<h3>execute</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L88">datasetquery.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L149">datasetquery.ts:149</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> __namedParameters: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>limit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>offset<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -273,19 +289,19 @@
 					<a name="filter" class="tsd-anchor"></a>
 					<h3>filter</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><a href="../modules/_datasetquery_.html#predicatefunction" class="tsd-signature-type">PredicateFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></li>
+						<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><a href="../modules/_datasetquery_.html#filterarg" class="tsd-signature-type">FilterArg</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L70">datasetquery.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L131">datasetquery.ts:131</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>fn: <a href="../modules/_datasetquery_.html#predicatefunction" class="tsd-signature-type">PredicateFunction</a></h5>
+									<h5>fn: <a href="../modules/_datasetquery_.html#filterarg" class="tsd-signature-type">FilterArg</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></h4>
@@ -302,7 +318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L76">datasetquery.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L137">datasetquery.ts:137</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -325,7 +341,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L82">datasetquery.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L143">datasetquery.ts:143</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -348,7 +364,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L281">datasetquery.ts:281</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L342">datasetquery.ts:342</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Variable</span></h4>
@@ -359,19 +375,21 @@
 					<a name="select" class="tsd-anchor"></a>
 					<h3>select</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">select<span class="tsd-signature-symbol">(</span>selects<span class="tsd-signature-symbol">: </span><a href="../interfaces/_datasetquery_.iselectobject.html" class="tsd-signature-type">ISelectObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></li>
+						<li class="tsd-signature tsd-kind-icon">select<span class="tsd-signature-symbol">(</span>selects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L59">datasetquery.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L120">datasetquery.ts:120</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>selects: <a href="../interfaces/_datasetquery_.iselectobject.html" class="tsd-signature-type">ISelectObject</a></h5>
+									<h5>selects: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></h4>
@@ -382,15 +400,29 @@
 					<a name="tosparql" class="tsd-anchor"></a>
 					<h3>to<wbr>Sparql</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Sparql<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Sparql<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5b021d4/src/datasetquery.ts#L96">datasetquery.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d8964da/src/datasetquery.ts#L167">datasetquery.ts:167</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> __namedParameters: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>limit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>offset<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -442,6 +474,12 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_sparqlfetcher_.html">"sparqlfetcher"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_toliteral_.html">"to<wbr>Literal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_toliteral_spec_.html">"to<wbr>Literal.spec"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -476,6 +514,9 @@
 								<a href="_datasetquery_.datasetquery.html#tmpvarcount" class="tsd-kind-icon">tmp<wbr>Var<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_datasetquery_.datasetquery.html#applyfilters" class="tsd-kind-icon">apply<wbr>Filters</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_datasetquery_.datasetquery.html#clone" class="tsd-kind-icon">clone</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -504,16 +545,34 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../interfaces/_datasetquery_.iselectobject.html" class="tsd-kind-icon">ISelect<wbr>Object</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../interfaces/_datasetquery_.istate.html" class="tsd-kind-icon">IState</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datasetquery_.html#filter" class="tsd-kind-icon">Filter</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datasetquery_.html#filterarg" class="tsd-kind-icon">Filter<wbr>Arg</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datasetquery_.html#filterresolver" class="tsd-kind-icon">Filter<wbr>Resolver</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_datasetquery_.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datasetquery_.html#selects" class="tsd-kind-icon">Selects</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datasetquery_.html#combinefilters" class="tsd-kind-icon">combine<wbr>Filters</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datasetquery_.html#createoperationexpression" class="tsd-kind-icon">create<wbr>Operation<wbr>Expression</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_datasetquery_.html#l" class="tsd-kind-icon">l</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datasetquery_.html#operatorargstoexpressions" class="tsd-kind-icon">operator<wbr>Args<wbr>ToExpressions</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_datasetquery_.html#basestate" class="tsd-kind-icon">base<wbr>State</a>
