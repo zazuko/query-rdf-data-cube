@@ -72,6 +72,79 @@
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
+				<p><code>npm install query-rdf-data-cube</code></p>
+				<a href="#features-and-usage" id="features-and-usage" style="color: inherit; text-decoration: none;">
+					<h2>Features and Usage</h2>
+				</a>
+				<p>This library has two main use cases: exploring an RDF Data Cube and querying an RDF Data Cube.
+				Both usually go hand in hand.</p>
+				<p>Instantiating a Data Cube lets you access its DataSets:</p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> { DataCube } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"query-rdf-data-cube"</span>);
+
+<span class="hljs-comment">// instantiate an RDF Data Cube with a SPARQL endpoint</span>
+<span class="hljs-keyword">const</span> datacube = <span class="hljs-keyword">new</span> DataCube(<span class="hljs-string">"https://ld.stadt-zuerich.ch/query"</span>);
+
+<span class="hljs-comment">// fetch all its datasets</span>
+<span class="hljs-keyword">const</span> datasets = <span class="hljs-keyword">await</span> datacube.datasets();
+
+<span class="hljs-comment">// assign the 4th dataset</span>
+<span class="hljs-keyword">const</span> dataset = datasets[<span class="hljs-number">3</span>];</code></pre>
+				<p>You could also <a href="https://github.com/zazuko/query-rdf-data-cube/blob/ebb4dca18df46fc1f384ed9ee3876b2c865d5d20/src/expressions/filter.test.ts#L13-L21">directly instantiate a DataSet</a>.</p>
+				<p>A DataSet can retrieve its <em>Components</em>, ie. its <em>Dimensions</em>, <em>Measures</em> and <em>Attributes</em>:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> dimensions = <span class="hljs-keyword">await</span> dataset.dimensions();
+<span class="hljs-keyword">const</span> measures = <span class="hljs-keyword">await</span> dataset.measures();
+<span class="hljs-keyword">const</span> attributes = <span class="hljs-keyword">await</span> dataset.attributes();
+
+<span class="hljs-keyword">const</span> zeitDimension = dimensions[<span class="hljs-number">0</span>];
+<span class="hljs-comment">// const raumDimension = dimensions[1];</span>
+<span class="hljs-comment">// Again, dimensions, measures and attributes can also be constructed from scratch:</span>
+<span class="hljs-keyword">const</span> raumDimension = <span class="hljs-keyword">new</span> Dimension({
+  <span class="hljs-attr">label</span>: <span class="hljs-string">"Raum"</span>,
+  <span class="hljs-attr">iri</span>: <span class="hljs-string">"https://ld.stadt-zuerich.ch/statistics/property/RAUM"</span>
+});
+<span class="hljs-keyword">const</span> betriebsartDimension = dimensions[<span class="hljs-number">2</span>];
+<span class="hljs-keyword">const</span> geschlechtDimension = dimensions[<span class="hljs-number">3</span>];
+
+<span class="hljs-keyword">const</span> beschaeftigteMeasure = measures[<span class="hljs-number">0</span>];
+
+<span class="hljs-keyword">const</span> quelleAttribute = attributes[<span class="hljs-number">0</span>];
+<span class="hljs-keyword">const</span> glossarAttribute = attributes[<span class="hljs-number">1</span>];
+<span class="hljs-keyword">const</span> erwarteteAktualisierungAttribute = attributes[<span class="hljs-number">4</span>];
+<span class="hljs-keyword">const</span> korrekturAttribute = attributes[<span class="hljs-number">5</span>];</code></pre>
+				<p>This setup is quite exhaustive, in many situations you won&#39;t want to create all of these or get all of these and rely on this lib to properly guess what to query.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> query = dataset
+  .query()
+  <span class="hljs-comment">// .select({}) takes binding names as keys and Component (Dimension/Attribute/Measure) as values</span>
+  .select({
+    <span class="hljs-attr">betriebsart</span>: betriebsartDimension,
+    <span class="hljs-attr">geschlecht</span>: geschlechtDimension,
+    <span class="hljs-attr">raum</span>: raumDimension,
+    <span class="hljs-attr">zeit</span>: zeitDimension,
+
+    <span class="hljs-attr">bep</span>: beschaeftigteMeasure.avg(),
+
+    <span class="hljs-comment">// include some extra attributes, not all of them</span>
+    quelle: quelleAttribute,
+    <span class="hljs-attr">glossar</span>: glossarAttribute,
+    <span class="hljs-attr">erwarteteAktualisierung</span>: erwarteteAktualisierungAttribute,
+    <span class="hljs-attr">korrektur</span>: korrekturAttribute,
+  })
+  .filter(raumDimension.equals(<span class="hljs-string">"https://ld.stadt-zuerich.ch/statistics/code/R30000"</span>))
+  .groupBy(<span class="hljs-string">"zeit"</span>)
+  .having(<span class="hljs-function">(<span class="hljs-params">{ bep }</span>) =&gt;</span> bep.gte(<span class="hljs-number">10000</span>))
+  .limit(<span class="hljs-number">3</span>);</code></pre>
+				<p>Now that we built a query, we can generate SPARQL out of it:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> sparql = <span class="hljs-keyword">await</span> query.toSparql();</code></pre>
+				<p>Or execute the SPARQL query against the SPARQL endpoint:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> results = <span class="hljs-keyword">await</span> query.execute();</code></pre>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
+				<p>See <a href="./examples/">./examples/</a></p>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>See <a href="https://zazuko.github.io/query-rdf-data-cube/">https://zazuko.github.io/query-rdf-data-cube/</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -79,6 +152,18 @@
 				<ul>
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_components_attribute_.html">"components/attribute"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_components_dimension_.html">"components/dimension"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_components_index_.html">"components/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_components_measure_.html">"components/measure"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_datacube_.html">"datacube"</a>
@@ -90,22 +175,10 @@
 						<a href="modules/_datasetquery_.html">"datasetquery"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_expressions_attribute_.html">"expressions/attribute"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="modules/_expressions_base_.html">"expressions/base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_expressions_binding_.html">"expressions/binding"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_expressions_component_.html">"expressions/component"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_expressions_dimension_.html">"expressions/dimension"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_expressions_measure_.html">"expressions/measure"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_expressions_numeric_.html">"expressions/numeric"</a>
