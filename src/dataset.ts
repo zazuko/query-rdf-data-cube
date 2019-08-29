@@ -1,8 +1,8 @@
 import { NamedNode, Term } from "rdf-js";
+import Attribute from "./components/attribute";
+import Dimension from "./components/dimension";
+import Measure from "./components/measure";
 import DataSetQuery from "./datasetquery";
-import Attribute from "./expressions/attribute";
-import Dimension from "./expressions/dimension";
-import Measure from "./expressions/measure";
 import SparqlFetcher from "./sparqlfetcher";
 
 class DataSet {

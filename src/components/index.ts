@@ -1,8 +1,8 @@
 import { literal, namedNode } from "@rdfjs/data-model";
 import { Term } from "rdf-js";
-import BaseExpr from "./base";
-import Binding from "./binding";
-import { IExpr } from "./utils";
+import BaseExpr from "../expressions/base";
+import Binding from "../expressions/binding";
+import { IExpr } from "../expressions/utils";
 
 class Component extends BaseExpr {
   public label: Term;
@@ -52,3 +52,11 @@ class Component extends BaseExpr {
 }
 
 export default Component;
+import Attribute from "./attribute";
+import Dimension from "./dimension";
+import Measure from "./measure";
+export {
+  Dimension,
+  Attribute,
+  Measure,
+};

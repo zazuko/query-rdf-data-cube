@@ -2,7 +2,7 @@
   "name": "query-rdf-data-cube",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/node/datacube.js",
   "scripts": {
     "build:node": "tsc --target es2017 --module commonjs --outDir dist/node",
     "__prepare": "npm run build",

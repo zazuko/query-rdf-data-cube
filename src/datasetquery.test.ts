@@ -1,8 +1,8 @@
 import { literal, namedNode } from "@rdfjs/data-model";
+import Attribute from "./components/attribute";
+import Dimension from "./components/dimension";
+import Measure from "./components/measure";
 import DataSet from "./dataset";
-import Attribute from "./expressions/attribute";
-import Dimension from "./expressions/dimension";
-import Measure from "./expressions/measure";
 
 const betriebsartDimension = new Dimension({
   label: "Betriebsart",

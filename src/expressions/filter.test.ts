@@ -1,7 +1,7 @@
 // tslint:disable: trailing-comma
 import { literal, namedNode } from "@rdfjs/data-model";
+import Dimension from "../components/dimension";
 import DataSet from "../dataset";
-import Dimension from "./dimension";
 
 function extractFilter(sparql: string) {
   return sparql
@@ -19,6 +19,7 @@ const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
   ),
   graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics")
 });
+
 const a: any = new Dimension({ label: "aaaa", iri: "http://aaaa.aa" });
 const b: any = new Dimension({ label: "bbbb", iri: "http://bbbb.bb" });
 const c: any = new Dimension({ label: "cccc", iri: "http://cccc.cc" });

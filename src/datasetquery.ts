@@ -3,7 +3,7 @@ import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
 import DataSet from "./dataset";
 import Binding from "./expressions/binding";
-import Component from "./expressions/component";
+import Component from "./components";
 import Operator from "./expressions/operator";
 import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions/utils";
 import SparqlFetcher from "./sparqlfetcher";

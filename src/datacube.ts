@@ -2,7 +2,7 @@ import { NamedNode } from "rdf-js";
 import DataSet from "./dataset";
 import SparqlFetcher from "./sparqlfetcher";
 
-class DataCube {
+export class DataCube {
   private endpoint: string;
   private fetcher: SparqlFetcher;
   private cachedDatasets: DataSet[];
@@ -56,5 +56,3 @@ class DataCube {
     return this.cachedGraphs = graphs.map(({ graph }) => graph);
   }
 }
-
-export default DataCube;

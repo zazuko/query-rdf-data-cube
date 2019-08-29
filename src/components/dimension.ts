@@ -1,4 +1,4 @@
-import Component from "./component";
+import Component from ".";
 
 class Dimension extends Component {
   public componentType = "dimension";
