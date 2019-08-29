@@ -99,6 +99,13 @@ test("distinct", async () => {
   expect(sparql).toMatchSnapshot();
 });
 
+test("empty select", async () => {
+  const query = dataset
+    .query();
+  const sparql = await query.toSparql();
+  expect(sparql).toMatchSnapshot();
+});
+
 describe("avg", () => {
   test("avg", async () => {
     const query = dataset

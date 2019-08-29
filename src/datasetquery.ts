@@ -236,6 +236,9 @@ class DataSetQuery {
           predicate: component.iri,
           object: tmpVar,
         });
+        if (!hasAggregate && !hasDistinct) {
+          query.variables.push(variable(tmpVar.value));
+        }
       });
 
     Object.entries(this.state.selects)
