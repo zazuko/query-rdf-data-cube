@@ -4,16 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build:node": "tsc --target es2017 --module commonjs --outDir dist/node",
     "__prepare": "npm run build",
     "start": "ts-node src/index.ts",
     "test": "jest",
     "docs:compile": "npm run typedoc -- --exclude '**/*.test.ts' ./src/ --includes ./doc --out ./docs",
     "docs:publish": "gh-pages -d docs",
-    "typedoc": "typedoc"
+    "typedoc": "typedoc",
+    "build": "rimraf dist; npm run build:node; npm run docs:compile",
+    "prepare": "npm run build"
   },
-  "author": "",
-  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zazuko/query-rdf-data-cube.git"
+  },
+  "author": "Victor Felder <victor@draft.li> (https://draft.li)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zazuko/query-rdf-data-cube/issues"
+  },
+  "homepage": "https://github.com/zazuko/query-rdf-data-cube#readme",
   "dependencies": {
     "@rdfjs/namespace": "^1.1.0",
     "clone": "^2.1.2",
@@ -25,10 +35,11 @@
     "gh-pages": "^2.1.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.19.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.2"
   }
 }

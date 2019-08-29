@@ -1,12 +1,7 @@
 // tslint:disable: trailing-comma
 import { literal, namedNode } from "@rdfjs/data-model";
-import { inspect } from "util";
 import DataSet from "../dataset";
 import Dimension from "./dimension";
-
-function l(obj: any) {
-  return inspect(obj, false, 10000, true);
-}
 
 function extractFilter(sparql: string) {
   return sparql

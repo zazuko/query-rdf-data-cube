@@ -1,4 +1,4 @@
-import { NamedNode, Term } from "rdf-js";
+import { Term } from "rdf-js";
 import DataSetQuery from "./datasetquery";
 import Attribute from "./expressions/attribute";
 import Dimension from "./expressions/dimension";

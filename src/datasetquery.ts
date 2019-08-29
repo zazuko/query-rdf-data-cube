@@ -8,7 +8,7 @@ import Component from "./expressions/component";
 import Operator from "./expressions/operator";
 import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions/utils";
 import SparqlFetcher from "./sparqlfetcher";
-import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery, Tuple } from "./sparqljs";
+import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery, Tuple } from "./sparqljs.d";
 
 type PredicateFunction = (data: Selects) => Component;
 type Selects = Record<string, Component>;
