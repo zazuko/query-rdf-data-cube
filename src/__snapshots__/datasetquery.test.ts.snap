@@ -154,6 +154,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar0.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar1.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar2.
+  FILTER(?raum = <http://something/R3000>)
 }
 GROUP BY (?raum) (?zeit)
 LIMIT 10"

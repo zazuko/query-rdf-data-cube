@@ -1,4 +1,4 @@
-import { Term } from "rdf-js";
+import { NamedNode, Term } from "rdf-js";
 import DataSetQuery from "./datasetquery";
 import Attribute from "./expressions/attribute";
 import Dimension from "./expressions/dimension";
@@ -9,38 +9,58 @@ class DataSet {
   public label: any;
   public iri: any;
   public endpoint: string;
-  public graphIri: Term | undefined;
+  public graphIri: NamedNode | undefined;
   private fetcher: SparqlFetcher;
   private metadataLoaded: boolean = false;
   private cachedMetadata: { attributes: Attribute[]; dimensions: Dimension[]; measures: Measure[]; };
 
+   /**
+    * @param endpoint SPARQL endpoint where the DataSet lives.
+    * @param options Additional info about the DataSet.
+    * @param options.dataSetIri The IRI of the DataSet.
+    * @param options.dataSetLabel (Optional) A label for the DataSet.
+    * @param options.graphIri The IRI of the graph from which the data will be fetched.
+    */
   constructor(
     endpoint: string,
-    { dataSetIri, dataSetLabel, graphIri }: { dataSetIri: Term, dataSetLabel: Term, graphIri: Term },
+    options: { dataSetIri: NamedNode, dataSetLabel?: Term, graphIri: NamedNode },
   ) {
+    const { dataSetIri, dataSetLabel, graphIri } = options;
     this.fetcher = new SparqlFetcher(endpoint);
     this.iri = dataSetIri.value;
-    this.label = dataSetLabel.value;
+    this.label = (dataSetLabel && dataSetLabel.value) || "";
     this.graphIri = graphIri;
     this.endpoint = endpoint;
   }
 
-  public async attributes() {
+  /**
+   * Fetch all [[Attribute]]s from the DataSet.
+   */
+  public async attributes(): Promise<Attribute[]> {
     await this.metadata();
     return this.cachedMetadata.attributes;
   }
 
-  public async dimensions() {
+  /**
+   * Fetch all [[Dimension]]s from the DataSet.
+   */
+  public async dimensions(): Promise<Dimension[]> {
     await this.metadata();
     return this.cachedMetadata.dimensions;
   }
 
-  public async measures() {
+  /**
+   * Fetch all [[Measure]]s from the DataSet.
+   */
+  public async measures(): Promise<Measure[]> {
     await this.metadata();
     return this.cachedMetadata.measures;
   }
 
-  public query() {
+  /**
+   * Start a new query on the DataSet.
+   */
+  public query(): DataSetQuery {
     return new DataSetQuery(this);
   }
 

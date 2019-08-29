@@ -1,17 +1,8 @@
 import { literal, namedNode } from "@rdfjs/data-model";
-import { inspect } from "util";
 import DataSet from "./dataset";
 import Attribute from "./expressions/attribute";
 import Dimension from "./expressions/dimension";
 import Measure from "./expressions/measure";
-
-function l(obj: any) {
-  return inspect(obj, false, 10000, true);
-}
-
-function extractFilter(sparql: string) {
-  return sparql.split("\n").find((line) => line.trim().startsWith("FILTER")).trim();
-}
 
 const betriebsartDimension = new Dimension({
   label: "Betriebsart",
@@ -117,6 +108,7 @@ describe("avg", () => {
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
+
   test("avg and filter", async () => {
     const query = dataset
       .query()
@@ -124,8 +116,10 @@ describe("avg", () => {
         raum: raumDimension,
         bep: beschaeftigteMeasure.avg(),
       })
-    .filter(raumDimension.not.in([namedNode("http://foo")]));
-    const sparql = await query.toSparql({ limit: 50, offset: 150 });
+    .filter(raumDimension.not.in([namedNode("http://foo")]))
+    .offset(150)
+    .limit(50);
+    const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
 
@@ -181,8 +175,8 @@ describe("groupBy", () => {
 
         bep: beschaeftigteMeasure.avg().distinct(),
       })
-      // .filter(space.equals("http://something/R3000"))
-      .groupBy(({ zeit }) => zeit)
+      .filter(raumDimension.equals("http://something/R3000"))
+      .groupBy("zeit")
       .groupBy(({ raum }) => raum);
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
@@ -203,9 +197,6 @@ describe("groupBy", () => {
         glossar: glossarAttribute,
         fussnote: fussnoteAttribute,
       })
-      // .filter(raumDimension.equals("https://ld.stadt-zuerich.ch/statistics/code/R30000"))
-      // .filter(zeitDim.between("now-24h", "now"))
-      // .filter(helDim.match(/^s.*/))
       .groupBy(({ zeit }) => zeit)
       .groupBy(({ raum }) => raum);
       // .having(({ bep }) => bep.gte(10000))
@@ -254,10 +245,6 @@ describe("groupBy", () => {
         glossar: glossarAttribute,
         fussnote: fussnoteAttribute,
       })
-      // .filter(raumDimension.equals("https://ld.stadt-zuerich.ch/statistics/code/R30000"))
-      // .filter(zeitDim.between("now-24h", "now"))
-      // .filter(helDim.match(/^s.*/))
-      // .filter(betriebsartDimension.gte(200).in([namedNode("http://foo.bar")]).not)
       .groupBy("zeit")
       .groupBy(({ zeit }) => zeit)
       .groupBy(({ zeit }) => zeit)

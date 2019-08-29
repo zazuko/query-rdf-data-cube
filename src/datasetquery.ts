@@ -1,7 +1,6 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
-import {Generator as SparqlGenerator} from "sparqljs";
-import {inspect} from "util";
+import { Generator as SparqlGenerator } from "sparqljs";
 import DataSet from "./dataset";
 import Binding from "./expressions/binding";
 import Component from "./expressions/component";
@@ -13,15 +12,13 @@ import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery
 type PredicateFunction = (data: Selects) => Component;
 type Selects = Record<string, Component>;
 
-type Filter = IExpr;
-type FilterResolver = (selects: Selects) => Filter;
-type FilterArg = Filter | FilterResolver;
-
 interface IState {
   selects: Selects;
-  filters: FilterArg[];
+  filters: IExpr[];
   groupBys: Array<PredicateFunction | string>;
   havings: PredicateFunction[];
+  offset: number;
+  limit: number;
 }
 
 const baseState: IState = {
@@ -29,12 +26,15 @@ const baseState: IState = {
   filters: [],
   groupBys: [],
   havings: [],
+  offset: 0,
+  limit: 10,
 };
 
-function l(obj: any) {
-  return inspect(obj, false, 10000, true);
-}
-
+/**
+ * Convert [[Operator]] arguments into SPARQL.js `Expression`s
+ *
+ * @param {Operator} operator
+ */
 function operatorArgsToExpressions(operator: Operator): Expression[] {
   const expressions = operator.args.map((arg: IExpr): Expression => {
     if (isTerm(arg)) {
@@ -73,6 +73,9 @@ function createOperationExpression(operator: Operator): OperationExpression {
   return operationExpression;
 }
 
+/**
+ * When `.filter` is called several times, apply a logical AND between all filters.
+ */
 function combineFilters(operations: OperationExpression[]): FilterPattern {
   let combined;
   if (operations.length > 1) {
@@ -94,29 +97,44 @@ function combineFilters(operations: OperationExpression[]): FilterPattern {
   };
 }
 
+/**
+ * A query to a [[DataSet]].
+ * @class DataSetQuery
+ */
 class DataSetQuery {
-  public dataSet: DataSet;
-  public state: IState;
+  private dataSet: DataSet;
   // one map from bindingName to Component, one from component IRI to bindingName
-  public bindingToComponent: Map<string, Component> = new Map();
-  public iriToBinding: Map<string, string> = new Map();
+  private bindingToComponent: Map<string, Component> = new Map();
+  private iriToBinding: Map<string, string> = new Map();
+  private state: IState;
   private fetcher: SparqlFetcher;
   private tmpVarCount: number = 0;
-  private debug: boolean = false;
 
-  constructor(dataSet: DataSet, state = baseState) {
+  /**
+   * Creates an instance of DataSetQuery. You should not have to manually create queries,
+   * call `dataSet.query()` instead since it will automatically pass data about the [[DataSet]]
+   * to query.
+   * @param dataSet The [[DataSet]] to query.
+   */
+  constructor(dataSet: DataSet) {
     this.dataSet = dataSet;
-    this.state = state;
+    this.state = baseState;
     this.fetcher = new SparqlFetcher(this.dataSet.endpoint);
   }
 
-  public clone() {
-    const dsq = new DataSetQuery(this.dataSet, clone(this.state));
-    dsq.iriToBinding = clone(this.iriToBinding);
-    dsq.bindingToComponent = clone(this.bindingToComponent);
-    return dsq;
-  }
-
+  /**
+   * Decide what data needs to be returned by the query. An object with binding
+   * names as keys and [[Component]] ([[Dimension]]/[[Attribute]]/[[Measure]]) as values.
+   *
+   * ```js
+   * myDataSet
+   *   .query()
+   *   .select({
+   *     someDate: dateDimension,
+   *   });
+   * ```
+   * @param {IState["selects"]} selects
+   */
   public select(selects: IState["selects"]) {
     const self = this.clone();
     Object.assign(self.state.selects, selects);
@@ -128,15 +146,43 @@ class DataSetQuery {
     return self;
   }
 
-  public filter(fn: FilterArg) {
+  /**
+   * Filter the results.
+   * ```js
+   * myDataSet
+   *   .query()
+   *   .select({
+   *     someDate: dateDimension,
+   *   })
+   *   .filter(dateDimension.not.equals("2019-08-29T07:27:56.241Z"));
+   * ```
+   * @param filter
+   */
+  public filter(filter: IExpr) {
     const self = this.clone();
-    self.state.filters.push(fn);
+    self.state.filters.push(filter);
     return self;
   }
 
-  public groupBy(fn: PredicateFunction | string) {
+  /**
+   * Aggregate the results. Pass it a binding name used in `.select()` or a function
+   * `({ bindingName }) => bindingName`
+   * ```js
+   * myDataSet
+   *   .query()
+   *   .select({
+   *     someDimension: myDimension,
+   *   })
+   *   // syntax 1:
+   *   .groupBy("someDimension")
+   *   // syntax 2:
+   *   .groupBy(({ someDimension }) => someDimension)
+   * ```
+   * @param {(PredicateFunction | string)} grouper
+   */
+  public groupBy(grouper: PredicateFunction | string) {
     const self = this.clone();
-    self.state.groupBys.push(fn);
+    self.state.groupBys.push(grouper);
     return self;
   }
 
@@ -146,29 +192,60 @@ class DataSetQuery {
     return self;
   }
 
-  public async execute({ offset = 0, limit = 10 } = {}) {
-    const query = await this.toSparql({ offset, limit });
-    if (this.debug) {
-      console.warn(`executing query`, l(query));
-    }
-    return await this.fetcher.select(query);
+  /**
+   * Limit the number of results to return. Defaults to `10`.
+   *
+   * @param {number} How many results to return.
+   */
+  public limit(limit: number) {
+    const self = this.clone();
+    self.state.limit = limit;
+    return self;
+  }
+
+  /**
+   * Results offset, number of results to ignore before returning the results.
+   * Defaults to `0`. Usually used together with `.limit`.
+   *
+   * ```js
+   * // return results 50 to 75
+   * myDataSet
+   *   .query()
+   *   .limit(25)
+   *   .offset(50);
+   * ```
+   * @param {number} How many results to return.
+   */
+  public offset(offset: number) {
+    const self = this.clone();
+    self.state.offset = offset;
+    return self;
   }
 
   public applyFilters(): FilterPattern {
     const selects = this.state.selects;
     const filters = this.state.filters
-      .map((op) => typeof op === "function" ? op(selects) : op)
       .map((op) => op.resolve(this.iriToBinding))
       .map(createOperationExpression);
     const filterExpression = combineFilters(filters);
     return filterExpression;
   }
 
-  public async toSparql({ offset = 0, limit = 10 } = {}): Promise<string> {
-    if (this.debug) {
-      console.warn(`building query from state`, l(this.state));
-    }
+  /**
+   * Executes the SPARQL query against the dataset and returns the results.
+   */
+  public async execute(): Promise<any[]> {
+    const query = await this.toSparql();
+    return await this.fetcher.select(query);
+  }
 
+  /**
+   * Generates and returns the actual SPARQL query that would be `.execute()`d.
+   * Use it to preview the SPARQL query, to make sure your code generates what you
+   * think it does.
+   * @returns {Promise<string>} SPARQL query
+   */
+  public async toSparql(): Promise<string> {
     let hasDistinct = false;
     let hasAggregate = false;
     Object.values(this.state.selects).forEach((component) => {
@@ -195,8 +272,8 @@ class DataSetQuery {
       },
       distinct: hasDistinct,
       where: [],
-      offset,
-      limit,
+      offset: this.state.offset,
+      limit: this.state.limit,
     };
 
     const mainWhereClauses: BgpPattern = {
@@ -305,12 +382,7 @@ class DataSetQuery {
             return {
               expression: selected,
             };
-          }/* else {
-            groupedOnBindingNames.push(selected.variable.value);
-            return {
-              expression: selected.variable,
-            };
-          }*/
+          }
         }).filter(Boolean);
       }
 
@@ -340,6 +412,14 @@ class DataSetQuery {
 
     const generator = new SparqlGenerator({ allPrefixes: true });
     return generator.stringify(query);
+  }
+
+  private clone() {
+    const dsq = new DataSetQuery(this.dataSet);
+    dsq.state = clone(this.state);
+    dsq.iriToBinding = clone(this.iriToBinding);
+    dsq.bindingToComponent = clone(this.bindingToComponent);
+    return dsq;
   }
 
   private newTmpVar() {

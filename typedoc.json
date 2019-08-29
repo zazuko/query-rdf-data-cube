@@ -1,0 +1,8 @@
+{
+  "exclude": [
+    "**/*.test.ts",
+    "dist/"
+  ],
+  "includes": "./doc",
+  "out": "./docs"
+}

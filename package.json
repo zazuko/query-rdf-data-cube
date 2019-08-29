@@ -1,6 +1,6 @@
 {
-  "name": "sparql-builder",
-  "version": "0.0.0",
+  "name": "query-rdf-data-cube",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,8 @@
     "__prepare": "npm run build",
     "start": "ts-node src/index.ts",
     "test": "jest",
-    "docs:compile": "npm run typedoc -- --exclude '**/*.test.ts' ./src/ --includes ./doc --out ./docs",
-    "docs:publish": "gh-pages -d docs",
+    "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
+    "docs:publish": "gh-pages -t -d docs",
     "typedoc": "typedoc",
     "build": "rimraf dist; npm run build:node; npm run docs:compile",
     "prepare": "npm run build"

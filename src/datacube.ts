@@ -10,6 +10,9 @@ class DataCube {
   private cachedGraphs: NamedNode[];
   private graphsLoaded: boolean = false;
 
+  /**
+   * @param endpoint SPARQL endpoint
+   */
   constructor(endpoint: string) {
     this.endpoint = endpoint;
     this.fetcher = new SparqlFetcher(endpoint);
@@ -17,6 +20,9 @@ class DataCube {
     this.cachedGraphs = [];
   }
 
+  /**
+   * Fetch all [[DataSet]]s from the endpoint.
+   */
   public async datasets(): Promise<DataSet[]> {
     if (this.datasetsLoaded) {
       return this.cachedDatasets;
@@ -37,6 +43,9 @@ class DataCube {
       new DataSet(this.endpoint, { dataSetIri, dataSetLabel, graphIri }));
   }
 
+  /**
+   * Fetch all graphs from the endpoint.
+   */
   public async graphs(): Promise<NamedNode[]> {
     if (this.graphsLoaded) {
       return this.cachedGraphs;
