@@ -118,7 +118,7 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Data<wbr>Set<span class="tsd-signature-symbol">(</span>endpoint<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, __namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Data<wbr>Set<span class="tsd-signature-symbol">(</span>endpoint<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -127,22 +127,43 @@
 									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L15">dataset.ts:15</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>endpoint: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>SPARQL endpoint where the DataSet lives.</p>
+										</div>
+									</div>
 								</li>
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
+									<h5>options: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Additional info about the DataSet.</p>
+										</div>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>data<wbr>Set<wbr>Iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BlankNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultGraph</span></h5>
+											<h5>data<wbr>Set<wbr>Iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NamedNode</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>The IRI of the DataSet.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
-											<h5>data<wbr>Set<wbr>Label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BlankNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultGraph</span></h5>
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> data<wbr>Set<wbr>Label<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Term</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>(Optional) A label for the DataSet.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
-											<h5>graph<wbr>Iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BlankNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultGraph</span></h5>
+											<h5>graph<wbr>Iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NamedNode</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>The IRI of the graph from which the data will be fetched.</p>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -201,7 +222,7 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="graphiri" class="tsd-anchor"></a>
 					<h3>graph<wbr>Iri</h3>
-					<div class="tsd-signature tsd-kind-icon">graph<wbr>Iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Term</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<div class="tsd-signature tsd-kind-icon">graph<wbr>Iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L12">dataset.ts:12</a></li>
@@ -251,9 +272,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L28">dataset.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L39">dataset.ts:39</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Fetch all <a href="_expressions_attribute_.attribute.html">Attribute</a>s from the DataSet.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_expressions_attribute_.attribute.html" class="tsd-signature-type">Attribute</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -268,9 +294,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L33">dataset.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L47">dataset.ts:47</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Fetch all <a href="_expressions_dimension_.dimension.html">Dimension</a>s from the DataSet.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_expressions_dimension_.dimension.html" class="tsd-signature-type">Dimension</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -285,9 +316,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L38">dataset.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L55">dataset.ts:55</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Fetch all <a href="_expressions_measure_.measure.html">Measure</a>s from the DataSet.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_expressions_measure_.measure.html" class="tsd-signature-type">Measure</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -302,7 +338,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L47">dataset.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L67">dataset.ts:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -319,9 +355,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L43">dataset.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8ff9359/src/dataset.ts#L63">dataset.ts:63</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Start a new query on the DataSet.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_datasetquery_.datasetquery.html" class="tsd-signature-type">DataSetQuery</a></h4>
 						</li>
 					</ul>
