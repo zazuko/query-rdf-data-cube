@@ -5,8 +5,6 @@
   "main": "dist/node/datacube.js",
   "scripts": {
     "build:node": "tsc --target es2017 --module commonjs --outDir dist/node",
-    "__prepare": "npm run build",
-    "start": "ts-node src/index.ts",
     "test": "jest",
     "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
     "docs:publish": "gh-pages -t -d docs",

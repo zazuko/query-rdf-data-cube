@@ -15,6 +15,25 @@ See <https://zazuko.github.io/query-rdf-data-cube/>
 
 See the `examples/` folder at the root of this repository.
 
+## Working Locally
+
+1. `git clone`
+1. `npm ci`
+1. `npm run build`
+
+#### Running the Tests
+
+* `npm run test`
+
+#### Building and Publishing Documentation
+
+1. `npm run docs:compile`
+1. `npm run docs:publish`
+
+#### Running the Examples
+
+* `node examples/introspect-and-query.js`
+
 ## Features and Usage
 
 This library has two main use cases: exploring an RDF Data Cube and querying an RDF Data Cube.
