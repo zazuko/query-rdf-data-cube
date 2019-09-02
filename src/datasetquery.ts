@@ -236,6 +236,13 @@ class DataSetQuery {
   public async execute(): Promise<any[]> {
     const query = await this.toSparql();
     const results = await this.fetcher.select(query);
+    if (results.every((obj) => obj.key && obj.value)) {
+      const error = results.reduce((obj, {key, value}) => {
+        obj[key] = value;
+        return obj;
+      }, {});
+      throw new Error(`${error.code}: ${error.message}\n--------\n${await this.toSparql()}\n--------`);
+    }
     return results.map((result) =>
       Object.entries(result).reduce((obj, [key, val]) => {
         /**

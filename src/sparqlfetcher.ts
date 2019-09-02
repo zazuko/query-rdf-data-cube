@@ -7,12 +7,9 @@ class SparqlFetcher {
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
-    // this.fetcher.sparqlParsers["application/json"] = {
-    //   parseBooleanStream: (sparqlResponseStream) =>
-    //     this.fetcher.sparqlJsonParser.parseJsonBooleanStream(sparqlResponseStream),
-    //   parseResultsStream: (sparqlResponseStream) =>
-    //     this.fetcher.sparqlJsonParser.parseJsonResultsStream(sparqlResponseStream),
-    // };
+    this.fetcher.sparqlParsers["application/json"] = {
+      parseResultsStream: (stream: Stream): Stream => stream.pipe(require("JSONStream").parse("$*")),
+    };
   }
 
   public async select(query: string): Promise<any[]> {
