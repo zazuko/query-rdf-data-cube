@@ -1,4 +1,4 @@
-import Component from ".";
+import Component from "./component";
 
 class Attribute extends Component {
   public componentType = "attribute";
