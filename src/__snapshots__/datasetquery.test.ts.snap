@@ -9,6 +9,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar3.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabel. }
 }
 GROUP BY (?raum) (?raumLabel)
@@ -24,6 +25,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar3.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabel. }
   FILTER(?raum NOT IN(<http://foo>))
 }
@@ -41,6 +43,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar0.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
@@ -65,6 +68,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
@@ -87,6 +91,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?tmpVar0.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabel. }
 }
 LIMIT 10"
@@ -100,6 +105,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?tmpVar1.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar2.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar3.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
 }
 LIMIT 10"
 `;
@@ -113,6 +119,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
@@ -135,6 +142,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
@@ -156,6 +164,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
@@ -177,6 +186,7 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar0.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar1.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar2.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabel. }
   OPTIONAL { ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabel. }
   FILTER(?raum = <http://something/R3000>)

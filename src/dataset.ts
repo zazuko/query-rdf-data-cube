@@ -7,7 +7,7 @@ import SparqlFetcher from "./sparqlfetcher";
 
 class DataSet {
   public label: any;
-  public iri: any;
+  public iri: string;
   public endpoint: string;
   public graphIri: NamedNode | undefined;
   private fetcher: SparqlFetcher;

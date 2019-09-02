@@ -417,6 +417,12 @@ class DataSetQuery {
           query.variables.push(variable(bindingName));
         }
       });
+
+    mainWhereClauses.triples.push({
+      subject: variable("observation"),
+      predicate: namedNode("http://purl.org/linked-data/cube#dataSet"),
+      object: namedNode(this.dataSet.iri),
+    });
     query.where.push(mainWhereClauses);
 
     Object.entries(this.state.selects)
