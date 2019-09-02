@@ -5,6 +5,7 @@ Operator {
   "args": Array [
     Dimension {
       "componentType": "dimension",
+      "descending": false,
       "iri": NamedNode {
         "value": "http://example.com/d",
       },
@@ -29,6 +30,7 @@ Operator {
       "args": Array [
         Dimension {
           "componentType": "dimension",
+          "descending": false,
           "iri": NamedNode {
             "value": "http://example.com/d",
           },
@@ -54,6 +56,7 @@ Operator {
   "args": Array [
     Dimension {
       "componentType": "dimension",
+      "descending": false,
       "iri": NamedNode {
         "value": "http://example.com/d",
       },

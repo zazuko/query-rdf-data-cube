@@ -129,7 +129,7 @@ WHERE {
   OPTIONAL { ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabel. }
   FILTER((?raum >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>) && (?bep >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>))
 }
-GROUP BY (?zeit) (?raum)
+GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
 LIMIT 10"
 `;
 
@@ -151,7 +151,7 @@ WHERE {
   OPTIONAL { ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabel. }
   OPTIONAL { ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabel. }
 }
-GROUP BY (?zeit) (?raum)
+GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
 LIMIT 10"
 `;
 
@@ -173,7 +173,7 @@ WHERE {
   OPTIONAL { ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabel. }
   OPTIONAL { ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabel. }
 }
-GROUP BY (?zeit) (?raum)
+GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
 LIMIT 10"
 `;
 
@@ -192,5 +192,29 @@ WHERE {
   FILTER(?raum = <http://something/R3000>)
 }
 GROUP BY (?raum) (?raumLabel) (?zeit) (?zeitLabel)
+LIMIT 10"
+`;
+
+exports[`ordering group and filter 1`] = `
+"SELECT ?betriebsart ?betriebsartLabel ?geschlecht ?geschlechtLabel ?raum ?raumLabel ?zeit ?zeitLabel ?bep ?quelle ?glossar ?fussnote FROM <https://linked.opendata.swiss/graph/zh/statistics>
+WHERE {
+  ?observation <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/linked-data/cube#Observation>.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?betriebsart.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?geschlecht.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
+  ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
+  OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
+  OPTIONAL { ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabel. }
+  OPTIONAL { ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabel. }
+  OPTIONAL { ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabel. }
+  OPTIONAL { ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabel. }
+  FILTER((?raum >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>) && (?bep >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>))
+}
+GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
+ORDER BY DESC (?quelle) (?raum)
 LIMIT 10"
 `;

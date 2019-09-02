@@ -65,6 +65,7 @@ function printTitle(str) {
     .filter(raumDimension.equals("https://ld.stadt-zuerich.ch/statistics/code/R30000"))
     .groupBy("zeit")
     .having(({ bep }) => bep.gte(10000))
+    .orderBy(beschaeftigteMeasure.desc(), zeitDimension)
     .limit(3);
 
   const sparql = await query.toSparql();

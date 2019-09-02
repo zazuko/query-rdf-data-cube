@@ -9,6 +9,7 @@ class Component extends BaseExpr {
   public iri: Term;
   public aggregateType: string;
   public isDistinct: boolean = false;
+  public descending: boolean = false;
   public componentType: string = "";
 
   constructor({ label, iri }: { label: string | Term, iri: string | Term}) {
@@ -43,6 +44,12 @@ class Component extends BaseExpr {
   public distinct() {
     const self = this.clone();
     self.isDistinct = true;
+    return self;
+  }
+
+  public desc() {
+    const self = this.clone();
+    self.descending = true;
     return self;
   }
 

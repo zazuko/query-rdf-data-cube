@@ -279,3 +279,72 @@ test("group and filter", async () => {
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
 });
+
+describe("ordering", () => {
+  test("group and filter", async () => {
+    const base = dataset
+      .query()
+      .select({
+        betriebsart: betriebsartDimension,
+        geschlecht: geschlechtDimension,
+        raum: raumDimension,
+        zeit: zeitDimension,
+
+        bep: beschaeftigteMeasure,
+
+        quelle: quelleAttribute,
+        glossar: glossarAttribute,
+        fussnote: fussnoteAttribute,
+      });
+    const query = base
+      .filter(raumDimension.gte(literal("12")))
+      .filter(beschaeftigteMeasure.gte(literal("12")))
+      .groupBy(({ zeit }) => zeit)
+      .groupBy(({ raum }) => raum)
+      .orderBy(quelleAttribute.desc())
+      .orderBy(raumDimension);
+    const sparql = await query.toSparql();
+    expect(sparql).toMatchSnapshot();
+  });
+
+  test("one or many give same sparql", async () => {
+    const base = dataset
+      .query()
+      .select({
+        raum: raumDimension,
+        zeit: zeitDimension,
+      });
+    const queryBase = base
+      .filter(raumDimension.gte(literal("12")))
+      .groupBy(({ zeit }) => zeit)
+      .groupBy(({ raum }) => raum);
+    const queryA = queryBase
+      .orderBy(zeitDimension.desc())
+      .orderBy(raumDimension);
+    const queryB = queryBase
+      .orderBy(zeitDimension.desc(), raumDimension);
+    const sparqlA = await queryA.toSparql();
+    const sparqlB = await queryB.toSparql();
+    expect(sparqlA).toBe(sparqlB);
+  });
+
+  test("are ordered", async () => {
+    const base = dataset
+      .query()
+      .select({
+        raum: raumDimension,
+        zeit: zeitDimension,
+      });
+    const queryBase = base
+      .filter(raumDimension.gte(literal("12")))
+      .groupBy(({ zeit }) => zeit)
+      .groupBy(({ raum }) => raum);
+    const queryA = queryBase
+    .orderBy(raumDimension, zeitDimension.desc());
+    const queryB = queryBase
+      .orderBy(zeitDimension.desc(), raumDimension);
+    const sparqlA = await queryA.toSparql();
+    const sparqlB = await queryB.toSparql();
+    expect(sparqlA).not.toBe(sparqlB);
+  });
+});

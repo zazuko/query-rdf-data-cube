@@ -7,7 +7,7 @@ import Binding from "./expressions/binding";
 import Operator from "./expressions/operator";
 import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "./expressions/utils";
 import SparqlFetcher from "./sparqlfetcher";
-import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery, Tuple } from "./sparqljs.d";
+import { BgpPattern, Expression, FilterPattern, OperationExpression, Ordering, SelectQuery, Tuple } from "./sparqljs.d";
 
 type PredicateFunction = (data: Selects) => Component;
 type Selects = Record<string, Component>;
@@ -19,6 +19,7 @@ interface IState {
   havings: PredicateFunction[];
   offset: number;
   limit: number;
+  order: Component[];
 }
 
 const baseState: IState = {
@@ -28,6 +29,7 @@ const baseState: IState = {
   havings: [],
   offset: 0,
   limit: 10,
+  order: [],
 };
 
 /**
@@ -218,6 +220,32 @@ class DataSetQuery {
   public offset(offset: number) {
     const self = this.clone();
     self.state.offset = offset;
+    return self;
+  }
+
+  /**
+   * Adds one or many orderings to the results.
+   *
+   * ```js
+   * // return results 50 to 75
+   * myDataSet
+   *   .query({
+   *      myVar: someDimension,
+   *      otherVar: otherDimension,
+   *    })
+   *   .limit(25)
+   *   .offset(50)
+   *    // this:
+   *   .orderBy(someDimension.desc(), otherDimension);
+   *   // is equivalent to:
+   *   .orderBy(someDimension.desc())
+   *   .orderBy(otherDimension);
+   * ```
+   * @param {number} How many results to return.
+   */
+  public orderBy(...order: Component[]) {
+    const self = this.clone();
+    self.state.order.push(...order);
     return self;
   }
 
@@ -501,6 +529,21 @@ class DataSetQuery {
             });
           }
         });
+
+      // order by
+      if (this.state.order.length) {
+        query.order = [];
+      }
+      this.state.order.forEach((component) => {
+        const bindingName = this.iriToBinding[component.iri.value];
+        const order: Ordering = {
+          expression: variable(bindingName),
+        };
+        if (component.descending) {
+          order.descending = true;
+        }
+        query.order.push(order);
+      });
     }
 
     const generator = new SparqlGenerator({ allPrefixes: true });
