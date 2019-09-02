@@ -9,6 +9,7 @@
     "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
     "docs:publish": "gh-pages -t -d docs",
     "typedoc": "typedoc",
+    "lint": "tslint --project tsconfig.json",
     "build": "rimraf dist; npm run build:node; npm run docs:compile",
     "prepare": "npm run build"
   },
