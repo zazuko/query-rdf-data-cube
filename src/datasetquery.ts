@@ -491,6 +491,16 @@ class DataSetQuery {
           });
         }
       });
+      // all variables in projection should be present in GROUP BY
+      query.variables
+        .forEach((selected: any) => {
+          if (selected.hasOwnProperty("value") && !groupedOnBindingNames.includes(selected.value)) {
+            groupedOnBindingNames.push(selected.value);
+            query.group.push({
+              expression: variable(selected.value),
+            });
+          }
+        });
     }
 
     const generator = new SparqlGenerator({ allPrefixes: true });
