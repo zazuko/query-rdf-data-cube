@@ -1,9 +1,9 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
+import Component from "./components/index";
 import DataSet from "./dataset";
 import Binding from "./expressions/binding";
-import Component from "./components";
 import Operator from "./expressions/operator";
 import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions/utils";
 import SparqlFetcher from "./sparqlfetcher";
@@ -236,7 +236,55 @@ class DataSetQuery {
    */
   public async execute(): Promise<any[]> {
     const query = await this.toSparql();
-    return await this.fetcher.select(query);
+    const results = await this.fetcher.select(query);
+    return results.map((result) =>
+      Object.entries(result).reduce((obj, [key, val]) => {
+        /**
+         * Instead of this:
+         * ```js
+         * raum: NamedNode {
+         *   value: 'https://ld.stadt-zuerich.ch/statistics/code/R30000'
+         * },
+         * raumLabel: Literal {
+         *   value: 'Stadt Zürich (ab 1934)',
+         * },
+         * quelle: NamedNode {
+         *   value: 'https://ld.stadt-zuerich.ch/statistics/quelle/SSD002'
+         * },
+         * ```
+         * we want this:
+         * ```js
+         * raum: {
+         *   value: NamedNode {
+         *     value: 'https://ld.stadt-zuerich.ch/statistics/code/R30000'
+         *   },
+         *   label: Literal {
+         *     value: 'Stadt Zürich (ab 1934)',
+         *   }
+         * },
+         * quelle: {
+         *   value: NamedNode {
+         *     value: 'https://ld.stadt-zuerich.ch/statistics/quelle/SSD002'
+         *   }
+         * },
+         * ```
+         */
+        const isLabel = key.endsWith("Label");
+        let finalKey = key;
+        if (isLabel) {
+          finalKey = key.substr(0, key.length - "Label".length);
+        }
+        const finalObj = obj.hasOwnProperty(finalKey) ? obj[finalKey] : {};
+
+        if (isLabel) {
+          finalObj.label = val;
+        } else {
+          finalObj.value = val;
+        }
+
+        Object.assign(obj, {[finalKey]: finalObj});
+        return obj;
+      }, {}));
   }
 
   /**
@@ -258,6 +306,7 @@ class DataSetQuery {
     });
     const groupedOnBindingNames = [];
     const addedDimensionsIRIs = [];
+    const fetchLabels = [];
 
     const query: SelectQuery = {
       type: "query",
@@ -296,7 +345,27 @@ class DataSetQuery {
           predicate: component.iri,
           object: variable(bindingName),
         });
-        query.variables.push(variable(bindingName));
+        // fetch labels when they exist
+        const labelBinding = variable(`${bindingName}Label`);
+        fetchLabels.push({
+          type: "optional",
+          patterns: [{
+            type: "bgp",
+            triples: [{
+              subject: variable(bindingName),
+              predicate: {
+                type: "path",
+                pathType: "|",
+                items: [
+                  namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
+                  namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
+                ],
+              },
+              object: labelBinding,
+            }],
+          }],
+        });
+        query.variables.push(variable(bindingName), labelBinding);
       });
 
     // add dimensions that haven't been explicitly selected
@@ -369,6 +438,8 @@ class DataSetQuery {
           }],
         });
       });
+
+    query.where.push(...fetchLabels);
 
     if (this.state.filters.length) {
       query.where.push(this.applyFilters());

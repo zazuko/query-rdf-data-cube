@@ -81,7 +81,7 @@ class DataSet {
         <${this.iri}> a qb:DataSet ;
           qb:structure/qb:component ?componentSpec .
         ?componentSpec ?kind ?iri .
-        ?iri  rdfs:label|skos:prefLabel ?label .
+        ?iri rdfs:label|skos:prefLabel ?label .
       }`;
 
     const metadata = await this.fetcher.select(query);
