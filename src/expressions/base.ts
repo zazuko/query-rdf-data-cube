@@ -1,3 +1,4 @@
+import { namedNode } from "@rdfjs/data-model";
 import { Literal } from "rdf-js";
 import { toLiteral } from "../toLiteral";
 
@@ -39,53 +40,33 @@ class BaseExpr implements IExpr {
   }
 
   public gte(arg: IntoExpr) {
-    return notable(">=", this, [ensureTerm(arg)]);
+    return notable(">=", this, [arg]);
   }
 
   public gt(arg: IntoExpr) {
-    return notable(">", this, [ensureTerm(arg)]);
+    return notable(">", this, [arg]);
   }
 
   public lte(arg: IntoExpr) {
-    return notable("<=", this, [ensureTerm(arg)]);
+    return notable("<=", this, [arg]);
   }
 
   public lt(arg: IntoExpr) {
-    return notable("<", this, [ensureTerm(arg)]);
+    return notable("<", this, [arg]);
   }
 
   public in(arg: any) {
-    const inArgs = arg.map((term: any) => {
-      if (isTerm(term)) {
-        return term;
-      }
-      const iriRegExp = new RegExp("^https?://");
-      if (typeof term === "string" && iriRegExp.test(term)) {
-        return namedNode(term);
-      }
-      return toLiteral(term);
-    });
-    return notable("in", this, [inArgs]);
+    return notable("in", this, [arg]);
   }
 
   public notIn(arg: any) {
-    const inArgs = arg.map((term: any) => {
-      if (isTerm(term)) {
-        return term;
-      }
-      const iriRegExp = new RegExp("^https?://");
-      if (typeof term === "string" && iriRegExp.test(term)) {
-        return namedNode(term);
-      }
-      return toLiteral(term);
-    });
-    return new Operator("notin", [this, inArgs]);
+    return new Operator("notin", [this, arg]);
   }
 
   public regex(arg: string | Literal, flag: string | Literal) {
-    const args = [ensureTerm(arg)];
+    const args = [arg];
     if (flag) {
-      args.push(ensureTerm(flag));
+      args.push(flag);
     }
     return notable("regex", this, args);
   }
@@ -136,21 +117,21 @@ class BaseExpr implements IExpr {
     if (arguments.length !== 1) {
       throw new Error(".sameTerm expects one argument");
     }
-    return notable("sameterm", this, [ensureTerm(arg)]);
+    return notable("sameterm", this, [arg]);
   }
 
   public equals(arg: string | Literal) {
     if (arguments.length !== 1) {
       throw new Error(".equals expects one argument");
     }
-    return notable("=", this, [ensureTerm(arg)]);
+    return notable("=", this, [arg]);
   }
 
   public notEquals(arg: string | Literal) {
     if (arguments.length !== 1) {
       throw new Error(".notEquals expects one argument");
     }
-    return notable("!=", this, [ensureTerm(arg)]);
+    return notable("!=", this, [arg]);
   }
 }
 
@@ -158,5 +139,4 @@ export default BaseExpr;
 
 // for cyclic dependencies
 import Operator from "./operator";
-import { ensureTerm, IExpr, IntoExpr, isTerm } from "./utils"; import { namedNode } from "@rdfjs/data-model";
-
+import { IExpr, IntoExpr, isTerm } from "./utils";

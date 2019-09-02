@@ -5,7 +5,7 @@ import Component from "./components/index";
 import DataSet from "./dataset";
 import Binding from "./expressions/binding";
 import Operator from "./expressions/operator";
-import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions/utils";
+import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "./expressions/utils";
 import SparqlFetcher from "./sparqlfetcher";
 import { BgpPattern, Expression, FilterPattern, OperationExpression, SelectQuery, Tuple } from "./sparqljs.d";
 
@@ -35,8 +35,8 @@ const baseState: IState = {
  *
  * @param {Operator} operator
  */
-function operatorArgsToExpressions(operator: Operator): Expression[] {
-  const expressions = operator.args.map((arg: IExpr): Expression => {
+function operatorArgsToExpressions(args: IExpr[]): Expression[] {
+  const expressions = args.map((arg: IExpr): Expression => {
     if (isTerm(arg)) {
       return arg;
     }
@@ -50,13 +50,12 @@ function operatorArgsToExpressions(operator: Operator): Expression[] {
       return arg.term;
     }
     if (arg instanceof ArrayExpr) {
-      const tuple: Tuple = Array.from(arg.xs);
+      const tuple: Tuple = operatorArgsToExpressions(Array.from(arg.xs).map(into));
       return tuple;
     }
   }).filter((x) => {
     const transformed = Boolean(x);
     if (!transformed) {
-      console.error(operator);
       throw new Error("Unrecognized filter argument type");
     }
     return transformed;
@@ -68,7 +67,7 @@ function createOperationExpression(operator: Operator): OperationExpression {
   const operationExpression: OperationExpression = {
     type: "operation",
     operator: operator.operator,
-    args: operatorArgsToExpressions(operator),
+    args: operatorArgsToExpressions(operator.args),
   };
   return operationExpression;
 }

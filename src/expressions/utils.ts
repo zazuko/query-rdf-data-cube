@@ -2,7 +2,9 @@
 import { blankNode, defaultGraph, literal, namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode, Term } from "rdf-js";
 import { toLiteral } from "../toLiteral";
+import Binding from "./binding";
 import Numeric from "./numeric";
+import Operator from "./operator";
 
 export interface IExpr {
   resolve(mapping: Map<string, string>): IExpr;
@@ -27,7 +29,7 @@ export class ArrayExpr implements IExpr {
     this.xs = xs;
   }
 
-  public resolve(mapping: Map<string, string>): ArrayExpr {
+  public resolve(mapping: Map<string, string>) {
     return this;
   }
 }
@@ -45,28 +47,34 @@ export function isTerm(term: any): term is Term {
 export function into(what: IntoExpr): IExpr {
   switch (typeof what) {
     case "number":
-      return new Numeric(what);
-    default:
+      return new TermExpr(toLiteral(what));
+    case "string":
+      const iriRegExp = new RegExp("^https?://");
+      if (typeof what === "string" && iriRegExp.test(what)) {
+        return new TermExpr(namedNode(what));
+      }
+      return new TermExpr(toLiteral(what));
+    case "object":
+      if (
+        what instanceof Operator ||
+        what instanceof Binding ||
+        what instanceof TermExpr ||
+        what instanceof ArrayExpr
+      ) {
+        return what;
+      }
       if (Array.isArray(what)) {
         return new ArrayExpr(what);
       }
       if (isTerm(what)) {
         return new TermExpr(what);
       }
-      return what;
+      if (what.hasOwnProperty("componentType")) {
+        return what;
+      }
+      break;
   }
-}
 
-export function ensureTerm(arg: any): Term|TermExpr {
-  if (arg.hasOwnProperty("componentType")) {
-    return arg;
-  }
-  if (isTerm(arg)) {
-    return new TermExpr(arg);
-  }
-  const iriRegExp = new RegExp("^https?://");
-  if (typeof arg === "string" && iriRegExp.test(arg)) {
-    return new TermExpr(namedNode(arg));
-  }
-  return new TermExpr(toLiteral(arg));
+  console.error(what);
+  throw new Error(`into() cannot cast arg ${JSON.stringify(what)}`);
 }
