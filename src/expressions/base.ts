@@ -27,7 +27,7 @@ function notable(operator: string, previous: BaseExpr, extraArgs = []) {
 
 class BaseExpr implements IExpr {
   public resolve(mapping: Map<string, string>): IExpr {
-    return this;
+    throw new Error("Not implemented");
   }
 
   // filters

@@ -113,6 +113,17 @@ describe("fixtures", () => {
     );
   });
 
+  it("FILTER (?price < 30.5) .", async () => {
+    const query = dataset
+      .query()
+      .select({ price: a })
+      .filter(a.lt(30.5));
+    const sparql: string = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER(?price < \\"30.5\\"^^<http://www.w3.org/2001/XMLSchema#decimal>)"`
+    );
+  });
+
   it("FILTER (?price <= 30.5) .", async () => {
     const query = dataset
       .query()
@@ -255,6 +266,71 @@ describe("fixtures", () => {
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
       `"FILTER(?raum IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>))"`
+    );
+  });
+});
+
+describe("helpful errors", () => {
+  it("isIRI", async () => {
+    const filter = () => a.isIRI("http://foo");
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".isIRI doesn't accept arguments"`
+    );
+  });
+
+  it("isBlank", async () => {
+    const filter = () => a.isBlank("http://foo");
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".isBlank doesn't accept arguments"`
+    );
+  });
+
+  it("isLiteral", async () => {
+    const filter = () => a.isLiteral("http://foo");
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".isLiteral doesn't accept arguments"`
+    );
+  });
+
+  it("lang", async () => {
+    const filter = () => a.lang("http://foo");
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".lang doesn't accept arguments"`
+    );
+  });
+
+  it("datatype", async () => {
+    const filter = () => a.datatype("http://foo");
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".datatype doesn't accept arguments"`
+    );
+  });
+
+  it("str", async () => {
+    const filter = () => a.str("http://foo");
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".str doesn't accept arguments"`
+    );
+  });
+
+  it("sameTerm", async () => {
+    const filter = () => a.sameTerm(b, c);
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".sameTerm expects one argument"`
+    );
+  });
+
+  it("equals", async () => {
+    const filter = () => a.equals(b, c);
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".equals expects one argument"`
+    );
+  });
+
+  it("notEquals", async () => {
+    const filter = () => a.notEquals(b, c);
+    expect(filter).toThrowErrorMatchingInlineSnapshot(
+      `".notEquals expects one argument"`
     );
   });
 });
