@@ -3,10 +3,10 @@
 Explore or query [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API,
 without writing SPARQL.
 
-## Installation
+<!--## Installation
 
 `npm install query-rdf-data-cube`
-
+-->
 ## Documentation
 
 See <https://zazuko.github.io/query-rdf-data-cube/>
