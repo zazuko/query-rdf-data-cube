@@ -1,5 +1,7 @@
 # query-rdf-data-cube
 
+[![Build Status](https://travis-ci.org/zazuko/query-rdf-data-cube.svg?branch=master)](https://travis-ci.org/zazuko/query-rdf-data-cube) [![Coverage Status](https://coveralls.io/repos/github/zazuko/query-rdf-data-cube/badge.svg?branch=master)](https://coveralls.io/github/zazuko/query-rdf-data-cube?branch=master)
+
 Explore or query [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API,
 without writing SPARQL.
 
