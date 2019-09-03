@@ -6,6 +6,7 @@
   "scripts": {
     "build:node": "tsc --target es2017 --module commonjs --outDir dist/node",
     "test": "jest",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
     "docs:publish": "gh-pages -t -d docs",
     "typedoc": "typedoc",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "coveralls": "^3.0.6",
     "gh-pages": "^2.1.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
