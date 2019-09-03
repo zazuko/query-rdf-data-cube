@@ -6,6 +6,13 @@ class SparqlFetcher {
   private fetcher: any = new SparqlEndpointFetcher();
 
   constructor(endpoint: string) {
+    if (typeof window === "undefined") {
+      this.fetcher = new SparqlEndpointFetcher();
+    } else {
+      this.fetcher = new SparqlEndpointFetcher({
+        fetch: window.fetch.bind(window),
+      });
+    }
     this.endpoint = endpoint;
     this.fetcher.sparqlParsers["application/json"] = {
       parseResultsStream: (stream: Stream): Stream => stream.pipe(require("JSONStream").parse("$*")),
