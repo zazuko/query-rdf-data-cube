@@ -1,4 +1,4 @@
-# query-rdf-data-cube
+# [query-rdf-data-cube](https://github.com/zazuko/query-rdf-data-cube)
 
 [![Build Status](https://travis-ci.org/zazuko/query-rdf-data-cube.svg?branch=master)](https://travis-ci.org/zazuko/query-rdf-data-cube) [![Coverage Status](https://coveralls.io/repos/github/zazuko/query-rdf-data-cube/badge.svg?branch=master)](https://coveralls.io/github/zazuko/query-rdf-data-cube?branch=master)
 
