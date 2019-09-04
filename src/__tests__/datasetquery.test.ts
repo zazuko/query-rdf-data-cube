@@ -348,3 +348,47 @@ describe("ordering", () => {
     expect(sparqlA).not.toBe(sparqlB);
   });
 });
+
+describe("handles languages", () => {
+  test("one language", async () => {
+    const query = dataset
+      .query({ languages: ["en"] })
+      .select({
+        zeit: zeitDimension,
+
+        bep: beschaeftigteMeasure,
+
+        quelle: quelleAttribute,
+      });
+    const sparql = await query.toSparql();
+    expect(sparql).toMatchSnapshot();
+  });
+
+  test("two languages", async () => {
+    const query = dataset
+      .query({ languages: ["en", "de"] })
+      .select({
+        zeit: zeitDimension,
+
+        bep: beschaeftigteMeasure,
+
+        quelle: quelleAttribute,
+      });
+    const sparql = await query.toSparql();
+    expect(sparql).toMatchSnapshot();
+  });
+
+  test("three languages", async () => {
+    const query = dataset
+      .query({ languages: ["fr", "de", "it"] })
+      .select({
+        zeit: zeitDimension,
+
+        bep: beschaeftigteMeasure,
+
+        quelle: quelleAttribute,
+      });
+    const sparql = await query.toSparql();
+    expect(sparql).toMatchSnapshot();
+  });
+});

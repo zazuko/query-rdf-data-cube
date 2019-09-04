@@ -1,4 +1,4 @@
-import { namedNode, variable } from "@rdfjs/data-model";
+import { literal, namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
 import Component from "./components/index";
@@ -20,6 +20,10 @@ interface IState {
   offset: number;
   limit: number;
   order: Component[];
+}
+
+export interface IQueryOpts {
+  languages?: string[];
 }
 
 const baseState: IState = {
@@ -98,6 +102,122 @@ function combineFilters(operations: OperationExpression[]): FilterPattern {
   };
 }
 
+function langPrepare(binding, labelBinding, labelLangBinding, langs: string[]) {
+  // fetch labels when they exist, handling languages
+  const langMatch = (lang: string): OperationExpression => {
+    return {
+      type: "operation",
+      operator: "langmatches",
+      args: [
+        {
+          type: "operation",
+          operator: "lang",
+          args: [ labelLangBinding ],
+        },
+        literal(lang),
+      ],
+    };
+  };
+
+  const langExactMatch = (lang = ""): OperationExpression => {
+    return {
+      type: "operation",
+      operator: "=",
+      args: [
+        {
+          type: "operation",
+          operator: "lang",
+          args: [ labelLangBinding ],
+        },
+        literal(lang),
+      ],
+    };
+  };
+
+  function langHandler() {
+    let languages = langs.filter(Boolean);
+    if (!languages.length) {
+      // no lang specified, default to 'empty' lang
+      return {
+        type: "filter",
+        expression: langExactMatch(""),
+      };
+    }
+    // at least one non-empty lang, add the 'empty' lang as fallback
+    languages = langs.concat("");
+    // we now have at least two langs to work with
+    const lang1 = languages.shift();
+    const lang2 = languages.shift();
+    let expression: OperationExpression = {
+      type: "operation",
+      operator: "||",
+      args: [
+        lang1 === "" ? langExactMatch(lang1) : langMatch(lang1),
+        lang2 === "" ? langExactMatch(lang2) : langMatch(lang2),
+      ],
+    };
+
+    let extraLang = languages.shift();
+    while (typeof extraLang !== "undefined") {
+      expression = {
+        type: "operation",
+        operator: "||",
+        args: [
+          expression,
+          extraLang === "" ? langExactMatch("") : langMatch(extraLang),
+        ],
+      };
+      extraLang = languages.shift();
+    }
+    return {
+      type: "filter",
+      expression,
+    };
+  }
+
+  const findLabel = {
+    type: "optional",
+    patterns: [
+      {
+        type: "bgp",
+        triples: [
+          {
+            subject: binding,
+            predicate: {
+              type: "path",
+              pathType: "|",
+              items: [
+                namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
+                namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
+              ],
+            },
+            object: labelLangBinding,
+          },
+        ],
+      },
+      langHandler(),
+    ],
+  };
+
+  const coalesceLabel = {
+    type: "bind",
+    variable: labelBinding,
+    expression: {
+      type: "operation",
+      operator: "coalesce",
+      args: [
+        labelLangBinding,
+        binding,
+      ],
+    },
+  };
+
+  return {
+    findLabel,
+    coalesceLabel,
+  };
+}
+
 /**
  * A query to a [[DataSet]].
  * @class DataSetQuery
@@ -110,6 +230,7 @@ class DataSetQuery {
   private state: IState;
   private fetcher: SparqlFetcher;
   private tmpVarCount: number = 0;
+  private languages: string[];
 
   /**
    * Creates an instance of DataSetQuery. You should not have to manually create queries,
@@ -117,7 +238,8 @@ class DataSetQuery {
    * to query.
    * @param dataSet The [[DataSet]] to query.
    */
-  constructor(dataSet: DataSet) {
+  constructor(dataSet: DataSet, opts: IQueryOpts = {}) {
+    this.languages = opts.languages || [];
     this.dataSet = dataSet;
     this.state = baseState;
     this.fetcher = new SparqlFetcher(this.dataSet.endpoint);
@@ -373,33 +495,20 @@ class DataSetQuery {
       .forEach(([bindingName, component]) => {
         this.bindingToComponent[bindingName] = component;
         this.iriToBinding[component.iri.value] = bindingName;
+        const binding = variable(bindingName);
+
         addedDimensionsIRIs.push(component.iri.value);
         mainWhereClauses.triples.push({
           subject: variable("observation"),
           predicate: component.iri,
-          object: variable(bindingName),
+          object: binding,
         });
-        // fetch labels when they exist
+
         const labelBinding = variable(`${bindingName}Label`);
-        fetchLabels.push({
-          type: "optional",
-          patterns: [{
-            type: "bgp",
-            triples: [{
-              subject: variable(bindingName),
-              predicate: {
-                type: "path",
-                pathType: "|",
-                items: [
-                  namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
-                  namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
-                ],
-              },
-              object: labelBinding,
-            }],
-          }],
-        });
-        query.variables.push(variable(bindingName), labelBinding);
+        const labelLangBinding = variable(`${bindingName}LabelLang`);
+        const {findLabel, coalesceLabel} = langPrepare(binding, labelBinding, labelLangBinding, this.languages);
+        fetchLabels.push(findLabel, coalesceLabel);
+        query.variables.push(binding, labelBinding);
       });
 
     // add dimensions that haven't been explicitly selected
@@ -552,9 +661,12 @@ class DataSetQuery {
 
   private clone() {
     const dsq = new DataSetQuery(this.dataSet);
-    dsq.state = clone(this.state);
-    dsq.iriToBinding = clone(this.iriToBinding);
     dsq.bindingToComponent = clone(this.bindingToComponent);
+    dsq.iriToBinding = clone(this.iriToBinding);
+    dsq.state = clone(this.state);
+    dsq.fetcher = clone(this.fetcher);
+    dsq.tmpVarCount = clone(this.tmpVarCount);
+    dsq.languages = clone(this.languages);
     return dsq;
   }
 

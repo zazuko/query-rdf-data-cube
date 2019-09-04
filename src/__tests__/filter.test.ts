@@ -6,7 +6,8 @@ import DataSet from "../dataset";
 function extractFilter(sparql: string) {
   return sparql
     .split("\n")
-    .find((line: string) => line.trim().startsWith("FILTER"))
+    .filter((line: string) => line.trim().startsWith("FILTER"))
+    .slice(-1)[0]
     .trim();
 }
 

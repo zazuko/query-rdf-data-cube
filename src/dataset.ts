@@ -2,7 +2,7 @@ import { NamedNode, Term } from "rdf-js";
 import Attribute from "./components/attribute";
 import Dimension from "./components/dimension";
 import Measure from "./components/measure";
-import DataSetQuery from "./datasetquery";
+import DataSetQuery, { IQueryOpts } from "./datasetquery";
 import SparqlFetcher from "./sparqlfetcher";
 
 class DataSet {
@@ -60,8 +60,8 @@ class DataSet {
   /**
    * Start a new query on the DataSet.
    */
-  public query(): DataSetQuery {
-    return new DataSetQuery(this);
+  public query(opts: IQueryOpts = {}): DataSetQuery {
+    return new DataSetQuery(this, opts);
   }
 
   private async metadata() {
