@@ -427,22 +427,22 @@ class DataSetQuery {
             });
           }
         });
-
-      // order by
-      if (this.state.order.length) {
-        query.order = [];
-      }
-      this.state.order.forEach((component) => {
-        const bindingName = this.iriToBinding[component.iri.value];
-        const order: Ordering = {
-          expression: variable(bindingName),
-        };
-        if (component.descending) {
-          order.descending = true;
-        }
-        query.order.push(order);
-      });
     }
+
+    // order by
+    if (this.state.order.length) {
+      query.order = [];
+    }
+    this.state.order.forEach((component) => {
+      const bindingName = this.iriToBinding[component.iri.value];
+      const order: Ordering = {
+        expression: variable(bindingName),
+      };
+      if (component.descending) {
+        order.descending = true;
+      }
+      query.order.push(order);
+    });
 
     const generator = new SparqlGenerator({ allPrefixes: true });
     return generator.stringify(query);

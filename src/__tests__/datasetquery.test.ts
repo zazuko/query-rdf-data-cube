@@ -336,9 +336,7 @@ describe("ordering", () => {
         zeit: zeitDimension,
       });
     const queryBase = base
-      .filter(raumDimension.gte(literal("12")))
-      .groupBy(({ zeit }) => zeit)
-      .groupBy(({ raum }) => raum);
+      .filter(raumDimension.gte(literal("12")));
     const queryA = queryBase
     .orderBy(raumDimension, zeitDimension.desc());
     const queryB = queryBase
@@ -346,6 +344,8 @@ describe("ordering", () => {
     const sparqlA = await queryA.toSparql();
     const sparqlB = await queryB.toSparql();
     expect(sparqlA).not.toBe(sparqlB);
+    expect(sparqlA).toContain("ORDER BY");
+    expect(sparqlA).toContain("ORDER BY");
   });
 });
 
