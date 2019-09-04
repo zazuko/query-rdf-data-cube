@@ -1,14 +1,14 @@
-# [query-rdf-data-cube](https://github.com/zazuko/query-rdf-data-cube)
+# [@zazuko/query-rdf-data-cube](https://github.com/zazuko/query-rdf-data-cube)
 
 [![Build Status](https://travis-ci.org/zazuko/query-rdf-data-cube.svg?branch=master)](https://travis-ci.org/zazuko/query-rdf-data-cube) [![Coverage Status](https://coveralls.io/repos/github/zazuko/query-rdf-data-cube/badge.svg?branch=master)](https://coveralls.io/github/zazuko/query-rdf-data-cube?branch=master)
 
-Explore or query [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API,
+Query and explore [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API,
 without writing SPARQL.
 
-<!--## Installation
+## Installation
 
-`npm install query-rdf-data-cube`
--->
+`npm install @zazuko/query-rdf-data-cube`
+
 ## Documentation
 
 See <https://zazuko.github.io/query-rdf-data-cube/>
@@ -59,7 +59,7 @@ You could also [directly instantiate a DataSet](https://github.com/zazuko/query-
 
 A DataSet can retrieve its *Components*, ie. its *Dimensions*, *Measures* and *Attributes*:
 
-```javascript
+```js
 const dimensions = await dataset.dimensions();
 const measures = await dataset.measures();
 const attributes = await dataset.attributes();
@@ -84,7 +84,7 @@ const korrekturAttribute = attributes[5];
 
 This setup is quite exhaustive, in many situations you won't want to create all of these or get all of these and rely on this lib to properly guess what to query.
 
-```javascript
+```js
 const query = dataset
   .query()
   // .select({}) takes binding names as keys and Component (Dimension/Attribute/Measure) as values
@@ -109,11 +109,11 @@ const query = dataset
 ```
 
 Now that we built a query, we can generate SPARQL out of it:
-```javascript
+```js
 const sparql = await query.toSparql();
 ```
 
 Or execute the SPARQL query against the SPARQL endpoint:
-```javascript
+```js
 const results = await query.execute();
 ```

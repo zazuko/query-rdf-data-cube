@@ -1,19 +1,32 @@
 {
-  "name": "query-rdf-data-cube",
+  "name": "@zazuko/query-rdf-data-cube",
   "version": "0.0.1",
-  "description": "",
-  "main": "dist/node/datacube.js",
+  "description": "Query (or introspect) [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API, without writing SPARQL.",
   "scripts": {
-    "build:node": "tsc --target es2017 --module commonjs --outDir dist/node",
+    "build:node": "tsc --target es2017 --module commonjs --outDir dist/node && tsc --target esnext --module esnext --outDir dist/es",
     "test": "jest",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
     "docs:publish": "gh-pages -t -d docs",
     "typedoc": "typedoc",
     "lint": "tslint --project tsconfig.json",
     "build": "rimraf dist; npm run build:node; npm run docs:compile",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
+  "main": "dist/node/datacube.js",
+  "module": "dist/es/index.js",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "rdf",
+    "datacube",
+    "data cube",
+    "query builder",
+    "sparql",
+    "sparql query"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zazuko/query-rdf-data-cube.git"
@@ -31,10 +44,15 @@
     "sparqljs": "^3.0.0-beta.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "@types/jest": "^24.0.18",
+    "conventional-changelog-cli": "^2.0.23",
     "coveralls": "^3.0.6",
     "gh-pages": "^2.1.1",
+    "husky": "^3.0.5",
     "jest": "^24.9.0",
+    "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.0.2",
@@ -42,5 +60,33 @@
     "tslint": "^5.19.0",
     "typedoc": "^0.15.0",
     "typescript": "^3.6.2"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverage": true,
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "diagnostics": true
+      }
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
