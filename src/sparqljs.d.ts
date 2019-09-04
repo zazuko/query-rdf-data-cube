@@ -1,10 +1,10 @@
 import { Term, Variable, NamedNode } from "rdf-js";
 
-// Type definitions for sparqljs 2.1
+// Type definitions for sparqljs 3.0.0-beta.0
 // Project: https://github.com/RubenVerborgh/SPARQL.js
 // Definitions by: Alexey Morozov <https://github.com/AlexeyMz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.6.2
 
 export const Parser: {
     new (

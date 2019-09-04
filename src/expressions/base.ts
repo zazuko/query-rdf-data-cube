@@ -1,6 +1,4 @@
-import { namedNode } from "@rdfjs/data-model";
 import { Literal } from "rdf-js";
-import { toLiteral } from "../toLiteral";
 
 const notableOperators = {
   "in": "notin",
@@ -139,4 +137,4 @@ export default BaseExpr;
 
 // for cyclic dependencies
 import Operator from "./operator";
-import { IExpr, IntoExpr, isTerm } from "./utils";
+import { IExpr, IntoExpr } from "./utils";

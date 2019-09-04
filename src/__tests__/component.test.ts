@@ -1,5 +1,5 @@
 import { namedNode } from "@rdfjs/data-model";
-import Dimension from "./dimension";
+import Dimension from "../components/dimension";
 
 let d = null;
 
