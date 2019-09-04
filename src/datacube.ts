@@ -44,6 +44,26 @@ export class DataCube {
   }
 
   /**
+   * Fetch a [[DataSet]] by its IRI.
+   *
+   * @param iri IRI of the DataSet to return.
+   */
+  public async datasetByIri(iri: string): Promise<DataSet> {
+    const datasets = await this.datasets();
+    return datasets.find((dataset) => dataset.iri === iri);
+  }
+
+  /**
+   * Fetch [[DataSet]]s by their graph IRI.
+   *
+   * @param graphIri IRI of the graph to look for in all DataSets.
+   */
+  public async datasetsByGraph(graphIri: string): Promise<DataSet[]> {
+    const datasets = await this.datasets();
+    return datasets.filter((dataset) => dataset.graphIri.value === graphIri);
+  }
+
+  /**
    * Fetch all graphs from the endpoint.
    */
   public async graphs(): Promise<NamedNode[]> {
