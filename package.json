@@ -1,6 +1,6 @@
 {
   "name": "@zazuko/query-rdf-data-cube",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Query (or introspect) [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API, without writing SPARQL.",
   "scripts": {
     "build:node": "tsc --target es2017 --module commonjs --outDir dist/node && tsc --target esnext --module esnext --outDir dist/es",
