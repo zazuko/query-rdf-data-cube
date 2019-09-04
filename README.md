@@ -1,6 +1,8 @@
 # [@zazuko/query-rdf-data-cube](https://github.com/zazuko/query-rdf-data-cube)
 
-[![Build Status](https://travis-ci.org/zazuko/query-rdf-data-cube.svg?branch=master)](https://travis-ci.org/zazuko/query-rdf-data-cube) [![Coverage Status](https://coveralls.io/repos/github/zazuko/query-rdf-data-cube/badge.svg?branch=master)](https://coveralls.io/github/zazuko/query-rdf-data-cube?branch=master)
+[![npm version](https://img.shields.io/npm/v/@zazuko/query-rdf-data-cube.svg?style=flat)](https://npmjs.org/package/@zazuko/query-rdf-data-cube "View this project on npm")
+[![Build Status](https://travis-ci.org/zazuko/query-rdf-data-cube.svg?branch=master)](https://travis-ci.org/zazuko/query-rdf-data-cube)
+[![Coverage Status](https://coveralls.io/repos/github/zazuko/query-rdf-data-cube/badge.svg?branch=master)](https://coveralls.io/github/zazuko/query-rdf-data-cube?branch=master)
 
 Query and explore [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API,
 without writing SPARQL.
@@ -12,6 +14,8 @@ without writing SPARQL.
 ## Documentation
 
 See <https://zazuko.github.io/query-rdf-data-cube/>
+
+Changelog: <https://github.com/zazuko/query-rdf-data-cube/blob/master/CHANGELOG.md>
 
 ## Examples
 
