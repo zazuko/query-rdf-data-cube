@@ -33,6 +33,12 @@ export const baseState: IState = {
   order: [],
 };
 
+export interface ILangBindings {
+  binding: Variable;
+  labelBinding: Variable;
+  labelLangBinding: Variable;
+}
+
 /**
  * Convert [[Operator]] arguments into SPARQL.js `Expression`s
  *
@@ -176,7 +182,8 @@ function langFilter(labelLangBinding: Variable, langs: string[]): FilterPattern 
   };
 }
 
-export function langPrepare(binding: Variable, labelBinding: Variable, labelLangBinding: Variable, langs: string[]) {
+export function generateLangPatterns(bindings: ILangBindings, langs: string[]) {
+  const {binding, labelBinding, labelLangBinding} = bindings;
   const findLabel: BlockPattern = {
     type: "optional",
     patterns: [
@@ -214,8 +221,5 @@ export function langPrepare(binding: Variable, labelBinding: Variable, labelLang
     },
   };
 
-  return {
-    findLabel,
-    coalesceLabel,
-  };
+  return [findLabel, coalesceLabel];
 }

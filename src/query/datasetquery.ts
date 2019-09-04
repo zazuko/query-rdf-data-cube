@@ -6,7 +6,8 @@ import DataSet from "../dataset";
 import { IExpr } from "../expressions/utils";
 import SparqlFetcher from "../sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
-import { baseState, combineFilters, createOperationExpression, IQueryOpts, IState, langPrepare, PredicateFunction } from "./utils";
+import { baseState, combineFilters, createOperationExpression } from "./utils";
+import { generateLangPatterns, IQueryOpts, IState, PredicateFunction } from "./utils";
 
 /**
  * A query to a [[DataSet]].
@@ -294,9 +295,13 @@ class DataSetQuery {
         });
 
         const labelBinding = variable(`${bindingName}Label`);
-        const labelLangBinding = variable(`${bindingName}LabelLang`);
-        const {findLabel, coalesceLabel} = langPrepare(binding, labelBinding, labelLangBinding, this.languages);
-        fetchLabels.push(findLabel, coalesceLabel);
+        const bindings = {
+          binding,
+          labelBinding,
+          labelLangBinding: variable(`${bindingName}LabelLang`),
+        };
+        const langPatterns = generateLangPatterns(bindings, this.languages);
+        fetchLabels.push(...langPatterns);
         query.variables.push(binding, labelBinding);
       });
 
