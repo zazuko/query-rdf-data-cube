@@ -12,7 +12,8 @@
     "lint": "tslint --project tsconfig.json",
     "build": "rimraf dist; npm run build:node; npm run docs:compile",
     "prepare": "npm run build",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "postversion": "npm run docs:compile && npm run docs:publish"
   },
   "main": "dist/node/datacube.js",
   "module": "dist/es/index.js",
