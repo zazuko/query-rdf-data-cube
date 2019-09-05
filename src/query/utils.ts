@@ -221,7 +221,7 @@ export function generateLangCoalesce(bindings: ILangBindings, langs: string[]): 
       operator: "coalesce",
       args: [
         labelLangBinding,
-        binding,
+        literal(""),
       ],
     },
   };

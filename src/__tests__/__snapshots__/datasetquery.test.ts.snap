@@ -14,7 +14,7 @@ WHERE {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
 }
 GROUP BY (?raum) (?raumLabel)
 LIMIT 10"
@@ -34,7 +34,7 @@ WHERE {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   FILTER(?raum NOT IN(<http://foo>))
 }
 GROUP BY (?raum) (?raumLabel)
@@ -62,22 +62,22 @@ WHERE {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
     FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?betriebsartLabelLang, ?betriebsart) AS ?betriebsartLabel)
+  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
     FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?geschlechtLabelLang, ?geschlecht) AS ?geschlechtLabel)
+  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
 GROUP BY (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raum) (?raumLabel) (?zeit) (?zeitLabel) (?quelle) (?glossar) (?fussnote) (?datenstand) (?erwarteteAktualisierung) (?korrektur)
 LIMIT 10"
@@ -103,22 +103,22 @@ WHERE {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
     FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?betriebsartLabelLang, ?betriebsart) AS ?betriebsartLabel)
+  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
     FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?geschlechtLabelLang, ?geschlecht) AS ?geschlechtLabel)
+  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -136,7 +136,7 @@ WHERE {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
 }
 LIMIT 10"
 `;
@@ -171,22 +171,22 @@ WHERE {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
     FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?betriebsartLabelLang, ?betriebsart) AS ?betriebsartLabel)
+  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
     FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?geschlechtLabelLang, ?geschlecht) AS ?geschlechtLabel)
+  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
   FILTER((?raum >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>) && (?bep >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>))
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
@@ -210,22 +210,22 @@ WHERE {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
     FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?betriebsartLabelLang, ?betriebsart) AS ?betriebsartLabel)
+  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
     FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?geschlechtLabelLang, ?geschlecht) AS ?geschlechtLabel)
+  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
 LIMIT 10"
@@ -248,22 +248,22 @@ WHERE {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
     FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?betriebsartLabelLang, ?betriebsart) AS ?betriebsartLabel)
+  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
     FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?geschlechtLabelLang, ?geschlecht) AS ?geschlechtLabel)
+  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
 LIMIT 10"
@@ -283,12 +283,12 @@ WHERE {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
   FILTER(?raum = <http://something/R3000>)
 }
 GROUP BY (?raum) (?raumLabel) (?zeit) (?zeitLabel)
@@ -310,7 +310,7 @@ WHERE {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANGMATCHES(LANG(?zeitLabelLang), \\"en\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -330,7 +330,7 @@ WHERE {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((((LANGMATCHES(LANG(?zeitLabelLang), \\"fr\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -350,7 +350,7 @@ WHERE {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"en\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -372,22 +372,22 @@ WHERE {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
     FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?betriebsartLabelLang, ?betriebsart) AS ?betriebsartLabel)
+  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
     FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?geschlechtLabelLang, ?geschlecht) AS ?geschlechtLabel)
+  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
     FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?raumLabelLang, ?raum) AS ?raumLabel)
+  BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
     FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
   }
-  BIND(COALESCE(?zeitLabelLang, ?zeit) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
   FILTER((?raum >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>) && (?bep >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>))
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
