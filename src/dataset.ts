@@ -10,7 +10,7 @@ class DataSet {
   public label: any;
   public iri: string;
   public endpoint: string;
-  public graphIri: NamedNode | undefined;
+  public graphIri?: string;
   private fetcher: SparqlFetcher;
   private metadataLoaded: boolean = false;
   private cachedMetadata: { attributes: Attribute[]; dimensions: Dimension[]; measures: Measure[]; };
@@ -30,7 +30,7 @@ class DataSet {
     this.fetcher = new SparqlFetcher(endpoint);
     this.iri = dataSetIri.value;
     this.label = (dataSetLabel && dataSetLabel.value) || "";
-    this.graphIri = graphIri;
+    this.graphIri = graphIri.value;
     this.endpoint = endpoint;
   }
 
@@ -77,7 +77,7 @@ class DataSet {
 
       SELECT ?label ?kind ?iri
 
-      ${this.graphIri ? `FROM <${this.graphIri.value}>` : ""}
+      ${this.graphIri ? `FROM <${this.graphIri}>` : ""}
       WHERE {
         <${this.iri}> a qb:DataSet ;
           qb:structure/qb:component ?componentSpec .

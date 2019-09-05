@@ -264,7 +264,7 @@ class DataSetQuery {
       variables:  [],
       from: {
         default: [
-          this.dataSet.graphIri,
+          namedNode(this.dataSet.graphIri),
         ],
         named: [],
       },
