@@ -53,7 +53,7 @@ const dataset: DataSet = new DataSet(
   "https://ld.stadt-zuerich.ch/query",
   {
     dataSetIri: namedNode("https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX"),
-    dataSetLabel: literal("Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit"),
+    dataSetLabels: [{value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit", language: "de"}],
     graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics"),
   },
 );

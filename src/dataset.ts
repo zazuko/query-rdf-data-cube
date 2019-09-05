@@ -3,11 +3,22 @@ import Attribute from "./components/attribute";
 import Dimension from "./components/dimension";
 import Measure from "./components/measure";
 import DataSetQuery from "./query/datasetquery";
-import { IQueryOpts } from "./query/utils";
+import { IQueryOptions } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 
+type Label = {
+  value: string;
+  language?: string;
+};
+
+export type DataSetOptions = {
+  dataSetIri: NamedNode;
+  dataSetLabels?: Label[];
+  graphIri: NamedNode;
+};
+
 class DataSet {
-  public label: any;
+  public labels: Label[];
   public iri: string;
   public endpoint: string;
   public graphIri?: string;
@@ -19,17 +30,18 @@ class DataSet {
     * @param endpoint SPARQL endpoint where the DataSet lives.
     * @param options Additional info about the DataSet.
     * @param options.dataSetIri The IRI of the DataSet.
-    * @param options.dataSetLabel (Optional) A label for the DataSet.
+    * @param options.dataSetLabels (Optional) A list of labels for the DataSet in the following form:
+    * `[ { value: "Something", language: "en" }, { value: "Etwas", language: "de" }, … ]`
     * @param options.graphIri The IRI of the graph from which the data will be fetched.
     */
   constructor(
     endpoint: string,
-    options: { dataSetIri: NamedNode, dataSetLabel?: Term, graphIri: NamedNode },
+    options: DataSetOptions,
   ) {
-    const { dataSetIri, dataSetLabel, graphIri } = options;
+    const { dataSetIri, dataSetLabels, graphIri } = options;
     this.fetcher = new SparqlFetcher(endpoint);
     this.iri = dataSetIri.value;
-    this.label = (dataSetLabel && dataSetLabel.value) || "";
+    this.labels = dataSetLabels || [];
     this.graphIri = graphIri.value;
     this.endpoint = endpoint;
   }
@@ -61,7 +73,7 @@ class DataSet {
   /**
    * Start a new query on the DataSet.
    */
-  public query(opts: IQueryOpts = {}): DataSetQuery {
+  public query(opts: IQueryOptions = {}): DataSetQuery {
     return new DataSetQuery(this, opts);
   }
 

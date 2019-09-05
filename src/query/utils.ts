@@ -1,7 +1,7 @@
 import { literal, namedNode, variable } from "@rdfjs/data-model";
 import { Variable } from "rdf-js";
 import Component from "../components";
-import { ICubeOpts } from "../datacube";
+import { ICubeOptions } from "../datacube";
 import Binding from "../expressions/binding";
 import Operator from "../expressions/operator";
 import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "../expressions/utils";
@@ -21,7 +21,7 @@ export interface IState {
 }
 
 // tslint:disable-next-line: no-empty-interface
-export interface IQueryOpts extends ICubeOpts {}
+export interface IQueryOptions extends ICubeOptions {}
 
 export const baseState: IState = {
   selects: {},

@@ -1,12 +1,12 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
-import DataSet from "./dataset";
+import DataSet, { DataSetOptions } from "./dataset";
 import { generateLangCoalesce, generateLangOptional } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 import { BgpPattern, BindPattern, BlockPattern, GraphPattern } from "./sparqljs";
 
-export interface ICubeOpts {
+export interface ICubeOptions {
   languages?: string[];
 }
 
@@ -24,11 +24,11 @@ export class DataCube {
    * their [[Dimension]]s, [[Measure]]s and [[Attribute]]s.
    * @class DataCube
    * @param endpoint SPARQL endpoint
-   * @param opts Options
-   * @param opts.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
+   * @param options Options
+   * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
    * Passed down to [[DataSet]]s and [[DataSetQuery]].
    */
-  constructor(endpoint: string, opts: ICubeOpts = {}) {
+  constructor(endpoint: string, options: ICubeOptions = {}) {
     this.endpoint = endpoint;
     this.languages = opts.languages || [];
     this.fetcher = new SparqlFetcher(endpoint);
@@ -87,8 +87,22 @@ export class DataCube {
     const sparql = generator.stringify(query);
     const datasets = await this.fetcher.select(sparql);
     this.datasetsLoaded = true;
-    return this.cachedDatasets = datasets.map(({ dataSetIri, dataSetLabel, graphIri }) =>
-      new DataSet(this.endpoint, { dataSetIri, dataSetLabel, graphIri }));
+    const datasetsByIri = datasets.reduce((acc, { dataSetIri, dataSetLabel, graphIri }) => {
+      if (!acc[dataSetIri.value]) {
+        acc[dataSetIri.value] = {
+          dataSetIri,
+          dataSetLabels: [],
+          graphIri,
+        };
+      }
+      acc[dataSetIri.value].dataSetLabels.push({
+        value: dataSetLabel.value,
+        language: dataSetLabel.language,
+      });
+      return acc;
+    }, {});
+    return this.cachedDatasets = Object.values(datasetsByIri)
+      .map((dataset: DataSetOptions) => new DataSet(this.endpoint, dataset));
   }
 
   /**
