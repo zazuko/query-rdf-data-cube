@@ -12,17 +12,17 @@ function extractFilter(sparql: string) {
 }
 
 const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
-  dataSetIri: namedNode(
+  iri: namedNode(
     "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX"
   ),
-  dataSetLabels: [{value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit", language: "de"}],
+  labels: [{value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit", language: "de"}],
   graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics")
 });
 
-const a: any = new Dimension({ label: "aaaa", iri: "http://aaaa.aa" });
-const b: any = new Dimension({ label: "bbbb", iri: "http://bbbb.bb" });
-const c: any = new Dimension({ label: "cccc", iri: "http://cccc.cc" });
-const d: any = new Dimension({ label: "dddd", iri: "http://dddd.dd" });
+const a: any = new Dimension({ labels: [{value: "aaaa", language: ""}], iri: "http://aaaa.aa" });
+const b: any = new Dimension({ labels: [{value: "bbbb", language: ""}], iri: "http://bbbb.bb" });
+const c: any = new Dimension({ labels: [{value: "cccc", language: ""}], iri: "http://cccc.cc" });
+const d: any = new Dimension({ labels: [{value: "dddd", language: ""}], iri: "http://dddd.dd" });
 
 test("basic", async () => {
   let sparql = await dataset

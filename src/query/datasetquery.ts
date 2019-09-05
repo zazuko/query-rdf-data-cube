@@ -56,6 +56,14 @@ class DataSetQuery {
     const self = this.clone();
     Object.assign(self.state.selects, selects);
     Object.entries(self.state.selects).forEach(([bindingName, component]) => {
+      if (!component) {
+        const errorMessage = [
+          "Invalid Component in",
+          `\`.select({ ${bindingName}: someFalsyValue })\``,
+          `             ${" ".repeat(bindingName.length)}^^^^^^^^^^^^^^`,
+        ].join("\n");
+        throw new Error(errorMessage);
+      }
       self.bindingToComponent.set(bindingName, component);
       self.iriToBinding.set(component.iri.value, bindingName);
       self.state.selects[bindingName] = component;

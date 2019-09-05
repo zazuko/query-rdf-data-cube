@@ -1,49 +1,56 @@
+import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode, Term } from "rdf-js";
+import { Generator as SparqlGenerator } from "sparqljs";
 import Attribute from "./components/attribute";
 import Dimension from "./components/dimension";
 import Measure from "./components/measure";
+import { ICubeOptions } from "./datacube";
 import DataSetQuery from "./query/datasetquery";
-import { IQueryOptions } from "./query/utils";
+import { generateLangCoalesce, generateLangOptional, IQueryOptions } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 
-type Label = {
+type MetadataCache = { attributes: Attribute[], dimensions: Dimension[], measures: Measure[] };
+type GroupedMetadata = { kind: Term, iri: Term, labels: Label[] };
+export type Label = {
   value: string;
   language?: string;
 };
 
-export type DataSetOptions = {
-  dataSetIri: NamedNode;
-  dataSetLabels?: Label[];
+export interface IDataSetOptions extends ICubeOptions {
+  iri: NamedNode;
+  labels?: Label[];
   graphIri: NamedNode;
-};
+}
 
 class DataSet {
   public labels: Label[];
   public iri: string;
   public endpoint: string;
   public graphIri?: string;
+  private languages: string[];
   private fetcher: SparqlFetcher;
   private metadataLoaded: boolean = false;
-  private cachedMetadata: { attributes: Attribute[]; dimensions: Dimension[]; measures: Measure[]; };
+  private cachedMetadata: MetadataCache;
 
    /**
     * @param endpoint SPARQL endpoint where the DataSet lives.
     * @param options Additional info about the DataSet.
-    * @param options.dataSetIri The IRI of the DataSet.
-    * @param options.dataSetLabels (Optional) A list of labels for the DataSet in the following form:
+    * @param options.iri The IRI of the DataSet.
+    * @param options.labels (Optional) A list of labels for the DataSet in the following form:
     * `[ { value: "Something", language: "en" }, { value: "Etwas", language: "de" }, … ]`
     * @param options.graphIri The IRI of the graph from which the data will be fetched.
     */
   constructor(
     endpoint: string,
-    options: DataSetOptions,
+    options: IDataSetOptions,
   ) {
-    const { dataSetIri, dataSetLabels, graphIri } = options;
+    const { iri, labels, graphIri } = options;
     this.fetcher = new SparqlFetcher(endpoint);
-    this.iri = dataSetIri.value;
-    this.labels = dataSetLabels || [];
-    this.graphIri = graphIri.value;
     this.endpoint = endpoint;
+    this.iri = iri.value;
+    this.graphIri = graphIri.value;
+    this.labels = labels || [];
+    this.languages = options.languages || ["de", "it"];
   }
 
   /**
@@ -81,44 +88,114 @@ class DataSet {
     if (this.metadataLoaded) {
       return;
     }
-    const query = `
-      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX qb: <http://purl.org/linked-data/cube#>
-      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    // const query = `
+    //   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    //   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    //   PREFIX qb: <http://purl.org/linked-data/cube#>
+    //   PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-      SELECT ?label ?kind ?iri
+    //   SELECT ?label ?kind ?iri
 
-      ${this.graphIri ? `FROM <${this.graphIri}>` : ""}
-      WHERE {
-        <${this.iri}> a qb:DataSet ;
-          qb:structure/qb:component ?componentSpec .
-        ?componentSpec ?kind ?iri .
-        ?iri rdfs:label|skos:prefLabel ?label .
-      }`;
+    //   ${this.graphIri ? `FROM <${this.graphIri}>` : ""}
+    //   WHERE {
+    //     <${this.iri}> a qb:DataSet ;
+    //       qb:structure/qb:component ?componentSpec .
+    //     ?componentSpec ?kind ?iri .
+    //     ?iri rdfs:label|skos:prefLabel ?label .
+    //   }`;
 
-    const metadata = await this.fetcher.select(query);
+    const binding = variable("iri");
+    const labelBinding = variable("label");
+    const labelLangBinding = variable(`labelLang`);
+    const bindings = {
+      binding,
+      labelBinding,
+      labelLangBinding,
+    };
 
-    this.cachedMetadata = metadata.reduce((metadataProp, { kind, label, iri }) => {
-      switch (kind.value) {
-        case "http://purl.org/linked-data/cube#attribute":
-          metadataProp.attributes.push(new Attribute({label, iri}));
-          break;
-        case "http://purl.org/linked-data/cube#dimension":
-          metadataProp.dimensions.push(new Dimension({label, iri}));
-          break;
-        case "http://purl.org/linked-data/cube#measure":
-          metadataProp.measures.push(new Measure({label, iri}));
-          break;
-        default:
-          throw new Error(`Unknown component kind ${kind.value}`);
+    const query = {
+      queryType: "SELECT",
+      variables: [
+        binding,
+        variable("kind"),
+        labelBinding,
+      ],
+      from: { default: [ namedNode(this.graphIri) ], named: [] },
+      where: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: namedNode(this.iri),
+              predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+              object: namedNode("http://purl.org/linked-data/cube#DataSet"),
+            },
+            {
+              subject: namedNode(this.iri),
+              predicate: {
+                type: "path",
+                pathType: "/",
+                items: [
+                  namedNode("http://purl.org/linked-data/cube#structure"),
+                  namedNode("http://purl.org/linked-data/cube#component"),
+                ],
+              },
+              object: variable("componentSpec"),
+            },
+            {
+              subject: variable("componentSpec"),
+              predicate: variable("kind"),
+              object: binding,
+            },
+          ],
+        },
+        generateLangOptional(bindings, this.languages),
+        generateLangCoalesce(bindings, this.languages),
+      ],
+      type: "query",
+    };
+
+    const generator = new SparqlGenerator({ allPrefixes: true });
+    const sparql = generator.stringify(query);
+
+    const metadata = await this.fetcher.select(sparql);
+    const metadataByIri = metadata.reduce((acc, { kind, label, iri }) => {
+      if (!acc[iri.value]) {
+        acc[iri.value] = {
+          kind,
+          labels: [],
+          iri,
+        };
       }
-      return metadataProp;
-    }, {
-      attributes: [],
-      dimensions: [],
-      measures: [],
-    });
+      acc[iri.value].labels.push({
+        value: label.value,
+        language: label.language,
+      });
+      return acc;
+    }, {});
+    const groupedMetadata: GroupedMetadata[] = Object.values(metadataByIri);
+
+    this.cachedMetadata = groupedMetadata
+      .reduce((metadataProp: MetadataCache, { kind, labels, iri }) => {
+        switch (kind.value) {
+          case "http://purl.org/linked-data/cube#attribute":
+            metadataProp.attributes.push(new Attribute({ labels, iri }));
+            break;
+          case "http://purl.org/linked-data/cube#dimension":
+            metadataProp.dimensions.push(new Dimension({ labels, iri }));
+            break;
+          case "http://purl.org/linked-data/cube#measure":
+            metadataProp.measures.push(new Measure({ labels, iri }));
+            break;
+          default:
+            throw new Error(`Unknown component kind ${kind.value}`);
+        }
+        return metadataProp;
+      }, {
+        attributes: [],
+        dimensions: [],
+        measures: [],
+      });
 
     this.metadataLoaded = true;
   }

@@ -5,7 +5,7 @@ let d = null;
 
 describe("filters", () => {
   beforeAll(() => {
-    d = new Dimension({ label: "d", iri: "http://example.com/d" });
+    d = new Dimension({ labels: [{value: "d", language: ""}], iri: "http://example.com/d" });
   });
 
   test("bound", () => {

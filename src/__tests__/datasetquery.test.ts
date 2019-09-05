@@ -5,106 +5,122 @@ import Measure from "../components/measure";
 import DataSet from "../dataset";
 
 const betriebsartDimension = new Dimension({
-  label: "Betriebsart",
+  labels: [{ value: "Betriebsart", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/property/BTA",
 });
 const geschlechtDimension = new Dimension({
-  label: "Geschlecht",
+  labels: [{ value: "Geschlecht", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/property/SEX",
 });
 const raumDimension = new Dimension({
-  label: "Raum",
+  labels: [{ value: "Raum", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/property/RAUM",
 });
 const zeitDimension = new Dimension({
-  label: "Zeit",
+  labels: [{ value: "Zeit", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/property/ZEIT",
 });
 const beschaeftigteMeasure = new Measure({
-  label: "Beschäftigte",
+  labels: [{ value: "Beschäftigte", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/measure/BES",
 });
 const quelleAttribute = new Attribute({
-  label: "Quelle",
+  labels: [{ value: "Quelle", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE",
 });
 const glossarAttribute = new Attribute({
-  label: "Glossar",
+  labels: [{ value: "Glossar", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR",
 });
 const fussnoteAttribute = new Attribute({
-  label: "Fussnote",
+  labels: [{ value: "Fussnote", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE",
 });
 const datenstandAttribute = new Attribute({
-  label: "Datenstand",
+  labels: [{ value: "Datenstand", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/DATENSTAND",
 });
 const erwarteteAktualisierungAttribute = new Attribute({
-  label: "Erwartete Aktualisierung",
-  iri: "https://ld.stadt-zuerich.ch/statistics/attribute/ERWARTETE_AKTUALISIERUNG",
+  labels: [{ value: "Erwartete Aktualisierung", language: "" }],
+  iri:
+    "https://ld.stadt-zuerich.ch/statistics/attribute/ERWARTETE_AKTUALISIERUNG",
 });
 const korrekturAttribute = new Attribute({
-  label: "Korrektur",
+  labels: [{ value: "Korrektur", language: "" }],
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR",
 });
 
-const dataset: DataSet = new DataSet(
-  "https://ld.stadt-zuerich.ch/query",
-  {
-    dataSetIri: namedNode("https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX"),
-    dataSetLabels: [{value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit", language: "de"}],
-    graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics"),
-  },
-);
+const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
+  iri: namedNode(
+    "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX",
+  ),
+  labels: [
+    {
+      value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit",
+      language: "de",
+    },
+  ],
+  graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics"),
+});
 
 test("basic", async () => {
-  const query = dataset
-    .query()
-    .select({
-      betriebsart: betriebsartDimension,
-      geschlecht: geschlechtDimension,
-      raum: raumDimension,
-      zeit: zeitDimension,
+  const query = dataset.query().select({
+    betriebsart: betriebsartDimension,
+    geschlecht: geschlechtDimension,
+    raum: raumDimension,
+    zeit: zeitDimension,
 
-      bep: beschaeftigteMeasure,
+    bep: beschaeftigteMeasure,
 
-      quelle: quelleAttribute,
-      glossar: glossarAttribute,
-      fussnote: fussnoteAttribute,
-      datenstand: datenstandAttribute,
-      erwarteteAktualisierung: erwarteteAktualisierungAttribute,
-      korrektur: korrekturAttribute,
-    });
+    quelle: quelleAttribute,
+    glossar: glossarAttribute,
+    fussnote: fussnoteAttribute,
+    datenstand: datenstandAttribute,
+    erwarteteAktualisierung: erwarteteAktualisierungAttribute,
+    korrektur: korrekturAttribute,
+  });
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
 });
 
+describe("select", () => {
+  test("throws helpful message on falsy components", async () => {
+    const query = dataset.query();
+    expect(() =>
+      query.select({
+        betriebsart: betriebsartDimension,
+        geschlecht: geschlechtDimension,
+        raum: null,
+        zeit: zeitDimension,
+      }),
+    ).toThrowErrorMatchingInlineSnapshot(`
+"Invalid Component in
+\`.select({ raum: someFalsyValue })\`
+                 ^^^^^^^^^^^^^^"
+`);
+  });
+});
+
 test("distinct", async () => {
-  const query = dataset
-    .query()
-    .select({
-      raum: raumDimension.distinct(),
-    });
+  const query = dataset.query().select({
+    raum: raumDimension.distinct(),
+  });
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
 });
 
 test("empty select", async () => {
-  const query = dataset
-    .query();
+  const query = dataset.query();
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
 });
 
 describe("avg", () => {
   test("avg", async () => {
-    const query = dataset
-      .query()
-      .select({
-        raum: raumDimension,
-        bep: beschaeftigteMeasure.avg(),
-      });
+    const query = dataset.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure.avg(),
+    });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
@@ -116,9 +132,9 @@ describe("avg", () => {
         raum: raumDimension,
         bep: beschaeftigteMeasure.avg(),
       })
-    .filter(raumDimension.not.in([namedNode("http://foo")]))
-    .offset(150)
-    .limit(50);
+      .filter(raumDimension.not.in([namedNode("http://foo")]))
+      .offset(150)
+      .limit(50);
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
@@ -143,23 +159,21 @@ describe("avg", () => {
   });
 
   test("avg distinct", async () => {
-    const query = dataset
-      .query()
-      .select({
-        betriebsart: betriebsartDimension,
-        geschlecht: geschlechtDimension,
-        raum: raumDimension,
-        zeit: zeitDimension,
+    const query = dataset.query().select({
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
 
-        bep: beschaeftigteMeasure.avg().distinct(),
+      bep: beschaeftigteMeasure.avg().distinct(),
 
-        quelle: quelleAttribute,
-        glossar: glossarAttribute,
-        fussnote: fussnoteAttribute,
-        datenstand: datenstandAttribute,
-        erwarteteAktualisierung: erwarteteAktualisierungAttribute,
-        korrektur: korrekturAttribute,
-      });
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+      datenstand: datenstandAttribute,
+      erwarteteAktualisierung: erwarteteAktualisierungAttribute,
+      korrektur: korrekturAttribute,
+    });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
@@ -199,32 +213,26 @@ describe("groupBy", () => {
       })
       .groupBy(({ zeit }) => zeit)
       .groupBy(({ raum }) => raum);
-      // .having(({ bep }) => bep.gte(10000))
+    // .having(({ bep }) => bep.gte(10000))
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
 
   test("groups with strings", async () => {
-    const base = dataset
-      .query()
-      .select({
-        betriebsart: betriebsartDimension,
-        geschlecht: geschlechtDimension,
-        raum: raumDimension,
-        zeit: zeitDimension,
+    const base = dataset.query().select({
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
 
-        bep: beschaeftigteMeasure,
+      bep: beschaeftigteMeasure,
 
-        quelle: quelleAttribute,
-        glossar: glossarAttribute,
-        fussnote: fussnoteAttribute,
-      });
-    const queryA = base
-      .groupBy(({ zeit }) => zeit)
-      .groupBy(({ raum }) => raum);
-    const queryB = base
-      .groupBy("zeit")
-      .groupBy("raum");
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+    });
+    const queryA = base.groupBy(({ zeit }) => zeit).groupBy(({ raum }) => raum);
+    const queryB = base.groupBy("zeit").groupBy("raum");
     const sparqlA = await queryA.toSparql();
     const sparqlB = await queryB.toSparql();
     expect(sparqlA).toBe(sparqlB);
@@ -250,27 +258,25 @@ describe("groupBy", () => {
       .groupBy(({ zeit }) => zeit)
       .groupBy("raum")
       .groupBy(({ raum }) => raum);
-      // .having(({ bep }) => bep.gte(10000))
+    // .having(({ bep }) => bep.gte(10000))
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
 });
 
 test("group and filter", async () => {
-  const base = dataset
-    .query()
-    .select({
-      betriebsart: betriebsartDimension,
-      geschlecht: geschlechtDimension,
-      raum: raumDimension,
-      zeit: zeitDimension,
+  const base = dataset.query().select({
+    betriebsart: betriebsartDimension,
+    geschlecht: geschlechtDimension,
+    raum: raumDimension,
+    zeit: zeitDimension,
 
-      bep: beschaeftigteMeasure,
+    bep: beschaeftigteMeasure,
 
-      quelle: quelleAttribute,
-      glossar: glossarAttribute,
-      fussnote: fussnoteAttribute,
-    });
+    quelle: quelleAttribute,
+    glossar: glossarAttribute,
+    fussnote: fussnoteAttribute,
+  });
   const query = base
     .filter(raumDimension.gte(literal("12")))
     .filter(beschaeftigteMeasure.gte(literal("12")))
@@ -282,20 +288,18 @@ test("group and filter", async () => {
 
 describe("ordering", () => {
   test("group and filter", async () => {
-    const base = dataset
-      .query()
-      .select({
-        betriebsart: betriebsartDimension,
-        geschlecht: geschlechtDimension,
-        raum: raumDimension,
-        zeit: zeitDimension,
+    const base = dataset.query().select({
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
 
-        bep: beschaeftigteMeasure,
+      bep: beschaeftigteMeasure,
 
-        quelle: quelleAttribute,
-        glossar: glossarAttribute,
-        fussnote: fussnoteAttribute,
-      });
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+    });
     const query = base
       .filter(raumDimension.gte(literal("12")))
       .filter(beschaeftigteMeasure.gte(literal("12")))
@@ -308,12 +312,10 @@ describe("ordering", () => {
   });
 
   test("one or many give same sparql", async () => {
-    const base = dataset
-      .query()
-      .select({
-        raum: raumDimension,
-        zeit: zeitDimension,
-      });
+    const base = dataset.query().select({
+      raum: raumDimension,
+      zeit: zeitDimension,
+    });
     const queryBase = base
       .filter(raumDimension.gte(literal("12")))
       .groupBy(({ zeit }) => zeit)
@@ -321,26 +323,20 @@ describe("ordering", () => {
     const queryA = queryBase
       .orderBy(zeitDimension.desc())
       .orderBy(raumDimension);
-    const queryB = queryBase
-      .orderBy(zeitDimension.desc(), raumDimension);
+    const queryB = queryBase.orderBy(zeitDimension.desc(), raumDimension);
     const sparqlA = await queryA.toSparql();
     const sparqlB = await queryB.toSparql();
     expect(sparqlA).toBe(sparqlB);
   });
 
   test("are ordered", async () => {
-    const base = dataset
-      .query()
-      .select({
-        raum: raumDimension,
-        zeit: zeitDimension,
-      });
-    const queryBase = base
-      .filter(raumDimension.gte(literal("12")));
-    const queryA = queryBase
-    .orderBy(raumDimension, zeitDimension.desc());
-    const queryB = queryBase
-      .orderBy(zeitDimension.desc(), raumDimension);
+    const base = dataset.query().select({
+      raum: raumDimension,
+      zeit: zeitDimension,
+    });
+    const queryBase = base.filter(raumDimension.gte(literal("12")));
+    const queryA = queryBase.orderBy(raumDimension, zeitDimension.desc());
+    const queryB = queryBase.orderBy(zeitDimension.desc(), raumDimension);
     const sparqlA = await queryA.toSparql();
     const sparqlB = await queryB.toSparql();
     expect(sparqlA).not.toBe(sparqlB);
@@ -351,43 +347,37 @@ describe("ordering", () => {
 
 describe("handles languages", () => {
   test("one language", async () => {
-    const query = dataset
-      .query({ languages: ["en"] })
-      .select({
-        zeit: zeitDimension,
+    const query = dataset.query({ languages: ["en"] }).select({
+      zeit: zeitDimension,
 
-        bep: beschaeftigteMeasure,
+      bep: beschaeftigteMeasure,
 
-        quelle: quelleAttribute,
-      });
+      quelle: quelleAttribute,
+    });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
 
   test("two languages", async () => {
-    const query = dataset
-      .query({ languages: ["en", "de"] })
-      .select({
-        zeit: zeitDimension,
+    const query = dataset.query({ languages: ["en", "de"] }).select({
+      zeit: zeitDimension,
 
-        bep: beschaeftigteMeasure,
+      bep: beschaeftigteMeasure,
 
-        quelle: quelleAttribute,
-      });
+      quelle: quelleAttribute,
+    });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
 
   test("three languages", async () => {
-    const query = dataset
-      .query({ languages: ["fr", "de", "it"] })
-      .select({
-        zeit: zeitDimension,
+    const query = dataset.query({ languages: ["fr", "de", "it"] }).select({
+      zeit: zeitDimension,
 
-        bep: beschaeftigteMeasure,
+      bep: beschaeftigteMeasure,
 
-        quelle: quelleAttribute,
-      });
+      quelle: quelleAttribute,
+    });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });

@@ -1,7 +1,7 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
-import DataSet, { DataSetOptions } from "./dataset";
+import DataSet, { IDataSetOptions } from "./dataset";
 import { generateLangCoalesce, generateLangOptional } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 import { BgpPattern, BindPattern, BlockPattern, GraphPattern } from "./sparqljs";
@@ -30,7 +30,7 @@ export class DataCube {
    */
   constructor(endpoint: string, options: ICubeOptions = {}) {
     this.endpoint = endpoint;
-    this.languages = opts.languages || [];
+    this.languages = options.languages || ["de", "it"];
     this.fetcher = new SparqlFetcher(endpoint);
     this.cachedDatasets = [];
     this.cachedGraphs = [];
@@ -43,12 +43,12 @@ export class DataCube {
     if (this.datasetsLoaded) {
       return this.cachedDatasets;
     }
-    const dataSetIriBinding = variable("dataSetIri");
+    const iriBinding = variable("iri");
     const graphIriBinding = variable("graphIri");
-    const labelBinding = variable("dataSetLabel");
+    const labelBinding = variable("label");
 
     const bindings = {
-      binding: dataSetIriBinding,
+      binding: iriBinding,
       labelBinding,
       labelLangBinding: variable(`${labelBinding.value}Lang`),
     };
@@ -56,7 +56,7 @@ export class DataCube {
     const query = {
       queryType: "SELECT",
       variables: [
-        dataSetIriBinding,
+        iriBinding,
         graphIriBinding,
         labelBinding,
       ],
@@ -69,7 +69,7 @@ export class DataCube {
               type: "bgp",
               triples: [
                 {
-                  subject: dataSetIriBinding,
+                  subject: iriBinding,
                   predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
                   object: namedNode("http://purl.org/linked-data/cube#DataSet"),
                 },
@@ -87,22 +87,23 @@ export class DataCube {
     const sparql = generator.stringify(query);
     const datasets = await this.fetcher.select(sparql);
     this.datasetsLoaded = true;
-    const datasetsByIri = datasets.reduce((acc, { dataSetIri, dataSetLabel, graphIri }) => {
-      if (!acc[dataSetIri.value]) {
-        acc[dataSetIri.value] = {
-          dataSetIri,
-          dataSetLabels: [],
+    const datasetsByIri = datasets.reduce((acc, { iri, label, graphIri }) => {
+      if (!acc[iri.value]) {
+        acc[iri.value] = {
+          iri,
+          labels: [],
           graphIri,
+          languages: this.languages,
         };
       }
-      acc[dataSetIri.value].dataSetLabels.push({
-        value: dataSetLabel.value,
-        language: dataSetLabel.language,
+      acc[iri.value].labels.push({
+        value: label.value,
+        language: label.language,
       });
       return acc;
     }, {});
     return this.cachedDatasets = Object.values(datasetsByIri)
-      .map((dataset: DataSetOptions) => new DataSet(this.endpoint, dataset));
+      .map((dataset: IDataSetOptions) => new DataSet(this.endpoint, dataset));
   }
 
   /**

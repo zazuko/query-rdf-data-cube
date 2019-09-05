@@ -10,13 +10,12 @@ Operator {
         "value": "http://example.com/d",
       },
       "isDistinct": false,
-      "label": Literal {
-        "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#string",
+      "labels": Array [
+        Object {
+          "language": "",
+          "value": "d",
         },
-        "language": "",
-        "value": "d",
-      },
+      ],
     },
   ],
   "operator": "bound",
@@ -35,13 +34,12 @@ Operator {
             "value": "http://example.com/d",
           },
           "isDistinct": false,
-          "label": Literal {
-            "datatype": NamedNode {
-              "value": "http://www.w3.org/2001/XMLSchema#string",
+          "labels": Array [
+            Object {
+              "language": "",
+              "value": "d",
             },
-            "language": "",
-            "value": "d",
-          },
+          ],
         },
       ],
       "operator": "bound",
@@ -61,13 +59,12 @@ Operator {
         "value": "http://example.com/d",
       },
       "isDistinct": false,
-      "label": Literal {
-        "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#string",
+      "labels": Array [
+        Object {
+          "language": "",
+          "value": "d",
         },
-        "language": "",
-        "value": "d",
-      },
+      ],
     },
     ArrayExpr {
       "xs": Array [
