@@ -7,11 +7,14 @@ import { IExpr } from "../expressions/utils";
 import SparqlFetcher from "../sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
 import { baseState, combineFilters, createOperationExpression } from "./utils";
-import { generateLangPatterns, IQueryOpts, IState, PredicateFunction } from "./utils";
+import { generateLangCoalesce, generateLangOptional, IQueryOpts, IState, PredicateFunction } from "./utils";
 
 /**
  * A query to a [[DataSet]].
  * @class DataSetQuery
+ * @param opts Options
+ * @param opts.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
+ * Inherited from [[DataCube]].
  */
 class DataSetQuery {
   private dataSet: DataSet;
@@ -300,8 +303,9 @@ class DataSetQuery {
           labelBinding,
           labelLangBinding: variable(`${bindingName}LabelLang`),
         };
-        const langPatterns = generateLangPatterns(bindings, this.languages);
-        fetchLabels.push(...langPatterns);
+        const langOptional = generateLangOptional(bindings, this.languages);
+        const langCoalesce = generateLangCoalesce(bindings, this.languages);
+        fetchLabels.push(langOptional, langCoalesce);
         query.variables.push(binding, labelBinding);
       });
 

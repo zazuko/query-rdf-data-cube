@@ -1,6 +1,7 @@
 import { literal, namedNode, variable } from "@rdfjs/data-model";
 import { Variable } from "rdf-js";
 import Component from "../components";
+import { ICubeOpts } from "../datacube";
 import Binding from "../expressions/binding";
 import Operator from "../expressions/operator";
 import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "../expressions/utils";
@@ -19,9 +20,8 @@ export interface IState {
   order: Component[];
 }
 
-export interface IQueryOpts {
-  languages?: string[];
-}
+// tslint:disable-next-line: no-empty-interface
+export interface IQueryOpts extends ICubeOpts {}
 
 export const baseState: IState = {
   selects: {},
@@ -182,7 +182,7 @@ function langFilter(labelLangBinding: Variable, langs: string[]): FilterPattern 
   };
 }
 
-export function generateLangPatterns(bindings: ILangBindings, langs: string[]) {
+export function generateLangOptional(bindings: ILangBindings, langs: string[]): BlockPattern {
   const {binding, labelBinding, labelLangBinding} = bindings;
   const findLabel: BlockPattern = {
     type: "optional",
@@ -208,6 +208,11 @@ export function generateLangPatterns(bindings: ILangBindings, langs: string[]) {
     ],
   };
 
+  return findLabel;
+}
+
+export function generateLangCoalesce(bindings: ILangBindings, langs: string[]): BindPattern {
+  const {binding, labelBinding, labelLangBinding} = bindings;
   const coalesceLabel: BindPattern = {
     type: "bind",
     variable: labelBinding,
@@ -221,5 +226,5 @@ export function generateLangPatterns(bindings: ILangBindings, langs: string[]) {
     },
   };
 
-  return [findLabel, coalesceLabel];
+  return coalesceLabel;
 }
