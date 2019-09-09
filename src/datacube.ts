@@ -91,9 +91,18 @@ export class DataCube {
    *
    * @param iri IRI of the DataSet to return.
    */
-  public async datasetByIri(iri: string): Promise<DataSet> {
-    const datasets = await this.datasets();
-    return datasets.find((dataset) => dataset.iri === iri);
+  public async datasetByIri(dataSetIri: string): Promise<DataSet> {
+    const found = Array.from(this.cachedDatasets.values()).find((dataset) => dataset.iri === dataSetIri);
+    if (found) {
+      return found;
+    }
+    const sparql = this.generateQuery({ dataSetIri: namedNode(dataSetIri) });
+    const queryResult = await this.fetcher.select(sparql);
+    if (!queryResult.length) {
+      throw new Error(`No dataset with iri <${dataSetIri}> on ${this.endpoint}`);
+    }
+    this.cacheDatasets(queryResult);
+    return this.datasetByIri(dataSetIri);
   }
 
   /**
