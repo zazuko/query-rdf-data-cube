@@ -81,6 +81,9 @@ class DataSet {
    * Start a new query on the DataSet.
    */
   public query(opts: IQueryOptions = {}): DataSetQuery {
+    if (!opts.languages) {
+      opts.languages = this.languages;
+    }
     return new DataSetQuery(this, opts);
   }
 

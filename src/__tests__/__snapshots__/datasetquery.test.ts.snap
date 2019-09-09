@@ -12,7 +12,7 @@ WHERE {
   ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
 }
@@ -32,7 +32,7 @@ WHERE {
   ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   FILTER(?raum NOT IN(<http://foo>))
@@ -60,22 +60,22 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR> ?korrektur. }
   OPTIONAL {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
-    FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
-    FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
-    FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
@@ -101,22 +101,22 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR> ?korrektur. }
   OPTIONAL {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
-    FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
-    FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
-    FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
@@ -134,7 +134,7 @@ WHERE {
   ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
 }
@@ -169,22 +169,22 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
-    FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
-    FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
-    FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
   FILTER((?raum >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>) && (?bep >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>))
@@ -208,22 +208,22 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
-    FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
-    FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
-    FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
@@ -246,22 +246,22 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
-    FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
-    FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
-    FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
 }
@@ -281,12 +281,12 @@ WHERE {
   ?observation <http://purl.org/linked-data/cube#dataSet> <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
-    FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
   FILTER(?raum = <http://something/R3000>)
@@ -370,22 +370,22 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
     ?betriebsart (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?betriebsartLabelLang.
-    FILTER((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?betriebsartLabel)
   OPTIONAL {
     ?geschlecht (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?geschlechtLabelLang.
-    FILTER((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?geschlechtLabel)
   OPTIONAL {
     ?raum (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?raumLabelLang.
-    FILTER((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?raumLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?raumLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?raumLabel)
   OPTIONAL {
     ?zeit (<http://www.w3.org/2000/01/rdf-schema#label>|<http://www.w3.org/2004/02/skos/core#prefLabel>) ?zeitLabelLang.
-    FILTER((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>)
+    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^<http://www.w3.org/2001/XMLSchema#string>)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^<http://www.w3.org/2001/XMLSchema#string>))) || ((LANG(?zeitLabelLang)) = \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>))
   }
   BIND(COALESCE(?zeitLabelLang, \\"\\"^^<http://www.w3.org/2001/XMLSchema#string>) AS ?zeitLabel)
   FILTER((?raum >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>) && (?bep >= \\"12\\"^^<http://www.w3.org/2001/XMLSchema#string>))
