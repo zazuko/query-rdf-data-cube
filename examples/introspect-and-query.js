@@ -1,6 +1,6 @@
 const { inspect } = require("util");
 const { DataCube } = require("..");
-const { Dimension } = require("../dist/node/components");
+const { Dimension } = require("../dist/node/src/components");
 
 function prettyPrint(obj) {
   return inspect(obj, false, 10000, true);

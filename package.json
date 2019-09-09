@@ -15,8 +15,8 @@
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "postversion": "npm run docs:compile && npm run docs:publish"
   },
-  "main": "dist/node/datacube.js",
-  "module": "dist/es/index.js",
+  "main": "dist/node/src/datacube.js",
+  "module": "dist/es/src/datacube.js",
   "files": [
     "dist"
   ],
