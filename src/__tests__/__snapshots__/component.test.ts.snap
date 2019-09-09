@@ -3,20 +3,7 @@
 exports[`filters bound 1`] = `
 Operator {
   "args": Array [
-    Dimension {
-      "componentType": "dimension",
-      "descending": false,
-      "iri": NamedNode {
-        "value": "http://example.com/d",
-      },
-      "isDistinct": false,
-      "labels": Array [
-        Object {
-          "language": "",
-          "value": "d",
-        },
-      ],
-    },
+    "{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://example.com/d\\",\\"labels\\":[{\\"value\\":\\"d\\",\\"language\\":\\"\\"}]}",
   ],
   "operator": "bound",
 }
@@ -27,20 +14,7 @@ Operator {
   "args": Array [
     Operator {
       "args": Array [
-        Dimension {
-          "componentType": "dimension",
-          "descending": false,
-          "iri": NamedNode {
-            "value": "http://example.com/d",
-          },
-          "isDistinct": false,
-          "labels": Array [
-            Object {
-              "language": "",
-              "value": "d",
-            },
-          ],
-        },
+        "{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://example.com/d\\",\\"labels\\":[{\\"value\\":\\"d\\",\\"language\\":\\"\\"}]}",
       ],
       "operator": "bound",
     },
@@ -52,20 +26,7 @@ Operator {
 exports[`filters not in 1`] = `
 Operator {
   "args": Array [
-    Dimension {
-      "componentType": "dimension",
-      "descending": false,
-      "iri": NamedNode {
-        "value": "http://example.com/d",
-      },
-      "isDistinct": false,
-      "labels": Array [
-        Object {
-          "language": "",
-          "value": "d",
-        },
-      ],
-    },
+    "{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://example.com/d\\",\\"labels\\":[{\\"value\\":\\"d\\",\\"language\\":\\"\\"}]}",
     ArrayExpr {
       "xs": Array [
         NamedNode {
