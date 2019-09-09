@@ -294,8 +294,8 @@ class DataSetQuery {
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "dimension")
       .forEach(([bindingName, component]) => {
-        this.bindingToComponent[bindingName] = component;
-        this.iriToBinding[component.iri.value] = bindingName;
+        this.bindingToComponent.set(bindingName, component);
+        this.iriToBinding.set(component.iri.value, bindingName);
         const binding = variable(bindingName);
 
         addedDimensionsIRIs.push(component.iri.value);
@@ -323,8 +323,8 @@ class DataSetQuery {
       .filter(({ iri }) => !addedDimensionsIRIs.includes(iri.value))
       .forEach((component) => {
         const tmpVar = this.newTmpVar();
-        this.bindingToComponent[tmpVar.value] = component;
-        this.iriToBinding[component.iri.value] = tmpVar.value;
+        this.bindingToComponent.set(tmpVar.value, component);
+        this.iriToBinding.set(component.iri.value, tmpVar.value);
         addedDimensionsIRIs.push(component.iri.value);
         mainWhereClauses.triples.push({
           subject: variable("observation"),
@@ -339,8 +339,8 @@ class DataSetQuery {
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "measure")
       .forEach(([bindingName, component]) => {
-        this.bindingToComponent[bindingName] = component;
-        this.iriToBinding[component.iri.value] = bindingName;
+        this.bindingToComponent.set(bindingName, component);
+        this.iriToBinding.set(component.iri.value, bindingName);
         if (component.aggregateType) {
           const tmp = this.newTmpVar();
           query.variables.push({
@@ -378,8 +378,8 @@ class DataSetQuery {
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "attribute")
       .forEach(([bindingName, component]) => {
-        this.bindingToComponent[bindingName] = component;
-        this.iriToBinding[component.iri.value] = bindingName;
+        this.bindingToComponent.set(bindingName, component);
+        this.iriToBinding.set(component.iri.value, bindingName);
         query.variables.push(variable(bindingName));
         query.where.push({
           type: "optional",
@@ -421,12 +421,12 @@ class DataSetQuery {
         if (typeof groupBy === "function") {
           component = groupBy(this.state.selects);
         } else {
-          component = this.bindingToComponent[groupBy];
+          component = this.bindingToComponent.get(groupBy);
         }
         if (!component) {
           throw new Error(`Cannot group on '${groupBy}': no component with this name.`);
         }
-        const bindingName = this.iriToBinding[component.iri.value];
+        const bindingName = this.iriToBinding.get(component.iri.value);
         if (!groupedOnBindingNames.includes(bindingName)) {
           groupedOnBindingNames.push(bindingName);
           query.group.push({
@@ -451,7 +451,7 @@ class DataSetQuery {
       query.order = [];
     }
     this.state.order.forEach((component) => {
-      const bindingName = this.iriToBinding[component.iri.value];
+      const bindingName = this.iriToBinding.get(component.iri.value);
       const order: Ordering = {
         expression: variable(bindingName),
       };
