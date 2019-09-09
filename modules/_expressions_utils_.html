@@ -89,11 +89,22 @@
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_expressions_utils_.html#intoexpr" class="tsd-kind-icon">Into<wbr>Expr</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_expressions_utils_.html#bool" class="tsd-kind-icon">bool</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_expressions_utils_.html#datetime" class="tsd-kind-icon">date<wbr>Time</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_expressions_utils_.html#numb" class="tsd-kind-icon">numb</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_expressions_utils_.html#xsd" class="tsd-kind-icon">xsd</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_expressions_utils_.html#into" class="tsd-kind-icon">into</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_expressions_utils_.html#isliteral" class="tsd-kind-icon">is<wbr>Literal</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_expressions_utils_.html#isterm" class="tsd-kind-icon">is<wbr>Term</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_expressions_utils_.html#toliteral" class="tsd-kind-icon">to<wbr>Literal</a></li>
 							</ul>
 						</section>
 					</div>
@@ -107,7 +118,50 @@
 					<div class="tsd-signature tsd-kind-icon">Into<wbr>Expr<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Term</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/6464cab/src/expressions/utils.ts#L12">expressions/utils.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L17">expressions/utils.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="bool" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> bool</h3>
+					<div class="tsd-signature tsd-kind-icon">bool<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^(true|false)$/</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L11">expressions/utils.ts:11</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="datetime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> date<wbr>Time</h3>
+					<div class="tsd-signature tsd-kind-icon">date<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^\d{4}(-[01]\d(-[0-3]\d(T[0-2]\d:[0-5]\d:?([0-5]\d(\.\d+)?)?([+-][0-2]\d:[0-5]\d)?Z?)?)?)$/</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L10">expressions/utils.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="numb" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> numb</h3>
+					<div class="tsd-signature tsd-kind-icon">numb<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^[\-+]?(?:\d+\.?\d*([eE](?:[\-\+])?\d+)|\d*\.?\d+)$/</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L12">expressions/utils.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="xsd" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> xsd</h3>
+					<div class="tsd-signature tsd-kind-icon">xsd<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;namespace(&quot;http://www.w3.org/2001/XMLSchema#&quot;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L8">expressions/utils.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -124,7 +178,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/6464cab/src/expressions/utils.ts#L47">expressions/utils.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L52">expressions/utils.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -134,6 +188,29 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="isliteral" class="tsd-anchor"></a>
+					<h3>is<wbr>Literal</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Literal<span class="tsd-signature-symbol">(</span>term<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L122">expressions/utils.ts:122</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>term: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -147,7 +224,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/6464cab/src/expressions/utils.ts#L37">expressions/utils.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L42">expressions/utils.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -157,6 +234,29 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="toliteral" class="tsd-anchor"></a>
+					<h3>to<wbr>Literal</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Literal<span class="tsd-signature-symbol">(</span>arg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Literal</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L87">expressions/utils.ts:87</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>arg: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Literal</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -190,9 +290,6 @@
 						<a href="_dataset_.html">"dataset"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_datasetquery_.html">"datasetquery"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="_expressions_base_.html">"expressions/base"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -208,10 +305,13 @@
 						<a href="_expressions_utils_.html">"expressions/utils"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_sparqlfetcher_.html">"sparqlfetcher"</a>
+						<a href="_query_datasetquery_.html">"query/datasetquery"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_toliteral_.html">"to<wbr>Literal"</a>
+						<a href="_query_utils_.html">"query/utils"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_sparqlfetcher_.html">"sparqlfetcher"</a>
 					</li>
 				</ul>
 			</nav>
@@ -229,11 +329,29 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_expressions_utils_.html#intoexpr" class="tsd-kind-icon">Into<wbr>Expr</a>
 					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_expressions_utils_.html#bool" class="tsd-kind-icon">bool</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_expressions_utils_.html#datetime" class="tsd-kind-icon">date<wbr>Time</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_expressions_utils_.html#numb" class="tsd-kind-icon">numb</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_expressions_utils_.html#xsd" class="tsd-kind-icon">xsd</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_expressions_utils_.html#into" class="tsd-kind-icon">into</a>
 					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_expressions_utils_.html#isliteral" class="tsd-kind-icon">is<wbr>Literal</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_expressions_utils_.html#isterm" class="tsd-kind-icon">is<wbr>Term</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_expressions_utils_.html#toliteral" class="tsd-kind-icon">to<wbr>Literal</a>
 					</li>
 				</ul>
 			</nav>

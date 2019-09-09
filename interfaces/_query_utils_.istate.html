@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ArrayExpr | @zazuko/query-rdf-data-cube</title>
+	<title>IState | @zazuko/query-rdf-data-cube</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_expressions_utils_.html">&quot;expressions/utils&quot;</a>
+					<a href="../modules/_query_utils_.html">&quot;query/utils&quot;</a>
 				</li>
 				<li>
-					<a href="_expressions_utils_.arrayexpr.html">ArrayExpr</a>
+					<a href="_query_utils_.istate.html">IState</a>
 				</li>
 			</ul>
-			<h1>Class ArrayExpr</h1>
+			<h1>Interface IState</h1>
 		</div>
 	</div>
 </header>
@@ -73,14 +73,8 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ArrayExpr</span>
+						<span class="target">IState</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -88,90 +82,91 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_expressions_utils_.arrayexpr.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_expressions_utils_.arrayexpr.html#xs" class="tsd-kind-icon">xs</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_expressions_utils_.arrayexpr.html#resolve" class="tsd-kind-icon">resolve</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.istate.html#filters" class="tsd-kind-icon">filters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.istate.html#groupbys" class="tsd-kind-icon">group<wbr>Bys</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.istate.html#havings" class="tsd-kind-icon">havings</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.istate.html#limit" class="tsd-kind-icon">limit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.istate.html#offset" class="tsd-kind-icon">offset</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.istate.html#order" class="tsd-kind-icon">order</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.istate.html#selects" class="tsd-kind-icon">selects</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Array<wbr>Expr<span class="tsd-signature-symbol">(</span>xs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Term</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_expressions_utils_.arrayexpr.html" class="tsd-signature-type">ArrayExpr</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L31">expressions/utils.ts:31</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>xs: <span class="tsd-signature-type">Term</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_expressions_utils_.arrayexpr.html" class="tsd-signature-type">ArrayExpr</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="xs" class="tsd-anchor"></a>
-					<h3>xs</h3>
-					<div class="tsd-signature tsd-kind-icon">xs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Term</span><span class="tsd-signature-symbol">[]</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="filters" class="tsd-anchor"></a>
+					<h3>filters</h3>
+					<div class="tsd-signature tsd-kind-icon">filters<span class="tsd-signature-symbol">:</span> <a href="_expressions_utils_.iexpr.html" class="tsd-signature-type">IExpr</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L31">expressions/utils.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/query/utils.ts#L15">query/utils.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="resolve" class="tsd-anchor"></a>
-					<h3>resolve</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">resolve<span class="tsd-signature-symbol">(</span>mapping<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/_expressions_utils_.iexpr.html">IExpr</a>.<a href="../interfaces/_expressions_utils_.iexpr.html#resolve">resolve</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/expressions/utils.ts#L37">expressions/utils.ts:37</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>mapping: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-						</li>
-					</ul>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="groupbys" class="tsd-anchor"></a>
+					<h3>group<wbr>Bys</h3>
+					<div class="tsd-signature tsd-kind-icon">group<wbr>Bys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_query_utils_.html#predicatefunction" class="tsd-signature-type">PredicateFunction</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/query/utils.ts#L16">query/utils.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="havings" class="tsd-anchor"></a>
+					<h3>havings</h3>
+					<div class="tsd-signature tsd-kind-icon">havings<span class="tsd-signature-symbol">:</span> <a href="../modules/_query_utils_.html#predicatefunction" class="tsd-signature-type">PredicateFunction</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/query/utils.ts#L17">query/utils.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="limit" class="tsd-anchor"></a>
+					<h3>limit</h3>
+					<div class="tsd-signature tsd-kind-icon">limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/query/utils.ts#L19">query/utils.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="offset" class="tsd-anchor"></a>
+					<h3>offset</h3>
+					<div class="tsd-signature tsd-kind-icon">offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/query/utils.ts#L18">query/utils.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="order" class="tsd-anchor"></a>
+					<h3>order</h3>
+					<div class="tsd-signature tsd-kind-icon">order<span class="tsd-signature-symbol">:</span> <a href="../classes/_components_component_.component.html" class="tsd-signature-type">Component</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/query/utils.ts#L20">query/utils.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="selects" class="tsd-anchor"></a>
+					<h3>selects</h3>
+					<div class="tsd-signature tsd-kind-icon">selects<span class="tsd-signature-symbol">:</span> <a href="../modules/_query_utils_.html#selects" class="tsd-signature-type">Selects</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/8c6f472/src/query/utils.ts#L14">query/utils.ts:14</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -214,13 +209,13 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_expressions_operator_.html">"expressions/operator"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_expressions_utils_.html">"expressions/utils"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_query_datasetquery_.html">"query/datasetquery"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_query_utils_.html">"query/utils"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -230,56 +225,71 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_query_utils_.iqueryoptions.html" class="tsd-kind-icon">IQuery<wbr>Options</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_expressions_utils_.arrayexpr.html" class="tsd-kind-icon">Array<wbr>Expr</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_query_utils_.istate.html" class="tsd-kind-icon">IState</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_expressions_utils_.arrayexpr.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.istate.html#filters" class="tsd-kind-icon">filters</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_expressions_utils_.arrayexpr.html#xs" class="tsd-kind-icon">xs</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.istate.html#groupbys" class="tsd-kind-icon">group<wbr>Bys</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_expressions_utils_.arrayexpr.html#resolve" class="tsd-kind-icon">resolve</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.istate.html#havings" class="tsd-kind-icon">havings</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.istate.html#limit" class="tsd-kind-icon">limit</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.istate.html#offset" class="tsd-kind-icon">offset</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.istate.html#order" class="tsd-kind-icon">order</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.istate.html#selects" class="tsd-kind-icon">selects</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_expressions_utils_.termexpr.html" class="tsd-kind-icon">Term<wbr>Expr</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_expressions_utils_.iexpr.html" class="tsd-kind-icon">IExpr</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_query_utils_.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_expressions_utils_.html#intoexpr" class="tsd-kind-icon">Into<wbr>Expr</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_expressions_utils_.html#bool" class="tsd-kind-icon">bool</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_expressions_utils_.html#datetime" class="tsd-kind-icon">date<wbr>Time</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_expressions_utils_.html#numb" class="tsd-kind-icon">numb</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_expressions_utils_.html#xsd" class="tsd-kind-icon">xsd</a>
+						<a href="../modules/_query_utils_.html#selects" class="tsd-kind-icon">Selects</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_expressions_utils_.html#into" class="tsd-kind-icon">into</a>
+						<a href="../modules/_query_utils_.html#combinefilters" class="tsd-kind-icon">combine<wbr>Filters</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_query_utils_.html#createoperationexpression" class="tsd-kind-icon">create<wbr>Operation<wbr>Expression</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_query_utils_.html#generatelangcoalesce" class="tsd-kind-icon">generate<wbr>Lang<wbr>Coalesce</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_query_utils_.html#generatelangoptionals" class="tsd-kind-icon">generate<wbr>Lang<wbr>Optionals</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_expressions_utils_.html#isliteral" class="tsd-kind-icon">is<wbr>Literal</a>
+						<a href="../modules/_query_utils_.html#langexactmatchexpression" class="tsd-kind-icon">lang<wbr>Exact<wbr>Match<wbr>Expression</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_query_utils_.html#langmatchexpression" class="tsd-kind-icon">lang<wbr>Match<wbr>Expression</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_expressions_utils_.html#isterm" class="tsd-kind-icon">is<wbr>Term</a>
+						<a href="../modules/_query_utils_.html#operatorargstoexpressions" class="tsd-kind-icon">operator<wbr>Args<wbr>ToExpressions</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_expressions_utils_.html#toliteral" class="tsd-kind-icon">to<wbr>Literal</a>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_query_utils_.html#basestate" class="tsd-kind-icon">base<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_query_utils_.html#prefixes" class="tsd-kind-icon">prefixes</a>
 					</li>
 				</ul>
 			</nav>
