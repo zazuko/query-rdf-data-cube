@@ -6,7 +6,8 @@
     "jsRules": {},
     "rules": {
         "object-literal-sort-keys": false,
-        "no-console": [true, "log", "info", "debug", "warn"]
+        "no-console": [true, "log", "info", "debug", "warn"],
+        "interface-over-type-literal": false
     },
     "rulesDirectory": []
 }

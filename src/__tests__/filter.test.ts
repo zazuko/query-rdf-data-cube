@@ -6,24 +6,40 @@ import DataSet from "../dataset";
 function extractFilter(sparql: string) {
   return sparql
     .split("\n")
-    .find((line: string) => line.trim().startsWith("FILTER"))
+    .filter((line: string) => line.trim().startsWith("FILTER"))
+    .slice(-1)[0]
     .trim();
 }
 
 const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
-  dataSetIri: namedNode(
+  iri: namedNode(
     "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX"
   ),
-  dataSetLabel: literal(
-    "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit"
-  ),
+  labels: [
+    {
+      value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit",
+      language: "de"
+    }
+  ],
   graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics")
 });
 
-const a: any = new Dimension({ label: "aaaa", iri: "http://aaaa.aa" });
-const b: any = new Dimension({ label: "bbbb", iri: "http://bbbb.bb" });
-const c: any = new Dimension({ label: "cccc", iri: "http://cccc.cc" });
-const d: any = new Dimension({ label: "dddd", iri: "http://dddd.dd" });
+const a: any = new Dimension({
+  labels: [{ value: "aaaa", language: "" }],
+  iri: "http://aaaa.aa"
+});
+const b: any = new Dimension({
+  labels: [{ value: "bbbb", language: "" }],
+  iri: "http://bbbb.bb"
+});
+const c: any = new Dimension({
+  labels: [{ value: "cccc", language: "" }],
+  iri: "http://cccc.cc"
+});
+const d: any = new Dimension({
+  labels: [{ value: "dddd", language: "" }],
+  iri: "http://dddd.dd"
+});
 
 test("basic", async () => {
   let sparql = await dataset
@@ -98,7 +114,7 @@ describe("fixtures", () => {
 
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER(REGEX(?title, \\"^SPARQL\\"^^<http://www.w3.org/2001/XMLSchema#string>))"`
+      `"FILTER(REGEX(?title, \\"^SPARQL\\"^^xsd:string))"`
     );
   });
 
@@ -109,7 +125,7 @@ describe("fixtures", () => {
       .filter(a.regex("web", "i"));
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER(REGEX(?title, \\"web\\"^^<http://www.w3.org/2001/XMLSchema#string>, \\"i\\"^^<http://www.w3.org/2001/XMLSchema#string>))"`
+      `"FILTER(REGEX(?title, \\"web\\"^^xsd:string, \\"i\\"^^xsd:string))"`
     );
   });
 
@@ -120,7 +136,7 @@ describe("fixtures", () => {
       .filter(a.lt(30.5));
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER(?price < \\"30.5\\"^^<http://www.w3.org/2001/XMLSchema#decimal>)"`
+      `"FILTER(?price < \\"30.5\\"^^xsd:decimal)"`
     );
   });
 
@@ -131,7 +147,7 @@ describe("fixtures", () => {
       .filter(a.lte(30.5));
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER(?price <= \\"30.5\\"^^<http://www.w3.org/2001/XMLSchema#decimal>)"`
+      `"FILTER(?price <= \\"30.5\\"^^xsd:decimal)"`
     );
   });
 
@@ -142,7 +158,7 @@ describe("fixtures", () => {
       .filter(a.gt("2005-01-01T00:00:00Z"));
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER(?date > \\"2005-01-01T00:00:00.000Z\\"^^<http://www.w3.org/2001/XMLSchema#dateTime>)"`
+      `"FILTER(?date > \\"2005-01-01T00:00:00.000Z\\"^^xsd:dateTime)"`
     );
   });
 
@@ -208,7 +224,7 @@ describe("fixtures", () => {
       .filter(a.str().regex("@work.example"));
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER(REGEX(STR(?mbox), \\"@work.example\\"^^<http://www.w3.org/2001/XMLSchema#string>))"`
+      `"FILTER(REGEX(STR(?mbox), \\"@work.example\\"^^xsd:string))"`
     );
   });
 
@@ -219,7 +235,7 @@ describe("fixtures", () => {
       .filter(a.lang().equals("ES"));
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER((LANG(?name)) = \\"ES\\"^^<http://www.w3.org/2001/XMLSchema#string>)"`
+      `"FILTER((LANG(?name)) = \\"ES\\"^^xsd:string)"`
     );
   });
 
@@ -230,7 +246,7 @@ describe("fixtures", () => {
       .filter(a.datatype().equals("http://www.w3.org/2001/XMLSchema#integer"));
     const sparql: string = await query.toSparql();
     expect(extractFilter(sparql)).toMatchInlineSnapshot(
-      `"FILTER((DATATYPE(?shoeSize)) = <http://www.w3.org/2001/XMLSchema#integer>)"`
+      `"FILTER((DATATYPE(?shoeSize)) = xsd:integer)"`
     );
   });
 

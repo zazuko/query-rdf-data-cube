@@ -1,106 +1,20 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
-import Component from "./components/index";
-import DataSet from "./dataset";
-import Binding from "./expressions/binding";
-import Operator from "./expressions/operator";
-import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "./expressions/utils";
-import SparqlFetcher from "./sparqlfetcher";
-import { BgpPattern, Expression, FilterPattern, OperationExpression, Ordering, SelectQuery, Tuple } from "./sparqljs.d";
-
-type PredicateFunction = (data: Selects) => Component;
-type Selects = Record<string, Component>;
-
-interface IState {
-  selects: Selects;
-  filters: IExpr[];
-  groupBys: Array<PredicateFunction | string>;
-  havings: PredicateFunction[];
-  offset: number;
-  limit: number;
-  order: Component[];
-}
-
-const baseState: IState = {
-  selects: {},
-  filters: [],
-  groupBys: [],
-  havings: [],
-  offset: 0,
-  limit: 10,
-  order: [],
-};
-
-/**
- * Convert [[Operator]] arguments into SPARQL.js `Expression`s
- *
- * @param {Operator} operator
- */
-function operatorArgsToExpressions(args: IExpr[]): Expression[] {
-  const expressions = args.map((arg: IExpr): Expression => {
-    if (isTerm(arg)) {
-      return arg;
-    }
-    if (arg instanceof Binding) {
-      return variable(arg.name);
-    }
-    if (arg instanceof Operator) {
-      return createOperationExpression(arg);
-    }
-    if (arg instanceof TermExpr) {
-      return arg.term;
-    }
-    if (arg instanceof ArrayExpr) {
-      const tuple: Tuple = operatorArgsToExpressions(Array.from(arg.xs).map(into));
-      return tuple;
-    }
-  }).filter((x) => {
-    const transformed = Boolean(x);
-    if (!transformed) {
-      throw new Error("Unrecognized filter argument type");
-    }
-    return transformed;
-  });
-  return expressions;
-}
-
-function createOperationExpression(operator: Operator): OperationExpression {
-  const operationExpression: OperationExpression = {
-    type: "operation",
-    operator: operator.operator,
-    args: operatorArgsToExpressions(operator.args),
-  };
-  return operationExpression;
-}
-
-/**
- * When `.filter` is called several times, apply a logical AND between all filters.
- */
-function combineFilters(operations: OperationExpression[]): FilterPattern {
-  let combined;
-  if (operations.length > 1) {
-    combined = operations
-      .reduce((acc, op) => {
-        acc.args.push(op);
-        return acc;
-      }, {
-        operator: "&&",
-        type: "operation",
-        args: [],
-      });
-  } else {
-    combined = operations[0];
-  }
-  return {
-    type: "filter",
-    expression: combined,
-  };
-}
+import Component from "../components/index";
+import DataSet from "../dataset";
+import { IExpr } from "../expressions/utils";
+import SparqlFetcher from "../sparqlfetcher";
+import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
+import { baseState, combineFilters, createOperationExpression, prefixes } from "./utils";
+import { generateLangCoalesce, generateLangOptionals, IQueryOptions, IState, PredicateFunction } from "./utils";
 
 /**
  * A query to a [[DataSet]].
  * @class DataSetQuery
+ * @param options Options
+ * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
+ * Inherited from [[DataCube]].
  */
 class DataSetQuery {
   private dataSet: DataSet;
@@ -110,6 +24,7 @@ class DataSetQuery {
   private state: IState;
   private fetcher: SparqlFetcher;
   private tmpVarCount: number = 0;
+  private languages: string[];
 
   /**
    * Creates an instance of DataSetQuery. You should not have to manually create queries,
@@ -117,7 +32,8 @@ class DataSetQuery {
    * to query.
    * @param dataSet The [[DataSet]] to query.
    */
-  constructor(dataSet: DataSet) {
+  constructor(dataSet: DataSet, options: IQueryOptions = {}) {
+    this.languages = options.languages || [];
     this.dataSet = dataSet;
     this.state = baseState;
     this.fetcher = new SparqlFetcher(this.dataSet.endpoint);
@@ -140,6 +56,14 @@ class DataSetQuery {
     const self = this.clone();
     Object.assign(self.state.selects, selects);
     Object.entries(self.state.selects).forEach(([bindingName, component]) => {
+      if (!component) {
+        const errorMessage = [
+          "Invalid Component in",
+          `\`.select({ ${bindingName}: someFalsyValue })\``,
+          `             ${" ".repeat(bindingName.length)}^^^^^^^^^^^^^^`,
+        ].join("\n");
+        throw new Error(errorMessage);
+      }
       self.bindingToComponent.set(bindingName, component);
       self.iriToBinding.set(component.iri.value, bindingName);
       self.state.selects[bindingName] = component;
@@ -250,7 +174,6 @@ class DataSetQuery {
   }
 
   public applyFilters(): FilterPattern {
-    const selects = this.state.selects;
     const filters = this.state.filters
       .map((op) => op.resolve(this.iriToBinding))
       .map(createOperationExpression);
@@ -343,13 +266,12 @@ class DataSetQuery {
     const fetchLabels = [];
 
     const query: SelectQuery = {
-      type: "query",
-      prefixes: {},
+      prefixes,
       queryType: "SELECT",
       variables:  [],
       from: {
         default: [
-          this.dataSet.graphIri,
+          namedNode(this.dataSet.graphIri),
         ],
         named: [],
       },
@@ -357,6 +279,7 @@ class DataSetQuery {
       where: [],
       offset: this.state.offset,
       limit: this.state.limit,
+      type: "query",
     };
 
     const mainWhereClauses: BgpPattern = {
@@ -371,35 +294,22 @@ class DataSetQuery {
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "dimension")
       .forEach(([bindingName, component]) => {
-        this.bindingToComponent[bindingName] = component;
-        this.iriToBinding[component.iri.value] = bindingName;
+        this.bindingToComponent.set(bindingName, component);
+        this.iriToBinding.set(component.iri.value, bindingName);
+        const binding = variable(bindingName);
+
         addedDimensionsIRIs.push(component.iri.value);
         mainWhereClauses.triples.push({
           subject: variable("observation"),
           predicate: component.iri,
-          object: variable(bindingName),
+          object: binding,
         });
-        // fetch labels when they exist
+
         const labelBinding = variable(`${bindingName}Label`);
-        fetchLabels.push({
-          type: "optional",
-          patterns: [{
-            type: "bgp",
-            triples: [{
-              subject: variable(bindingName),
-              predicate: {
-                type: "path",
-                pathType: "|",
-                items: [
-                  namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
-                  namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
-                ],
-              },
-              object: labelBinding,
-            }],
-          }],
-        });
-        query.variables.push(variable(bindingName), labelBinding);
+        const langOptional = generateLangOptionals(binding, labelBinding, this.languages);
+        const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
+        fetchLabels.push(...langOptional, langCoalesce);
+        query.variables.push(binding, labelBinding);
       });
 
     // add dimensions that haven't been explicitly selected
@@ -408,8 +318,8 @@ class DataSetQuery {
       .filter(({ iri }) => !addedDimensionsIRIs.includes(iri.value))
       .forEach((component) => {
         const tmpVar = this.newTmpVar();
-        this.bindingToComponent[tmpVar.value] = component;
-        this.iriToBinding[component.iri.value] = tmpVar.value;
+        this.bindingToComponent.set(tmpVar.value, component);
+        this.iriToBinding.set(component.iri.value, tmpVar.value);
         addedDimensionsIRIs.push(component.iri.value);
         mainWhereClauses.triples.push({
           subject: variable("observation"),
@@ -424,8 +334,8 @@ class DataSetQuery {
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "measure")
       .forEach(([bindingName, component]) => {
-        this.bindingToComponent[bindingName] = component;
-        this.iriToBinding[component.iri.value] = bindingName;
+        this.bindingToComponent.set(bindingName, component);
+        this.iriToBinding.set(component.iri.value, bindingName);
         if (component.aggregateType) {
           const tmp = this.newTmpVar();
           query.variables.push({
@@ -463,8 +373,8 @@ class DataSetQuery {
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "attribute")
       .forEach(([bindingName, component]) => {
-        this.bindingToComponent[bindingName] = component;
-        this.iriToBinding[component.iri.value] = bindingName;
+        this.bindingToComponent.set(bindingName, component);
+        this.iriToBinding.set(component.iri.value, bindingName);
         query.variables.push(variable(bindingName));
         query.where.push({
           type: "optional",
@@ -506,12 +416,12 @@ class DataSetQuery {
         if (typeof groupBy === "function") {
           component = groupBy(this.state.selects);
         } else {
-          component = this.bindingToComponent[groupBy];
+          component = this.bindingToComponent.get(groupBy);
         }
         if (!component) {
           throw new Error(`Cannot group on '${groupBy}': no component with this name.`);
         }
-        const bindingName = this.iriToBinding[component.iri.value];
+        const bindingName = this.iriToBinding.get(component.iri.value);
         if (!groupedOnBindingNames.includes(bindingName)) {
           groupedOnBindingNames.push(bindingName);
           query.group.push({
@@ -529,22 +439,22 @@ class DataSetQuery {
             });
           }
         });
-
-      // order by
-      if (this.state.order.length) {
-        query.order = [];
-      }
-      this.state.order.forEach((component) => {
-        const bindingName = this.iriToBinding[component.iri.value];
-        const order: Ordering = {
-          expression: variable(bindingName),
-        };
-        if (component.descending) {
-          order.descending = true;
-        }
-        query.order.push(order);
-      });
     }
+
+    // order by
+    if (this.state.order.length) {
+      query.order = [];
+    }
+    this.state.order.forEach((component) => {
+      const bindingName = this.iriToBinding.get(component.iri.value);
+      const order: Ordering = {
+        expression: variable(bindingName),
+      };
+      if (component.descending) {
+        order.descending = true;
+      }
+      query.order.push(order);
+    });
 
     const generator = new SparqlGenerator({ allPrefixes: true });
     return generator.stringify(query);
@@ -552,9 +462,12 @@ class DataSetQuery {
 
   private clone() {
     const dsq = new DataSetQuery(this.dataSet);
-    dsq.state = clone(this.state);
-    dsq.iriToBinding = clone(this.iriToBinding);
     dsq.bindingToComponent = clone(this.bindingToComponent);
+    dsq.iriToBinding = clone(this.iriToBinding);
+    dsq.state = clone(this.state);
+    dsq.fetcher = clone(this.fetcher);
+    dsq.tmpVarCount = clone(this.tmpVarCount);
+    dsq.languages = clone(this.languages);
     return dsq;
   }
 
