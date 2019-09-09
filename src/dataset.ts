@@ -4,8 +4,9 @@ import { Generator as SparqlGenerator } from "sparqljs";
 import Component, {Attribute, Dimension, Measure} from "./components";
 import { ICubeOptions } from "./datacube";
 import DataSetQuery from "./query/datasetquery";
-import { generateLangCoalesce, generateLangOptional, IQueryOptions } from "./query/utils";
+import { generateLangCoalesce, generateLangOptional, IQueryOptions, prefixes } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
+import { SelectQuery } from "./sparqljs";
 
 type ComponentsCache = {
   attributes: Map<string, Attribute>,
@@ -170,7 +171,8 @@ class DataSet {
       labelLangBinding,
     };
 
-    const query = {
+    const query: SelectQuery = {
+      prefixes,
       queryType: "SELECT",
       variables: [
         binding,

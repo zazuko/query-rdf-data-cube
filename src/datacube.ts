@@ -2,8 +2,9 @@ import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import DataSet, { IDataSetOptions, Label } from "./dataset";
-import { generateLangCoalesce, generateLangOptional } from "./query/utils";
+import { generateLangCoalesce, generateLangOptional, prefixes } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
+import { SelectQuery } from "./sparqljs";
 
 export interface ICubeOptions {
   languages?: string[];
@@ -108,7 +109,7 @@ export class DataCube {
     }
     const graphIri = namedNode(iri);
 
-    const sparql = this.generateQuery(graphIri);
+    const sparql = this.generateQuery({ graphIri });
     const queryResult = await this.fetcher.select(sparql);
     if (!queryResult.length) {
       // avoid infinite recursion
@@ -164,7 +165,7 @@ export class DataCube {
       });
   }
 
-  private generateQuery(graphIri?: NamedNode) {
+  private generateQuery({graphIri, dataSetIri}: {graphIri?: NamedNode, dataSetIri?: NamedNode} = {}) {
     const graphIriBinding = variable("graphIri");
     const iriBinding = variable("iri");
     const labelBinding = variable("label");
@@ -175,7 +176,8 @@ export class DataCube {
       labelLangBinding: variable(`${labelBinding.value}Lang`),
     };
 
-    const query = {
+    const query: SelectQuery = {
+      prefixes,
       queryType: "SELECT",
       variables: [
         iriBinding,
@@ -204,6 +206,19 @@ export class DataCube {
       ],
       type: "query",
     };
+    if (dataSetIri) {
+      query.where.push({
+        type: "filter",
+        expression: {
+          type: "operation",
+          operator: "=",
+          args: [
+            iriBinding,
+            dataSetIri,
+          ],
+        },
+      });
+    }
 
     const generator = new SparqlGenerator({ allPrefixes: true });
     return generator.stringify(query);

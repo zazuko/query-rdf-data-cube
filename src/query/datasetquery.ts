@@ -6,7 +6,7 @@ import DataSet from "../dataset";
 import { IExpr } from "../expressions/utils";
 import SparqlFetcher from "../sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
-import { baseState, combineFilters, createOperationExpression } from "./utils";
+import { baseState, combineFilters, createOperationExpression, prefixes } from "./utils";
 import { generateLangCoalesce, generateLangOptional, IQueryOptions, IState, PredicateFunction } from "./utils";
 
 /**
@@ -266,8 +266,7 @@ class DataSetQuery {
     const fetchLabels = [];
 
     const query: SelectQuery = {
-      type: "query",
-      prefixes: {},
+      prefixes,
       queryType: "SELECT",
       variables:  [],
       from: {
@@ -280,6 +279,7 @@ class DataSetQuery {
       where: [],
       offset: this.state.offset,
       limit: this.state.limit,
+      type: "query",
     };
 
     const mainWhereClauses: BgpPattern = {
