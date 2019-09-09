@@ -94,7 +94,7 @@ class DataSet {
 
     const binding = variable("iri");
     const labelBinding = variable("label");
-    const labelLangBinding = variable(`labelLang`);
+    const labelLangBinding = variable("labelLang");
     const bindings = {
       binding,
       labelBinding,
