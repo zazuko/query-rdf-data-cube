@@ -1,3 +1,29 @@
+<a name="0.0.3"></a>
+## [0.0.3](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.2...v0.0.3) (2019-09-09)
+
+
+### Bug Fixes
+
+* **datacube:** querying dataset by IRI does not fetch all datasets ([7ba4936](https://github.com/zazuko/query-rdf-data-cube/commit/7ba4936))
+* **dataset:** #graphs only return graphs related to a dataset ([7df53f5](https://github.com/zazuko/query-rdf-data-cube/commit/7df53f5))
+* **dataset:** graphIri is a string, not a namedNode ([2ec850c](https://github.com/zazuko/query-rdf-data-cube/commit/2ec850c))
+* **lang:** labels default to '' instead of defaulting to an IRI ([a7a37f7](https://github.com/zazuko/query-rdf-data-cube/commit/a7a37f7))
+* **query:** binding/comp maps use Map interface ([4979630](https://github.com/zazuko/query-rdf-data-cube/commit/4979630))
+* **query:** orderBy is always taken into account ([b0b0eb5](https://github.com/zazuko/query-rdf-data-cube/commit/b0b0eb5))
+
+
+### Features
+
+* **component:** components can have one label per language ([9b659be](https://github.com/zazuko/query-rdf-data-cube/commit/9b659be))
+* **cube:** implement languages for datasets fetching ([e1411a2](https://github.com/zazuko/query-rdf-data-cube/commit/e1411a2))
+* **datacube:** fetch datasets by an IRI or a graph IRI ([42f67b2](https://github.com/zazuko/query-rdf-data-cube/commit/42f67b2))
+* **dataset:** datasets can have one label per language ([edd7879](https://github.com/zazuko/query-rdf-data-cube/commit/edd7879))
+* **lang:** dataset passes down lang info to queries ([ea9bf11](https://github.com/zazuko/query-rdf-data-cube/commit/ea9bf11))
+* **query:** get labels with language preferences ([1602a43](https://github.com/zazuko/query-rdf-data-cube/commit/1602a43))
+* **serialization:** implement #toJSON and .fromJSON ([04d0e39](https://github.com/zazuko/query-rdf-data-cube/commit/04d0e39))
+
+
+
 <a name="0.0.2"></a>
 ## 0.0.2 (2019-09-04)
 
