@@ -110,7 +110,6 @@ export class DataCube {
       return result;
     }));
     return this.datasetsByGraphIri(iri);
-
   }
 
   /**
@@ -120,7 +119,14 @@ export class DataCube {
     if (this.graphsLoaded) {
       return this.cachedGraphs;
     }
-    const query = "SELECT DISTINCT ?graph WHERE { GRAPH ?graph {?s ?p ?o} }";
+    const query = `
+      PREFIX qb: <http://purl.org/linked-data/cube#>
+      SELECT DISTINCT ?graph WHERE {
+        GRAPH ?graph {
+          ?dataset a qb:DataSet .
+        }
+      }
+    `;
     const graphs = await this.fetcher.select(query);
     this.graphsLoaded = true;
     return this.cachedGraphs = graphs.map(({ graph }) => graph);
