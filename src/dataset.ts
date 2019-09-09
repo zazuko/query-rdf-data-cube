@@ -91,21 +91,6 @@ class DataSet {
     if (this.metadataLoaded) {
       return;
     }
-    // const query = `
-    //   PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    //   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    //   PREFIX qb: <http://purl.org/linked-data/cube#>
-    //   PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-
-    //   SELECT ?label ?kind ?iri
-
-    //   ${this.graphIri ? `FROM <${this.graphIri}>` : ""}
-    //   WHERE {
-    //     <${this.iri}> a qb:DataSet ;
-    //       qb:structure/qb:component ?componentSpec .
-    //     ?componentSpec ?kind ?iri .
-    //     ?iri rdfs:label|skos:prefLabel ?label .
-    //   }`;
 
     const binding = variable("iri");
     const labelBinding = variable("label");
