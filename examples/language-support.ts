@@ -1,3 +1,4 @@
+// run this example with: $ ts-node examples/language-support.ts
 const { inspect } = require("util");
 const { DataCube } = require("../src/datacube");
 const { Dimension } = require("../src/components");
@@ -27,8 +28,6 @@ function printTitle(str) {
   const variable = dimensions[0];
   const size = dimensions[1];
   const canton = dimensions[2];
-  const zone = dimensions[3];
-  const year = dimensions[4];
 
   // show all dimensions, measures and attributes
   console.log(printTitle("COMPONENTS"));
@@ -45,8 +44,6 @@ function printTitle(str) {
       variable,
       size,
       canton,
-      // zone,
-      // year,
     })
     .limit(2);
 

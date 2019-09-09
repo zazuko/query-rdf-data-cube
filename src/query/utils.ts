@@ -33,12 +33,6 @@ export const baseState: IState = {
   order: [],
 };
 
-export interface ILangBindings {
-  binding: Variable;
-  labelBinding: Variable;
-  labelLangBinding: Variable;
-}
-
 /**
  * Convert [[Operator]] arguments into SPARQL.js `Expression`s
  *
@@ -135,84 +129,42 @@ function langExactMatchExpression(lang = "", binding: Variable): OperationExpres
   };
 }
 
-function langFilter(labelLangBinding: Variable, langs: string[]): FilterPattern {
-  let languages = langs.filter(Boolean);
-  if (!languages.length) {
-    // no lang specified, default to 'empty' lang
-    return {
-      type: "filter",
-      expression: langExactMatchExpression("", labelLangBinding),
-    };
-  }
-
-  // at least one non-empty lang, add the 'empty' lang as fallback
-  languages = langs.concat("");
-  // we now have at least two langs to work with
-  const lang1 = languages.shift();
-  const lang2 = languages.shift();
-
-  let expression: OperationExpression = {
-    type: "operation",
-    operator: "||",
-    args: [
-      lang1 === "" ? langExactMatchExpression(lang1, labelLangBinding) : langMatchExpression(lang1, labelLangBinding),
-      lang2 === "" ? langExactMatchExpression(lang2, labelLangBinding) : langMatchExpression(lang2, labelLangBinding),
-    ],
-  };
-
-  // remove the first lang until there's no lang left
-  let extraLang = languages.shift();
-  while (typeof extraLang !== "undefined") {
-    // nest 'OR' operations
-    expression = {
-      type: "operation",
-      operator: "||",
-      args: [
-        expression,
-        extraLang === ""
-          ? langExactMatchExpression("", labelLangBinding)
-          : langMatchExpression(extraLang, labelLangBinding),
+export function generateLangOptionals(binding: Variable, labelBinding: Variable, langs: string[]): BlockPattern[] {
+  return langs.map((lang: string) => {
+    const labelLangBinding = variable(`${labelBinding.value}_${lang}`);
+    const findLabel: BlockPattern = {
+      type: "optional",
+      patterns: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: binding,
+              predicate: {
+                type: "path",
+                pathType: "|",
+                items: [
+                  namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
+                  namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
+                ],
+              },
+              object: labelLangBinding,
+            },
+          ],
+        },
+        {
+          type: "filter",
+          expression: lang
+            ? langMatchExpression(lang, labelLangBinding)
+            : langExactMatchExpression("", labelLangBinding),
+        },
       ],
     };
-    extraLang = languages.shift();
-  }
-  return {
-    type: "filter",
-    expression,
-  };
+    return findLabel;
+  });
 }
 
-export function generateLangOptional(bindings: ILangBindings, langs: string[]): BlockPattern {
-  const {binding, labelBinding, labelLangBinding} = bindings;
-  const findLabel: BlockPattern = {
-    type: "optional",
-    patterns: [
-      {
-        type: "bgp",
-        triples: [
-          {
-            subject: binding,
-            predicate: {
-              type: "path",
-              pathType: "|",
-              items: [
-                namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
-                namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
-              ],
-            },
-            object: labelLangBinding,
-          },
-        ],
-      },
-      langFilter(labelLangBinding, langs),
-    ],
-  };
-
-  return findLabel;
-}
-
-export function generateLangCoalesce(bindings: ILangBindings, langs: string[]): BindPattern {
-  const {binding, labelBinding, labelLangBinding} = bindings;
+export function generateLangCoalesce(labelBinding: Variable, langs: string[]): BindPattern {
   const coalesceLabel: BindPattern = {
     type: "bind",
     variable: labelBinding,
@@ -220,7 +172,7 @@ export function generateLangCoalesce(bindings: ILangBindings, langs: string[]): 
       type: "operation",
       operator: "coalesce",
       args: [
-        labelLangBinding,
+        ...langs.map((lang) => variable(`${labelBinding.value}_${lang}`)),
         literal(""),
       ],
     },

@@ -18,10 +18,14 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar3.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
 }
 GROUP BY (?raum) (?raumLabel)
 LIMIT 10"
@@ -45,10 +49,14 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar3.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
   FILTER(?raum NOT IN(<http://foo>))
 }
 GROUP BY (?raum) (?raumLabel)
@@ -80,25 +88,41 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/ERWARTETE_AKTUALISIERUNG> ?erwarteteAktualisierung. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR> ?korrektur. }
   OPTIONAL {
-    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabelLang.
-    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_de.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabelLang.
-    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_it.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  BIND(COALESCE(?betriebsartLabel_de, ?betriebsartLabel_it, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_de.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_it.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?geschlechtLabel_de, ?geschlechtLabel_it, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
 }
 GROUP BY (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raum) (?raumLabel) (?zeit) (?zeitLabel) (?quelle) (?glossar) (?fussnote) (?datenstand) (?erwarteteAktualisierung) (?korrektur)
 LIMIT 10"
@@ -128,25 +152,41 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/ERWARTETE_AKTUALISIERUNG> ?erwarteteAktualisierung. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR> ?korrektur. }
   OPTIONAL {
-    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabelLang.
-    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_de.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabelLang.
-    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_it.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  BIND(COALESCE(?betriebsartLabel_de, ?betriebsartLabel_it, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_de.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_it.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?geschlechtLabel_de, ?geschlechtLabel_it, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -168,10 +208,14 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
 }
 LIMIT 10"
 `;
@@ -217,25 +261,41 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
-    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabelLang.
-    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_de.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabelLang.
-    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_it.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  BIND(COALESCE(?betriebsartLabel_de, ?betriebsartLabel_it, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_de.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_it.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?geschlechtLabel_de, ?geschlechtLabel_it, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
   FILTER((?raum >= \\"12\\"^^xsd:string) && (?bep >= \\"12\\"^^xsd:string))
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
@@ -263,25 +323,41 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
-    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabelLang.
-    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_de.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabelLang.
-    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_it.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  BIND(COALESCE(?betriebsartLabel_de, ?betriebsartLabel_it, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_de.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_it.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?geschlechtLabel_de, ?geschlechtLabel_it, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
 LIMIT 10"
@@ -308,25 +384,41 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
-    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabelLang.
-    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_de.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabelLang.
-    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_it.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  BIND(COALESCE(?betriebsartLabel_de, ?betriebsartLabel_it, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_de.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_it.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?geschlechtLabel_de, ?geschlechtLabel_it, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)
 LIMIT 10"
@@ -350,15 +442,23 @@ WHERE {
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar2.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
   FILTER(?raum = <http://something/R3000>)
 }
 GROUP BY (?raum) (?raumLabel) (?zeit) (?zeitLabel)
@@ -384,10 +484,10 @@ WHERE {
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER((LANGMATCHES(LANG(?zeitLabelLang), \\"en\\"^^xsd:string)) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_en.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_en), \\"en\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?zeitLabel_en, \\"\\"^^xsd:string) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -411,10 +511,18 @@ WHERE {
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER((((LANGMATCHES(LANG(?zeitLabelLang), \\"fr\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string))) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_fr.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_fr), \\"fr\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_fr, ?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -438,10 +546,14 @@ WHERE {
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"en\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_en.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_en), \\"en\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_en, ?zeitLabel_de, \\"\\"^^xsd:string) AS ?zeitLabel)
 }
 LIMIT 10"
 `;
@@ -467,25 +579,41 @@ WHERE {
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE> ?fussnote. }
   OPTIONAL {
-    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabelLang.
-    FILTER(((LANGMATCHES(LANG(?betriebsartLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?betriebsartLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?betriebsartLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_de.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?betriebsartLabelLang, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabelLang.
-    FILTER(((LANGMATCHES(LANG(?geschlechtLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?geschlechtLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?geschlechtLabelLang)) = \\"\\"^^xsd:string))
+    ?betriebsart (rdfs:label|skos:prefLabel) ?betriebsartLabel_it.
+    FILTER(LANGMATCHES(LANG(?betriebsartLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?geschlechtLabelLang, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  BIND(COALESCE(?betriebsartLabel_de, ?betriebsartLabel_it, \\"\\"^^xsd:string) AS ?betriebsartLabel)
   OPTIONAL {
-    ?raum (rdfs:label|skos:prefLabel) ?raumLabelLang.
-    FILTER(((LANGMATCHES(LANG(?raumLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?raumLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?raumLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_de.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_de), \\"de\\"^^xsd:string))
   }
-  BIND(COALESCE(?raumLabelLang, \\"\\"^^xsd:string) AS ?raumLabel)
   OPTIONAL {
-    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabelLang.
-    FILTER(((LANGMATCHES(LANG(?zeitLabelLang), \\"de\\"^^xsd:string)) || (LANGMATCHES(LANG(?zeitLabelLang), \\"it\\"^^xsd:string))) || ((LANG(?zeitLabelLang)) = \\"\\"^^xsd:string))
+    ?geschlecht (rdfs:label|skos:prefLabel) ?geschlechtLabel_it.
+    FILTER(LANGMATCHES(LANG(?geschlechtLabel_it), \\"it\\"^^xsd:string))
   }
-  BIND(COALESCE(?zeitLabelLang, \\"\\"^^xsd:string) AS ?zeitLabel)
+  BIND(COALESCE(?geschlechtLabel_de, ?geschlechtLabel_it, \\"\\"^^xsd:string) AS ?geschlechtLabel)
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_de.
+    FILTER(LANGMATCHES(LANG(?raumLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?raum (rdfs:label|skos:prefLabel) ?raumLabel_it.
+    FILTER(LANGMATCHES(LANG(?raumLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?raumLabel_de, ?raumLabel_it, \\"\\"^^xsd:string) AS ?raumLabel)
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_de.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_de), \\"de\\"^^xsd:string))
+  }
+  OPTIONAL {
+    ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_it.
+    FILTER(LANGMATCHES(LANG(?zeitLabel_it), \\"it\\"^^xsd:string))
+  }
+  BIND(COALESCE(?zeitLabel_de, ?zeitLabel_it, \\"\\"^^xsd:string) AS ?zeitLabel)
   FILTER((?raum >= \\"12\\"^^xsd:string) && (?bep >= \\"12\\"^^xsd:string))
 }
 GROUP BY (?zeit) (?raum) (?betriebsart) (?betriebsartLabel) (?geschlecht) (?geschlechtLabel) (?raumLabel) (?zeitLabel) (?bep) (?quelle) (?glossar) (?fussnote)

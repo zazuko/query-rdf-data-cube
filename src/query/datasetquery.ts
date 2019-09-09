@@ -7,7 +7,7 @@ import { IExpr } from "../expressions/utils";
 import SparqlFetcher from "../sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
 import { baseState, combineFilters, createOperationExpression, prefixes } from "./utils";
-import { generateLangCoalesce, generateLangOptional, IQueryOptions, IState, PredicateFunction } from "./utils";
+import { generateLangCoalesce, generateLangOptionals, IQueryOptions, IState, PredicateFunction } from "./utils";
 
 /**
  * A query to a [[DataSet]].
@@ -306,14 +306,9 @@ class DataSetQuery {
         });
 
         const labelBinding = variable(`${bindingName}Label`);
-        const bindings = {
-          binding,
-          labelBinding,
-          labelLangBinding: variable(`${bindingName}LabelLang`),
-        };
-        const langOptional = generateLangOptional(bindings, this.languages);
-        const langCoalesce = generateLangCoalesce(bindings, this.languages);
-        fetchLabels.push(langOptional, langCoalesce);
+        const langOptional = generateLangOptionals(binding, labelBinding, this.languages);
+        const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
+        fetchLabels.push(...langOptional, langCoalesce);
         query.variables.push(binding, labelBinding);
       });
 

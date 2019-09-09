@@ -2,7 +2,7 @@ import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import DataSet, { IDataSetOptions, Label } from "./dataset";
-import { generateLangCoalesce, generateLangOptional, prefixes } from "./query/utils";
+import { generateLangCoalesce, generateLangOptionals, prefixes } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 import { SelectQuery } from "./sparqljs";
 
@@ -179,12 +179,6 @@ export class DataCube {
     const iriBinding = variable("iri");
     const labelBinding = variable("label");
 
-    const bindings = {
-      binding: iriBinding,
-      labelBinding,
-      labelLangBinding: variable(`${labelBinding.value}Lang`),
-    };
-
     const query: SelectQuery = {
       prefixes,
       queryType: "SELECT",
@@ -208,10 +202,10 @@ export class DataCube {
                 },
               ],
             },
-            generateLangOptional(bindings, this.languages),
+            ...generateLangOptionals(iriBinding, labelBinding, this.languages),
           ],
         },
-        generateLangCoalesce(bindings, this.languages),
+        generateLangCoalesce(labelBinding, this.languages),
       ],
       type: "query",
     };

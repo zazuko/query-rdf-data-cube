@@ -4,7 +4,7 @@ import { Generator as SparqlGenerator } from "sparqljs";
 import Component, {Attribute, Dimension, Measure} from "./components";
 import { ICubeOptions } from "./datacube";
 import DataSetQuery from "./query/datasetquery";
-import { generateLangCoalesce, generateLangOptional, IQueryOptions, prefixes } from "./query/utils";
+import { generateLangCoalesce, generateLangOptionals, IQueryOptions, prefixes } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 import { SelectQuery } from "./sparqljs";
 
@@ -163,12 +163,6 @@ class DataSet {
 
     const binding = variable("iri");
     const labelBinding = variable("label");
-    const labelLangBinding = variable("labelLang");
-    const bindings = {
-      binding,
-      labelBinding,
-      labelLangBinding,
-    };
 
     const query: SelectQuery = {
       prefixes,
@@ -222,8 +216,8 @@ class DataSet {
             ],
           },
         },
-        generateLangOptional(bindings, this.languages),
-        generateLangCoalesce(bindings, this.languages),
+        ...generateLangOptionals(binding, labelBinding, this.languages),
+        generateLangCoalesce(labelBinding, this.languages),
       ],
       type: "query",
     };

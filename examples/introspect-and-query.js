@@ -36,7 +36,6 @@ function printTitle(str) {
     iri: "https://ld.stadt-zuerich.ch/statistics/property/RAUM"
   });
   const betriebsartDimension = dimensions[2];
-  const geschlechtDimension = dimensions[3];
 
   const beschaeftigteMeasure = measures[0];
 
@@ -50,7 +49,6 @@ function printTitle(str) {
     // select has binding names as keys and Component (Dimension/Attribute/Measure) as values.
     .select({
       betriebsart: betriebsartDimension,
-      geschlecht: geschlechtDimension,
       raum: raumDimension,
       zeit: zeitDimension,
 
