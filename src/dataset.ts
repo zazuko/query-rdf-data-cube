@@ -7,19 +7,19 @@ import DataSetQuery from "./query/datasetquery";
 import { generateLangCoalesce, generateLangOptional, IQueryOptions } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 
-type MetadataCache = {
+type ComponentsCache = {
   attributes: Map<string, Attribute>,
   dimensions: Map<string, Dimension>,
   measures: Map<string, Measure>,
 };
-type GroupedMetadata = { kind: Term, iri: Term, labels: Label[] };
+type GroupedComponents = { kind: Term, iri: Term, labels: Label[] };
 type SerializedDataSet = {
   endpoint: string,
   iri: string,
   graphIri: string,
   labels: Label[],
   languages: string[],
-  cachedMetadata: {
+  components: {
     dimensions: string[],
     measures: string[],
     attributes: string[],
@@ -50,7 +50,7 @@ class DataSet {
       languages: obj.languages,
     });
     ["dimensions", "measures", "attributes"].forEach((componentTypes) => {
-      dataset.cachedMetadata[componentTypes] = obj.cachedMetadata[componentTypes]
+      dataset.cachedComponents[componentTypes] = obj.components[componentTypes]
         .map(Component.fromJSON)
         .reduce((cache: Map<string, Component>, component: Component) => {
           cache.set(component.iri.value, component);
@@ -66,8 +66,8 @@ class DataSet {
   public graphIri?: string;
   private languages: string[];
   private fetcher: SparqlFetcher;
-  private metadataLoaded: boolean = false;
-  private cachedMetadata: MetadataCache;
+  private componentsLoaded: boolean = false;
+  private cachedComponents: ComponentsCache;
 
    /**
     * @param endpoint SPARQL endpoint where the DataSet lives.
@@ -89,7 +89,7 @@ class DataSet {
     this.graphIri = graphIri.value;
     this.labels = labels || [];
     this.languages = options.languages || ["de", "it"];
-    this.cachedMetadata = {
+    this.cachedComponents = {
       dimensions: new Map(),
       measures: new Map(),
       attributes: new Map(),
@@ -101,16 +101,22 @@ class DataSet {
    * by calling DataSet#fromJSON
    */
   public toJSON(): string {
+    const dimensions = Array.from(this.cachedComponents.dimensions.values())
+      .map((component) => component.toJSON());
+    const measures = Array.from(this.cachedComponents.measures.values())
+      .map((component) => component.toJSON());
+    const attributes = Array.from(this.cachedComponents.attributes.values())
+      .map((component) => component.toJSON());
     const obj: SerializedDataSet = {
       endpoint: this.endpoint,
       iri: this.iri,
       graphIri: this.graphIri,
       labels: this.labels,
       languages: this.languages,
-      cachedMetadata: {
-        dimensions: Array.from(this.cachedMetadata.dimensions.values()).map((component) => component.toJSON()),
-        measures: Array.from(this.cachedMetadata.measures.values()).map((component) => component.toJSON()),
-        attributes: Array.from(this.cachedMetadata.attributes.values()).map((component) => component.toJSON()),
+      components: {
+        dimensions,
+        measures,
+        attributes,
       },
     };
     return JSON.stringify(obj);
@@ -120,24 +126,24 @@ class DataSet {
    * Fetch all [[Attribute]]s from the DataSet.
    */
   public async attributes(): Promise<Attribute[]> {
-    await this.metadata();
-    return Array.from(this.cachedMetadata.attributes.values());
+    await this.components();
+    return Array.from(this.cachedComponents.attributes.values());
   }
 
   /**
    * Fetch all [[Dimension]]s from the DataSet.
    */
   public async dimensions(): Promise<Dimension[]> {
-    await this.metadata();
-    return Array.from(this.cachedMetadata.dimensions.values());
+    await this.components();
+    return Array.from(this.cachedComponents.dimensions.values());
   }
 
   /**
    * Fetch all [[Measure]]s from the DataSet.
    */
   public async measures(): Promise<Measure[]> {
-    await this.metadata();
-    return Array.from(this.cachedMetadata.measures.values());
+    await this.components();
+    return Array.from(this.cachedComponents.measures.values());
   }
 
   /**
@@ -150,8 +156,8 @@ class DataSet {
     return new DataSetQuery(this, opts);
   }
 
-  private async metadata() {
-    if (this.metadataLoaded) {
+  private async components() {
+    if (this.componentsLoaded) {
       return;
     }
 
@@ -200,6 +206,21 @@ class DataSet {
             },
           ],
         },
+        {
+          type: "filter",
+          expression: {
+            type: "operation",
+            operator: "in",
+            args: [
+              variable("kind"),
+              [
+                namedNode("http://purl.org/linked-data/cube#attribute"),
+                namedNode("http://purl.org/linked-data/cube#dimension"),
+                namedNode("http://purl.org/linked-data/cube#measure"),
+              ],
+            ],
+          },
+        },
         generateLangOptional(bindings, this.languages),
         generateLangCoalesce(bindings, this.languages),
       ],
@@ -209,8 +230,8 @@ class DataSet {
     const generator = new SparqlGenerator({ allPrefixes: true });
     const sparql = generator.stringify(query);
 
-    const metadata = await this.fetcher.select(sparql);
-    const metadataByIri = metadata.reduce((acc, { kind, label, iri }) => {
+    const components = await this.fetcher.select(sparql);
+    const componentsByIri = components.reduce((acc, { kind, label, iri }) => {
       if (!acc[iri.value]) {
         acc[iri.value] = {
           kind,
@@ -224,31 +245,31 @@ class DataSet {
       });
       return acc;
     }, {});
-    const groupedMetadata: GroupedMetadata[] = Object.values(metadataByIri);
+    const groupedComponents: GroupedComponents[] = Object.values(componentsByIri);
 
-    this.cachedMetadata = groupedMetadata
-      .reduce((metadataProp: MetadataCache, { kind, labels, iri }) => {
+    this.cachedComponents = groupedComponents
+      .reduce((componentsProp: ComponentsCache, { kind, labels, iri }) => {
         switch (kind.value) {
           case "http://purl.org/linked-data/cube#attribute":
-            metadataProp.attributes.set(iri.value, new Attribute({ labels, iri }));
+            componentsProp.attributes.set(iri.value, new Attribute({ labels, iri }));
             break;
           case "http://purl.org/linked-data/cube#dimension":
-            metadataProp.dimensions.set(iri.value, new Dimension({ labels, iri }));
+            componentsProp.dimensions.set(iri.value, new Dimension({ labels, iri }));
             break;
           case "http://purl.org/linked-data/cube#measure":
-            metadataProp.measures.set(iri.value, new Measure({ labels, iri }));
+            componentsProp.measures.set(iri.value, new Measure({ labels, iri }));
             break;
           default:
             throw new Error(`Unknown component kind ${kind.value}`);
         }
-        return metadataProp;
+        return componentsProp;
       }, {
         attributes: new Map(),
         dimensions: new Map(),
         measures: new Map(),
       });
 
-    this.metadataLoaded = true;
+    this.componentsLoaded = true;
   }
 }
 

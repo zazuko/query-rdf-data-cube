@@ -1,7 +1,7 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
-import DataSet, { IDataSetOptions } from "./dataset";
+import DataSet, { IDataSetOptions, Label } from "./dataset";
 import { generateLangCoalesce, generateLangOptional } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 
@@ -12,6 +12,7 @@ export interface ICubeOptions {
 type SerializedDataCube = {
   endpoint: string,
   languages: string[],
+  datasets: string[],
 };
 
 export class DataCube {
@@ -20,15 +21,21 @@ export class DataCube {
    */
   public static fromJSON(json: string): DataCube {
     const obj: SerializedDataCube = JSON.parse(json);
-    return new DataCube(obj.endpoint, {
+    const datacube = new DataCube(obj.endpoint, {
       languages: obj.languages,
     });
+    datacube.cachedDatasets = obj.datasets.reduce((map, str) => {
+      const dataset: DataSet = DataSet.fromJSON(str);
+      map.set(dataset.iri, dataset);
+      return map;
+    }, new Map());
+    return datacube;
   }
 
   private endpoint: string;
   private languages: string[];
   private fetcher: SparqlFetcher;
-  private cachedDatasets: DataSet[];
+  private cachedDatasets: Map<string, DataSet>;
   private allDatasetsLoaded: boolean = false;
   private cachedGraphs: NamedNode[];
   private graphsLoaded: boolean = false;
@@ -46,7 +53,7 @@ export class DataCube {
     this.endpoint = endpoint;
     this.languages = options.languages || ["de", "it"];
     this.fetcher = new SparqlFetcher(endpoint);
-    this.cachedDatasets = [];
+    this.cachedDatasets = new Map();
     this.cachedGraphs = [];
   }
 
@@ -58,6 +65,7 @@ export class DataCube {
     const obj: SerializedDataCube = {
       endpoint: this.endpoint,
       languages: this.languages,
+      datasets: Array.from(this.cachedDatasets.values()).map((dataset) => dataset.toJSON()),
     };
     return JSON.stringify(obj);
   }
@@ -67,14 +75,14 @@ export class DataCube {
    */
   public async datasets(): Promise<DataSet[]> {
     if (this.allDatasetsLoaded) {
-      return this.cachedDatasets;
+      return Array.from(this.cachedDatasets.values());
     }
 
     const sparql = this.generateQuery();
     const queryResult = await this.fetcher.select(sparql);
     this.cacheDatasets(queryResult);
     this.allDatasetsLoaded = true;
-    return this.cachedDatasets;
+    return Array.from(this.cachedDatasets.values());
   }
 
   /**
@@ -93,7 +101,8 @@ export class DataCube {
    * @param graphIri IRI of the graph to look for in all DataSets.
    */
   public async datasetsByGraphIri(iri: string): Promise<DataSet[]> {
-    const datasets = this.cachedDatasets.filter((ds) => ds.graphIri === iri);
+    const datasets = Array.from(this.cachedDatasets.values())
+      .filter((ds) => ds.graphIri === iri);
     if (datasets.length) {
       return datasets;
     }
@@ -132,7 +141,7 @@ export class DataCube {
     return this.cachedGraphs = graphs.map(({ graph }) => graph);
   }
 
-  private cacheDatasets(datasets) {
+  private cacheDatasets(datasets: Array<{ iri: NamedNode, label: Label, graphIri: string }>) {
     const datasetsByIri = datasets.reduce((acc, { iri, label, graphIri }) => {
       if (!acc[iri.value]) {
         acc[iri.value] = {
@@ -149,9 +158,10 @@ export class DataCube {
       return acc;
     }, {});
 
-    this.cachedDatasets = Array.from(new Set([...Object.values(datasetsByIri)
-      .map((dataset: IDataSetOptions) => new DataSet(this.endpoint, dataset)),
-      ...this.cachedDatasets]));
+    Object.entries(datasetsByIri)
+      .forEach(([iri, dataset]: [string, IDataSetOptions]) => {
+        this.cachedDatasets.set(iri, new DataSet(this.endpoint, dataset));
+      });
   }
 
   private generateQuery(graphIri?: NamedNode) {
