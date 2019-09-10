@@ -1,0 +1,24 @@
+{
+  "head" : {
+    "vars" : [
+      "iri",
+      "graphIri",
+      "label"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/66/qb/ubd66"
+        },
+        "label" : {
+          "xml:lang" : "de",
+          "type" : "literal",
+          "value" : "Schwermetallbelastung des Bodens"
+        }
+      }
+    ]
+  }
+}

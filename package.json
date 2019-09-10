@@ -52,6 +52,7 @@
     "@types/node-fetch": "^2.5.0",
     "conventional-changelog-cli": "^2.0.23",
     "coveralls": "^3.0.6",
+    "fetch-vcr": "^3.0.0",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.5",
     "jest": "^24.9.0",
@@ -65,6 +66,11 @@
     "typescript": "^3.6.2"
   },
   "jest": {
+    "automock": false,
+    "moduleNameMapper": {
+      "hack-node-fetch": "node-fetch",
+      "node-fetch": "fetch-vcr"
+    },
     "testPathIgnorePatterns": [
       "/node_modules/"
     ],

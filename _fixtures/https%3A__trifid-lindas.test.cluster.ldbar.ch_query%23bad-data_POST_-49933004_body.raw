@@ -1,0 +1,1 @@
+{"head":{"vars":["iri","graphIri","label"]},"results":{"bindings":[{"iri":{"type":"a bad type","value":"http://example.org/anzahl-forstbetriebe/dataset"},"graphIri":{"type":"uri","value":"https://lindas-data.ch/graph/bafu/wald"},"label":{"xml:lang":"de","type":"literal","value":"Forstbetriebe der Schweiz nach Forstzone, Kanton und Grössenklasse, bis 2014"}}]}}

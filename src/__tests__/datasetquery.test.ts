@@ -1,4 +1,5 @@
 import { literal, namedNode } from "@rdfjs/data-model";
+import fetch from "../../fetch-mock";
 import Attribute from "../components/attribute";
 import Dimension from "../components/dimension";
 import Measure from "../components/measure";
@@ -61,6 +62,9 @@ const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
     },
   ],
   graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics"),
+  fetcher: {
+    fetch,
+  },
 });
 
 test("basic", async () => {

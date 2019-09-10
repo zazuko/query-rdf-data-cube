@@ -1,0 +1,23 @@
+{
+  "head" : {
+    "vars" : [
+      "iri",
+      "graphIri",
+      "label"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://data.admin.ch/bfs/dataset/DSD_T_PERSON_STATTAB-01-2A01"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { literal, namedNode } from "@rdfjs/data-model";
+import fetch from "../../fetch-mock";
 import Component from "../components";
 import Attribute from "../components/attribute";
 import Dimension from "../components/dimension";
@@ -6,10 +6,16 @@ import Measure from "../components/measure";
 import { DataCube } from "../datacube";
 import DataSet from "../dataset";
 
-const cube = new DataCube("https://ld.stadt-zuerich.ch/query", { languages: ["it", "ru"]});
+const cube = new DataCube(
+  "https://ld.stadt-zuerich.ch/query", {
+  languages: ["it", "ru"],
+  fetcher: {
+    fetch,
+  },
+});
 
 describe("datacube", () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await cube.datasets();
   });
 
@@ -28,7 +34,7 @@ describe("datacube", () => {
 });
 
 describe("dataset", () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await cube.datasets();
   });
 
@@ -50,7 +56,7 @@ describe("dataset", () => {
 });
 
 describe("component", () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await cube.datasets();
   });
 

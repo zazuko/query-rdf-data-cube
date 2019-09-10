@@ -7,10 +7,7 @@ import { Term } from "rdf-js";
  * See https://www.w3.org/TR/2013/REC-sparql11-results-json-20130321/#select-encode-terms
  */
 type RDFTerm =
-  | {
-      type: "uri";
-      value: string;
-    }
+  | { type: "uri"; value: string; }
   | { type: "literal"; value: string }
   | { type: "literal"; value: string; "xml:lang": string }
   | { type: "literal"; value: string; datatype: string }

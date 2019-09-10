@@ -1,5 +1,6 @@
 // tslint:disable: trailing-comma
 import { literal, namedNode } from "@rdfjs/data-model";
+import fetch from "../../fetch-mock";
 import Dimension from "../components/dimension";
 import DataSet from "../dataset";
 
@@ -21,7 +22,10 @@ const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
       language: "de"
     }
   ],
-  graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics")
+  graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics"),
+  fetcher: {
+    fetch,
+  },
 });
 
 const a: any = new Dimension({

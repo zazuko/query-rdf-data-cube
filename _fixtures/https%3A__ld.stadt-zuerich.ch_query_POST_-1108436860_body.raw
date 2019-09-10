@@ -1,0 +1,111 @@
+{
+  "head" : {
+    "vars" : [
+      "iri",
+      "kind",
+      "label"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#dimension"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/station"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#dimension"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/refPeriod"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#attribute"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/limitvalue"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#measure"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/measurement"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#attribute"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/unit"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#dimension"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/pollutant"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#attribute"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/aggregation"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      }
+    ]
+  }
+}
