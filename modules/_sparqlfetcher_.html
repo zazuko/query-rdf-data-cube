@@ -76,7 +76,80 @@
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_sparqlfetcher_.sparqlfetcher.html" class="tsd-kind-icon">Sparql<wbr>Fetcher</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_sparqlfetcher_.isparqlfetcheroptions.html" class="tsd-kind-icon">ISparql<wbr>Fetcher<wbr>Options</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_sparqlfetcher_.html#rdfterm" class="tsd-kind-icon">RDFTerm</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_sparqlfetcher_.html#result" class="tsd-kind-icon">Result</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_sparqlfetcher_.html#tordfdatamodel" class="tsd-kind-icon">toRDFData<wbr>Model</a></li>
+							</ul>
+						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="rdfterm" class="tsd-anchor"></a>
+					<h3>RDFTerm</h3>
+					<div class="tsd-signature tsd-kind-icon">RDFTerm<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/65ff90f/src/sparqlfetcher.ts#L9">sparqlfetcher.ts:9</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>See <a href="https://www.w3.org/TR/2013/REC-sparql11-results-json-20130321/#select-encode-terms">https://www.w3.org/TR/2013/REC-sparql11-results-json-20130321/#select-encode-terms</a></p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="result" class="tsd-anchor"></a>
+					<h3>Result</h3>
+					<div class="tsd-signature tsd-kind-icon">Result<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Term</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/65ff90f/src/sparqlfetcher.ts#L19">sparqlfetcher.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="tordfdatamodel" class="tsd-anchor"></a>
+					<h3>toRDFData<wbr>Model</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">toRDFData<wbr>Model<span class="tsd-signature-symbol">(</span>binding<span class="tsd-signature-symbol">: </span><a href="_sparqlfetcher_.html#rdfterm" class="tsd-signature-type">RDFTerm</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Term</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/65ff90f/src/sparqlfetcher.ts#L80">sparqlfetcher.ts:80</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>binding: <a href="_sparqlfetcher_.html#rdfterm" class="tsd-signature-type">RDFTerm</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Term</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -137,6 +210,18 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_sparqlfetcher_.sparqlfetcher.html" class="tsd-kind-icon">Sparql<wbr>Fetcher</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_sparqlfetcher_.isparqlfetcheroptions.html" class="tsd-kind-icon">ISparql<wbr>Fetcher<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_sparqlfetcher_.html#rdfterm" class="tsd-kind-icon">RDFTerm</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="_sparqlfetcher_.html#result" class="tsd-kind-icon">Result</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_sparqlfetcher_.html#tordfdatamodel" class="tsd-kind-icon">toRDFData<wbr>Model</a>
 					</li>
 				</ul>
 			</nav>
