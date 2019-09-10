@@ -1,10 +1,10 @@
-import fetch from "../../fetch-mock";
-import Component from "../components";
-import Attribute from "../components/attribute";
-import Dimension from "../components/dimension";
-import Measure from "../components/measure";
-import { DataCube } from "../datacube";
-import DataSet from "../dataset";
+import Component from "../src/components";
+import Attribute from "../src/components/attribute";
+import Dimension from "../src/components/dimension";
+import Measure from "../src/components/measure";
+import { DataCube } from "../src/datacube";
+import DataSet from "../src/dataset";
+import fetch from "./utils/fetch-mock";
 
 const cube = new DataCube(
   "https://ld.stadt-zuerich.ch/query", {

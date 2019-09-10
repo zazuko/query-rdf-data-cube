@@ -3,18 +3,20 @@
   "version": "0.0.6",
   "description": "Query (or introspect) [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API, without writing SPARQL.",
   "scripts": {
-    "build:node": "tsc --target es2017 --module commonjs --outDir dist/node && tsc --target esnext --module esnext --outDir dist/es",
+    "build:cjs": "tsc --target es2017 --module commonjs --outDir dist/node",
+    "build:esm": "tsc --target esnext --module esnext --outDir dist/es",
     "test": "jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
     "docs:publish": "gh-pages -t -d docs",
     "typedoc": "typedoc",
     "lint": "tslint --project tsconfig.json",
-    "build": "rimraf dist; npm run build:node; npm run docs:compile",
+    "build": "rimraf dist; npm run build:cjs; npm run build:esm",
     "prepare": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "postversion": "npm run docs:compile && npm run docs:publish"
   },
+  "types": "dist/node/datacube.d.ts",
   "main": "dist/node/datacube.js",
   "module": "dist/es/datacube.js",
   "files": [
@@ -72,11 +74,12 @@
       "node-fetch": "fetch-vcr"
     },
     "testPathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/__tests__/utils/"
     ],
     "collectCoverage": true,
     "roots": [
-      "<rootDir>/src"
+      "<rootDir>"
     ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
