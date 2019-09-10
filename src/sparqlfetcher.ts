@@ -1,43 +1,92 @@
-import { SparqlEndpointFetcher } from "fetch-sparql-endpoint";
-import { Stream } from "stream";
+import { blankNode, literal, namedNode } from "@rdfjs/data-model";
+import clone from "clone";
+import fetch, { BodyInit, RequestInit, Response } from "node-fetch";
+import { Term } from "rdf-js";
 
-class SparqlFetcher {
-  private endpoint: string;
-  private fetcher: any = new SparqlEndpointFetcher();
-
-  constructor(endpoint: string) {
-    if (typeof window === "undefined") {
-      this.fetcher = new SparqlEndpointFetcher();
-    } else {
-      this.fetcher = new SparqlEndpointFetcher({
-        fetch: window.fetch.bind(window),
-      });
+/**
+ * See https://www.w3.org/TR/2013/REC-sparql11-results-json-20130321/#select-encode-terms
+ */
+type RDFTerm =
+  | {
+      type: "uri";
+      value: string;
     }
+  | { type: "literal"; value: string }
+  | { type: "literal"; value: string; "xml:lang": string }
+  | { type: "literal"; value: string; datatype: string }
+  | { type: "bnode"; value: string };
+
+export type Result = Record<string, Term>;
+
+export default class SparqlFetcher {
+  private fetch: typeof fetch;
+  private fetchOptions: RequestInit;
+  private endpoint: string;
+
+  constructor(endpoint: string, options: { fetch?: typeof fetch, fetchOptions?: RequestInit } = {}) {
     this.endpoint = endpoint;
-    this.fetcher.sparqlParsers["application/json"] = {
-      parseResultsStream: (stream: Stream): Stream => stream.pipe(require("JSONStream").parse("$*")),
+    this.fetch = options.fetch || fetch;
+    this.fetchOptions = options.fetchOptions || {
+      method: "POST",
+      headers: {
+        "Accept": "application/sparql-results+json",
+        "Content-Type": "application/sparql-query; charset=utf-8",
+      },
     };
   }
 
   public async select(query: string): Promise<any[]> {
-    const stream = await this.fetcher.fetchBindings(this.endpoint, query);
-    return this.collect(stream);
+    const options = this.options(query);
+
+    return this.fetch(this.endpoint, options)
+      .then((r: Response) => {
+        if (r.ok) {
+          return r.json();
+        }
+        throw new Error(`HTTP${r.status} ${r.statusText}`);
+      })
+      .then((body: { results: { bindings: Array<Record<string, RDFTerm>> }, message: string; }): any[] => {
+        if (!body.results) {
+          throw Error(body.message);
+        }
+
+        const results: Result[] = body.results.bindings
+          .map((row: Record<string, RDFTerm>) => {
+            const rowObject: Result = {};
+
+            Object.keys(row).forEach((column) => {
+              rowObject[column] = toRDFDataModel(row[column]);
+            });
+            return rowObject;
+          });
+
+        return results;
+      });
   }
 
-  private collect(stream: Stream): Promise<any[]> {
-    const acc = [];
-    stream.on("data", (bindings) => {
-      acc.push(bindings);
-    });
-    return new Promise((resolve, reject) => {
-      stream.on("error", (err: any) => {
-        reject(err);
-      });
-      stream.on("end", () => {
-        resolve(acc);
-      });
-    });
+  private options(body: BodyInit = ""): RequestInit {
+    const options = clone(this.fetchOptions);
+    if (body) {
+      options.body = body;
+    }
+    return options;
   }
 }
 
-export default SparqlFetcher;
+function toRDFDataModel(binding: RDFTerm): Term {
+  switch (binding.type) {
+    case "uri":
+      return namedNode(binding.value);
+    case "literal":
+      let languageOrDatatype: any;
+      if ("datatype" in binding) {
+        languageOrDatatype = binding.datatype;
+      } else if ("xml:lang" in binding) {
+        languageOrDatatype = binding["xml:lang"];
+      }
+      return literal(binding.value, languageOrDatatype);
+    case "bnode":
+      return blankNode(binding.value);
+  }
+  throw new Error(`Endpoint returned bad binding: ${JSON.stringify(binding)}`);
+}
