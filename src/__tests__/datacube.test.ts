@@ -15,13 +15,13 @@ const newCube = (endpoint: string, languages?: string[]) => {
 };
 
 describe("DataCube", () => {
-  it("reports HTTP errors", async () => {
+  it("handles responses that are not JSON", () => {
     const cube = newCube("http://example.com");
     expect(cube.datasets()).rejects.toMatchInlineSnapshot(
       `[FetchError: invalid json response body at http://example.com/ reason: Unexpected token < in JSON at position 0]`,
     );
   });
-  it("reports parsing errors", async () => {
+  it("reports parsing errors", () => {
     const cube = newCube(
       "https://trifid-lindas.test.cluster.ldbar.ch/query#error-message",
     );
@@ -29,7 +29,7 @@ describe("DataCube", () => {
       `[Error: error on this endpoint]`,
     );
   });
-  it("reports bad data", async () => {
+  it("reports bad data", () => {
     const cube = newCube(
       "https://trifid-lindas.test.cluster.ldbar.ch/query#bad-data",
     );
@@ -43,6 +43,15 @@ describe("DataCube", () => {
     );
     const datasets = await cube.datasets();
     expect(datasets[0].iri).toBe("someBlankNode");
+  });
+  it("handles bad HTTP status", () => {
+    const cube = newCube(
+      "https://trifid-lindas.test.cluster.ldbar.ch/query#bad-HTTP-status",
+      ["ru", "hu"],
+    );
+    expect(cube.datasets()).rejects.toMatchInlineSnapshot(
+      `[Error: HTTP500 Some Server Error]`,
+    );
   });
 });
 

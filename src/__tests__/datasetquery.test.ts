@@ -3,6 +3,7 @@ import fetch from "../../fetch-mock";
 import Attribute from "../components/attribute";
 import Dimension from "../components/dimension";
 import Measure from "../components/measure";
+import { DataCube } from "../datacube";
 import DataSet from "../dataset";
 
 const betriebsartDimension = new Dimension({
@@ -242,6 +243,16 @@ describe("groupBy", () => {
     expect(sparqlA).toBe(sparqlB);
   });
 
+  test("reports error when grouping on unknown component", async () => {
+    const base = dataset.query().select({
+      betriebsart: betriebsartDimension,
+    });
+    const query = base.groupBy("foobarbaz");
+    expect(query.toSparql()).rejects.toMatchInlineSnapshot(
+      `[Error: Cannot group on 'foobarbaz': no component with this name.]`,
+    );
+  });
+
   test("doesn't duplicate", async () => {
     const query = dataset
       .query()
@@ -384,5 +395,41 @@ describe("handles languages", () => {
     });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
+  });
+});
+
+describe("execute", () => {
+  it("returns results", async () => {
+    const datacube = new DataCube(
+      "https://trifid-lindas.test.cluster.ldbar.ch/query",
+      {
+        languages: ["fr", "de"],
+        fetcher: {
+          fetch,
+        },
+      },
+    );
+    // find all its datasets
+    const datasets = await datacube.datasets();
+    // we'll work with one of them
+    const ds = datasets[0];
+
+    const dimensions = await ds.dimensions();
+    const measures = await ds.measures();
+
+    const variable = dimensions[0];
+    const size = dimensions[1];
+    const canton = dimensions[2];
+
+    const query = ds
+      .query()
+      .select({
+        mes: measures[0],
+        variable,
+        size,
+        canton,
+      })
+      .limit(2);
+    expect(await query.execute()).toMatchSnapshot();
   });
 });
