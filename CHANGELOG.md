@@ -1,3 +1,8 @@
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.5...v0.0.6) (2019-09-10)
+
+
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.4...v0.0.5) (2019-09-10)
 
