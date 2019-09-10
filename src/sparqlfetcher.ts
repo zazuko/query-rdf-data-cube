@@ -13,7 +13,7 @@ type RDFTerm =
   | { type: "literal"; value: string; datatype: string }
   | { type: "bnode"; value: string };
 
-export type Result = Record<string, Term>;
+type Result = Record<string, Term>;
 export interface ISparqlFetcherOptions {
   fetch?: typeof fetch;
   fetchOptions?: RequestInit;

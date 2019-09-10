@@ -1,5 +1,5 @@
 // tslint:disable: max-line-length
-import { DataCube, ICubeOptions } from "../src/datacube";
+import DataCube, { ICubeOptions } from "../src/datacube";
 import fetch from "./utils/fetch-mock";
 
 const newCube = (endpoint: string, languages?: string[]) => {

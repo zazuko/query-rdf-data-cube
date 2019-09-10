@@ -16,7 +16,7 @@ import { generateLangCoalesce, generateLangOptionals, IQueryOptions, IState, Pre
  * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
  * Inherited from [[DataCube]].
  */
-class DataSetQuery {
+export default class DataSetQuery {
   private dataSet: DataSet;
   // one map from bindingName to Component, one from component IRI to bindingName
   private bindingToComponent: Map<string, Component> = new Map();
@@ -475,5 +475,3 @@ class DataSetQuery {
     return variable(`tmpVar${this.tmpVarCount++}`);
   }
 }
-
-export default DataSetQuery;

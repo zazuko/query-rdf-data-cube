@@ -6,7 +6,7 @@ import BaseExpr from "../expressions/base";
 import Binding from "../expressions/binding";
 import { IExpr } from "../expressions/utils";
 
-type SerializedComponent = {
+export type SerializedComponent = {
   componentType: string,
   iri: string,
   labels: Label[],

@@ -2,7 +2,7 @@ import Component from "../src/components";
 import Attribute from "../src/components/attribute";
 import Dimension from "../src/components/dimension";
 import Measure from "../src/components/measure";
-import { DataCube } from "../src/datacube";
+import DataCube from "../src/datacube";
 import DataSet from "../src/dataset";
 import fetch from "./utils/fetch-mock";
 

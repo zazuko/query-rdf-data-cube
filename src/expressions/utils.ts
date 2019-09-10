@@ -119,6 +119,6 @@ export function toLiteral(arg): Literal {
   return literal(arg);
 }
 
-function isLiteral(term: any): term is Literal {
+export function isLiteral(term: any): term is Literal {
   return (term instanceof literal("").constructor);
 }

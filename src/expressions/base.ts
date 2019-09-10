@@ -23,7 +23,7 @@ function notable(operator: string, previous: BaseExpr, extraArgs = []) {
   return op;
 }
 
-class BaseExpr implements IExpr {
+export default class BaseExpr implements IExpr {
   public resolve(mapping: Map<string, string>): IExpr {
     throw new Error("Not implemented");
   }
@@ -132,8 +132,6 @@ class BaseExpr implements IExpr {
     return notable("!=", this, [arg]);
   }
 }
-
-export default BaseExpr;
 
 // for cyclic dependencies
 import Operator from "./operator";

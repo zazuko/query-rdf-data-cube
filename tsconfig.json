@@ -7,11 +7,12 @@
     "target": "es6",
     "declaration": true
   },
-  "include": [ "./src/" ],
+  "include": [ "./src/**/*" ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts",
-    "dist",
-    "examples/"
+    "/node_modules",
+    "/__tests__",
+    "/_fixtures",
+    "/dist",
+    "/examples"
   ]
 }
