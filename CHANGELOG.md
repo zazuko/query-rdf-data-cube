@@ -1,3 +1,13 @@
+<a name="0.0.5"></a>
+## [0.0.5](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.4...v0.0.5) (2019-09-10)
+
+
+### Features
+
+* **datacube:** fetch is configurable at datacube instantiation ([c93abff](https://github.com/zazuko/query-rdf-data-cube/commit/c93abff))
+
+
+
 <a name="0.0.4"></a>
 ## [0.0.4](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.3...v0.0.4) (2019-09-09)
 
