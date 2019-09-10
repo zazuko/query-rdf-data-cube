@@ -3,11 +3,12 @@ import { NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import DataSet, { IDataSetOptions, Label } from "./dataset";
 import { generateLangCoalesce, generateLangOptionals, prefixes } from "./query/utils";
-import SparqlFetcher from "./sparqlfetcher";
+import SparqlFetcher, { ISparqlFetcherOptions } from "./sparqlfetcher";
 import { SelectQuery } from "./sparqljs";
 
 export interface ICubeOptions {
   languages?: string[];
+  fetcher?: ISparqlFetcherOptions;
 }
 
 type SerializedDataCube = {
@@ -53,7 +54,7 @@ export class DataCube {
   constructor(endpoint: string, options: ICubeOptions = {}) {
     this.endpoint = endpoint;
     this.languages = options.languages || ["de", "it"];
-    this.fetcher = new SparqlFetcher(endpoint);
+    this.fetcher = new SparqlFetcher(endpoint, options.fetcher || {});
     this.cachedDatasets = new Map();
     this.cachedGraphs = [];
   }

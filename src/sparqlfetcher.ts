@@ -17,13 +17,17 @@ type RDFTerm =
   | { type: "bnode"; value: string };
 
 export type Result = Record<string, Term>;
+export interface ISparqlFetcherOptions {
+  fetch?: typeof fetch;
+  fetchOptions?: RequestInit;
+}
 
 export default class SparqlFetcher {
   private fetch: typeof fetch;
   private fetchOptions: RequestInit;
   private endpoint: string;
 
-  constructor(endpoint: string, options: { fetch?: typeof fetch, fetchOptions?: RequestInit } = {}) {
+  constructor(endpoint: string, options: ISparqlFetcherOptions = {}) {
     this.endpoint = endpoint;
     this.fetch = options.fetch || fetch;
     this.fetchOptions = options.fetchOptions || {
