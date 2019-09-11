@@ -27,6 +27,9 @@ export class SparqlFetcher {
   constructor(endpoint: string, options: SparqlFetcherOptions = {}) {
     this.endpoint = endpoint;
     this.fetch = options.fetch || fetch;
+    if (typeof window !== "undefined" && "fetch" in window) {
+      this.fetch = window.fetch.bind(window);
+    }
     this.fetchOptions = options.fetchOptions || {
       method: "POST",
       headers: {
