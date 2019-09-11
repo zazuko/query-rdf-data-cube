@@ -67,6 +67,7 @@ class Component extends BaseExpr {
     const instance = new Constructor(state);
     instance.aggregateType = this.aggregateType;
     instance.isDistinct = this.isDistinct;
+    instance.descending = this.descending;
     return instance;
   }
 
