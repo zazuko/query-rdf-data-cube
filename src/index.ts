@@ -13,24 +13,24 @@ import { baseState, IQueryOptions, IState, PredicateFunction, Selects } from "./
 import { combineFilters, createOperationExpression, operatorArgsToExpressions } from "./query/utils";
 import { generateLangCoalesce, generateLangOptionals, prefixes } from "./query/utils";
 
-import DataCube, { ICubeOptions, SerializedDataCube } from "./datacube";
+import DataCubeEntryPoint, { EntryPointOptions, SerializedDataCubeEntryPoint } from "./datacubeentrypoint";
 import DataSet, { Label } from "./dataset";
-import SparqlFetcher, { ISparqlFetcherOptions } from "./sparqlfetcher";
+import SparqlFetcher, { SparqlFetcherOptions } from "./sparqlfetcher";
 
-export default DataCube;
+export default DataCubeEntryPoint;
 export {
   ArrayExpr,
   Attribute,
   BaseExpr,
   Binding,
-  DataCube,
+  DataCubeEntryPoint,
   DataSet,
   DataSetQuery,
   Dimension,
-  ICubeOptions,
+  EntryPointOptions,
   IExpr,
   IQueryOptions,
-  ISparqlFetcherOptions,
+  SparqlFetcherOptions,
   IState,
   IntoExpr,
   Label,
@@ -39,7 +39,7 @@ export {
   PredicateFunction,
   Selects,
   SerializedComponent,
-  SerializedDataCube,
+  SerializedDataCubeEntryPoint,
   SparqlFetcher,
   TermExpr,
   baseState,

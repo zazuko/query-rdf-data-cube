@@ -1,6 +1,6 @@
 // run this example with: $ ts-node examples/language-support.ts
 const { inspect } = require("util");
-const { DataCube } = require("../src/datacube");
+const { DataCubeEntryPoint } = require("../src/datacubeentrypoint");
 const { Dimension } = require("../src/components");
 
 function prettyPrint(obj) {
@@ -12,12 +12,12 @@ function printTitle(str) {
 
 (async () => {
   // instantiate an RDF Data Cube
-  const datacube = new DataCube(
+  const entryPoint = new DataCubeEntryPoint(
     "https://trifid-lindas.test.cluster.ldbar.ch/query",
     { languages: ["fr", "de"] },
   );
   // find all its datasets
-  const datasets = await datacube.datasets();
+  const datasets = await entryPoint.datasets();
   // we'll work with one of them
   const dataset = datasets[0];
 

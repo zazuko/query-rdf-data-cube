@@ -1,6 +1,6 @@
 import { literal, namedNode } from "@rdfjs/data-model";
 import {Attribute, Dimension, Measure} from "../src/components";
-import DataCube from "../src/datacube";
+import DataCubeEntryPoint from "../src/datacubeentrypoint";
 import DataSet from "../src/dataset";
 import fetch from "./utils/fetch-mock";
 
@@ -398,7 +398,7 @@ describe("handles languages", () => {
 
 describe("execute", () => {
   it("returns results", async () => {
-    const datacube = new DataCube(
+    const entryPoint = new DataCubeEntryPoint(
       "https://trifid-lindas.test.cluster.ldbar.ch/query",
       {
         languages: ["fr", "de"],
@@ -408,7 +408,7 @@ describe("execute", () => {
       },
     );
     // find all its datasets
-    const datasets = await datacube.datasets();
+    const datasets = await entryPoint.datasets();
     // we'll work with one of them
     const ds = datasets[0];
 

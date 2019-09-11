@@ -7,7 +7,8 @@
     "rules": {
         "object-literal-sort-keys": false,
         "no-console": [true, "log", "info", "debug", "warn"],
-        "interface-over-type-literal": false
+        "interface-over-type-literal": false,
+        "interface-name": false
     },
     "rulesDirectory": []
 }

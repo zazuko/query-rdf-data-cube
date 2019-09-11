@@ -14,7 +14,7 @@ import { generateLangCoalesce, generateLangOptionals, IQueryOptions, IState, Pre
  * @class DataSetQuery
  * @param options Options
  * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
- * Inherited from [[DataCube]].
+ * Inherited from [[DataCubeEntryPoint]].
  */
 export default class DataSetQuery {
   private dataSet: DataSet;

@@ -1,8 +1,8 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode, Term } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
-import {Component, Attribute, Dimension, Measure} from "./components";
-import { ICubeOptions } from "./datacube";
+import {Attribute, Component, Dimension, Measure} from "./components";
+import { EntryPointOptions } from "./datacubeentrypoint";
 import DataSetQuery from "./query/datasetquery";
 import { generateLangCoalesce, generateLangOptionals, IQueryOptions, prefixes } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
@@ -31,7 +31,7 @@ export type Label = {
   language: string;
 };
 
-export interface IDataSetOptions extends ICubeOptions {
+export interface IDataSetOptions extends EntryPointOptions {
   iri: NamedNode;
   labels?: Label[];
   graphIri: NamedNode;

@@ -1,9 +1,9 @@
 // tslint:disable: max-line-length
-import DataCube, { ICubeOptions } from "../src/datacube";
+import DataCubeEntryPoint, { EntryPointOptions } from "../src/datacubeentrypoint";
 import fetch from "./utils/fetch-mock";
 
 const newCube = (endpoint: string, languages?: string[]) => {
-  const options: ICubeOptions = {
+  const options: EntryPointOptions = {
     fetcher: {
       fetch,
     },
@@ -11,10 +11,10 @@ const newCube = (endpoint: string, languages?: string[]) => {
   if (languages) {
     options.languages = languages;
   }
-  return new DataCube(endpoint, options);
+  return new DataCubeEntryPoint(endpoint, options);
 };
 
-describe("DataCube", () => {
+describe("DataCubeEntryPoint", () => {
   it("handles responses that are not JSON", () => {
     const cube = newCube("http://example.com");
     expect(cube.datasets()).rejects.toMatchInlineSnapshot(

@@ -1,5 +1,5 @@
 const { inspect } = require("util");
-const { DataCube } = require("..");
+const { DataCubeEntryPoint } = require("..");
 const { Dimension } = require("../dist/node/components");
 
 function prettyPrint(obj) {
@@ -11,9 +11,9 @@ function printTitle(str) {
 
 (async () => {
   // instantiate an RDF Data Cube
-  const datacube = new DataCube("https://ld.stadt-zuerich.ch/query");
+  const entryPoint = new DataCubeEntryPoint("https://ld.stadt-zuerich.ch/query");
   // find all its datasets
-  const datasets = await datacube.datasets();
+  const datasets = await entryPoint.datasets();
   // we'll work with one of them
   const dataset = datasets[3];
 

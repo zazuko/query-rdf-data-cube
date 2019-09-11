@@ -47,13 +47,13 @@ Both usually go hand in hand.
 
 Instantiating a Data Cube lets you access its DataSets:
 ```js
-const { DataCube } = require("query-rdf-data-cube");
+const { DataCubeEntryPoint } = require("query-rdf-data-cube");
 
 // instantiate an RDF Data Cube with a SPARQL endpoint
-const datacube = new DataCube("https://ld.stadt-zuerich.ch/query");
+const entryPoint = new DataCubeEntryPoint("https://ld.stadt-zuerich.ch/query");
 
 // fetch all its datasets
-const datasets = await datacube.datasets();
+const datasets = await entryPoint.datasets();
 
 // assign the 4th dataset
 const dataset = datasets[3];

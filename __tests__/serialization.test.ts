@@ -1,9 +1,9 @@
-import {Component, Attribute, Dimension, Measure} from "../src/components";
-import DataCube from "../src/datacube";
+import {Attribute, Component, Dimension, Measure} from "../src/components";
+import DataCubeEntryPoint from "../src/datacubeentrypoint";
 import DataSet from "../src/dataset";
 import fetch from "./utils/fetch-mock";
 
-const cube = new DataCube(
+const cube = new DataCubeEntryPoint(
   "https://ld.stadt-zuerich.ch/query", {
   languages: ["it", "ru"],
   fetcher: {
@@ -11,7 +11,7 @@ const cube = new DataCube(
   },
 });
 
-describe("datacube", () => {
+describe("entrypoint", () => {
   beforeEach(async () => {
     await cube.datasets();
   });
@@ -22,11 +22,11 @@ describe("datacube", () => {
   });
   it("serialization is idempotent", () => {
     const serialized = cube.toJSON();
-    expect(DataCube.fromJSON(serialized).toJSON()).toBe(serialized);
+    expect(DataCubeEntryPoint.fromJSON(serialized).toJSON()).toBe(serialized);
   });
   it("deserializes", () => {
     const serialized = cube.toJSON();
-    expect(DataCube.fromJSON(serialized)).toBeInstanceOf(DataCube);
+    expect(DataCubeEntryPoint.fromJSON(serialized)).toBeInstanceOf(DataCubeEntryPoint);
   });
 });
 

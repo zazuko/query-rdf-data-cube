@@ -14,7 +14,7 @@ type RDFTerm =
   | { type: "bnode"; value: string };
 
 type Result = Record<string, Term>;
-export interface ISparqlFetcherOptions {
+export interface SparqlFetcherOptions {
   fetch?: typeof fetch;
   fetchOptions?: RequestInit;
 }
@@ -24,7 +24,7 @@ export default class SparqlFetcher {
   private fetchOptions: RequestInit;
   private endpoint: string;
 
-  constructor(endpoint: string, options: ISparqlFetcherOptions = {}) {
+  constructor(endpoint: string, options: SparqlFetcherOptions = {}) {
     this.endpoint = endpoint;
     this.fetch = options.fetch || fetch;
     this.fetchOptions = options.fetchOptions || {
