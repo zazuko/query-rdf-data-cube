@@ -1,11 +1,10 @@
-import { BaseExpr, IExpr } from "./index";
+import { IExpr } from "./iexpr";
+import { BaseExpr } from "./operator";
 
-class Numeric extends BaseExpr implements IExpr {
+export class Numeric extends BaseExpr implements IExpr {
   private val: number;
   public constructor(value: number) {
     super();
     this.val = value;
   }
 }
-
-export default Numeric;

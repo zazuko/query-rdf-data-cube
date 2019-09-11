@@ -1,9 +1,9 @@
 // tslint:disable: max-line-length
-import DataCube, { ICubeOptions } from "../src/datacube";
-import fetch from "./utils/fetch-mock";
+import { DataCubeEntryPoint, EntryPointOptions } from "../src/entrypoint";
+import { fetch } from "./utils/fetch-mock";
 
 const newCube = (endpoint: string, languages?: string[]) => {
-  const options: ICubeOptions = {
+  const options: EntryPointOptions = {
     fetcher: {
       fetch,
     },
@@ -11,13 +11,13 @@ const newCube = (endpoint: string, languages?: string[]) => {
   if (languages) {
     options.languages = languages;
   }
-  return new DataCube(endpoint, options);
+  return new DataCubeEntryPoint(endpoint, options);
 };
 
-describe("DataCube", () => {
+describe("DataCubeEntryPoint", () => {
   it("handles responses that are not JSON", () => {
     const cube = newCube("http://example.com");
-    expect(cube.datasets()).rejects.toMatchInlineSnapshot(
+    expect(cube.dataCubes()).rejects.toMatchInlineSnapshot(
       `[FetchError: invalid json response body at http://example.com/ reason: Unexpected token < in JSON at position 0]`,
     );
   });
@@ -25,7 +25,7 @@ describe("DataCube", () => {
     const cube = newCube(
       "https://trifid-lindas.test.cluster.ldbar.ch/query#error-message",
     );
-    expect(cube.datasets()).rejects.toMatchInlineSnapshot(
+    expect(cube.dataCubes()).rejects.toMatchInlineSnapshot(
       `[Error: error on this endpoint]`,
     );
   });
@@ -33,7 +33,7 @@ describe("DataCube", () => {
     const cube = newCube(
       "https://trifid-lindas.test.cluster.ldbar.ch/query#bad-data",
     );
-    expect(cube.datasets()).rejects.toMatchInlineSnapshot(
+    expect(cube.dataCubes()).rejects.toMatchInlineSnapshot(
       `[Error: Endpoint returned bad binding: {"type":"a bad type","value":"http://example.org/anzahl-forstbetriebe/dataset"}]`,
     );
   });
@@ -41,52 +41,52 @@ describe("DataCube", () => {
     const cube = newCube(
       "https://trifid-lindas.test.cluster.ldbar.ch/query#handles-bnodes",
     );
-    const datasets = await cube.datasets();
-    expect(datasets[0].iri).toBe("someBlankNode");
+    const dataCubes = await cube.dataCubes();
+    expect(dataCubes[0].iri).toBe("someBlankNode");
   });
   it("handles bad HTTP status", () => {
     const cube = newCube(
       "https://trifid-lindas.test.cluster.ldbar.ch/query#bad-HTTP-status",
       ["ru", "hu"],
     );
-    expect(cube.datasets()).rejects.toMatchInlineSnapshot(
+    expect(cube.dataCubes()).rejects.toMatchInlineSnapshot(
       `[Error: HTTP500 Some Server Error]`,
     );
   });
 });
 
-describe(".datasetByIri()", () => {
+describe(".dataCubeByIri()", () => {
   it("takes an IRI", async () => {
     const cube = newCube("https://ld.stadt-zuerich.ch/query");
-    const datasets = await cube.datasets();
-    for (const dataset of datasets) {
-      const iri = dataset.iri;
-      expect(await cube.datasetByIri(iri)).toMatchObject(dataset);
+    const dataCubes = await cube.dataCubes();
+    for (const datacube of dataCubes) {
+      const iri = datacube.iri;
+      expect(await cube.dataCubeByIri(iri)).toMatchObject(datacube);
     }
   });
-  it("caches the datasets", async () => {
+  it("caches the dataCubes", async () => {
     const cube = newCube("https://ld.stadt-zuerich.ch/query");
-    const datasets = await cube.datasets();
+    const dataCubes = await cube.dataCubes();
     const cube2 = newCube("https://ld.stadt-zuerich.ch/query");
-    for (const dataset of datasets.slice(0, 2)) {
-      const dataSetIri = dataset.iri;
-      const datasetFound = await cube2.datasetByIri(dataSetIri);
-      expect(datasetFound.toJSON()).toBe(dataset.toJSON());
+    for (const datacube of dataCubes.slice(0, 2)) {
+      const dataCubeIri = datacube.iri;
+      const datacubeFound = await cube2.dataCubeByIri(dataCubeIri);
+      expect(datacubeFound.toJSON()).toBe(datacube.toJSON());
     }
   });
 });
 
-describe(".datasetsByGraphIri()", () => {
+describe(".dataCubesByGraphIri()", () => {
   it("takes a graph IRI", async () => {
     const cube = newCube("https://ld.stadt-zuerich.ch/query");
-    const datasets = await cube.datasets();
+    const dataCubes = await cube.dataCubes();
     const cube2 = newCube("https://ld.stadt-zuerich.ch/query");
-    for (const dataset of datasets.slice(0, 3)) {
-      const graphIri = dataset.graphIri;
-      const expecting = (await cube2.datasetsByGraphIri(graphIri)).map((ds) =>
+    for (const datacube of dataCubes.slice(0, 3)) {
+      const graphIri = datacube.graphIri;
+      const expecting = (await cube2.dataCubesByGraphIri(graphIri)).map((ds) =>
         ds.toJSON(),
       );
-      const expected = datasets
+      const expected = dataCubes
         .filter((ds) => ds.graphIri === graphIri)
         .map((ds) => ds.toJSON());
       expect(expecting).toMatchObject(expected);
@@ -96,9 +96,9 @@ describe(".datasetsByGraphIri()", () => {
     const cube = newCube("https://ld.stadt-zuerich.ch/query");
     const graphs = await cube.graphs();
     for (const graphIri of graphs.slice(0, 2)) {
-      const datasets = await cube.datasetsByGraphIri(graphIri.value);
-      const dataset = datasets[0];
-      expect(dataset.graphIri).toBe(graphIri.value);
+      const dataCubes = await cube.dataCubesByGraphIri(graphIri.value);
+      const datacube = dataCubes[0];
+      expect(datacube.graphIri).toBe(graphIri.value);
     }
   });
 });

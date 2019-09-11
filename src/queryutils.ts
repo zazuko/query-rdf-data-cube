@@ -1,16 +1,15 @@
 import { literal, namedNode, variable } from "@rdfjs/data-model";
 import { Variable } from "rdf-js";
-import {Component} from "../components";
-import { ICubeOptions } from "../datacube";
-import Binding from "../expressions/binding";
-import Operator from "../expressions/operator";
-import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "../expressions";
-import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, Tuple } from "../sparqljs";
+import { Component } from "./components";
+import { EntryPointOptions } from "./entrypoint";
+import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions";
+import { Binding, into, Operator } from "./expressions/operator";
+import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, Tuple } from "./sparqljs";
 
 export type PredicateFunction = (data: Selects) => Component;
 export type Selects = Record<string, Component>;
 
-export interface IState {
+export interface QueryState {
   selects: Selects;
   filters: IExpr[];
   groupBys: Array<PredicateFunction | string>;
@@ -21,9 +20,9 @@ export interface IState {
 }
 
 // tslint:disable-next-line: no-empty-interface
-export interface IQueryOptions extends ICubeOptions {}
+export interface QueryOptions extends EntryPointOptions {}
 
-export const baseState: IState = {
+export const baseState: QueryState = {
   selects: {},
   filters: [],
   groupBys: [],

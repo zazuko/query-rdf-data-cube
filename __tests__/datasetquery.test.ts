@@ -1,8 +1,8 @@
 import { literal, namedNode } from "@rdfjs/data-model";
-import {Attribute, Dimension, Measure} from "../src/components";
-import DataCube from "../src/datacube";
-import DataSet from "../src/dataset";
-import fetch from "./utils/fetch-mock";
+import { Attribute, Dimension, Measure } from "../src/components";
+import { DataCube} from "../src/datacube";
+import { DataCubeEntryPoint } from "../src/entrypoint";
+import { fetch } from "./utils/fetch-mock";
 
 const betriebsartDimension = new Dimension({
   labels: [{ value: "Betriebsart", language: "" }],
@@ -50,7 +50,7 @@ const korrekturAttribute = new Attribute({
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR",
 });
 
-const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
+const datacube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
   iri: namedNode(
     "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX",
   ),
@@ -67,7 +67,7 @@ const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
 });
 
 test("basic", async () => {
-  const query = dataset.query().select({
+  const query = datacube.query().select({
     betriebsart: betriebsartDimension,
     geschlecht: geschlechtDimension,
     raum: raumDimension,
@@ -88,7 +88,7 @@ test("basic", async () => {
 
 describe("select", () => {
   test("throws helpful message on falsy components", async () => {
-    const query = dataset.query();
+    const query = datacube.query();
     expect(() =>
       query.select({
         betriebsart: betriebsartDimension,
@@ -105,7 +105,7 @@ describe("select", () => {
 });
 
 test("distinct", async () => {
-  const query = dataset.query().select({
+  const query = datacube.query().select({
     raum: raumDimension.distinct(),
   });
   const sparql = await query.toSparql();
@@ -113,14 +113,14 @@ test("distinct", async () => {
 });
 
 test("empty select", async () => {
-  const query = dataset.query();
+  const query = datacube.query();
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
 });
 
 describe("avg", () => {
   test("avg", async () => {
-    const query = dataset.query().select({
+    const query = datacube.query().select({
       raum: raumDimension,
       bep: beschaeftigteMeasure.avg(),
     });
@@ -129,7 +129,7 @@ describe("avg", () => {
   });
 
   test("avg and filter", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({
         raum: raumDimension,
@@ -143,7 +143,7 @@ describe("avg", () => {
   });
 
   test("avg has auto groupBy", async () => {
-    const sparqlA = await dataset
+    const sparqlA = await datacube
       .query()
       .select({
         raum: raumDimension,
@@ -151,7 +151,7 @@ describe("avg", () => {
       })
       .groupBy("raum")
       .toSparql();
-    const sparqlB = await dataset
+    const sparqlB = await datacube
       .query()
       .select({
         raum: raumDimension,
@@ -162,7 +162,7 @@ describe("avg", () => {
   });
 
   test("avg distinct", async () => {
-    const query = dataset.query().select({
+    const query = datacube.query().select({
       betriebsart: betriebsartDimension,
       geschlecht: geschlechtDimension,
       raum: raumDimension,
@@ -184,7 +184,7 @@ describe("avg", () => {
 
 describe("groupBy", () => {
   test("with avg doesn't duplicate groupby vars", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({
         raum: raumDimension,
@@ -200,7 +200,7 @@ describe("groupBy", () => {
   });
 
   test("groups with a function", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({
         betriebsart: betriebsartDimension,
@@ -222,7 +222,7 @@ describe("groupBy", () => {
   });
 
   test("groups with strings", async () => {
-    const base = dataset.query().select({
+    const base = datacube.query().select({
       betriebsart: betriebsartDimension,
       geschlecht: geschlechtDimension,
       raum: raumDimension,
@@ -242,7 +242,7 @@ describe("groupBy", () => {
   });
 
   test("reports error when grouping on unknown component", async () => {
-    const base = dataset.query().select({
+    const base = datacube.query().select({
       betriebsart: betriebsartDimension,
     });
     const query = base.groupBy("foobarbaz");
@@ -252,7 +252,7 @@ describe("groupBy", () => {
   });
 
   test("doesn't duplicate", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({
         betriebsart: betriebsartDimension,
@@ -278,7 +278,7 @@ describe("groupBy", () => {
 });
 
 test("group and filter", async () => {
-  const base = dataset.query().select({
+  const base = datacube.query().select({
     betriebsart: betriebsartDimension,
     geschlecht: geschlechtDimension,
     raum: raumDimension,
@@ -301,7 +301,7 @@ test("group and filter", async () => {
 
 describe("ordering", () => {
   test("group and filter", async () => {
-    const base = dataset.query().select({
+    const base = datacube.query().select({
       betriebsart: betriebsartDimension,
       geschlecht: geschlechtDimension,
       raum: raumDimension,
@@ -325,7 +325,7 @@ describe("ordering", () => {
   });
 
   test("one or many give same sparql", async () => {
-    const base = dataset.query().select({
+    const base = datacube.query().select({
       raum: raumDimension,
       zeit: zeitDimension,
     });
@@ -343,7 +343,7 @@ describe("ordering", () => {
   });
 
   test("are ordered", async () => {
-    const base = dataset.query().select({
+    const base = datacube.query().select({
       raum: raumDimension,
       zeit: zeitDimension,
     });
@@ -360,7 +360,7 @@ describe("ordering", () => {
 
 describe("handles languages", () => {
   test("one language", async () => {
-    const query = dataset.query({ languages: ["en"] }).select({
+    const query = datacube.query({ languages: ["en"] }).select({
       zeit: zeitDimension,
 
       bep: beschaeftigteMeasure,
@@ -372,7 +372,7 @@ describe("handles languages", () => {
   });
 
   test("two languages", async () => {
-    const query = dataset.query({ languages: ["en", "de"] }).select({
+    const query = datacube.query({ languages: ["en", "de"] }).select({
       zeit: zeitDimension,
 
       bep: beschaeftigteMeasure,
@@ -384,7 +384,7 @@ describe("handles languages", () => {
   });
 
   test("three languages", async () => {
-    const query = dataset.query({ languages: ["fr", "de", "it"] }).select({
+    const query = datacube.query({ languages: ["fr", "de", "it"] }).select({
       zeit: zeitDimension,
 
       bep: beschaeftigteMeasure,
@@ -393,12 +393,13 @@ describe("handles languages", () => {
     });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
+    expect(await query.execute()).toMatchSnapshot();
   });
 });
 
-describe("execute", () => {
+describe.skip("execute", () => {
   it("returns results", async () => {
-    const datacube = new DataCube(
+    const entryPoint = new DataCubeEntryPoint(
       "https://trifid-lindas.test.cluster.ldbar.ch/query",
       {
         languages: ["fr", "de"],
@@ -407,10 +408,10 @@ describe("execute", () => {
         },
       },
     );
-    // find all its datasets
-    const datasets = await datacube.datasets();
+    // find all its dataCubes
+    const dataCubes = await entryPoint.dataCubes();
     // we'll work with one of them
-    const ds = datasets[0];
+    const ds = dataCubes[0];
 
     const dimensions = await ds.dimensions();
     const measures = await ds.measures();

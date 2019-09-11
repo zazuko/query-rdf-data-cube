@@ -1,37 +1,32 @@
-import Attribute from "./components/attribute";
+import { Attribute, Dimension, Measure } from "./components";
 import { SerializedComponent } from "./components/component";
-import Dimension from "./components/dimension";
-import Measure from "./components/measure";
 
-import BaseExpr from "./expressions/base";
-import Binding from "./expressions/binding";
-import Operator from "./expressions/operator";
-import { ArrayExpr, IExpr, into, IntoExpr, isLiteral, isTerm, TermExpr, toLiteral } from "./expressions";
+import { ArrayExpr, IExpr, IntoExpr, isLiteral, isTerm, TermExpr } from "./expressions";
+import { BaseExpr, Binding, into, Operator, toLiteral } from "./expressions/operator";
 
-import DataSetQuery from "./query/datasetquery";
-import { baseState, IQueryOptions, IState, PredicateFunction, Selects } from "./query/utils";
-import { combineFilters, createOperationExpression, operatorArgsToExpressions } from "./query/utils";
-import { generateLangCoalesce, generateLangOptionals, prefixes } from "./query/utils";
+import { Query } from "./query";
+import { baseState, PredicateFunction, QueryOptions, QueryState, Selects } from "./queryutils";
+import { combineFilters, createOperationExpression, operatorArgsToExpressions } from "./queryutils";
+import { generateLangCoalesce, generateLangOptionals, prefixes } from "./queryutils";
 
-import DataCube, { ICubeOptions, SerializedDataCube } from "./datacube";
-import DataSet, { Label } from "./dataset";
-import SparqlFetcher, { ISparqlFetcherOptions } from "./sparqlfetcher";
+import { DataCube, Label } from "./datacube";
+import { DataCubeEntryPoint, EntryPointOptions, SerializedDataCubeEntryPoint } from "./entrypoint";
+import { SparqlFetcher, SparqlFetcherOptions } from "./sparqlfetcher";
 
-export default DataCube;
 export {
   ArrayExpr,
   Attribute,
   BaseExpr,
   Binding,
+  DataCubeEntryPoint,
   DataCube,
-  DataSet,
-  DataSetQuery,
+  Query,
   Dimension,
-  ICubeOptions,
+  EntryPointOptions,
   IExpr,
-  IQueryOptions,
-  ISparqlFetcherOptions,
-  IState,
+  QueryOptions,
+  SparqlFetcherOptions,
+  QueryState,
   IntoExpr,
   Label,
   Measure,
@@ -39,7 +34,7 @@ export {
   PredicateFunction,
   Selects,
   SerializedComponent,
-  SerializedDataCube,
+  SerializedDataCubeEntryPoint,
   SparqlFetcher,
   TermExpr,
   baseState,

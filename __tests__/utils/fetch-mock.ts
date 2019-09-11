@@ -5,4 +5,4 @@ fetch.configure({
   mode: "cache",
 });
 
-export default fetch;
+export { fetch };

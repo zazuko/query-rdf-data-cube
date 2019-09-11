@@ -1,8 +1,8 @@
 // tslint:disable: trailing-comma
 import { literal, namedNode } from "@rdfjs/data-model";
-import {Dimension} from "../src/components";
-import DataSet from "../src/dataset";
-import fetch from "./utils/fetch-mock";
+import { Dimension } from "../src/components";
+import { DataCube } from "../src/datacube";
+import { fetch } from "./utils/fetch-mock";
 
 function extractFilter(sparql: string) {
   return sparql
@@ -12,7 +12,7 @@ function extractFilter(sparql: string) {
     .trim();
 }
 
-const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
+const datacube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
   iri: namedNode(
     "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX"
   ),
@@ -28,39 +28,39 @@ const dataset: DataSet = new DataSet("https://ld.stadt-zuerich.ch/query", {
   },
 });
 
-const a: any = new Dimension({
+const a: Dimension = new Dimension({
   labels: [{ value: "aaaa", language: "" }],
   iri: "http://aaaa.aa"
 });
-const b: any = new Dimension({
+const b: Dimension = new Dimension({
   labels: [{ value: "bbbb", language: "" }],
   iri: "http://bbbb.bb"
 });
-const c: any = new Dimension({
+const c: Dimension = new Dimension({
   labels: [{ value: "cccc", language: "" }],
   iri: "http://cccc.cc"
 });
-const d: any = new Dimension({
+const d: Dimension = new Dimension({
   labels: [{ value: "dddd", language: "" }],
   iri: "http://dddd.dd"
 });
 
 test("basic", async () => {
-  let sparql = await dataset
+  let sparql = await datacube
     .query()
     .select({ a, b })
     .filter(a.not.bound())
     .toSparql();
   expect(extractFilter(sparql)).toMatchInlineSnapshot(`"FILTER(!(BOUND(?a)))"`);
 
-  sparql = await dataset
+  sparql = await datacube
     .query()
     .select({ a, b })
     .filter(a.gte(b))
     .toSparql();
   expect(extractFilter(sparql)).toMatchInlineSnapshot(`"FILTER(?a >= ?b)"`);
 
-  sparql = await dataset
+  sparql = await datacube
     .query()
     .select({ a, b })
     .filter(a.not.gte(10))
@@ -70,7 +70,7 @@ test("basic", async () => {
 
 describe("fixtures", () => {
   it("NOT IN, !IN", async () => {
-    const sparqlA = await dataset
+    const sparqlA = await datacube
       .query()
       .select({ a, b })
       .filter(a.not.in([namedNode("http://example.com"), literal("foo", "en")]))
@@ -78,7 +78,7 @@ describe("fixtures", () => {
     expect(extractFilter(sparqlA)).toMatchInlineSnapshot(
       `"FILTER(?a NOT IN(<http://example.com>, \\"foo\\"@en))"`
     );
-    const sparqlB = await dataset
+    const sparqlB = await datacube
       .query()
       .select({ a, b })
       .filter(a.notIn([namedNode("http://example.com"), literal("foo", "en")]))
@@ -87,13 +87,13 @@ describe("fixtures", () => {
   });
 
   it("!=", async () => {
-    const sparqlA = await dataset
+    const sparqlA = await datacube
       .query()
       .select({ a, b })
       .filter(a.not.equals(10))
       .toSparql();
     expect(extractFilter(sparqlA)).toMatchInlineSnapshot(`"FILTER(?a != 10 )"`);
-    const sparqlB = await dataset
+    const sparqlB = await datacube
       .query()
       .select({ a, b })
       .filter(a.notEquals(10))
@@ -102,7 +102,7 @@ describe("fixtures", () => {
   });
 
   it("equals binding", async () => {
-    const sparqlA = await dataset
+    const sparqlA = await datacube
       .query()
       .select({ a, b })
       .filter(a.not.equals(b))
@@ -111,7 +111,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER regex(?title, "^SPARQL") .', async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ title: a })
       .filter(a.regex("^SPARQL"));
@@ -123,7 +123,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER regex(?title, "web", "i") .', async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ title: a })
       .filter(a.regex("web", "i"));
@@ -134,7 +134,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (?price < 30.5) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ price: a })
       .filter(a.lt(30.5));
@@ -145,7 +145,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (?price <= 30.5) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ price: a })
       .filter(a.lte(30.5));
@@ -156,7 +156,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER (?date > "2005-01-01T00:00:00Z"^^xsd:dateTime) .', async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ date: a })
       .filter(a.gt("2005-01-01T00:00:00Z"));
@@ -167,7 +167,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (bound(?date)) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ date: a })
       .filter(a.bound());
@@ -178,7 +178,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (!bound(?date)) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ date: a })
       .filter(a.not.bound());
@@ -189,7 +189,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER isIRI(?mbox) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ mbox: a })
       .filter(a.isIRI());
@@ -200,7 +200,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER isBlank(?c)", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ c: a })
       .filter(a.isBlank());
@@ -211,7 +211,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER isLiteral(?mbox) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ mbox: a })
       .filter(a.isLiteral());
@@ -222,7 +222,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER regex(str(?mbox), "@work.example") .', async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ mbox: a })
       .filter(a.str().regex("@work.example"));
@@ -233,7 +233,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER (lang(?name) = "ES") .', async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ name: a })
       .filter(a.lang().equals("ES"));
@@ -244,7 +244,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (datatype(?shoeSize) = xsd:integer) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ shoeSize: a })
       .filter(a.datatype().equals("http://www.w3.org/2001/XMLSchema#integer"));
@@ -255,7 +255,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (?mbox1 = ?mbox2 && ?name1 != ?name2) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ mbox1: a, mbox2: b, name1: c, name2: d })
       .filter(a.equals(b))
@@ -267,7 +267,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (sameTerm(?mbox1, ?mbox2) && !sameTerm(?name1, ?name2)) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ mbox1: a, mbox2: b, name1: c, name2: d })
       .filter(a.sameTerm(b))
@@ -279,7 +279,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER(?raum IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>)) .", async () => {
-    const query = dataset
+    const query = datacube
       .query()
       .select({ raum: a })
       .filter(a.in(["https://ld.stadt-zuerich.ch/statistics/code/R30000"]));

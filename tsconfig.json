@@ -5,7 +5,8 @@
     "sourceMap": true,
     "outDir": "dist",
     "target": "es6",
-    "declaration": true
+    "declaration": true,
+    "declarationDir": "./dist"
   },
   "include": [ "./src/**/*" ],
   "exclude": [

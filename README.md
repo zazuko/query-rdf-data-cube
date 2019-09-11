@@ -45,28 +45,28 @@ See the `examples/` folder at the root of this repository.
 This library has two main use cases: exploring an RDF Data Cube and querying an RDF Data Cube.
 Both usually go hand in hand.
 
-Instantiating a Data Cube lets you access its DataSets:
+Instantiating a DataCube EntryPoint lets you access its DataCubes:
 ```js
-const { DataCube } = require("query-rdf-data-cube");
+const { DataCubeEntryPoint } = require("query-rdf-data-cube");
 
 // instantiate an RDF Data Cube with a SPARQL endpoint
-const datacube = new DataCube("https://ld.stadt-zuerich.ch/query");
+const entryPoint = new DataCubeEntryPoint("https://ld.stadt-zuerich.ch/query");
 
-// fetch all its datasets
-const datasets = await datacube.datasets();
+// fetch all its dataCubes
+const dataCubes = await entryPoint.dataCubes();
 
-// assign the 4th dataset
-const dataset = datasets[3];
+// assign the 4th datacube
+const datacube = dataCubes[3];
 ```
 
-You could also [directly instantiate a DataSet](https://github.com/zazuko/query-rdf-data-cube/blob/ebb4dca18df46fc1f384ed9ee3876b2c865d5d20/src/expressions/filter.test.ts#L13-L21).
+You could also [directly instantiate a DataCube](https://github.com/zazuko/query-rdf-data-cube/blob/ebb4dca18df46fc1f384ed9ee3876b2c865d5d20/src/expressions/filter.test.ts#L13-L21).
 
-A DataSet can retrieve its *Components*, ie. its *Dimensions*, *Measures* and *Attributes*:
+A DataCube can retrieve its *Components*, ie. its *Dimensions*, *Measures* and *Attributes*:
 
 ```js
-const dimensions = await dataset.dimensions();
-const measures = await dataset.measures();
-const attributes = await dataset.attributes();
+const dimensions = await datacube.dimensions();
+const measures = await datacube.measures();
+const attributes = await datacube.attributes();
 
 const zeitDimension = dimensions[0];
 // const raumDimension = dimensions[1];
@@ -89,7 +89,7 @@ const korrekturAttribute = attributes[5];
 This setup is quite exhaustive, in many situations you won't want to create all of these or get all of these and rely on this lib to properly guess what to query.
 
 ```js
-const query = dataset
+const query = datacube
   .query()
   // .select({}) takes binding names as keys and Component (Dimension/Attribute/Measure) as values
   .select({
