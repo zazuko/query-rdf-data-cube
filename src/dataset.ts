@@ -28,7 +28,7 @@ type SerializedDataSet = {
 };
 export type Label = {
   value: string;
-  language?: string;
+  language: string;
 };
 
 export interface IDataSetOptions extends ICubeOptions {
@@ -88,7 +88,7 @@ class DataSet {
     this.iri = iri.value;
     this.graphIri = graphIri.value;
     this.labels = labels || [];
-    this.languages = options.languages || ["de", "it"];
+    this.languages = options.languages || [];
     this.cachedComponents = {
       dimensions: new Map(),
       measures: new Map(),

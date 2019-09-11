@@ -18,9 +18,8 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/ubd28"
         },
         "label" : {
-          "xml:lang" : "de",
           "type" : "literal",
-          "value" : "Luftqualität Schweiz (Jahreswerte)"
+          "value" : ""
         }
       },
       {
@@ -33,9 +32,8 @@
           "value" : "http://environment.data.admin.ch/ubd/66/qb/ubd66"
         },
         "label" : {
-          "xml:lang" : "de",
           "type" : "literal",
-          "value" : "Schwermetallbelastung des Bodens"
+          "value" : ""
         }
       },
       {
@@ -172,48 +170,6 @@
         "iri" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/dataset/AST-RAUM-ZEIT-BEW-BTA"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
-      },
-      {
-        "graphIri" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/statistics"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.data-bs.ch/dataset/6623"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
-      },
-      {
-        "graphIri" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/rhein-ues-weil"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.data-bs.ch/dataset/rhein-ues-weil-raw"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
-      },
-      {
-        "graphIri" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/rhein-ues-weil"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.data-bs.ch/dataset/rhein-ues-weil-corrected"
         },
         "label" : {
           "type" : "literal",
@@ -1348,6 +1304,48 @@
         "iri" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/dataset/GST-RAUM-ZEIT-HAA"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "graphIri" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/bs/statistics"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "https://ld.data-bs.ch/dataset/6623"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "graphIri" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/bs/rhein-ues-weil"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "https://ld.data-bs.ch/dataset/rhein-ues-weil-raw"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "graphIri" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/bs/rhein-ues-weil"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "https://ld.data-bs.ch/dataset/rhein-ues-weil-corrected"
         },
         "label" : {
           "type" : "literal",

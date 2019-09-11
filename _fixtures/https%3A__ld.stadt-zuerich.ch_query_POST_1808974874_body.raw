@@ -39,6 +39,34 @@
       {
         "kind" : {
           "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#dimension"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "https://ld.stadt-zuerich.ch/statistics/property/BTA"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#dimension"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "https://ld.stadt-zuerich.ch/statistics/property/SEX"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
           "value" : "http://purl.org/linked-data/cube#attribute"
         },
         "iri" : {
@@ -114,34 +142,6 @@
         "iri" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
-      },
-      {
-        "kind" : {
-          "type" : "uri",
-          "value" : "http://purl.org/linked-data/cube#dimension"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.stadt-zuerich.ch/statistics/property/BTA"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
-      },
-      {
-        "kind" : {
-          "type" : "uri",
-          "value" : "http://purl.org/linked-data/cube#dimension"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.stadt-zuerich.ch/statistics/property/SEX"
         },
         "label" : {
           "type" : "literal",

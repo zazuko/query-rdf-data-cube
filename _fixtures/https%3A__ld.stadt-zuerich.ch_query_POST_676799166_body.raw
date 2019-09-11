@@ -14,9 +14,8 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/ubd28"
         },
         "label" : {
-          "xml:lang" : "de",
           "type" : "literal",
-          "value" : "Luftqualität Schweiz (Jahreswerte)"
+          "value" : ""
         }
       }
     ]

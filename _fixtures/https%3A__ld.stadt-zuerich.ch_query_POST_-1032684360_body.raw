@@ -9,18 +9,13 @@
   "results" : {
     "bindings" : [
       {
-        "graphIri" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/FOEN/UBD66"
-        },
         "iri" : {
           "type" : "uri",
           "value" : "http://environment.data.admin.ch/ubd/66/qb/ubd66"
         },
         "label" : {
-          "xml:lang" : "de",
           "type" : "literal",
-          "value" : "Schwermetallbelastung des Bodens"
+          "value" : ""
         }
       }
     ]

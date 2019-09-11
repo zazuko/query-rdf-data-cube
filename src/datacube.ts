@@ -53,7 +53,7 @@ export default class DataCube {
    */
   constructor(endpoint: string, options: ICubeOptions = {}) {
     this.endpoint = endpoint;
-    this.languages = options.languages || ["de", "it"];
+    this.languages = options.languages || [];
     this.fetcher = new SparqlFetcher(endpoint, options.fetcher || {});
     this.cachedDatasets = new Map();
     this.cachedGraphs = [];
