@@ -1,11 +1,4 @@
-import Attribute from "./attribute";
-import Component from "./component";
-import Dimension from "./dimension";
-import Measure from "./measure";
-
-export default Component;
-export {
-  Dimension,
-  Attribute,
-  Measure,
-};
+export {default as Component} from "./component";
+export {default as Attribute} from "./attribute";
+export {default as Dimension} from "./dimension";
+export {default as Measure} from "./measure";

@@ -1,4 +1,5 @@
 import { Literal } from "rdf-js";
+import { Operator, IExpr, IntoExpr } from "./index";
 
 const notableOperators = {
   "in": "notin",
@@ -132,7 +133,3 @@ export default class BaseExpr implements IExpr {
     return notable("!=", this, [arg]);
   }
 }
-
-// for cyclic dependencies
-import Operator from "./operator";
-import { IExpr, IntoExpr } from "./utils";

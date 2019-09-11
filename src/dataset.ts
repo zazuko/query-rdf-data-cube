@@ -1,7 +1,7 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode, Term } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
-import Component, {Attribute, Dimension, Measure} from "./components";
+import {Component, Attribute, Dimension, Measure} from "./components";
 import { ICubeOptions } from "./datacube";
 import DataSetQuery from "./query/datasetquery";
 import { generateLangCoalesce, generateLangOptionals, IQueryOptions, prefixes } from "./query/utils";

@@ -1,9 +1,9 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
-import Component from "../components/index";
+import {Component} from "../components/index";
 import DataSet from "../dataset";
-import { IExpr } from "../expressions/utils";
+import { IExpr } from "../expressions";
 import SparqlFetcher from "../sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
 import { baseState, combineFilters, createOperationExpression, prefixes } from "./utils";

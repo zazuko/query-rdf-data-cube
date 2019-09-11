@@ -1,5 +1,4 @@
-import BaseExpr from "./base";
-import { IExpr } from "./utils";
+import { BaseExpr, IExpr } from "./index";
 
 class Binding extends BaseExpr implements IExpr {
   public name: string;
