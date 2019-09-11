@@ -6,7 +6,7 @@ import Measure from "./components/measure";
 import BaseExpr from "./expressions/base";
 import Binding from "./expressions/binding";
 import Operator from "./expressions/operator";
-import { ArrayExpr, IExpr, into, IntoExpr, isLiteral, isTerm, TermExpr, toLiteral } from "./expressions/utils";
+import { ArrayExpr, IExpr, into, IntoExpr, isLiteral, isTerm, TermExpr, toLiteral } from "./expressions";
 
 import DataSetQuery from "./query/datasetquery";
 import { baseState, IQueryOptions, IState, PredicateFunction, Selects } from "./query/utils";

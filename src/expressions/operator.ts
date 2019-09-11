@@ -1,5 +1,4 @@
-import BaseExpr from "./base";
-import { IExpr, into, IntoExpr } from "./utils";
+import { BaseExpr, IExpr ,into, IntoExpr} from "./index";
 
 class Operator extends BaseExpr implements IExpr {
   public operator: string;

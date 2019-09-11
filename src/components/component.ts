@@ -2,9 +2,8 @@ import { namedNode } from "@rdfjs/data-model";
 import clone from "clone";
 import { Term } from "rdf-js";
 import { Label } from "../dataset";
-import BaseExpr from "../expressions/base";
-import Binding from "../expressions/binding";
-import { IExpr } from "../expressions/utils";
+import { BaseExpr, Binding, IExpr } from "../expressions";
+import { Measure, Dimension, Attribute } from "./index";
 
 export type SerializedComponent = {
   componentType: string,
@@ -94,7 +93,3 @@ class Component extends BaseExpr {
 }
 
 export default Component;
-
-import Attribute from "./attribute";
-import Dimension from "./dimension";
-import Measure from "./measure";

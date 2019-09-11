@@ -2,8 +2,7 @@
 import { blankNode, defaultGraph, literal, namedNode, variable } from "@rdfjs/data-model";
 import namespace from "@rdfjs/namespace";
 import { Literal, Term } from "rdf-js";
-import Binding from "./binding";
-import Operator from "./operator";
+import { IExpr, Operator, Binding } from "./index"
 
 const xsd = namespace("http://www.w3.org/2001/XMLSchema#");
 
@@ -11,9 +10,7 @@ const dateTime = /^\d{4}(-[01]\d(-[0-3]\d(T[0-2]\d:[0-5]\d:?([0-5]\d(\.\d+)?)?([
 const bool = /^(true|false)$/;
 const numb = /^[\-+]?(?:\d+\.?\d*([eE](?:[\-\+])?\d+)|\d*\.?\d+)$/;
 
-export interface IExpr {
-  resolve(mapping: Map<string, string>): IExpr;
-}
+
 export type IntoExpr = Term | number | IExpr;
 
 export class TermExpr implements IExpr {
