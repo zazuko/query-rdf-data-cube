@@ -1,3 +1,17 @@
+<a name="0.0.9"></a>
+## [0.0.9](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.8...v0.0.9) (2019-09-11)
+
+
+### Bug Fixes
+
+* **fetch:** bind fetch to window when window exists ([f6d0887](https://github.com/zazuko/query-rdf-data-cube/commit/f6d0887))
+* no circular imports ([8f62c71](https://github.com/zazuko/query-rdf-data-cube/commit/8f62c71))
+* test imports ([17105e4](https://github.com/zazuko/query-rdf-data-cube/commit/17105e4))
+* **component:** ordering is carried over ([fcc581e](https://github.com/zazuko/query-rdf-data-cube/commit/fcc581e))
+* **lang:** remove test default languages ([10ed7c1](https://github.com/zazuko/query-rdf-data-cube/commit/10ed7c1))
+
+
+
 <a name="0.0.8"></a>
 ## [0.0.8](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.7...v0.0.8) (2019-09-10)
 
