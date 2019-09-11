@@ -10,7 +10,7 @@ import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpressi
 export type PredicateFunction = (data: Selects) => Component;
 export type Selects = Record<string, Component>;
 
-export interface IState {
+export interface QueryState {
   selects: Selects;
   filters: IExpr[];
   groupBys: Array<PredicateFunction | string>;
@@ -21,9 +21,9 @@ export interface IState {
 }
 
 // tslint:disable-next-line: no-empty-interface
-export interface IQueryOptions extends EntryPointOptions {}
+export interface QueryOptions extends EntryPointOptions {}
 
-export const baseState: IState = {
+export const baseState: QueryState = {
   selects: {},
   filters: [],
   groupBys: [],

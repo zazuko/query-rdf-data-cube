@@ -7,7 +7,7 @@ import { IExpr } from "../expressions";
 import SparqlFetcher from "../sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
 import { baseState, combineFilters, createOperationExpression, prefixes } from "./utils";
-import { generateLangCoalesce, generateLangOptionals, IQueryOptions, IState, PredicateFunction } from "./utils";
+import { generateLangCoalesce, generateLangOptionals, PredicateFunction, QueryOptions, QueryState } from "./utils";
 
 /**
  * A query to a [[DataSet]].
@@ -21,7 +21,7 @@ export default class DataSetQuery {
   // one map from bindingName to Component, one from component IRI to bindingName
   private bindingToComponent: Map<string, Component> = new Map();
   private iriToBinding: Map<string, string> = new Map();
-  private state: IState;
+  private state: QueryState;
   private fetcher: SparqlFetcher;
   private tmpVarCount: number = 0;
   private languages: string[];
@@ -32,7 +32,7 @@ export default class DataSetQuery {
    * to query.
    * @param dataSet The [[DataSet]] to query.
    */
-  constructor(dataSet: DataSet, options: IQueryOptions = {}) {
+  constructor(dataSet: DataSet, options: QueryOptions = {}) {
     this.languages = options.languages || [];
     this.dataSet = dataSet;
     this.state = baseState;
@@ -50,9 +50,9 @@ export default class DataSetQuery {
    *     someDate: dateDimension,
    *   });
    * ```
-   * @param {IState["selects"]} selects
+   * @param {QueryState["selects"]} selects
    */
-  public select(selects: IState["selects"]) {
+  public select(selects: QueryState["selects"]) {
     const self = this.clone();
     Object.assign(self.state.selects, selects);
     Object.entries(self.state.selects).forEach(([bindingName, component]) => {

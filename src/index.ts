@@ -9,7 +9,7 @@ import Operator from "./expressions/operator";
 import { ArrayExpr, IExpr, into, IntoExpr, isLiteral, isTerm, TermExpr, toLiteral } from "./expressions";
 
 import DataSetQuery from "./query/datasetquery";
-import { baseState, IQueryOptions, IState, PredicateFunction, Selects } from "./query/utils";
+import { baseState, PredicateFunction, QueryOptions, QueryState, Selects } from "./query/utils";
 import { combineFilters, createOperationExpression, operatorArgsToExpressions } from "./query/utils";
 import { generateLangCoalesce, generateLangOptionals, prefixes } from "./query/utils";
 
@@ -29,9 +29,9 @@ export {
   Dimension,
   EntryPointOptions,
   IExpr,
-  IQueryOptions,
+  QueryOptions,
   SparqlFetcherOptions,
-  IState,
+  QueryState,
   IntoExpr,
   Label,
   Measure,

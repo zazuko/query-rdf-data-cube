@@ -1,7 +1,7 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
-import DataSet, { IDataSetOptions, Label } from "./dataset";
+import DataSet, { DataSetOptions, Label } from "./dataset";
 import { generateLangCoalesce, generateLangOptionals, prefixes } from "./query/utils";
 import SparqlFetcher, { SparqlFetcherOptions } from "./sparqlfetcher";
 import { SelectQuery } from "./sparqljs";
@@ -170,7 +170,7 @@ export default class DataCubeEntryPoint {
     }, {});
 
     Object.entries(datasetsByIri)
-      .forEach(([iri, dataset]: [string, IDataSetOptions]) => {
+      .forEach(([iri, dataset]: [string, DataSetOptions]) => {
         this.cachedDatasets.set(iri, new DataSet(this.endpoint, dataset));
       });
   }

@@ -4,7 +4,7 @@ import { Generator as SparqlGenerator } from "sparqljs";
 import {Attribute, Component, Dimension, Measure} from "./components";
 import { EntryPointOptions } from "./datacubeentrypoint";
 import DataSetQuery from "./query/datasetquery";
-import { generateLangCoalesce, generateLangOptionals, IQueryOptions, prefixes } from "./query/utils";
+import { generateLangCoalesce, generateLangOptionals, prefixes, QueryOptions } from "./query/utils";
 import SparqlFetcher from "./sparqlfetcher";
 import { SelectQuery } from "./sparqljs";
 
@@ -31,7 +31,7 @@ export type Label = {
   language: string;
 };
 
-export interface IDataSetOptions extends EntryPointOptions {
+export interface DataSetOptions extends EntryPointOptions {
   iri: NamedNode;
   labels?: Label[];
   graphIri: NamedNode;
@@ -80,7 +80,7 @@ class DataSet {
     */
   constructor(
     endpoint: string,
-    options: IDataSetOptions,
+    options: DataSetOptions,
   ) {
     const { iri, labels, graphIri } = options;
     this.fetcher = new SparqlFetcher(endpoint);
@@ -149,7 +149,7 @@ class DataSet {
   /**
    * Start a new query on the DataSet.
    */
-  public query(opts: IQueryOptions = {}): DataSetQuery {
+  public query(opts: QueryOptions = {}): DataSetQuery {
     if (!opts.languages) {
       opts.languages = this.languages;
     }
