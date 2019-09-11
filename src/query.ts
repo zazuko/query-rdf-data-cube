@@ -3,11 +3,44 @@ import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
 import { DataCube } from "./datacube";
+import { EntryPointOptions } from "./entrypoint";
 import { IExpr } from "./expressions";
-import { baseState, combineFilters, createOperationExpression, prefixes } from "./queryutils";
-import { generateLangCoalesce, generateLangOptionals, PredicateFunction, QueryOptions, QueryState } from "./queryutils";
+import { combineFilters, createOperationExpression, prefixes } from "./queryutils";
+import { generateLangCoalesce, generateLangOptionals } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "./sparqljs";
+
+type PredicateFunction = (data: Selects) => Component;
+type Selects = Record<string, Component>;
+
+/**
+ * @ignore
+ */
+interface QueryState {
+  selects: Selects;
+  filters: IExpr[];
+  groupBys: Array<PredicateFunction | string>;
+  havings: PredicateFunction[];
+  offset: number;
+  limit: number;
+  order: Component[];
+}
+
+// tslint:disable-next-line: no-empty-interface
+export interface QueryOptions extends EntryPointOptions {}
+
+/**
+ * @ignore
+ */
+const baseState: QueryState = {
+  selects: {},
+  filters: [],
+  groupBys: [],
+  havings: [],
+  offset: 0,
+  limit: 10,
+  order: [],
+};
 
 /**
  * A query to a [[DataCube]].

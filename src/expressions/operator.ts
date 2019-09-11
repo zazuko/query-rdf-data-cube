@@ -5,12 +5,26 @@ import { Literal } from "rdf-js";
 import { IExpr } from "./iexpr";
 import { ArrayExpr, IntoExpr, isLiteral, isTerm, TermExpr } from "./utils";
 
+/**
+ * @ignore
+ */
 const xsd = namespace("http://www.w3.org/2001/XMLSchema#");
-
+/**
+ * @ignore
+ */
 const dateTime = /^\d{4}(-[01]\d(-[0-3]\d(T[0-2]\d:[0-5]\d:?([0-5]\d(\.\d+)?)?([+-][0-2]\d:[0-5]\d)?Z?)?)?)$/;
+/**
+ * @ignore
+ */
 const bool = /^(true|false)$/;
+/**
+ * @ignore
+ */
 const numb = /^[\-+]?(?:\d+\.?\d*([eE](?:[\-\+])?\d+)|\d*\.?\d+)$/;
 
+/**
+ * @ignore
+ */
 export function into(what: IntoExpr): IExpr {
   switch (typeof what) {
     case "number":
@@ -45,6 +59,9 @@ export function into(what: IntoExpr): IExpr {
   throw new Error(`into() cannot cast arg ${JSON.stringify(what)}`);
 }
 
+/**
+ * @ignore
+ */
 export function toLiteral(arg): Literal {
   if (isLiteral(arg)) {
     return arg;
@@ -80,11 +97,17 @@ export function toLiteral(arg): Literal {
   return literal(arg);
 }
 
+/**
+ * @ignore
+ */
 const notableOperators = {
   "in": "notin",
   "=": "!=",
 };
 
+/**
+ * @ignore
+ */
 function notable(operator: string, previous: BaseExpr, extraArgs = []) {
   let op: Operator;
   if (previous instanceof Operator) {
@@ -103,6 +126,9 @@ function notable(operator: string, previous: BaseExpr, extraArgs = []) {
   return op;
 }
 
+/**
+ * @ignore
+ */
 export class BaseExpr implements IExpr {
   public resolve(mapping: Map<string, string>): IExpr {
     throw new Error("Not implemented");
@@ -213,6 +239,9 @@ export class BaseExpr implements IExpr {
   }
 }
 
+/**
+ * @ignore
+ */
 export class Operator extends BaseExpr implements IExpr {
   public operator: string;
   public args: IExpr[];
@@ -228,6 +257,9 @@ export class Operator extends BaseExpr implements IExpr {
   }
 }
 
+/**
+ * @ignore
+ */
 export class Binding extends BaseExpr implements IExpr {
   public name: string;
 

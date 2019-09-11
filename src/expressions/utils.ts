@@ -3,8 +3,14 @@ import { blankNode, defaultGraph, literal, namedNode, variable } from "@rdfjs/da
 import { Literal, Term } from "rdf-js";
 import { IExpr } from "./iexpr";
 
+/**
+ * @ignore
+ */
 export type IntoExpr = Term | number | IExpr;
 
+/**
+ * @ignore
+ */
 export class TermExpr implements IExpr {
   public term: Term;
 
@@ -16,6 +22,10 @@ export class TermExpr implements IExpr {
     return this;
   }
 }
+
+/**
+ * @ignore
+ */
 export class ArrayExpr implements IExpr {
   public xs: Term[];
 
@@ -28,6 +38,9 @@ export class ArrayExpr implements IExpr {
   }
 }
 
+/**
+ * @ignore
+ */
 export function isTerm(term: any): term is Term {
   return (
     term instanceof namedNode("").constructor ||
@@ -38,6 +51,9 @@ export function isTerm(term: any): term is Term {
   );
 }
 
+/**
+ * @ignore
+ */
 export function isLiteral(term: any): term is Literal {
   return (term instanceof literal("").constructor);
 }

@@ -5,6 +5,7 @@ import { Term } from "rdf-js";
 
 /**
  * See https://www.w3.org/TR/2013/REC-sparql11-results-json-20130321/#select-encode-terms
+ * @ignore
  */
 type RDFTerm =
   | { type: "uri"; value: string; }
@@ -13,7 +14,11 @@ type RDFTerm =
   | { type: "literal"; value: string; datatype: string }
   | { type: "bnode"; value: string };
 
+/**
+ * @ignore
+ */
 type Result = Record<string, Term>;
+
 export interface SparqlFetcherOptions {
   fetch?: typeof fetch;
   fetchOptions?: RequestInit;
@@ -77,6 +82,9 @@ export class SparqlFetcher {
   }
 }
 
+/**
+ * @ignore
+ */
 function toRDFDataModel(binding: RDFTerm): Term {
   switch (binding.type) {
     case "uri":

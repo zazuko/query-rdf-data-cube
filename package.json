@@ -7,7 +7,7 @@
     "build:watch": "rollup -cw",
     "test": "jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
+    "docs:compile": "rimraf docs && npm run typedoc -- ./src && touch ./docs/.nojekyll",
     "docs:publish": "gh-pages -t -d docs",
     "typedoc": "typedoc",
     "lint": "tslint --project tsconfig.json",
@@ -67,6 +67,7 @@
     "ts-node": "^8.3.0",
     "tslint": "^5.19.0",
     "typedoc": "^0.15.0",
+    "typedoc-clarity-theme": "^1.1.0",
     "typescript": "^3.6.3"
   },
   "jest": {

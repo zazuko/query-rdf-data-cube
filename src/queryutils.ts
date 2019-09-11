@@ -1,40 +1,12 @@
 import { literal, namedNode, variable } from "@rdfjs/data-model";
 import { Variable } from "rdf-js";
-import { Component } from "./components";
-import { EntryPointOptions } from "./entrypoint";
 import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions";
 import { Binding, into, Operator } from "./expressions/operator";
 import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, Tuple } from "./sparqljs";
 
-export type PredicateFunction = (data: Selects) => Component;
-export type Selects = Record<string, Component>;
-
-export interface QueryState {
-  selects: Selects;
-  filters: IExpr[];
-  groupBys: Array<PredicateFunction | string>;
-  havings: PredicateFunction[];
-  offset: number;
-  limit: number;
-  order: Component[];
-}
-
-// tslint:disable-next-line: no-empty-interface
-export interface QueryOptions extends EntryPointOptions {}
-
-export const baseState: QueryState = {
-  selects: {},
-  filters: [],
-  groupBys: [],
-  havings: [],
-  offset: 0,
-  limit: 10,
-  order: [],
-};
-
 /**
  * Convert [[Operator]] arguments into SPARQL.js `Expression`s
- *
+ * @ignore
  * @param {Operator} operator
  */
 export function operatorArgsToExpressions(args: IExpr[]): Expression[] {
@@ -65,6 +37,9 @@ export function operatorArgsToExpressions(args: IExpr[]): Expression[] {
   return expressions;
 }
 
+/**
+ * @ignore
+ */
 export function createOperationExpression(operator: Operator): OperationExpression {
   const operationExpression: OperationExpression = {
     type: "operation",
@@ -76,6 +51,7 @@ export function createOperationExpression(operator: Operator): OperationExpressi
 
 /**
  * When `.filter` is called several times, apply a logical AND between all filters.
+ * @ignore
  */
 export function combineFilters(operations: OperationExpression[]): FilterPattern {
   let combined;
@@ -98,6 +74,9 @@ export function combineFilters(operations: OperationExpression[]): FilterPattern
   };
 }
 
+/**
+ * @ignore
+ */
 function langMatchExpression(lang: string, binding: Variable): OperationExpression {
   return {
     type: "operation",
@@ -113,6 +92,9 @@ function langMatchExpression(lang: string, binding: Variable): OperationExpressi
   };
 }
 
+/**
+ * @ignore
+ */
 function langExactMatchExpression(lang = "", binding: Variable): OperationExpression {
   return {
     type: "operation",
@@ -128,6 +110,9 @@ function langExactMatchExpression(lang = "", binding: Variable): OperationExpres
   };
 }
 
+/**
+ * @ignore
+ */
 export function generateLangOptionals(binding: Variable, labelBinding: Variable, langs: string[]): BlockPattern[] {
   return langs.map((lang: string) => {
     const labelLangBinding = variable(`${labelBinding.value}_${lang}`);
@@ -163,6 +148,9 @@ export function generateLangOptionals(binding: Variable, labelBinding: Variable,
   });
 }
 
+/**
+ * @ignore
+ */
 export function generateLangCoalesce(labelBinding: Variable, langs: string[]): BindPattern {
   const coalesceLabel: BindPattern = {
     type: "bind",
@@ -180,6 +168,9 @@ export function generateLangCoalesce(labelBinding: Variable, langs: string[]): B
   return coalesceLabel;
 }
 
+/**
+ * @ignore
+ */
 export const prefixes = {
   rdfs: "http://www.w3.org/2000/01/rdf-schema#",
   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",

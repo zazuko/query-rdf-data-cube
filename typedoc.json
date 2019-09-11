@@ -3,5 +3,11 @@
     "**/*.test.ts",
     "dist/"
   ],
-  "out": "./docs"
+  "out": "./docs",
+  "excludeExternals": true,
+  "excludeNotExported": false,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "mode": "file",
+  "theme": "node_modules/typedoc-clarity-theme/bin"
 }

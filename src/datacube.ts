@@ -1,19 +1,26 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import { NamedNode, Term } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
-import {Attribute, Component, Dimension, Measure} from "./components";
+import { Attribute, Component, Dimension, Measure } from "./components";
 import { EntryPointOptions } from "./entrypoint";
-import { Query } from "./query";
-import { generateLangCoalesce, generateLangOptionals, prefixes, QueryOptions } from "./queryutils";
+import { Query, QueryOptions } from "./query";
+import { generateLangCoalesce, generateLangOptionals, prefixes } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
 import { SelectQuery } from "./sparqljs";
 
+/**
+ * @ignore
+ */
 type ComponentsCache = {
   attributes: Map<string, Attribute>,
   dimensions: Map<string, Dimension>,
   measures: Map<string, Measure>,
 };
+/**
+ * @ignore
+ */
 type GroupedComponents = { kind: Term, iri: Term, labels: Label[] };
+
 type SerializedDataCube = {
   endpoint: string,
   iri: string,
@@ -26,6 +33,7 @@ type SerializedDataCube = {
     attributes: string[],
   },
 };
+
 export type Label = {
   value: string;
   language: string;
