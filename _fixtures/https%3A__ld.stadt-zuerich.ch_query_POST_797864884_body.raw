@@ -18,8 +18,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/ubd28"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Luftqualität Schweiz (Jahreswerte)"
         }
       },
       {
@@ -32,8 +33,9 @@
           "value" : "http://environment.data.admin.ch/ubd/66/qb/ubd66"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Schwermetallbelastung des Bodens"
         }
       },
       {

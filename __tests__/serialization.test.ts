@@ -1,11 +1,11 @@
 import {Attribute, Component, Dimension, Measure} from "../src/components";
-import DataCubeEntryPoint from "../src/datacubeentrypoint";
-import DataSet from "../src/dataset";
+import DataCube from "../src/datacube";
+import DataCubeEntryPoint from "../src/entrypoint";
 import fetch from "./utils/fetch-mock";
 
-const cube = new DataCubeEntryPoint(
+const cubeEntryPoint = new DataCubeEntryPoint(
   "https://ld.stadt-zuerich.ch/query", {
-  languages: ["it", "ru"],
+  languages: ["de", "en"],
   fetcher: {
     fetch,
   },
@@ -13,69 +13,69 @@ const cube = new DataCubeEntryPoint(
 
 describe("entrypoint", () => {
   beforeEach(async () => {
-    await cube.datasets();
+    await cubeEntryPoint.dataCubes();
   });
 
   it("serializes", () => {
-    const serialized = cube.toJSON();
+    const serialized = cubeEntryPoint.toJSON();
     expect(serialized).toMatchSnapshot();
   });
   it("serialization is idempotent", () => {
-    const serialized = cube.toJSON();
+    const serialized = cubeEntryPoint.toJSON();
     expect(DataCubeEntryPoint.fromJSON(serialized).toJSON()).toBe(serialized);
   });
   it("deserializes", () => {
-    const serialized = cube.toJSON();
+    const serialized = cubeEntryPoint.toJSON();
     expect(DataCubeEntryPoint.fromJSON(serialized)).toBeInstanceOf(DataCubeEntryPoint);
   });
 });
 
-describe("dataset", () => {
+describe("datacube", () => {
   beforeEach(async () => {
-    await cube.datasets();
+    await cubeEntryPoint.dataCubes();
   });
 
   it("serializes", async () => {
-    const dataset = (await cube.datasets())[0];
-    const serialized = dataset.toJSON();
+    const datacube = (await cubeEntryPoint.dataCubes())[0];
+    const serialized = datacube.toJSON();
     expect(serialized).toMatchSnapshot();
   });
   it("serialization is idempotent", async () => {
-    const dataset = (await cube.datasets())[0];
-    const serialized = dataset.toJSON();
-    expect(DataSet.fromJSON(serialized).toJSON()).toBe(serialized);
+    const datacube = (await cubeEntryPoint.dataCubes())[0];
+    const serialized = datacube.toJSON();
+    expect(DataCube.fromJSON(serialized).toJSON()).toBe(serialized);
   });
   it("deserializes", async () => {
-    const dataset = (await cube.datasets())[0];
-    const serialized = dataset.toJSON();
-    expect(DataSet.fromJSON(serialized)).toBeInstanceOf(DataSet);
+    const datacube = (await cubeEntryPoint.dataCubes())[0];
+    const serialized = datacube.toJSON();
+    expect(DataCube.fromJSON(serialized)).toBeInstanceOf(DataCube);
   });
 });
 
 describe("component", () => {
   beforeEach(async () => {
-    await cube.datasets();
+    await cubeEntryPoint.dataCubes();
   });
 
   it("serializes", async () => {
-    const dataset = (await cube.datasets())[0];
-    const components = (await dataset.dimensions())[0];
+    const datacube = (await cubeEntryPoint.dataCubes())[0];
+    const components = (await datacube.dimensions())[0];
     const serialized = components.toJSON();
     expect(serialized).toMatchSnapshot();
   });
   it("serialization is idempotent", async () => {
-    const dataset = (await cube.datasets())[0];
-    const components = (await dataset.dimensions())[0];
+    const datacube = (await cubeEntryPoint.dataCubes())[0];
+    const components = (await datacube.dimensions())[0];
     const serialized = components.toJSON();
     expect(Component.fromJSON(serialized).toJSON()).toBe(serialized);
   });
   it("deserializes", async () => {
-    const dataset = (await cube.datasets())[0];
-    const dimensions = (await dataset.dimensions())[0];
+    const datacube = (await cubeEntryPoint.dataCubes())[0];
+    const dimensions = (await datacube.dimensions())[0];
     expect(Dimension.fromJSON(dimensions.toJSON())).toBeInstanceOf(Dimension);
-    const measures = (await dataset.measures())[0];
+    const measures = (await datacube.measures())[0];
     expect(Measure.fromJSON(measures.toJSON())).toBeInstanceOf(Measure);
-    const attributes = (await dataset.attributes())[0];
+    const attributes = (await datacube.attributes())[0];
     expect(Attribute.fromJSON(attributes.toJSON())).toBeInstanceOf(Attribute);
 
     expect(Measure.fromJSON(dimensions.toJSON())).toBeInstanceOf(Dimension);

@@ -1,11 +1,11 @@
 import { literal, namedNode, variable } from "@rdfjs/data-model";
 import { Variable } from "rdf-js";
-import {Component} from "../components";
-import { EntryPointOptions } from "../datacubeentrypoint";
-import Binding from "../expressions/binding";
-import Operator from "../expressions/operator";
-import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "../expressions";
-import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, Tuple } from "../sparqljs";
+import { Component } from "./components";
+import { EntryPointOptions } from "./entrypoint";
+import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "./expressions";
+import Binding from "./expressions/binding";
+import Operator from "./expressions/operator";
+import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, Tuple } from "./sparqljs";
 
 export type PredicateFunction = (data: Selects) => Component;
 export type Selects = Record<string, Component>;

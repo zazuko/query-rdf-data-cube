@@ -18,8 +18,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/station"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Stationscode"
         }
       },
       {
@@ -32,8 +33,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/refPeriod"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Jahr"
         }
       },
       {
@@ -46,8 +48,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/limitvalue"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Limite"
         }
       },
       {
@@ -60,8 +63,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/measurement"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Messung"
         }
       },
       {
@@ -74,8 +78,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/unit"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Einheit"
         }
       },
       {
@@ -88,8 +93,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/pollutant"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Schadstoff"
         }
       },
       {
@@ -102,8 +108,9 @@
           "value" : "http://environment.data.admin.ch/ubd/28/qb/aggregation"
         },
         "label" : {
+          "xml:lang" : "de",
           "type" : "literal",
-          "value" : ""
+          "value" : "Aggregation"
         }
       }
     ]

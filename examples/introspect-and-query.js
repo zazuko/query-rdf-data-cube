@@ -12,14 +12,14 @@ function printTitle(str) {
 (async () => {
   // instantiate an RDF Data Cube
   const entryPoint = new DataCubeEntryPoint("https://ld.stadt-zuerich.ch/query");
-  // find all its datasets
-  const datasets = await entryPoint.datasets();
+  // find all its dataCubes
+  const dataCubes = await entryPoint.dataCubes();
   // we'll work with one of them
-  const dataset = datasets[3];
+  const datacube = dataCubes[3];
 
-  const dimensions = await dataset.dimensions();
-  const measures = await dataset.measures();
-  const attributes = await dataset.attributes();
+  const dimensions = await datacube.dimensions();
+  const measures = await datacube.measures();
+  const attributes = await datacube.attributes();
 
   // show all dimensions, measures and attributes
   console.log(printTitle("COMPONENTS"));
@@ -44,7 +44,7 @@ function printTitle(str) {
   const erwarteteAktualisierungAttribute = attributes[4];
   const korrekturAttribute = attributes[5];
 
-  const query = dataset
+  const query = datacube
     .query()
     // select has binding names as keys and Component (Dimension/Attribute/Measure) as values.
     .select({

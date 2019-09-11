@@ -1,23 +1,23 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
-import {Component} from "../components/index";
-import DataSet from "../dataset";
-import { IExpr } from "../expressions";
-import SparqlFetcher from "../sparqlfetcher";
-import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "../sparqljs";
-import { baseState, combineFilters, createOperationExpression, prefixes } from "./utils";
-import { generateLangCoalesce, generateLangOptionals, PredicateFunction, QueryOptions, QueryState } from "./utils";
+import { Component } from "./components";
+import DataCube from "./datacube";
+import { IExpr } from "./expressions";
+import { baseState, combineFilters, createOperationExpression, prefixes } from "./queryutils";
+import { generateLangCoalesce, generateLangOptionals, PredicateFunction, QueryOptions, QueryState } from "./queryutils";
+import SparqlFetcher from "./sparqlfetcher";
+import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "./sparqljs";
 
 /**
- * A query to a [[DataSet]].
- * @class DataSetQuery
+ * A query to a [[DataCube]].
+ * @class Query
  * @param options Options
  * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
  * Inherited from [[DataCubeEntryPoint]].
  */
-export default class DataSetQuery {
-  private dataSet: DataSet;
+export default class Query {
+  private dataCube: DataCube;
   // one map from bindingName to Component, one from component IRI to bindingName
   private bindingToComponent: Map<string, Component> = new Map();
   private iriToBinding: Map<string, string> = new Map();
@@ -27,16 +27,16 @@ export default class DataSetQuery {
   private languages: string[];
 
   /**
-   * Creates an instance of DataSetQuery. You should not have to manually create queries,
-   * call `dataSet.query()` instead since it will automatically pass data about the [[DataSet]]
+   * Creates an instance of Query. You should not have to manually create queries,
+   * call `dataCube.query()` instead since it will automatically pass data about the [[DataCube]]
    * to query.
-   * @param dataSet The [[DataSet]] to query.
+   * @param dataCube The [[DataCube]] to query.
    */
-  constructor(dataSet: DataSet, options: QueryOptions = {}) {
+  constructor(dataCube: DataCube, options: QueryOptions = {}) {
     this.languages = options.languages || [];
-    this.dataSet = dataSet;
+    this.dataCube = dataCube;
     this.state = baseState;
-    this.fetcher = new SparqlFetcher(this.dataSet.endpoint);
+    this.fetcher = new SparqlFetcher(this.dataCube.endpoint);
   }
 
   /**
@@ -44,7 +44,7 @@ export default class DataSetQuery {
    * names as keys and [[Component]] ([[Dimension]]/[[Attribute]]/[[Measure]]) as values.
    *
    * ```js
-   * myDataSet
+   * myDataCube
    *   .query()
    *   .select({
    *     someDate: dateDimension,
@@ -74,7 +74,7 @@ export default class DataSetQuery {
   /**
    * Filter the results.
    * ```js
-   * myDataSet
+   * myDataCube
    *   .query()
    *   .select({
    *     someDate: dateDimension,
@@ -93,7 +93,7 @@ export default class DataSetQuery {
    * Aggregate the results. Pass it a binding name used in `.select()` or a function
    * `({ bindingName }) => bindingName`
    * ```js
-   * myDataSet
+   * myDataCube
    *   .query()
    *   .select({
    *     someDimension: myDimension,
@@ -134,7 +134,7 @@ export default class DataSetQuery {
    *
    * ```js
    * // return results 50 to 75
-   * myDataSet
+   * myDataCube
    *   .query()
    *   .limit(25)
    *   .offset(50);
@@ -152,7 +152,7 @@ export default class DataSetQuery {
    *
    * ```js
    * // return results 50 to 75
-   * myDataSet
+   * myDataCube
    *   .query({
    *      myVar: someDimension,
    *      otherVar: otherDimension,
@@ -182,7 +182,7 @@ export default class DataSetQuery {
   }
 
   /**
-   * Executes the SPARQL query against the dataset and returns the results.
+   * Executes the SPARQL query against the datacube and returns the results.
    */
   public async execute(): Promise<any[]> {
     const query = await this.toSparql();
@@ -271,7 +271,7 @@ export default class DataSetQuery {
       variables:  [],
       from: {
         default: [
-          namedNode(this.dataSet.graphIri),
+          namedNode(this.dataCube.graphIri),
         ],
         named: [],
       },
@@ -313,7 +313,7 @@ export default class DataSetQuery {
       });
 
     // add dimensions that haven't been explicitly selected
-    const dimensions = await this.dataSet.dimensions();
+    const dimensions = await this.dataCube.dimensions();
     dimensions
       .filter(({ iri }) => !addedDimensionsIRIs.includes(iri.value))
       .forEach((component) => {
@@ -366,7 +366,7 @@ export default class DataSetQuery {
     mainWhereClauses.triples.push({
       subject: variable("observation"),
       predicate: namedNode("http://purl.org/linked-data/cube#dataSet"),
-      object: namedNode(this.dataSet.iri),
+      object: namedNode(this.dataCube.iri),
     });
     query.where.push(mainWhereClauses);
 
@@ -461,7 +461,7 @@ export default class DataSetQuery {
   }
 
   private clone() {
-    const dsq = new DataSetQuery(this.dataSet);
+    const dsq = new Query(this.dataCube);
     dsq.bindingToComponent = clone(this.bindingToComponent);
     dsq.iriToBinding = clone(this.iriToBinding);
     dsq.state = clone(this.state);

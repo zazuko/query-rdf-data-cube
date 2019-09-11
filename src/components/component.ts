@@ -1,9 +1,9 @@
 import { namedNode } from "@rdfjs/data-model";
 import clone from "clone";
 import { Term } from "rdf-js";
-import { Label } from "../dataset";
+import { Label } from "../datacube";
 import { BaseExpr, Binding, IExpr } from "../expressions";
-import { Measure, Dimension, Attribute } from "./index";
+import { Attribute, Dimension, Measure } from "./index";
 
 export type SerializedComponent = {
   componentType: string,

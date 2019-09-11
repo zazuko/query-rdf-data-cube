@@ -454,6 +454,481 @@ WHERE {
 LIMIT 10"
 `;
 
+exports[`handles languages three languages 2`] = `
+Array [
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "86.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1966-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "1.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1966-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "86.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1967-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "1.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1967-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "87.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1968-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "1.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1968-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "89.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1969-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "1.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1969-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "90.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1970-06-30",
+      },
+    },
+  },
+  Object {
+    "bep": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#double",
+        },
+        "language": "",
+        "value": "1.0",
+      },
+    },
+    "quelle": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
+      },
+    },
+    "tmpVar3": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
+      },
+    },
+    "tmpVar4": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
+    "tmpVar5": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
+      },
+    },
+    "zeit": Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#date",
+        },
+        "language": "",
+        "value": "1970-06-30",
+      },
+    },
+  },
+]
+`;
+
 exports[`handles languages two languages 1`] = `
 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

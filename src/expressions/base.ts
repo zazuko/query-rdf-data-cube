@@ -1,5 +1,5 @@
 import { Literal } from "rdf-js";
-import { Operator, IExpr, IntoExpr } from "./index";
+import { IExpr, IntoExpr, Operator } from "./index";
 
 const notableOperators = {
   "in": "notin",

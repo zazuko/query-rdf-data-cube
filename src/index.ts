@@ -8,13 +8,13 @@ import Binding from "./expressions/binding";
 import Operator from "./expressions/operator";
 import { ArrayExpr, IExpr, into, IntoExpr, isLiteral, isTerm, TermExpr, toLiteral } from "./expressions";
 
-import DataSetQuery from "./query/datasetquery";
-import { baseState, PredicateFunction, QueryOptions, QueryState, Selects } from "./query/utils";
-import { combineFilters, createOperationExpression, operatorArgsToExpressions } from "./query/utils";
-import { generateLangCoalesce, generateLangOptionals, prefixes } from "./query/utils";
+import Query from "./query";
+import { baseState, PredicateFunction, QueryOptions, QueryState, Selects } from "./queryutils";
+import { combineFilters, createOperationExpression, operatorArgsToExpressions } from "./queryutils";
+import { generateLangCoalesce, generateLangOptionals, prefixes } from "./queryutils";
 
-import DataCubeEntryPoint, { EntryPointOptions, SerializedDataCubeEntryPoint } from "./datacubeentrypoint";
-import DataSet, { Label } from "./dataset";
+import DataCubeEntryPoint, { EntryPointOptions, SerializedDataCubeEntryPoint } from "./entrypoint";
+import DataCube, { Label } from "./datacube";
 import SparqlFetcher, { SparqlFetcherOptions } from "./sparqlfetcher";
 
 export default DataCubeEntryPoint;
@@ -24,8 +24,8 @@ export {
   BaseExpr,
   Binding,
   DataCubeEntryPoint,
-  DataSet,
-  DataSetQuery,
+  DataCube,
+  Query,
   Dimension,
   EntryPointOptions,
   IExpr,

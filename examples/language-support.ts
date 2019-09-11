@@ -1,6 +1,6 @@
 // run this example with: $ ts-node examples/language-support.ts
 const { inspect } = require("util");
-const { DataCubeEntryPoint } = require("../src/datacubeentrypoint");
+const { DataCubeEntryPoint } = require("../src/entrypoint");
 const { Dimension } = require("../src/components");
 
 function prettyPrint(obj) {
@@ -16,14 +16,14 @@ function printTitle(str) {
     "https://trifid-lindas.test.cluster.ldbar.ch/query",
     { languages: ["fr", "de"] },
   );
-  // find all its datasets
-  const datasets = await entryPoint.datasets();
+  // find all its dataCubes
+  const dataCubes = await entryPoint.dataCubes();
   // we'll work with one of them
-  const dataset = datasets[0];
+  const datacube = dataCubes[0];
 
-  const dimensions = await dataset.dimensions();
-  const measures = await dataset.measures();
-  const attributes = await dataset.attributes();
+  const dimensions = await datacube.dimensions();
+  const measures = await datacube.measures();
+  const attributes = await datacube.attributes();
 
   const variable = dimensions[0];
   const size = dimensions[1];
@@ -36,7 +36,7 @@ function printTitle(str) {
   console.log(printTitle("measures"));
   console.log(prettyPrint(measures));
 
-  const query = dataset
+  const query = datacube
     .query()
     // select has binding names as keys and Component (Dimension/Attribute/Measure) as values.
     .select({
