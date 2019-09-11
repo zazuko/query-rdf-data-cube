@@ -1,23 +1,22 @@
-import Attribute from "./components/attribute";
+import { Attribute } from "./components/attribute";
 import { SerializedComponent } from "./components/component";
-import Dimension from "./components/dimension";
-import Measure from "./components/measure";
+import { Dimension } from "./components/dimension";
+import { Measure } from "./components/measure";
 
-import BaseExpr from "./expressions/base";
-import Binding from "./expressions/binding";
-import Operator from "./expressions/operator";
 import { ArrayExpr, IExpr, into, IntoExpr, isLiteral, isTerm, TermExpr, toLiteral } from "./expressions";
+import { BaseExpr } from "./expressions/base";
+import { Binding } from "./expressions/binding";
+import { Operator } from "./expressions/operator";
 
-import Query from "./query";
+import { Query } from "./query";
 import { baseState, PredicateFunction, QueryOptions, QueryState, Selects } from "./queryutils";
 import { combineFilters, createOperationExpression, operatorArgsToExpressions } from "./queryutils";
 import { generateLangCoalesce, generateLangOptionals, prefixes } from "./queryutils";
 
-import DataCubeEntryPoint, { EntryPointOptions, SerializedDataCubeEntryPoint } from "./entrypoint";
-import DataCube, { Label } from "./datacube";
-import SparqlFetcher, { SparqlFetcherOptions } from "./sparqlfetcher";
+import { DataCube, Label } from "./datacube";
+import { DataCubeEntryPoint, EntryPointOptions, SerializedDataCubeEntryPoint } from "./entrypoint";
+import { SparqlFetcher, SparqlFetcherOptions } from "./sparqlfetcher";
 
-export default DataCubeEntryPoint;
 export {
   ArrayExpr,
   Attribute,

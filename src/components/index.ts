@@ -1,4 +1,4 @@
-export {default as Component} from "./component";
-export {default as Attribute} from "./attribute";
-export {default as Dimension} from "./dimension";
-export {default as Measure} from "./measure";
+export { Component } from "./component";
+export { Attribute } from "./attribute";
+export { Dimension } from "./dimension";
+export { Measure } from "./measure";

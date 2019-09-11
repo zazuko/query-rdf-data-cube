@@ -2,11 +2,11 @@ import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
-import DataCube from "./datacube";
+import { DataCube } from "./datacube";
 import { IExpr } from "./expressions";
 import { baseState, combineFilters, createOperationExpression, prefixes } from "./queryutils";
 import { generateLangCoalesce, generateLangOptionals, PredicateFunction, QueryOptions, QueryState } from "./queryutils";
-import SparqlFetcher from "./sparqlfetcher";
+import { SparqlFetcher } from "./sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "./sparqljs";
 
 /**
@@ -16,7 +16,7 @@ import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "./sparqljs";
  * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
  * Inherited from [[DataCubeEntryPoint]].
  */
-export default class Query {
+export class Query {
   private dataCube: DataCube;
   // one map from bindingName to Component, one from component IRI to bindingName
   private bindingToComponent: Map<string, Component> = new Map();

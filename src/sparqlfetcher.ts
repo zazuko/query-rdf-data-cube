@@ -19,7 +19,7 @@ export interface SparqlFetcherOptions {
   fetchOptions?: RequestInit;
 }
 
-export default class SparqlFetcher {
+export class SparqlFetcher {
   private fetch: typeof fetch;
   private fetchOptions: RequestInit;
   private endpoint: string;

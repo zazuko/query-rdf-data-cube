@@ -1,8 +1,8 @@
 import { literal, namedNode } from "@rdfjs/data-model";
-import {Attribute, Dimension, Measure} from "../src/components";
-import DataCube from "../src/datacube";
-import DataCubeEntryPoint from "../src/entrypoint";
-import fetch from "./utils/fetch-mock";
+import { Attribute, Dimension, Measure } from "../src/components";
+import { DataCube} from "../src/datacube";
+import { DataCubeEntryPoint } from "../src/entrypoint";
+import { fetch } from "./utils/fetch-mock";
 
 const betriebsartDimension = new Dimension({
   labels: [{ value: "Betriebsart", language: "" }],

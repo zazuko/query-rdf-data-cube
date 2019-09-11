@@ -1,6 +1,6 @@
-import { BaseExpr, IExpr ,into, IntoExpr} from "./index";
+import { BaseExpr, IExpr , into, IntoExpr} from "./index";
 
-class Operator extends BaseExpr implements IExpr {
+export class Operator extends BaseExpr implements IExpr {
   public operator: string;
   public args: IExpr[];
 
@@ -14,5 +14,3 @@ class Operator extends BaseExpr implements IExpr {
     return new Operator(this.operator, this.args.map((arg) => arg.resolve(mapping)));
   }
 }
-
-export default Operator;

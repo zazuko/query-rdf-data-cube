@@ -3,8 +3,8 @@ import { Variable } from "rdf-js";
 import { Component } from "./components";
 import { EntryPointOptions } from "./entrypoint";
 import { ArrayExpr, IExpr, into, isTerm, TermExpr } from "./expressions";
-import Binding from "./expressions/binding";
-import Operator from "./expressions/operator";
+import { Binding } from "./expressions/binding";
+import { Operator } from "./expressions/operator";
 import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, Tuple } from "./sparqljs";
 
 export type PredicateFunction = (data: Selects) => Component;

@@ -1,6 +1,6 @@
 // tslint:disable: max-line-length
-import DataCubeEntryPoint, { EntryPointOptions } from "../src/entrypoint";
-import fetch from "./utils/fetch-mock";
+import { DataCubeEntryPoint, EntryPointOptions } from "../src/entrypoint";
+import { fetch } from "./utils/fetch-mock";
 
 const newCube = (endpoint: string, languages?: string[]) => {
   const options: EntryPointOptions = {

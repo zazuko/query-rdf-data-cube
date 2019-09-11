@@ -1,6 +1,6 @@
 import { BaseExpr, IExpr } from "./index";
 
-class Binding extends BaseExpr implements IExpr {
+export class Binding extends BaseExpr implements IExpr {
   public name: string;
 
   public constructor(name: string) {
@@ -8,5 +8,3 @@ class Binding extends BaseExpr implements IExpr {
     this.name = name;
   }
 }
-
-export default Binding;

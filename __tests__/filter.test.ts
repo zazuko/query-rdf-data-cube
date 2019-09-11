@@ -1,8 +1,8 @@
 // tslint:disable: trailing-comma
 import { literal, namedNode } from "@rdfjs/data-model";
-import {Dimension} from "../src/components";
-import DataCube from "../src/datacube";
-import fetch from "./utils/fetch-mock";
+import { Dimension } from "../src/components";
+import { DataCube } from "../src/datacube";
+import { fetch } from "./utils/fetch-mock";
 
 function extractFilter(sparql: string) {
   return sparql

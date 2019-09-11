@@ -24,7 +24,7 @@ function notable(operator: string, previous: BaseExpr, extraArgs = []) {
   return op;
 }
 
-export default class BaseExpr implements IExpr {
+export class BaseExpr implements IExpr {
   public resolve(mapping: Map<string, string>): IExpr {
     throw new Error("Not implemented");
   }
