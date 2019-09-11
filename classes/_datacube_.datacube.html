@@ -87,27 +87,27 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_datacube_.datacube.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#alldatasetsloaded" class="tsd-kind-icon">all<wbr>Datasets<wbr>Loaded</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#cacheddatasets" class="tsd-kind-icon">cached<wbr>Datasets</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#cachedgraphs" class="tsd-kind-icon">cached<wbr>Graphs</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#endpoint" class="tsd-kind-icon">endpoint</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#cachedcomponents" class="tsd-kind-icon">cached<wbr>Components</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#componentsloaded" class="tsd-kind-icon">components<wbr>Loaded</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_datacube_.datacube.html#endpoint" class="tsd-kind-icon">endpoint</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#fetcher" class="tsd-kind-icon">fetcher</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#graphsloaded" class="tsd-kind-icon">graphs<wbr>Loaded</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_datacube_.datacube.html#graphiri" class="tsd-kind-icon">graph<wbr>Iri</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_datacube_.datacube.html#iri" class="tsd-kind-icon">iri</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_datacube_.datacube.html#labels" class="tsd-kind-icon">labels</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#languages" class="tsd-kind-icon">languages</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#cachedatasets" class="tsd-kind-icon">cache<wbr>Datasets</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#datasetbyiri" class="tsd-kind-icon">dataset<wbr>ByIri</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#datasets" class="tsd-kind-icon">datasets</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#datasetsbygraphiri" class="tsd-kind-icon">datasets<wbr>ByGraph<wbr>Iri</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#generatequery" class="tsd-kind-icon">generate<wbr>Query</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#graphs" class="tsd-kind-icon">graphs</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#attributes" class="tsd-kind-icon">attributes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_datacube_.datacube.html#components" class="tsd-kind-icon">components</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#dimensions" class="tsd-kind-icon">dimensions</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#measures" class="tsd-kind-icon">measures</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#query" class="tsd-kind-icon">query</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_datacube_.datacube.html#tojson" class="tsd-kind-icon">toJSON</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_datacube_.datacube.html#fromjson" class="tsd-kind-icon">fromJSON</a></li>
 							</ul>
@@ -121,25 +121,16 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Data<wbr>Cube<span class="tsd-signature-symbol">(</span>endpoint<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_datacube_.icubeoptions.html" class="tsd-signature-type">ICubeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_datacube_.datacube.html" class="tsd-signature-type">DataCube</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Data<wbr>Cube<span class="tsd-signature-symbol">(</span>endpoint<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_datacube_.datacubeoptions.html" class="tsd-signature-type">DataCubeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_datacube_.datacube.html" class="tsd-signature-type">DataCube</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L43">datacube.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L70">datacube.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>A DataCube queries a SPARQL endpoint and retrieves <a href="_dataset_.dataset.html">DataSet</a>s and
-									their <a href="_components_dimension_.dimension.html">Dimension</a>s, <a href="_components_measure_.measure.html">Measure</a>s and <a href="_components_attribute_.attribute.html">Attribute</a>s.</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>class</dt>
-									<dd><p>DataCube</p>
-									</dd>
-								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -147,15 +138,15 @@
 									<h5>endpoint: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>SPARQL endpoint</p>
+											<p>SPARQL endpoint where the DataCube lives.</p>
 										</div>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <a href="../interfaces/_datacube_.icubeoptions.html" class="tsd-signature-type">ICubeOptions</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<h5>options: <a href="../interfaces/_datacube_.datacubeoptions.html" class="tsd-signature-type">DataCubeOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>Options</p>
+											<p>Additional info about the DataCube.</p>
 										</div>
 									</div>
 								</li>
@@ -165,45 +156,35 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="alldatasetsloaded" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> all<wbr>Datasets<wbr>Loaded</h3>
-					<div class="tsd-signature tsd-kind-icon">all<wbr>Datasets<wbr>Loaded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<a name="cachedcomponents" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cached<wbr>Components</h3>
+					<div class="tsd-signature tsd-kind-icon">cached<wbr>Components<span class="tsd-signature-symbol">:</span> <a href="../modules/_datacube_.html#componentscache" class="tsd-signature-type">ComponentsCache</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L41">datacube.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L70">datacube.ts:70</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="cacheddatasets" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cached<wbr>Datasets</h3>
-					<div class="tsd-signature tsd-kind-icon">cached<wbr>Datasets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="componentsloaded" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> components<wbr>Loaded</h3>
+					<div class="tsd-signature tsd-kind-icon">components<wbr>Loaded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L40">datacube.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L69">datacube.ts:69</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="cachedgraphs" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cached<wbr>Graphs</h3>
-					<div class="tsd-signature tsd-kind-icon">cached<wbr>Graphs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L42">datacube.ts:42</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="endpoint" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> endpoint</h3>
+					<h3>endpoint</h3>
 					<div class="tsd-signature tsd-kind-icon">endpoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L37">datacube.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L65">datacube.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -213,17 +194,37 @@
 					<div class="tsd-signature tsd-kind-icon">fetcher<span class="tsd-signature-symbol">:</span> <a href="_sparqlfetcher_.sparqlfetcher.html" class="tsd-signature-type">SparqlFetcher</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L39">datacube.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L68">datacube.ts:68</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="graphsloaded" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> graphs<wbr>Loaded</h3>
-					<div class="tsd-signature tsd-kind-icon">graphs<wbr>Loaded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="graphiri" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> graph<wbr>Iri</h3>
+					<div class="tsd-signature tsd-kind-icon">graph<wbr>Iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L43">datacube.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L66">datacube.ts:66</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="iri" class="tsd-anchor"></a>
+					<h3>iri</h3>
+					<div class="tsd-signature tsd-kind-icon">iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L64">datacube.ts:64</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="labels" class="tsd-anchor"></a>
+					<h3>labels</h3>
+					<div class="tsd-signature tsd-kind-icon">labels<span class="tsd-signature-symbol">:</span> <a href="../modules/_datacube_.html#label" class="tsd-signature-type">Label</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L63">datacube.ts:63</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,164 +234,121 @@
 					<div class="tsd-signature tsd-kind-icon">languages<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L38">datacube.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L67">datacube.ts:67</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="cachedatasets" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cache<wbr>Datasets</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">cache<wbr>Datasets<span class="tsd-signature-symbol">(</span>datasets<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L155">datacube.ts:155</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>datasets: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="datasetbyiri" class="tsd-anchor"></a>
-					<h3>dataset<wbr>ByIri</h3>
+					<a name="attributes" class="tsd-anchor"></a>
+					<h3>attributes</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">dataset<wbr>ByIri<span class="tsd-signature-symbol">(</span>dataSetIri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">attributes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_components_component_.attribute.html" class="tsd-signature-type">Attribute</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L95">datacube.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L128">datacube.ts:128</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Fetch a <a href="_dataset_.dataset.html">DataSet</a> by its IRI.</p>
+									<p>Fetch all <a href="_components_component_.attribute.html">Attribute</a>s from the DataCube.</p>
 								</div>
 							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>dataSetIri: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="datasets" class="tsd-anchor"></a>
-					<h3>datasets</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">datasets<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L78">datacube.ts:78</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Fetch all <a href="_dataset_.dataset.html">DataSet</a>s from the endpoint.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="datasetsbygraphiri" class="tsd-anchor"></a>
-					<h3>datasets<wbr>ByGraph<wbr>Iri</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">datasets<wbr>ByGraph<wbr>Iri<span class="tsd-signature-symbol">(</span>iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L114">datacube.ts:114</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Fetch <a href="_dataset_.dataset.html">DataSet</a>s by their graph IRI.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>iri: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dataset_.dataset.html" class="tsd-signature-type">DataSet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_components_component_.attribute.html" class="tsd-signature-type">Attribute</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="generatequery" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> generate<wbr>Query</h3>
+					<a name="components" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> components</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">generate<wbr>Query<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">components<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L178">datacube.ts:178</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L159">datacube.ts:159</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> __namedParameters: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>data<wbr>Set<wbr>Iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NamedNode</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>graph<wbr>Iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NamedNode</span></h5>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="graphs" class="tsd-anchor"></a>
-					<h3>graphs</h3>
+					<a name="dimensions" class="tsd-anchor"></a>
+					<h3>dimensions</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">graphs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">dimensions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_components_component_.dimension.html" class="tsd-signature-type">Dimension</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L138">datacube.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L136">datacube.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Fetch all graphs from the endpoint.</p>
+									<p>Fetch all <a href="_components_component_.dimension.html">Dimension</a>s from the DataCube.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">NamedNode</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_components_component_.dimension.html" class="tsd-signature-type">Dimension</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="measures" class="tsd-anchor"></a>
+					<h3>measures</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">measures<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_components_component_.measure.html" class="tsd-signature-type">Measure</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L144">datacube.ts:144</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Fetch all <a href="_components_component_.measure.html">Measure</a>s from the DataCube.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_components_component_.measure.html" class="tsd-signature-type">Measure</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="query" class="tsd-anchor"></a>
+					<h3>query</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">query<span class="tsd-signature-symbol">(</span>opts<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_queryutils_.queryoptions.html" class="tsd-signature-type">QueryOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_query_.query.html" class="tsd-signature-type">Query</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L152">datacube.ts:152</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Start a new query on the DataCube.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> opts: <a href="../interfaces/_queryutils_.queryoptions.html" class="tsd-signature-type">QueryOptions</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_query_.query.html" class="tsd-signature-type">Query</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -404,7 +362,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L66">datacube.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L103">datacube.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -427,7 +385,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L24">datacube.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/datacube.ts#L44">datacube.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -454,31 +412,22 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_components_attribute_.html">"components/attribute"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="../modules/_components_component_.html">"components/component"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_components_dimension_.html">"components/dimension"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="../modules/_components_index_.html">"components/index"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_components_measure_.html">"components/measure"</a>
 					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/_datacube_.html">"datacube"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_dataset_.html">"dataset"</a>
+						<a href="../modules/_entrypoint_.html">"entrypoint"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_expressions_base_.html">"expressions/base"</a>
+						<a href="../modules/_expressions_iexpr_.html">"expressions/iexpr"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_expressions_binding_.html">"expressions/binding"</a>
+						<a href="../modules/_expressions_index_.html">"expressions/index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_expressions_numeric_.html">"expressions/numeric"</a>
@@ -493,10 +442,10 @@
 						<a href="../modules/_index_.html">"index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_query_datasetquery_.html">"query/datasetquery"</a>
+						<a href="../modules/_query_.html">"query"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_query_utils_.html">"query/utils"</a>
+						<a href="../modules/_queryutils_.html">"queryutils"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_sparqlfetcher_.html">"sparqlfetcher"</a>
@@ -514,43 +463,43 @@
 								<a href="_datacube_.datacube.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_datacube_.datacube.html#alldatasetsloaded" class="tsd-kind-icon">all<wbr>Datasets<wbr>Loaded</a>
+								<a href="_datacube_.datacube.html#cachedcomponents" class="tsd-kind-icon">cached<wbr>Components</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_datacube_.datacube.html#cacheddatasets" class="tsd-kind-icon">cached<wbr>Datasets</a>
+								<a href="_datacube_.datacube.html#componentsloaded" class="tsd-kind-icon">components<wbr>Loaded</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_datacube_.datacube.html#cachedgraphs" class="tsd-kind-icon">cached<wbr>Graphs</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_datacube_.datacube.html#endpoint" class="tsd-kind-icon">endpoint</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_datacube_.datacube.html#fetcher" class="tsd-kind-icon">fetcher</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_datacube_.datacube.html#graphsloaded" class="tsd-kind-icon">graphs<wbr>Loaded</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_datacube_.datacube.html#graphiri" class="tsd-kind-icon">graph<wbr>Iri</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_datacube_.datacube.html#iri" class="tsd-kind-icon">iri</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_datacube_.datacube.html#labels" class="tsd-kind-icon">labels</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_datacube_.datacube.html#languages" class="tsd-kind-icon">languages</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_datacube_.datacube.html#cachedatasets" class="tsd-kind-icon">cache<wbr>Datasets</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_datacube_.datacube.html#datasetbyiri" class="tsd-kind-icon">dataset<wbr>ByIri</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_datacube_.datacube.html#datasets" class="tsd-kind-icon">datasets</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_datacube_.datacube.html#datasetsbygraphiri" class="tsd-kind-icon">datasets<wbr>ByGraph<wbr>Iri</a>
+								<a href="_datacube_.datacube.html#attributes" class="tsd-kind-icon">attributes</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_datacube_.datacube.html#generatequery" class="tsd-kind-icon">generate<wbr>Query</a>
+								<a href="_datacube_.datacube.html#components" class="tsd-kind-icon">components</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_datacube_.datacube.html#graphs" class="tsd-kind-icon">graphs</a>
+								<a href="_datacube_.datacube.html#dimensions" class="tsd-kind-icon">dimensions</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_datacube_.datacube.html#measures" class="tsd-kind-icon">measures</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_datacube_.datacube.html#query" class="tsd-kind-icon">query</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_datacube_.datacube.html#tojson" class="tsd-kind-icon">toJSON</a>
@@ -563,9 +512,18 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_datacube_.icubeoptions.html" class="tsd-kind-icon">ICube<wbr>Options</a>
+						<a href="../interfaces/_datacube_.datacubeoptions.html" class="tsd-kind-icon">Data<wbr>Cube<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datacube_.html#componentscache" class="tsd-kind-icon">Components<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_datacube_.html#groupedcomponents" class="tsd-kind-icon">Grouped<wbr>Components</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_datacube_.html#label" class="tsd-kind-icon">Label</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_datacube_.html#serializeddatacube" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube</a>
 					</li>
 				</ul>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ICubeOptions | @zazuko/query-rdf-data-cube</title>
+	<title>EntryPointOptions | @zazuko/query-rdf-data-cube</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_datacube_.html">&quot;datacube&quot;</a>
+					<a href="../modules/_entrypoint_.html">&quot;entrypoint&quot;</a>
 				</li>
 				<li>
-					<a href="_datacube_.icubeoptions.html">ICubeOptions</a>
+					<a href="_entrypoint_.entrypointoptions.html">EntryPointOptions</a>
 				</li>
 			</ul>
-			<h1>Interface ICubeOptions</h1>
+			<h1>Interface EntryPointOptions</h1>
 		</div>
 	</div>
 </header>
@@ -73,13 +73,13 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ICubeOptions</span>
+						<span class="target">EntryPointOptions</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<a href="_query_utils_.iqueryoptions.html" class="tsd-signature-type">IQueryOptions</a>
+								<a href="_queryutils_.queryoptions.html" class="tsd-signature-type">QueryOptions</a>
 							</li>
 							<li>
-								<a href="_dataset_.idatasetoptions.html" class="tsd-signature-type">IDataSetOptions</a>
+								<a href="_datacube_.datacubeoptions.html" class="tsd-signature-type">DataCubeOptions</a>
 							</li>
 						</ul>
 					</li>
@@ -92,8 +92,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_datacube_.icubeoptions.html#fetcher" class="tsd-kind-icon">fetcher</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_datacube_.icubeoptions.html#languages" class="tsd-kind-icon">languages</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_entrypoint_.entrypointoptions.html#fetcher" class="tsd-kind-icon">fetcher</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_entrypoint_.entrypointoptions.html#languages" class="tsd-kind-icon">languages</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,10 +104,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="fetcher" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fetcher</h3>
-					<div class="tsd-signature tsd-kind-icon">fetcher<span class="tsd-signature-symbol">:</span> <a href="_sparqlfetcher_.isparqlfetcheroptions.html" class="tsd-signature-type">ISparqlFetcherOptions</a></div>
+					<div class="tsd-signature tsd-kind-icon">fetcher<span class="tsd-signature-symbol">:</span> <a href="_sparqlfetcher_.sparqlfetcheroptions.html" class="tsd-signature-type">SparqlFetcherOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L11">datacube.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/entrypoint.ts#L11">entrypoint.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -117,7 +117,7 @@
 					<div class="tsd-signature tsd-kind-icon">languages<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/b69610b/src/datacube.ts#L10">datacube.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/4829a8b/src/entrypoint.ts#L10">entrypoint.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -130,31 +130,22 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_components_attribute_.html">"components/attribute"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="../modules/_components_component_.html">"components/component"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_components_dimension_.html">"components/dimension"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_components_index_.html">"components/index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_components_measure_.html">"components/measure"</a>
-					</li>
-					<li class="current tsd-kind-external-module">
 						<a href="../modules/_datacube_.html">"datacube"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_dataset_.html">"dataset"</a>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_entrypoint_.html">"entrypoint"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_expressions_base_.html">"expressions/base"</a>
+						<a href="../modules/_expressions_iexpr_.html">"expressions/iexpr"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_expressions_binding_.html">"expressions/binding"</a>
+						<a href="../modules/_expressions_index_.html">"expressions/index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_expressions_numeric_.html">"expressions/numeric"</a>
@@ -169,10 +160,10 @@
 						<a href="../modules/_index_.html">"index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_query_datasetquery_.html">"query/datasetquery"</a>
+						<a href="../modules/_query_.html">"query"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_query_utils_.html">"query/utils"</a>
+						<a href="../modules/_queryutils_.html">"queryutils"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_sparqlfetcher_.html">"sparqlfetcher"</a>
@@ -182,25 +173,25 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_datacube_.datacube.html" class="tsd-kind-icon">Data<wbr>Cube</a>
+						<a href="../classes/_entrypoint_.datacubeentrypoint.html" class="tsd-kind-icon">Data<wbr>Cube<wbr>Entry<wbr>Point</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_datacube_.icubeoptions.html" class="tsd-kind-icon">ICube<wbr>Options</a>
+						<a href="_entrypoint_.entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_datacube_.icubeoptions.html#fetcher" class="tsd-kind-icon">fetcher</a>
+								<a href="_entrypoint_.entrypointoptions.html#fetcher" class="tsd-kind-icon">fetcher</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_datacube_.icubeoptions.html#languages" class="tsd-kind-icon">languages</a>
+								<a href="_entrypoint_.entrypointoptions.html#languages" class="tsd-kind-icon">languages</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_datacube_.html#serializeddatacube" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube</a>
+						<a href="../modules/_entrypoint_.html#serializeddatacubeentrypoint" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point</a>
 					</li>
 				</ul>
 			</nav>
