@@ -1,6 +1,6 @@
 // tslint:disable: trailing-comma
 import { literal, namedNode } from "@rdfjs/data-model";
-import Dimension from "../src/components/dimension";
+import {Dimension} from "../src/components";
 import DataSet from "../src/dataset";
 import fetch from "./utils/fetch-mock";
 
