@@ -3,15 +3,14 @@
   "version": "0.0.8",
   "description": "Query (or introspect) [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API, without writing SPARQL.",
   "scripts": {
-    "build:cjs": "tsc --target es2017 --module commonjs --outDir dist/node",
-    "build:esm": "tsc --target esnext --module esnext --outDir dist/es",
+    "build": "rimraf dist; rollup -c",
+    "build:watch": "rollup -cw",
     "test": "jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "docs:compile": "rimraf docs && npm run typedoc -- ./src/ && touch ./docs/.nojekyll",
     "docs:publish": "gh-pages -t -d docs",
     "typedoc": "typedoc",
     "lint": "tslint --project tsconfig.json",
-    "build": "rimraf dist; npm run build:cjs; npm run build:esm",
     "prepare": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "postversion": "npm run docs:compile && npm run docs:publish"
@@ -41,6 +40,7 @@
   },
   "homepage": "https://github.com/zazuko/query-rdf-data-cube#readme",
   "dependencies": {
+    "@rdfjs/data-model": "^1.1.2",
     "@rdfjs/namespace": "^1.1.0",
     "clone": "^2.1.2",
     "node-fetch": "^2.6.0",
@@ -61,11 +61,13 @@
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
+    "rollup": "^1.21.2",
+    "rollup-plugin-typescript2": "^0.24.1",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.19.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.3"
   },
   "jest": {
     "automock": false,
@@ -86,7 +88,9 @@
     },
     "globals": {
       "ts-jest": {
-        "diagnostics": true
+        "diagnostics": {
+          "warnOnly": true
+        }
       }
     }
   },

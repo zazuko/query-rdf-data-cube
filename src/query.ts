@@ -55,7 +55,7 @@ export class Query {
   public select(selects: QueryState["selects"]) {
     const self = this.clone();
     Object.assign(self.state.selects, selects);
-    Object.entries(self.state.selects).forEach(([bindingName, component]) => {
+    Object.entries(self.state.selects).forEach(([bindingName, component]: [string, Component]) => {
       if (!component) {
         const errorMessage = [
           "Invalid Component in",

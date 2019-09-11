@@ -28,19 +28,19 @@ const datacube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
   },
 });
 
-const a: any = new Dimension({
+const a: Dimension = new Dimension({
   labels: [{ value: "aaaa", language: "" }],
   iri: "http://aaaa.aa"
 });
-const b: any = new Dimension({
+const b: Dimension = new Dimension({
   labels: [{ value: "bbbb", language: "" }],
   iri: "http://bbbb.bb"
 });
-const c: any = new Dimension({
+const c: Dimension = new Dimension({
   labels: [{ value: "cccc", language: "" }],
   iri: "http://cccc.cc"
 });
-const d: any = new Dimension({
+const d: Dimension = new Dimension({
   labels: [{ value: "dddd", language: "" }],
   iri: "http://dddd.dd"
 });

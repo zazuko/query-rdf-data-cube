@@ -1,6 +1,6 @@
 import { literal } from "@rdfjs/data-model";
 import namespace from "@rdfjs/namespace";
-import { toLiteral } from "../src/expressions";
+import { toLiteral } from "../src/expressions/operator";
 
 const xsd = namespace("http://www.w3.org/2001/XMLSchema#");
 const rdf = namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");

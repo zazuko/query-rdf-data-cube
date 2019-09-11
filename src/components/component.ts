@@ -1,9 +1,9 @@
+// tslint:disable max-classes-per-file
 import { namedNode } from "@rdfjs/data-model";
 import clone from "clone";
 import { Term } from "rdf-js";
 import { Label } from "../datacube";
 import { BaseExpr, Binding, IExpr } from "../expressions";
-import { Attribute, Dimension, Measure } from "./index";
 
 export type SerializedComponent = {
   componentType: string,
@@ -91,4 +91,16 @@ export class Component extends BaseExpr {
   public resolve(mapping: Map<string, string>): IExpr {
     return new Binding(mapping.get(this.iri.value));
   }
+}
+
+export class Attribute extends Component {
+  public componentType = "attribute";
+}
+
+export class Dimension extends Component {
+  public componentType = "dimension";
+}
+
+export class Measure extends Component {
+  public componentType = "measure";
 }

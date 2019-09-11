@@ -1,8 +1,3 @@
-export interface IExpr {
-  resolve(mapping: Map<string, string>): IExpr;
-}
-
-export { BaseExpr } from "./base";
+export { IExpr } from "./iexpr";
 export * from "./utils";
-export { Operator } from "./operator";
-export { Binding } from "./binding";
+export { BaseExpr, Binding, Operator } from "./operator";

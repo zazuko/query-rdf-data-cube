@@ -1,4 +1,5 @@
-import { BaseExpr, IExpr } from "./index";
+import { IExpr } from "./iexpr";
+import { BaseExpr } from "./operator";
 
 export class Numeric extends BaseExpr implements IExpr {
   private val: number;

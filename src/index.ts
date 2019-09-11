@@ -1,12 +1,8 @@
-import { Attribute } from "./components/attribute";
+import { Attribute, Dimension, Measure } from "./components";
 import { SerializedComponent } from "./components/component";
-import { Dimension } from "./components/dimension";
-import { Measure } from "./components/measure";
 
-import { ArrayExpr, IExpr, into, IntoExpr, isLiteral, isTerm, TermExpr, toLiteral } from "./expressions";
-import { BaseExpr } from "./expressions/base";
-import { Binding } from "./expressions/binding";
-import { Operator } from "./expressions/operator";
+import { ArrayExpr, IExpr, IntoExpr, isLiteral, isTerm, TermExpr } from "./expressions";
+import { BaseExpr, Binding, into, Operator, toLiteral } from "./expressions/operator";
 
 import { Query } from "./query";
 import { baseState, PredicateFunction, QueryOptions, QueryState, Selects } from "./queryutils";
