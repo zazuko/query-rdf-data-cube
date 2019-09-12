@@ -127,14 +127,17 @@ function notable(operator: string, previous: BaseExpr, extraArgs = []) {
 }
 
 /**
- * @ignore
+ * @class BaseExpr
+ * BaseExpr implements all the filters that can be used on [[Component]]s.
  */
-export class BaseExpr implements IExpr {
+export abstract class BaseExpr implements IExpr {
+  /**
+   * @ignore
+   */
   public resolve(mapping: Map<string, string>): IExpr {
     throw new Error("Not implemented");
   }
 
-  // filters
   public get not() {
     return new Operator("!", [this]);
   }

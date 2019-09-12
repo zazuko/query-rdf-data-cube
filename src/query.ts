@@ -4,13 +4,15 @@ import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
 import { DataCube } from "./datacube";
 import { EntryPointOptions } from "./entrypoint";
-import { IExpr } from "./expressions";
+import { IExpr, Operator } from "./expressions";
 import { combineFilters, createOperationExpression, prefixes } from "./queryutils";
 import { generateLangCoalesce, generateLangOptionals } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "./sparqljs";
 
 type PredicateFunction = (data: Selects) => Component;
+type PredicatesFunction = (data: Selects) => Component[];
+type FilterFunction = (data: Selects) => Operator;
 type Selects = Record<string, Component>;
 
 /**
@@ -83,9 +85,9 @@ export class Query {
    *     someDate: dateDimension,
    *   });
    * ```
-   * @param {QueryState["selects"]} selects
+   * @param {Selects} selects
    */
-  public select(selects: QueryState["selects"]) {
+  public select(selects: Selects) {
     const self = this.clone();
     Object.assign(self.state.selects, selects);
     Object.entries(self.state.selects).forEach(([bindingName, component]: [string, Component]) => {
@@ -112,12 +114,18 @@ export class Query {
    *   .select({
    *     someDate: dateDimension,
    *   })
+   *   // syntax 1:
+   *   .filter(({ someDate }) => someDate.not.equals("2019-08-29T07:27:56.241Z"));
+   *   // syntax 2:
    *   .filter(dateDimension.not.equals("2019-08-29T07:27:56.241Z"));
    * ```
    * @param filter
    */
-  public filter(filter: IExpr) {
+  public filter(filter: IExpr | FilterFunction) {
     const self = this.clone();
+    if (typeof filter === "function") {
+      filter = filter(this.state.selects);
+    }
     self.state.filters.push(filter);
     return self;
   }
@@ -132,11 +140,11 @@ export class Query {
    *     someDimension: myDimension,
    *   })
    *   // syntax 1:
-   *   .groupBy("someDimension")
-   *   // syntax 2:
    *   .groupBy(({ someDimension }) => someDimension)
+   *   // syntax 2:
+   *   .groupBy("someDimension")
    * ```
-   * @param {(PredicateFunction | string)} grouper
+   * @param {PredicateFunction | string} grouper
    */
   public groupBy(grouper: PredicateFunction | string) {
     const self = this.clone();
@@ -184,28 +192,36 @@ export class Query {
    * Adds one or many orderings to the results.
    *
    * ```js
-   * // return results 50 to 75
+   * // order by `myVar DESC, otherVar`
    * myDataCube
    *   .query({
    *      myVar: someDimension,
    *      otherVar: otherDimension,
    *    })
-   *   .limit(25)
-   *   .offset(50)
    *    // this:
-   *   .orderBy(someDimension.desc(), otherDimension);
+   *   .orderBy(({ myVar, otherVar }) => [myVar.desc(), otherVar]);
    *   // is equivalent to:
    *   .orderBy(someDimension.desc())
    *   .orderBy(otherDimension);
+   *   // and equivalent to:
+   *   .orderBy(someDimension.desc(), otherDimension);
    * ```
-   * @param {number} How many results to return.
    */
-  public orderBy(...order: Component[]) {
+  public orderBy(...orderings: Component[] | PredicatesFunction[]) {
     const self = this.clone();
-    self.state.order.push(...order);
+    for (const ordering of orderings) {
+      if (typeof ordering === "function") {
+        self.state.order.push(...ordering(this.state.selects));
+      } else {
+        self.state.order.push(ordering);
+      }
+    }
     return self;
   }
 
+  /**
+   * @ignore
+   */
   public applyFilters(): FilterPattern {
     const filters = this.state.filters
       .map((op) => op.resolve(this.iriToBinding))
