@@ -914,6 +914,9 @@ img { max-width: 100%; }
 			<a href="classes/attribute.html" class="tsd-kind-icon">Attribute</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="classes/baseexpr.html" class="tsd-kind-icon">Base<wbr>Expr</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="classes/component.html" class="tsd-kind-icon">Component</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -941,16 +944,22 @@ img { max-width: 100%; }
 			<a href="interfaces/entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
+			<a href="interfaces/label.html" class="tsd-kind-icon">Label</a>
+		</li>
+		<li class=" tsd-kind-interface">
 			<a href="interfaces/queryoptions.html" class="tsd-kind-icon">Query<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/sparqlfetcheroptions.html" class="tsd-kind-icon">Sparql<wbr>Fetcher<wbr>Options</a>
 		</li>
-		<li class=" tsd-kind-type-alias">
-			<a href="globals.html#label" class="tsd-kind-icon">Label</a>
+		<li class=" tsd-kind-type-alias tsd-is-not-exported">
+			<a href="globals.html#filterfunction" class="tsd-kind-icon">Filter<wbr>Function</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-is-not-exported">
 			<a href="globals.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-is-not-exported">
+			<a href="globals.html#predicatesfunction" class="tsd-kind-icon">Predicates<wbr>Function</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-is-not-exported">
 			<a href="globals.html#selects" class="tsd-kind-icon">Selects</a>
@@ -1090,6 +1099,7 @@ img { max-width: 100%; }
 						<h3>Classes</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-class"><a href="classes/attribute.html" class="tsd-kind-icon">Attribute</a></li>
+							<li class="tsd-kind-class"><a href="classes/baseexpr.html" class="tsd-kind-icon">Base<wbr>Expr</a></li>
 							<li class="tsd-kind-class"><a href="classes/component.html" class="tsd-kind-icon">Component</a></li>
 							<li class="tsd-kind-class"><a href="classes/datacube.html" class="tsd-kind-icon">Data<wbr>Cube</a></li>
 							<li class="tsd-kind-class"><a href="classes/datacubeentrypoint.html" class="tsd-kind-icon">Data<wbr>Cube<wbr>Entry<wbr>Point</a></li>
@@ -1104,6 +1114,7 @@ img { max-width: 100%; }
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-interface"><a href="interfaces/datacubeoptions.html" class="tsd-kind-icon">Data<wbr>Cube<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/label.html" class="tsd-kind-icon">Label</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/queryoptions.html" class="tsd-kind-icon">Query<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/sparqlfetcheroptions.html" class="tsd-kind-icon">Sparql<wbr>Fetcher<wbr>Options</a></li>
 						</ul>
@@ -1111,8 +1122,9 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Type aliases</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-type-alias"><a href="globals.html#label" class="tsd-kind-icon">Label</a></li>
+							<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#filterfunction" class="tsd-kind-icon">Filter<wbr>Function</a></li>
 							<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a></li>
+							<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#predicatesfunction" class="tsd-kind-icon">Predicates<wbr>Function</a></li>
 							<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#selects" class="tsd-kind-icon">Selects</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#serializedcomponent" class="tsd-kind-icon">Serialized<wbr>Component</a></li>
 							<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#serializeddatacube" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube</a></li>
@@ -1124,23 +1136,33 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Type aliases</h2>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias">
-				<a name="label" class="tsd-anchor"></a>
-				<h3>Label</h3>
-				<div class="tsd-signature tsd-kind-icon">Label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-not-exported">
+				<a name="filterfunction" class="tsd-anchor"></a>
+				<h3>Filter<wbr>Function</h3>
+				<div class="tsd-signature tsd-kind-icon">Filter<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L37">datacube.ts:37</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L15">query.ts:15</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
 					<h4>Type declaration</h4>
 					<ul class="tsd-parameters">
-						<li class="tsd-parameter">
-							<h5>language<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-						</li>
-						<li class="tsd-parameter">
-							<h5>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="globals.html#selects" class="tsd-signature-type">Selects</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Operator</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-parameters-title">Parameters</h4>
+									<ul class="tsd-parameters">
+										<li>
+											<h5>data: <a href="globals.html#selects" class="tsd-signature-type">Selects</a></h5>
+										</li>
+									</ul>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Operator</span></h4>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</div>
@@ -1151,7 +1173,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Predicate<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L13">query.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L13">query.ts:13</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1177,12 +1199,43 @@ img { max-width: 100%; }
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-not-exported">
+				<a name="predicatesfunction" class="tsd-anchor"></a>
+				<h3>Predicates<wbr>Function</h3>
+				<div class="tsd-signature tsd-kind-icon">Predicates<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L14">query.ts:14</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-siganture">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="globals.html#selects" class="tsd-signature-type">Selects</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Component[]</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-parameters-title">Parameters</h4>
+									<ul class="tsd-parameters">
+										<li>
+											<h5>data: <a href="globals.html#selects" class="tsd-signature-type">Selects</a></h5>
+										</li>
+									</ul>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Component[]</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-not-exported">
 				<a name="selects" class="tsd-anchor"></a>
 				<h3>Selects</h3>
 				<div class="tsd-signature tsd-kind-icon">Selects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="classes/component.html" class="tsd-signature-type">Component</a><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L14">query.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L16">query.ts:16</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1192,7 +1245,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/components/component.ts#L8">components/component.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/components/component.ts#L8">components/component.ts:8</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1216,7 +1269,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L24">datacube.ts:24</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L24">datacube.ts:24</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1260,7 +1313,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/entrypoint.ts#L14">entrypoint.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/entrypoint.ts#L14">entrypoint.ts:14</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">

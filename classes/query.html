@@ -914,6 +914,9 @@ img { max-width: 100%; }
 			<a href="attribute.html" class="tsd-kind-icon">Attribute</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="baseexpr.html" class="tsd-kind-icon">Base<wbr>Expr</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="component.html" class="tsd-kind-icon">Component</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -933,9 +936,6 @@ img { max-width: 100%; }
 			<ul>
 				<li class=" tsd-kind-constructor tsd-parent-kind-class">
 					<a href="query.html#constructor" class="tsd-kind-icon">constructor</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="query.html#applyfilters" class="tsd-kind-icon">apply<wbr>Filters</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="query.html#execute" class="tsd-kind-icon">execute</a>
@@ -976,16 +976,22 @@ img { max-width: 100%; }
 			<a href="../interfaces/entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
+			<a href="../interfaces/label.html" class="tsd-kind-icon">Label</a>
+		</li>
+		<li class=" tsd-kind-interface">
 			<a href="../interfaces/queryoptions.html" class="tsd-kind-icon">Query<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="../interfaces/sparqlfetcheroptions.html" class="tsd-kind-icon">Sparql<wbr>Fetcher<wbr>Options</a>
 		</li>
-		<li class=" tsd-kind-type-alias">
-			<a href="../globals.html#label" class="tsd-kind-icon">Label</a>
+		<li class=" tsd-kind-type-alias tsd-is-not-exported">
+			<a href="../globals.html#filterfunction" class="tsd-kind-icon">Filter<wbr>Function</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-is-not-exported">
 			<a href="../globals.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-is-not-exported">
+			<a href="../globals.html#predicatesfunction" class="tsd-kind-icon">Predicates<wbr>Function</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-is-not-exported">
 			<a href="../globals.html#selects" class="tsd-kind-icon">Selects</a>
@@ -1043,7 +1049,6 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#applyfilters" class="tsd-kind-icon">apply<wbr>Filters</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#execute" class="tsd-kind-icon">execute</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#filter" class="tsd-kind-icon">filter</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#groupby" class="tsd-kind-icon">group<wbr>By</a></li>
@@ -1070,7 +1075,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L60">query.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L62">query.ts:62</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1102,23 +1107,6 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="applyfilters" class="tsd-anchor"></a>
-				<h3>apply<wbr>Filters</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">apply<wbr>Filters<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FilterPattern</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L209">query.ts:209</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">FilterPattern</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1128,7 +1116,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L220">query.ts:220</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L236">query.ts:236</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1144,13 +1132,13 @@ img { max-width: 100%; }
 				<a name="filter" class="tsd-anchor"></a>
 				<h3>filter</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IExpr</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="query.html" class="tsd-signature-type">Query</a></li>
+					<li class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IExpr</span><span class="tsd-signature-symbol"> | </span><a href="../globals.html#filterfunction" class="tsd-signature-type">FilterFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="query.html" class="tsd-signature-type">Query</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L119">query.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L124">query.ts:124</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1161,13 +1149,16 @@ img { max-width: 100%; }
   .select({
     <span class="hljs-attr">someDate</span>: dateDimension,
   })
+  <span class="hljs-comment">// syntax 1:</span>
+  .filter(<span class="hljs-function">(<span class="hljs-params">{ someDate }</span>) =&gt;</span> someDate.not.equals(<span class="hljs-string">"2019-08-29T07:27:56.241Z"</span>));
+  <span class="hljs-comment">// syntax 2:</span>
   .filter(dateDimension.not.equals(<span class="hljs-string">"2019-08-29T07:27:56.241Z"</span>));</code></pre>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>filter: <span class="tsd-signature-type">IExpr</span></h5>
+								<h5>filter: <span class="tsd-signature-type">IExpr</span><span class="tsd-signature-symbol"> | </span><a href="../globals.html#filterfunction" class="tsd-signature-type">FilterFunction</a></h5>
 								<div class="tsd-comment tsd-typography">
 								</div>
 							</li>
@@ -1186,7 +1177,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L141">query.ts:141</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L149">query.ts:149</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1199,9 +1190,9 @@ img { max-width: 100%; }
     <span class="hljs-attr">someDimension</span>: myDimension,
   })
   <span class="hljs-comment">// syntax 1:</span>
-  .groupBy(<span class="hljs-string">"someDimension"</span>)
+  .groupBy(<span class="hljs-function">(<span class="hljs-params">{ someDimension }</span>) =&gt;</span> someDimension)
   <span class="hljs-comment">// syntax 2:</span>
-  .groupBy(<span class="hljs-function">(<span class="hljs-params">{ someDimension }</span>) =&gt;</span> someDimension)</code></pre>
+  .groupBy(<span class="hljs-string">"someDimension"</span>)</code></pre>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1226,7 +1217,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L147">query.ts:147</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L155">query.ts:155</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1249,7 +1240,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L158">query.ts:158</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L166">query.ts:166</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1277,7 +1268,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L177">query.ts:177</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L185">query.ts:185</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1305,37 +1296,37 @@ myDataCube
 				<a name="orderby" class="tsd-anchor"></a>
 				<h3>order<wbr>By</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">order<wbr>By<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>order<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Component[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="query.html" class="tsd-signature-type">Query</a></li>
+					<li class="tsd-signature tsd-kind-icon">order<wbr>By<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>orderings<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Component[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PredicatesFunction[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="query.html" class="tsd-signature-type">Query</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L203">query.ts:203</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L210">query.ts:210</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Adds one or many orderings to the results.</p>
 							</div>
-							<pre><code class="language-js"><span class="hljs-comment">// return results 50 to 75</span>
+							<pre><code class="language-js"><span class="hljs-comment">// order by `myVar DESC, otherVar`</span>
 myDataCube
   .query({
      <span class="hljs-attr">myVar</span>: someDimension,
      <span class="hljs-attr">otherVar</span>: otherDimension,
    })
-  .limit(<span class="hljs-number">25</span>)
-  .offset(<span class="hljs-number">50</span>)
    <span class="hljs-comment">// this:</span>
-  .orderBy(someDimension.desc(), otherDimension);
+  .orderBy(<span class="hljs-function">(<span class="hljs-params">{ myVar, otherVar }</span>) =&gt;</span> [myVar.desc(), otherVar]);
   <span class="hljs-comment">// is equivalent to:</span>
   .orderBy(someDimension.desc())
-  .orderBy(otherDimension);</code></pre>
+  .orderBy(otherDimension);
+  <span class="hljs-comment">// and equivalent to:</span>
+  .orderBy(someDimension.desc(), otherDimension);</code></pre>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>order: <span class="tsd-signature-type">Component[]</span></h5>
+								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>orderings: <span class="tsd-signature-type">Component[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PredicatesFunction[]</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="query.html" class="tsd-signature-type">Query</a></h4>
@@ -1346,13 +1337,13 @@ myDataCube
 				<a name="select" class="tsd-anchor"></a>
 				<h3>select</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">select<span class="tsd-signature-symbol">(</span>selects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="query.html" class="tsd-signature-type">Query</a></li>
+					<li class="tsd-signature tsd-kind-icon">select<span class="tsd-signature-symbol">(</span>selects<span class="tsd-signature-symbol">: </span><a href="../globals.html#selects" class="tsd-signature-type">Selects</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="query.html" class="tsd-signature-type">Query</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L88">query.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L90">query.ts:90</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1369,11 +1360,9 @@ myDataCube
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>selects: <span class="tsd-signature-type">object</span></h5>
+								<h5>selects: <a href="../globals.html#selects" class="tsd-signature-type">Selects</a></h5>
 								<div class="tsd-comment tsd-typography">
 								</div>
-								<ul class="tsd-parameters">
-								</ul>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="query.html" class="tsd-signature-type">Query</a></h4>
@@ -1390,7 +1379,7 @@ myDataCube
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/query.ts#L286">query.ts:286</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/query.ts#L302">query.ts:302</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

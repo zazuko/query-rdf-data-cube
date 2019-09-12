@@ -914,6 +914,9 @@ img { max-width: 100%; }
 			<a href="attribute.html" class="tsd-kind-icon">Attribute</a>
 		</li>
 		<li class=" tsd-kind-class">
+			<a href="baseexpr.html" class="tsd-kind-icon">Base<wbr>Expr</a>
+		</li>
+		<li class=" tsd-kind-class">
 			<a href="component.html" class="tsd-kind-icon">Component</a>
 		</li>
 		<li class="current tsd-kind-class">
@@ -976,16 +979,22 @@ img { max-width: 100%; }
 			<a href="../interfaces/entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
+			<a href="../interfaces/label.html" class="tsd-kind-icon">Label</a>
+		</li>
+		<li class=" tsd-kind-interface">
 			<a href="../interfaces/queryoptions.html" class="tsd-kind-icon">Query<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="../interfaces/sparqlfetcheroptions.html" class="tsd-kind-icon">Sparql<wbr>Fetcher<wbr>Options</a>
 		</li>
-		<li class=" tsd-kind-type-alias">
-			<a href="../globals.html#label" class="tsd-kind-icon">Label</a>
+		<li class=" tsd-kind-type-alias tsd-is-not-exported">
+			<a href="../globals.html#filterfunction" class="tsd-kind-icon">Filter<wbr>Function</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-is-not-exported">
 			<a href="../globals.html#predicatefunction" class="tsd-kind-icon">Predicate<wbr>Function</a>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-is-not-exported">
+			<a href="../globals.html#predicatesfunction" class="tsd-kind-icon">Predicates<wbr>Function</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-is-not-exported">
 			<a href="../globals.html#selects" class="tsd-kind-icon">Selects</a>
@@ -1003,6 +1012,15 @@ img { max-width: 100%; }
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<dl class="tsd-comment-tags">
+					<dt>class</dt>
+					<dd><p>DataCube</p>
+					</dd>
+				</dl>
+			</div>
+		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
@@ -1056,7 +1074,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L78">datacube.ts:78</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L92">datacube.ts:92</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1093,7 +1111,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">endpoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L73">datacube.ts:73</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L87">datacube.ts:87</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1103,7 +1121,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">graph<wbr>Iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L74">datacube.ts:74</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L88">datacube.ts:88</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1113,7 +1131,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L72">datacube.ts:72</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L86">datacube.ts:86</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1123,7 +1141,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">labels<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Label[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L71">datacube.ts:71</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L85">datacube.ts:85</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1140,12 +1158,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L136">datacube.ts:136</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L150">datacube.ts:150</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Fetch all <a href="attribute.html">Attribute</a>s from the DataCube.</p>
+								<p>Fetch all <a href="attribute.html">Attribute</a>s from the <a href="datacube.html">DataCube</a>.</p>
 							</div>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Attribute[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1162,12 +1180,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L144">datacube.ts:144</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L158">datacube.ts:158</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Fetch all <a href="dimension.html">Dimension</a>s from the DataCube.</p>
+								<p>Fetch all <a href="dimension.html">Dimension</a>s from the <a href="datacube.html">DataCube</a>.</p>
 							</div>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Dimension[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1184,12 +1202,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L152">datacube.ts:152</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L166">datacube.ts:166</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Fetch all <a href="measure.html">Measure</a>s from the DataCube.</p>
+								<p>Fetch all <a href="measure.html">Measure</a>s from the <a href="datacube.html">DataCube</a>.</p>
 							</div>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Measure[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1206,7 +1224,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L160">datacube.ts:160</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L174">datacube.ts:174</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1234,13 +1252,13 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L111">datacube.ts:111</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L125">datacube.ts:125</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Serializes a DataCube to JSON in a way that makes it deserializable
-								by calling DataCube#fromJSON</p>
+								<p>Serializes a <a href="datacube.html">DataCube</a> to JSON in a way that makes it deserializable
+								by calling <a href="datacube.html#fromjson">fromJSON</a></p>
 							</div>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1257,12 +1275,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/219da8d/src/datacube.ts#L52">datacube.ts:52</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/f902cd0/src/datacube.ts#L66">datacube.ts:66</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Deserializes a DataCube from JSON generated by DataCube#toJSON</p>
+								<p>Deserializes a <a href="datacube.html">DataCube</a> from JSON generated by <a href="datacube.html#tojson">toJSON</a></p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
