@@ -39,13 +39,13 @@ export class SparqlFetcher {
       method: "POST",
       headers: {
         "Accept": "application/sparql-results+json",
-        "Content-Type": "application/sparql-query; charset=utf-8",
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       },
     };
   }
 
   public async select(query: string): Promise<any[]> {
-    const options = this.options(query);
+    const options = this.options(`query=${encodeURIComponent(query)}`);
 
     return this.fetch(this.endpoint, options)
       .then((r: Response) => {
