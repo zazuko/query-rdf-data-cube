@@ -1,3 +1,13 @@
+<a name="0.0.10"></a>
+## [0.0.10](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.9...v0.0.10) (2019-09-16)
+
+
+### Bug Fixes
+
+* POST as form data to avoid CORS issues ([ab39461](https://github.com/zazuko/query-rdf-data-cube/commit/ab39461))
+
+
+
 <a name="0.0.9"></a>
 ## [0.0.9](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.8...v0.0.9) (2019-09-11)
 
