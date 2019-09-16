@@ -7,15 +7,43 @@
 Query and explore [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API,
 without writing SPARQL.
 
+- [Installation](#installation)
+- [Concepts](#concepts)
+- [API Documentation](#api-documentation)
+- [Examples](#examples)
+- [Working Locally](#working-locally)
+- [Features and Usage](#features-and-usage)
+
 ## Installation
 
-`npm install @zazuko/query-rdf-data-cube`
+- `npm install @zazuko/query-rdf-data-cube`
+- [CHANGELOG](https://github.com/zazuko/query-rdf-data-cube/blob/master/CHANGELOG.md)
 
-## Documentation
+## Concepts
+
+RDF Data Cubes are an implementation of the generic [OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing) concept and more specifically, [OLAP cube](https://en.wikipedia.org/wiki/OLAP_cube).
+What RDF Data Cube calls _data structure definition_ can be mapped to _dimension tables_ in [OLAP cubes](https://en.wikipedia.org/wiki/OLAP_cube#Terminology), the _observations_ in RDF Data Cube are called _fact tables_. 
+
+The main classes this library exposes are the following:
+
+- [`DataCubeEntryPoint`](https://zazuko.github.io/query-rdf-data-cube/classes/datacubeentrypoint.html)  
+    The *EntryPoint* has a SPARQL endpoint.
+    It lets you discover and fetch Data Cubes available at this endpoint and their corresponding Dimensions, Attributes, and Measures.
+- [`DataCube`](https://zazuko.github.io/query-rdf-data-cube/classes/datacube.html)  
+    A Data Cube represents the [*cube model*](https://www.w3.org/TR/vocab-data-cube/#cubes-model). It has Dimensions, Attributes and Measures and is initialized with an IRI and a graph IRI.  
+    Querying a DataCube starts with having a DataCube instance.
+- [`Component`](https://zazuko.github.io/query-rdf-data-cube/classes/component.html)  
+    An abstract class, parent of the following [*component properties*](https://www.w3.org/TR/vocab-data-cube/#dsd-dimensions):
+    - [`Dimension`](https://zazuko.github.io/query-rdf-data-cube/classes/dimension.html)
+    - [`Attribute`](https://zazuko.github.io/query-rdf-data-cube/classes/attribute.html)
+    - [`Measure`](https://zazuko.github.io/query-rdf-data-cube/classes/measure.html)
+    
+    [Filter operators](https://zazuko.github.io/query-rdf-data-cube/classes/baseexpr.html#bound) can be applied directly to components.
+
+
+## API Documentation
 
 See <https://zazuko.github.io/query-rdf-data-cube/>
-
-Changelog: <https://github.com/zazuko/query-rdf-data-cube/blob/master/CHANGELOG.md>
 
 ## Examples
 
