@@ -1,7 +1,7 @@
 // tslint:disable: max-classes-per-file
 import { literal, namedNode } from "@rdfjs/data-model";
 import namespace from "@rdfjs/namespace";
-import { Literal } from "rdf-js";
+import { Literal, NamedNode } from "rdf-js";
 import { IExpr } from "./iexpr";
 import { ArrayExpr, IntoExpr, isLiteral, isTerm, TermExpr } from "./utils";
 
@@ -83,7 +83,7 @@ export function toLiteral(arg): Literal {
     const match = numb.exec(arg);
     if (match) {
       const value = match[0];
-      let type;
+      let type: NamedNode;
       if (match[1]) {
         type = xsd("double");
       } else if (/^[+\-]?\d+$/.test(match[0])) {
@@ -100,30 +100,33 @@ export function toLiteral(arg): Literal {
 /**
  * @ignore
  */
-const notableOperators = {
+const combinedNots = {
   "in": "notin",
   "=": "!=",
 };
 
 /**
  * @ignore
+ * Wraps an operator to make it possible to write `.not.bound()` instead of `.bound().not`.
+ * The reason for this is the operators AST. We want to have `bound` as argument of `!`, but
+ * `not.bound()` would normally create a `bound` operator with `!` as argument.
+ * We can reverse the order of these by "popping" the operators and reversing the top two when
+ * we encounter a `not`able operator on top AND a `not` operator right below it.
  */
 function notable(operator: string, previous: BaseExpr, extraArgs = []) {
   let op: Operator;
   if (previous instanceof Operator) {
+    // operator was preceeded by `.not`
     if (previous.operator === "!") {
-      if (notableOperators[operator]) {
-        op = new Operator(notableOperators[operator], [...previous.args, ...extraArgs]);
-      } else {
-        op = new Operator(operator, [...previous.args, ...extraArgs]);
-        op = new Operator("!", [op]);
+      if (combinedNots[operator]) {
+        // we have to override, eg. `.not.equals()` becomes `!=` instead of `!` AND `equals`
+        return new Operator(combinedNots[operator], [...previous.args, ...extraArgs]);
       }
+      op = new Operator(operator, [...previous.args, ...extraArgs]);
+      return new Operator("!", [op]);
     }
   }
-  if (!op) {
-    op = new Operator(operator, [previous, ...extraArgs]);
-  }
-  return op;
+  return new Operator(operator, [previous, ...extraArgs]);
 }
 
 /**
