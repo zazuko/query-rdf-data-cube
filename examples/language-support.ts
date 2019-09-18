@@ -1,7 +1,6 @@
 // run this example with: $ ts-node examples/language-support.ts
-const { inspect } = require("util");
-const { DataCubeEntryPoint } = require("../src/entrypoint");
-const { Dimension } = require("../src/components");
+import { inspect } from "util";
+import { DataCubeEntryPoint } from "../src/entrypoint";
 
 function prettyPrint(obj) {
   return inspect(obj, false, 10000, true);
