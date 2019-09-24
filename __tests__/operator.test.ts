@@ -3,7 +3,6 @@ import namespace from "@rdfjs/namespace";
 import { toLiteral } from "../src/expressions/operator";
 
 const xsd = namespace("http://www.w3.org/2001/XMLSchema#");
-const rdf = namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 
 describe("toLiteral", () => {
   it("recognizes integers", () => {
@@ -21,8 +20,13 @@ describe("toLiteral", () => {
     expect(toLiteral("-7.65432e3")).toEqual(literal("-7.65432e3", xsd("double")));
   });
 
-  it("recognizes dates", () => {
+  it("recognizes datetimes", () => {
     const now = new Date();
+    expect(toLiteral(now)).toEqual(literal(now.toISOString(), xsd("dateTime")));
+  });
+
+  it("recognizes dates", () => {
+    const now = new Date("2000-01-01");
     expect(toLiteral(now)).toEqual(literal(now.toISOString(), xsd("dateTime")));
   });
 

@@ -12,15 +12,19 @@ const xsd = namespace("http://www.w3.org/2001/XMLSchema#");
 /**
  * @ignore
  */
-const dateTime = /^\d{4}(-[01]\d(-[0-3]\d(T[0-2]\d:[0-5]\d:?([0-5]\d(\.\d+)?)?([+-][0-2]\d:[0-5]\d)?Z?)?)?)$/;
+const dateRegExp = /^[12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 /**
  * @ignore
  */
-const bool = /^(true|false)$/;
+const dateTimeRegExp = /^\d{4}(-[01]\d(-[0-3]\d(T[0-2]\d:[0-5]\d:?([0-5]\d(\.\d+)?)?([+-][0-2]\d:[0-5]\d)?Z?)?)?)$/;
 /**
  * @ignore
  */
-const numb = /^[\-+]?(?:\d+\.?\d*([eE](?:[\-\+])?\d+)|\d*\.?\d+)$/;
+const boolRegExp = /^(true|false)$/;
+/**
+ * @ignore
+ */
+const numberRegExp = /^[\-+]?(?:\d+\.?\d*([eE](?:[\-\+])?\d+)|\d*\.?\d+)$/;
 
 /**
  * @ignore
@@ -62,25 +66,28 @@ export function into(what: IntoExpr): IExpr {
 /**
  * @ignore
  */
-export function toLiteral(arg): Literal {
+export function toLiteral(arg: any): Literal {
   if (isLiteral(arg)) {
     return arg;
   }
   if (arg === true || arg === false) {
     return literal(String(arg), xsd("boolean"));
   }
-  if (bool.test(arg)) {
+  if (boolRegExp.test(arg)) {
     return literal(arg, xsd("boolean"));
   }
   if (arg instanceof Date) {
     return literal(arg.toISOString(), xsd("dateTime"));
   }
-  if (dateTime.test(arg)) {
+  if (dateRegExp.test(arg)) {
+    return literal(arg, xsd("date"));
+  }
+  if (dateTimeRegExp.test(arg)) {
     const date = new Date(arg);
     return literal(date.toISOString(), xsd("dateTime"));
   }
   if (/^[0-9+-]/.test(arg)) {
-    const match = numb.exec(arg);
+    const match = numberRegExp.exec(arg);
     if (match) {
       const value = match[0];
       let type: NamedNode;

@@ -6,7 +6,7 @@ import { IExpr } from "./iexpr";
 /**
  * @ignore
  */
-export type IntoExpr = Term | number | IExpr;
+export type IntoExpr = Term | string | number | IExpr;
 
 /**
  * @ignore
