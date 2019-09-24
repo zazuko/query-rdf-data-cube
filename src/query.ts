@@ -25,6 +25,7 @@ interface QueryState {
   havings: PredicateFunction[];
   offset: number;
   limit: number;
+  distinct: boolean;
   order: Component[];
 }
 
@@ -41,6 +42,7 @@ const baseState: QueryState = {
   havings: [],
   offset: 0,
   limit: 10,
+  distinct: false,
   order: [],
 };
 
@@ -155,6 +157,17 @@ export class Query {
   public having(fn: PredicateFunction) {
     const self = this.clone();
     self.state.havings.push(fn);
+    return self;
+  }
+
+  /**
+   * Only return distinct values.
+   *
+   * @param {boolean} Enable/disable `DISTINCT`.
+   */
+  public distinct(distinct: boolean = true) {
+    const self = this.clone();
+    self.state.distinct = distinct;
     return self;
   }
 
@@ -300,14 +313,11 @@ export class Query {
    * @returns {Promise<string>} SPARQL query
    */
   public async toSparql(): Promise<string> {
-    let hasDistinct = false;
+    const hasDistinct = this.state.distinct;
     let hasAggregate = false;
     Object.values(this.state.selects).forEach((component) => {
       if (component.aggregateType) {
         hasAggregate = true;
-      }
-      if (component.isDistinct) {
-        hasDistinct = true;
       }
     });
     const groupedOnBindingNames = [];

@@ -178,7 +178,7 @@ describe("avg", () => {
       datenstand: datenstandAttribute,
       erwarteteAktualisierung: erwarteteAktualisierungAttribute,
       korrektur: korrekturAttribute,
-    });
+    }).distinct();
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
@@ -194,6 +194,7 @@ describe("groupBy", () => {
 
         bep: beschaeftigteMeasure.avg().distinct(),
       })
+      .distinct()
       .filter(raumDimension.equals("http://something/R3000"))
       .groupBy("zeit")
       .groupBy(({ raum }) => raum);
