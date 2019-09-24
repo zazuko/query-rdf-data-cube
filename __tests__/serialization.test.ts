@@ -40,6 +40,13 @@ describe("dataCube", () => {
     const serialized = dataCube.toJSON();
     expect(serialized).toMatchSnapshot();
   });
+  it("de/serializes loaded components", async () => {
+    const dataCube = (await cubeEntryPoint.dataCubes())[0];
+    await dataCube.dimensions();
+    const serialized = dataCube.toJSON();
+    expect(serialized).toMatchSnapshot();
+    expect(DataCube.fromJSON(serialized).toJSON()).toBe(serialized);
+  });
   it("serialization is idempotent", async () => {
     const dataCube = (await cubeEntryPoint.dataCubes())[0];
     const serialized = dataCube.toJSON();
