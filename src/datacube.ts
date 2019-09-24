@@ -181,6 +181,15 @@ export class DataCube {
     return new Query(this, opts);
   }
 
+  /**
+   * Retrieve all the possible values a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]) can have.
+   * See also [[Query.componentValues]].
+   * ```js
+   * const values = await dataCube.componentValues(sizeClasses);
+   * ```
+   * @param {Component} component
+   * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
+   */
   public async componentValues(component: Component): Promise<Array<{label: Literal, value: NamedNode}>> {
     if (!component || !component.componentType) {
       throw new Error(`dataCube#componentValues expects valid component, got ${component} instead`);
@@ -227,6 +236,12 @@ export class DataCube {
     return await this.fetcher.select(sparql);
   }
 
+  /**
+   * Retrieve the maximal and minimal values of a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]).
+   *
+   * @param {Component} component
+   * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
+   */
   public async componentMinMax(component: Component): Promise<{min: Literal, max: Literal}|null> {
     if (!component || !component.componentType) {
       throw new Error(`dataCube#componentMinMax expects valid component, got ${component} instead`);

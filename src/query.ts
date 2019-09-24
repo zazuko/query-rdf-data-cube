@@ -1,5 +1,6 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
+import { Literal, NamedNode } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
 import { DataCube } from "./datacube";
@@ -307,9 +308,19 @@ export class Query {
   }
 
   /**
-   *
+   * Retrieve all the possible values a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]) can have.
+   * See also [[DataCube.componentValues]].
+   * ```js
+   * const sizeValues = await dataCube.query()
+   *   .select({ size: sizeDimension })
+   *   .filter(({ size }) => size.gt(50))
+   *   .filter(({ size }) => size.lte(250))
+   *   .componentValues();
+   * ```
+   * @param {Component} component
+   * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
    */
-  public async componentValues(): Promise<any[]> {
+  public async componentValues(): Promise<Array<{label: Literal, value: NamedNode}>> {
     const self = this.clone();
     self.state.limit = undefined;
     self.state.offset = undefined;
