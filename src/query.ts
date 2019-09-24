@@ -307,6 +307,18 @@ export class Query {
   }
 
   /**
+   *
+   */
+  public async componentValues(): Promise<any[]> {
+    const self = this.clone();
+    self.state.limit = undefined;
+    self.state.offset = undefined;
+    self.state.distinct = true;
+    const query = await self.toSparql();
+    return self.fetcher.select(query);
+  }
+
+  /**
    * Generates and returns the actual SPARQL query that would be `.execute()`d.
    * Use it to preview the SPARQL query, to make sure your code generates what you
    * think it does.
