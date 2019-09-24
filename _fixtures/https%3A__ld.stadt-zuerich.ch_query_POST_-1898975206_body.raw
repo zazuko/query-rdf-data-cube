@@ -1,0 +1,24 @@
+{
+  "head" : {
+    "vars" : [
+      "min",
+      "max"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "min" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#date",
+          "type" : "literal",
+          "value" : "1982-12-31"
+        },
+        "max" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#date",
+          "type" : "literal",
+          "value" : "2017-12-31"
+        }
+      }
+    ]
+  }
+}

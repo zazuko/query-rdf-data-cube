@@ -12,7 +12,7 @@ function extractFilter(sparql: string) {
     .trim();
 }
 
-const datacube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
+const dataCube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
   iri: namedNode(
     "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX"
   ),
@@ -46,21 +46,21 @@ const componentD = new Dimension({
 });
 
 test("basic", async () => {
-  let sparql = await datacube
+  let sparql = await dataCube
     .query()
     .select({ a: componentA, b: componentB })
     .filter(({ a }) => a.not.bound())
     .toSparql();
   expect(extractFilter(sparql)).toMatchInlineSnapshot(`"FILTER(!(BOUND(?a)))"`);
 
-  sparql = await datacube
+  sparql = await dataCube
     .query()
     .select({ a: componentA, b: componentB })
     .filter(({ a }) => a.gte(componentB))
     .toSparql();
   expect(extractFilter(sparql)).toMatchInlineSnapshot(`"FILTER(?a >= ?b)"`);
 
-  sparql = await datacube
+  sparql = await dataCube
     .query()
     .select({ a: componentA, b: componentB })
     .filter(({ a }) => a.not.gte(10))
@@ -70,7 +70,7 @@ test("basic", async () => {
 
 describe("fixtures", () => {
   it("NOT IN, !IN", async () => {
-    const sparqlA = await datacube
+    const sparqlA = await dataCube
       .query()
       .select({ a: componentA, b: componentB })
       .filter(({ a }) => a.not.in([namedNode("http://example.com"), literal("foo", "en")]))
@@ -78,7 +78,7 @@ describe("fixtures", () => {
     expect(extractFilter(sparqlA)).toMatchInlineSnapshot(
       `"FILTER(?a NOT IN(<http://example.com>, \\"foo\\"@en))"`
     );
-    const sparqlB = await datacube
+    const sparqlB = await dataCube
       .query()
       .select({ a: componentA, b: componentB })
       .filter(({ a }) => a.notIn([namedNode("http://example.com"), literal("foo", "en")]))
@@ -87,13 +87,13 @@ describe("fixtures", () => {
   });
 
   it("!=", async () => {
-    const sparqlA = await datacube
+    const sparqlA = await dataCube
       .query()
       .select({ a: componentA, b: componentB })
       .filter(({ a }) => a.not.equals(10))
       .toSparql();
     expect(extractFilter(sparqlA)).toMatchInlineSnapshot(`"FILTER(?a != 10 )"`);
-    const sparqlB = await datacube
+    const sparqlB = await dataCube
       .query()
       .select({ a: componentA, b: componentB })
       .filter(({ a }) => a.notEquals(10))
@@ -102,7 +102,7 @@ describe("fixtures", () => {
   });
 
   it("equals binding", async () => {
-    const sparqlA = await datacube
+    const sparqlA = await dataCube
       .query()
       .select({ a: componentA, b: componentB })
       .filter(({ a }) => a.not.equals(componentB))
@@ -111,7 +111,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER regex(?title, "^SPARQL") .', async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ title: componentA })
       .filter(({ title }) => title.regex("^SPARQL"));
@@ -123,7 +123,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER regex(?title, "web", "i") .', async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ title: componentA })
       .filter(({ title }) => title.regex("web", "i"));
@@ -134,7 +134,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (?price < 30.5) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ price: componentA })
       .filter(({ price }) => price.lt(30.5));
@@ -145,7 +145,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (?price <= 30.5) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ price: componentA })
       .filter(({ price }) => price.lte(30.5));
@@ -156,7 +156,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER (?date > "2005-01-01T00:00:00Z"^^xsd:dateTime) .', async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ date: componentA })
       .filter(({ date }) => date.gt("2005-01-01T00:00:00Z"));
@@ -167,7 +167,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (bound(?date)) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ date: componentA })
       .filter(({ date }) => date.bound());
@@ -178,7 +178,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (!bound(?date)) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ date: componentA })
       .filter(({ date }) => date.not.bound());
@@ -189,7 +189,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER isIRI(?mbox) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ mbox: componentA })
       .filter(({ mbox }) => mbox.isIRI());
@@ -200,7 +200,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER isBlank(?c)", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ c: componentA })
       .filter(({ c }) => c.isBlank());
@@ -211,7 +211,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER isLiteral(?mbox) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ mbox: componentA })
       .filter(({ mbox }) => mbox.isLiteral());
@@ -222,7 +222,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER regex(str(?mbox), "@work.example") .', async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ mbox: componentA })
       .filter(({ mbox }) => mbox.str().regex("@work.example"));
@@ -233,7 +233,7 @@ describe("fixtures", () => {
   });
 
   it('FILTER (lang(?name) = "ES") .', async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ name: componentA })
       .filter(({ name }) => name.lang().equals("ES"));
@@ -244,7 +244,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (datatype(?shoeSize) = xsd:integer) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ shoeSize: componentA })
       .filter(({ shoeSize }) => shoeSize.datatype().equals("http://www.w3.org/2001/XMLSchema#integer"));
@@ -255,7 +255,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (?mbox1 = ?mbox2 && ?name1 != ?name2) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ mbox1: componentA, mbox2: componentB, name1: componentC, name2: componentD })
       .filter(({ mbox1 }) => mbox1.equals(componentB))
@@ -267,7 +267,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER (sameTerm(?mbox1, ?mbox2) && !sameTerm(?name1, ?name2)) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ mbox1: componentA, mbox2: componentB, name1: componentC, name2: componentD })
       .filter(({ mbox1 }) => mbox1.sameTerm(componentB))
@@ -279,7 +279,7 @@ describe("fixtures", () => {
   });
 
   it("FILTER(?raum IN(<https://ld.stadt-zuerich.ch/statistics/code/R30000>)) .", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({ raum: componentA })
       .filter(({ raum }) => raum.in(["https://ld.stadt-zuerich.ch/statistics/code/R30000"]));

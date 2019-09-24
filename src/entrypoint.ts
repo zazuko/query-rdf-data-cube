@@ -27,8 +27,8 @@ export class DataCubeEntryPoint {
       languages: obj.languages,
     });
     entryPoint.cachedDataCubes = obj.dataCubes.reduce((map, str) => {
-      const datacube: DataCube = DataCube.fromJSON(str);
-      map.set(datacube.iri, datacube);
+      const dataCube: DataCube = DataCube.fromJSON(str);
+      map.set(dataCube.iri, dataCube);
       return map;
     }, new Map());
     return entryPoint;
@@ -93,14 +93,14 @@ export class DataCubeEntryPoint {
    * @param iri IRI of the DataCube to return.
    */
   public async dataCubeByIri(dataCubeIri: string): Promise<DataCube> {
-    const found = Array.from(this.cachedDataCubes.values()).find((datacube) => datacube.iri === dataCubeIri);
+    const found = Array.from(this.cachedDataCubes.values()).find((dataCube) => dataCube.iri === dataCubeIri);
     if (found) {
       return found;
     }
     const sparql = this.generateQuery({ dataCubeIri: namedNode(dataCubeIri) });
     const queryResult = await this.fetcher.select(sparql);
     if (!queryResult.length) {
-      throw new Error(`No datacube with iri <${dataCubeIri}> on ${this.endpoint}`);
+      throw new Error(`No dataCube with iri <${dataCubeIri}> on ${this.endpoint}`);
     }
     this.cacheDataCubes(queryResult);
     return this.dataCubeByIri(dataCubeIri);
@@ -143,7 +143,7 @@ export class DataCubeEntryPoint {
       PREFIX qb: <http://purl.org/linked-data/cube#>
       SELECT DISTINCT ?graph WHERE {
         GRAPH ?graph {
-          ?datacube a qb:DataSet .
+          ?dataCube a qb:DataSet .
         }
       }
     `;
@@ -170,8 +170,8 @@ export class DataCubeEntryPoint {
     }, {});
 
     Object.entries(dataCubesByIri)
-      .forEach(([iri, datacube]: [string, DataCubeOptions]) => {
-        this.cachedDataCubes.set(iri, new DataCube(this.endpoint, datacube));
+      .forEach(([iri, dataCube]: [string, DataCubeOptions]) => {
+        this.cachedDataCubes.set(iri, new DataCube(this.endpoint, dataCube));
       });
   }
 

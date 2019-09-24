@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dataCube .componentValues() 1`] = `
+Array [
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/0",
+    },
+  },
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/1",
+    },
+  },
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/2",
+    },
+  },
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/3",
+    },
+  },
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/4",
+    },
+  },
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/5",
+    },
+  },
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/6",
+    },
+  },
+  Object {
+    "label": Literal {
+      "datatype": NamedNode {
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "value": "",
+    },
+    "value": NamedNode {
+      "value": "http://example.org/anzahl-forstbetriebe/property/1/7",
+    },
+  },
+]
+`;

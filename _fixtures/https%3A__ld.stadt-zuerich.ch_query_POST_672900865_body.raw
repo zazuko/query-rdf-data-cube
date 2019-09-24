@@ -1309,48 +1309,6 @@
           "type" : "literal",
           "value" : ""
         }
-      },
-      {
-        "graphIri" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/statistics"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.data-bs.ch/dataset/6623"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
-      },
-      {
-        "graphIri" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/rhein-ues-weil"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.data-bs.ch/dataset/rhein-ues-weil-raw"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
-      },
-      {
-        "graphIri" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/rhein-ues-weil"
-        },
-        "iri" : {
-          "type" : "uri",
-          "value" : "https://ld.data-bs.ch/dataset/rhein-ues-weil-corrected"
-        },
-        "label" : {
-          "type" : "literal",
-          "value" : ""
-        }
       }
     ]
   }

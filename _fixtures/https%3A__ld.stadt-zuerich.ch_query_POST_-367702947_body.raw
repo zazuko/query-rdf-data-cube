@@ -29,18 +29,6 @@
           "type" : "uri",
           "value" : "https://linked.opendata.swiss/graph/zh/statistics"
         }
-      },
-      {
-        "graph" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/statistics"
-        }
-      },
-      {
-        "graph" : {
-          "type" : "uri",
-          "value" : "https://linked.opendata.swiss/graph/bs/rhein-ues-weil"
-        }
       }
     ]
   }

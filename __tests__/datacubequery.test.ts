@@ -50,7 +50,7 @@ const korrekturAttribute = new Attribute({
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR",
 });
 
-const datacube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
+const dataCube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
   iri: namedNode(
     "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX",
   ),
@@ -67,7 +67,7 @@ const datacube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
 });
 
 test("basic", async () => {
-  const query = datacube.query().select({
+  const query = dataCube.query().select({
     betriebsart: betriebsartDimension,
     geschlecht: geschlechtDimension,
     raum: raumDimension,
@@ -88,7 +88,7 @@ test("basic", async () => {
 
 describe("select", () => {
   test("throws helpful message on falsy components", async () => {
-    const query = datacube.query();
+    const query = dataCube.query();
     expect(() =>
       query.select({
         betriebsart: betriebsartDimension,
@@ -105,22 +105,24 @@ describe("select", () => {
 });
 
 test("distinct", async () => {
-  const query = datacube.query().select({
-    raum: raumDimension.distinct(),
-  });
+  const query = dataCube.query()
+    .select({
+      raum: raumDimension,
+    })
+    .distinct();
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
 });
 
 test("empty select", async () => {
-  const query = datacube.query();
+  const query = dataCube.query();
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
 });
 
 describe("avg", () => {
   test("avg", async () => {
-    const query = datacube.query().select({
+    const query = dataCube.query().select({
       raum: raumDimension,
       bep: beschaeftigteMeasure.avg(),
     });
@@ -129,7 +131,7 @@ describe("avg", () => {
   });
 
   test("avg and filter", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({
         raum: raumDimension,
@@ -143,7 +145,7 @@ describe("avg", () => {
   });
 
   test("avg has auto groupBy", async () => {
-    const sparqlA = await datacube
+    const sparqlA = await dataCube
       .query()
       .select({
         raum: raumDimension,
@@ -151,7 +153,7 @@ describe("avg", () => {
       })
       .groupBy("raum")
       .toSparql();
-    const sparqlB = await datacube
+    const sparqlB = await dataCube
       .query()
       .select({
         raum: raumDimension,
@@ -162,7 +164,7 @@ describe("avg", () => {
   });
 
   test("avg distinct", async () => {
-    const query = datacube.query().select({
+    const query = dataCube.query().select({
       betriebsart: betriebsartDimension,
       geschlecht: geschlechtDimension,
       raum: raumDimension,
@@ -176,7 +178,7 @@ describe("avg", () => {
       datenstand: datenstandAttribute,
       erwarteteAktualisierung: erwarteteAktualisierungAttribute,
       korrektur: korrekturAttribute,
-    });
+    }).distinct();
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
@@ -184,7 +186,7 @@ describe("avg", () => {
 
 describe("groupBy", () => {
   test("with avg doesn't duplicate groupby vars", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({
         raum: raumDimension,
@@ -192,6 +194,7 @@ describe("groupBy", () => {
 
         bep: beschaeftigteMeasure.avg().distinct(),
       })
+      .distinct()
       .filter(raumDimension.equals("http://something/R3000"))
       .groupBy("zeit")
       .groupBy(({ raum }) => raum);
@@ -200,7 +203,7 @@ describe("groupBy", () => {
   });
 
   test("groups with a function", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({
         betriebsart: betriebsartDimension,
@@ -222,7 +225,7 @@ describe("groupBy", () => {
   });
 
   test("groups with strings", async () => {
-    const base = datacube.query().select({
+    const base = dataCube.query().select({
       betriebsart: betriebsartDimension,
       geschlecht: geschlechtDimension,
       raum: raumDimension,
@@ -242,7 +245,7 @@ describe("groupBy", () => {
   });
 
   test("reports error when grouping on unknown component", async () => {
-    const base = datacube.query().select({
+    const base = dataCube.query().select({
       betriebsart: betriebsartDimension,
     });
     const query = base.groupBy("foobarbaz");
@@ -252,7 +255,7 @@ describe("groupBy", () => {
   });
 
   test("doesn't duplicate", async () => {
-    const query = datacube
+    const query = dataCube
       .query()
       .select({
         betriebsart: betriebsartDimension,
@@ -278,7 +281,7 @@ describe("groupBy", () => {
 });
 
 test("group and filter", async () => {
-  const base = datacube.query().select({
+  const base = dataCube.query().select({
     betriebsart: betriebsartDimension,
     geschlecht: geschlechtDimension,
     raum: raumDimension,
@@ -301,7 +304,7 @@ test("group and filter", async () => {
 
 describe("ordering", () => {
   test("group and filter", async () => {
-    const base = datacube.query().select({
+    const base = dataCube.query().select({
       betriebsart: betriebsartDimension,
       geschlecht: geschlechtDimension,
       raum: raumDimension,
@@ -325,7 +328,7 @@ describe("ordering", () => {
   });
 
   test("one or many give same sparql", async () => {
-    const base = datacube.query().select({
+    const base = dataCube.query().select({
       raum: raumDimension,
       zeit: zeitDimension,
     });
@@ -343,7 +346,7 @@ describe("ordering", () => {
   });
 
   test("are ordered", async () => {
-    const base = datacube.query().select({
+    const base = dataCube.query().select({
       raum: raumDimension,
       zeit: zeitDimension,
     });
@@ -360,7 +363,7 @@ describe("ordering", () => {
 
 describe("handles languages", () => {
   test("one language", async () => {
-    const query = datacube.query({ languages: ["en"] }).select({
+    const query = dataCube.query({ languages: ["en"] }).select({
       zeit: zeitDimension,
 
       bep: beschaeftigteMeasure,
@@ -372,7 +375,7 @@ describe("handles languages", () => {
   });
 
   test("two languages", async () => {
-    const query = datacube.query({ languages: ["en", "de"] }).select({
+    const query = dataCube.query({ languages: ["en", "de"] }).select({
       zeit: zeitDimension,
 
       bep: beschaeftigteMeasure,
@@ -384,7 +387,7 @@ describe("handles languages", () => {
   });
 
   test("three languages", async () => {
-    const query = datacube.query({ languages: ["fr", "de", "it"] }).select({
+    const query = dataCube.query({ languages: ["fr", "de", "it"] }).select({
       zeit: zeitDimension,
 
       bep: beschaeftigteMeasure,

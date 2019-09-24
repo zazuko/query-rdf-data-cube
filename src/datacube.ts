@@ -1,5 +1,6 @@
 import { namedNode, variable } from "@rdfjs/data-model";
-import { NamedNode, Term } from "rdf-js";
+import namespace from "@rdfjs/namespace";
+import { Literal, NamedNode, Term } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Attribute, Component, Dimension, Measure } from "./components";
 import { EntryPointOptions } from "./entrypoint";
@@ -56,6 +57,8 @@ export interface DataCubeOptions extends EntryPointOptions {
   graphIri: NamedNode;
 }
 
+const cube = namespace("http://purl.org/linked-data/cube#");
+
 /**
  * @class DataCube
  */
@@ -65,21 +68,21 @@ export class DataCube {
    */
   public static fromJSON(json: string): DataCube {
     const obj: SerializedDataCube = JSON.parse(json);
-    const datacube = new DataCube(obj.endpoint, {
+    const dataCube = new DataCube(obj.endpoint, {
       iri: namedNode(obj.iri),
       graphIri: namedNode(obj.graphIri),
       labels: obj.labels,
       languages: obj.languages,
     });
     ["dimensions", "measures", "attributes"].forEach((componentTypes) => {
-      datacube.cachedComponents[componentTypes] = obj.components[componentTypes]
+      dataCube.cachedComponents[componentTypes] = obj.components[componentTypes]
         .map(Component.fromJSON)
         .reduce((cache: Map<string, Component>, component: Component) => {
           cache.set(component.iri.value, component);
           return cache;
         }, new Map());
     });
-    return datacube;
+    return dataCube;
   }
 
   public labels: Label[];
@@ -178,6 +181,141 @@ export class DataCube {
     return new Query(this, opts);
   }
 
+  /**
+   * Retrieve all the possible values a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]) can have.
+   * See also [[Query.componentValues]] and the examples folder.
+   * ```js
+   * const values = await dataCube.componentValues(sizeClasses);
+   * ```
+   * @param {Component} component
+   * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
+   */
+  public async componentValues(component: Component): Promise<Array<{label: Literal, value: NamedNode}>> {
+    if (!component || !component.componentType) {
+      throw new Error(`dataCube#componentValues expects valid component, got ${component} instead`);
+    }
+    const binding = variable("value");
+    const labelBinding = variable("label");
+    const observation = variable("observation");
+
+    const query: SelectQuery = {
+      prefixes,
+      queryType: "SELECT",
+      variables: [binding, labelBinding],
+      distinct: true,
+      from: { default: [namedNode(this.graphIri)], named: [] },
+      where: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: observation,
+              predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+              object: cube("Observation"),
+            },
+            {
+              subject: observation,
+              predicate: component.iri,
+              object: binding,
+            },
+            {
+              subject: observation,
+              predicate: cube("dataSet"),
+              object: namedNode(this.iri),
+            },
+          ],
+        },
+        ...generateLangOptionals(binding, labelBinding, this.languages),
+        generateLangCoalesce(labelBinding, this.languages),
+      ],
+      type: "query",
+    };
+
+    const generator = new SparqlGenerator({ allPrefixes: true });
+    const sparql = generator.stringify(query);
+    return await this.fetcher.select(sparql);
+  }
+
+  /**
+   * Retrieve the maximal and minimal values of a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]).
+   * See also [[Query.componentMinMax]] and the examples folder.
+   *
+   * @param {Component} component
+   * @returns Promise<{min: Literal|null, max: Literal|null}>
+   */
+  public async componentMinMax(component: Component): Promise<{min: Literal|null, max: Literal|null}> {
+    if (!component || !component.componentType) {
+      throw new Error(`dataCube#componentMinMax expects valid component, got ${component} instead`);
+    }
+    const binding = variable("value");
+    const observation = variable("observation");
+
+    const query: SelectQuery = {
+      prefixes,
+      queryType: "SELECT",
+      variables: [
+        {
+          expression: {
+            expression: binding,
+            type: "aggregate",
+            aggregation: "min",
+            distinct: false,
+          },
+          variable: variable("min"),
+        },
+        {
+          expression: {
+            expression: binding,
+            type: "aggregate",
+            aggregation: "max",
+            distinct: false,
+          },
+          variable: variable("max"),
+        },
+      ],
+      from: { default: [namedNode(this.graphIri)], named: [] },
+      where: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: observation,
+              predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+              object: cube("Observation"),
+            },
+            {
+              subject: observation,
+              predicate: component.iri,
+              object: binding,
+            },
+            {
+              subject: observation,
+              predicate: cube("dataSet"),
+              object: namedNode(this.iri),
+            },
+          ],
+        },
+        {
+          type: "filter",
+          expression: {
+            type: "operation",
+            operator: "isliteral",
+            args: [binding],
+          },
+        },
+      ],
+      type: "query",
+    };
+
+    const generator = new SparqlGenerator({ allPrefixes: true });
+    const sparql = generator.stringify(query);
+    const results = await this.fetcher.select(sparql);
+    if (results.length) {
+      return results[0];
+    }
+    return { min: null, max: null };
+  }
+
   private async components() {
     if (this.componentsLoaded) {
       return;
@@ -194,7 +332,7 @@ export class DataCube {
         variable("kind"),
         labelBinding,
       ],
-      from: { default: [ namedNode(this.graphIri) ], named: [] },
+      from: { default: [namedNode(this.graphIri)], named: [] },
       where: [
         {
           type: "bgp",
@@ -202,7 +340,7 @@ export class DataCube {
             {
               subject: namedNode(this.iri),
               predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
-              object: namedNode("http://purl.org/linked-data/cube#DataSet"),
+              object: cube("DataSet"),
             },
             {
               subject: namedNode(this.iri),
@@ -210,8 +348,8 @@ export class DataCube {
                 type: "path",
                 pathType: "/",
                 items: [
-                  namedNode("http://purl.org/linked-data/cube#structure"),
-                  namedNode("http://purl.org/linked-data/cube#component"),
+                  cube("structure"),
+                  cube("component"),
                 ],
               },
               object: variable("componentSpec"),
@@ -231,9 +369,9 @@ export class DataCube {
             args: [
               variable("kind"),
               [
-                namedNode("http://purl.org/linked-data/cube#attribute"),
-                namedNode("http://purl.org/linked-data/cube#dimension"),
-                namedNode("http://purl.org/linked-data/cube#measure"),
+                cube("attribute"),
+                cube("dimension"),
+                cube("measure"),
               ],
             ],
           },
