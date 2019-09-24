@@ -1,0 +1,35 @@
+{
+  "head" : {
+    "vars" : [
+      "graph"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "graph" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/FOEN/UBD28"
+        }
+      },
+      {
+        "graph" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/FOEN/UBD66"
+        }
+      },
+      {
+        "graph" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/FSO/STATPOP-2011"
+        }
+      },
+      {
+        "graph" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/zh/statistics"
+        }
+      }
+    ]
+  }
+}
