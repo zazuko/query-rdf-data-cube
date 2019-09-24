@@ -1,6 +1,6 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
-import { Literal, NamedNode } from "rdf-js";
+import { Literal, NamedNode, Variable } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
 import { DataCube } from "./datacube";
@@ -9,7 +9,7 @@ import { IExpr, Operator } from "./expressions";
 import { combineFilters, createOperationExpression, prefixes } from "./queryutils";
 import { generateLangCoalesce, generateLangOptionals } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
-import { BgpPattern, FilterPattern, Ordering, SelectQuery } from "./sparqljs";
+import { BgpPattern, FilterPattern, Ordering, SelectQuery, VariableExpression, Wildcard } from "./sparqljs";
 
 type PredicateFunction = (data: Selects) => Component;
 type PredicatesFunction = (data: Selects) => Component[];
@@ -46,6 +46,10 @@ const baseState: QueryState = {
   distinct: false,
   order: [],
 };
+
+function isVariables(variables: Array<Variable|VariableExpression|Wildcard>): variables is Variable[] {
+  return true;
+}
 
 /**
  * A query to a [[DataCube]].
@@ -309,7 +313,7 @@ export class Query {
 
   /**
    * Retrieve all the possible values a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]) can have.
-   * See also [[DataCube.componentValues]].
+   * See also [[DataCube.componentValues]] and the examples folder.
    * ```js
    * const sizeValues = await dataCube.query()
    *   .select({ size: sizeDimension })
@@ -317,7 +321,7 @@ export class Query {
    *   .filter(({ size }) => size.lte(250))
    *   .componentValues();
    * ```
-   * @param {Component} component
+   *
    * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
    */
   public async componentValues(): Promise<Array<{label: Literal, value: NamedNode}>> {
@@ -343,12 +347,79 @@ export class Query {
   }
 
   /**
-   * Generates and returns the actual SPARQL query that would be `.execute()`d.
-   * Use it to preview the SPARQL query, to make sure your code generates what you
-   * think it does.
-   * @returns {Promise<string>} SPARQL query
+   * Retrieve the maximal and minimal values of a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]).
+   * See also [[DataCube.componentMinMax]] and the examples folder.
+   * ```js
+   * const values = await dataCube.componentMinMax(sizeDimensions);
+   * // values = { min: literal(10), max: literal(600) }
+   * const { min: sizeMin, max: sizeMax } = await dataCube.query()
+   *   .select({ size: sizeDimension })
+   *   .filter(({ size }) => size.gt(50))
+   *   .filter(({ size }) => size.lte(250))
+   *   .componentMinMax();
+   * // sizeMin = 60, sizeMax = 250
+   * ```
+   *
+   * @returns Promise<{min: Literal|null, max: Literal|null}>
    */
-  public async toSparql(): Promise<string> {
+  public async componentMinMax(): Promise<{min: Literal|null, max: Literal|null}> {
+    const self = this.clone();
+    self.state.limit = undefined;
+    self.state.offset = undefined;
+    self.state.distinct = false;
+    const query: SelectQuery = await self.toSparqlJS();
+    if (!isVariables(query.variables) || !query.variables.length) {
+      throw new Error("Nothing selected");
+    }
+    const binding: Variable = query.variables.find((v: Variable) => !v.value.endsWith("Label"));
+    query.variables = [
+      {
+        expression: {
+          expression: binding,
+          type: "aggregate",
+          aggregation: "min",
+          distinct: false,
+        },
+        variable: variable("min"),
+      },
+      {
+        expression: {
+          expression: binding,
+          type: "aggregate",
+          aggregation: "max",
+          distinct: false,
+        },
+        variable: variable("max"),
+      },
+    ];
+    query.where = query.where.filter((wherePart) => {
+      if (wherePart.type === "bind" && wherePart.variable && wherePart.variable.value.endsWith("Label")) {
+        return false;
+      }
+      return true;
+    });
+    query.where.push({
+      type: "filter",
+      expression: {
+        type: "operation",
+        operator: "isliteral",
+        args: [binding],
+      },
+    });
+
+    const results = await self.fetcher.select(await this.toSparql(query));
+    if (results.length) {
+      return results[0];
+    }
+    return { min: null, max: null };
+  }
+
+  /**
+   * Generates the sparql.js select query that will be stringified to a SPARQL
+   * string by [[toSparql]].
+   * @returns {Promise<SelectQuery>} sparql.js select query
+   */
+  public async toSparqlJS(): Promise<SelectQuery> {
     const hasDistinct = this.state.distinct;
     let hasAggregate = false;
     Object.values(this.state.selects).forEach((component) => {
@@ -551,8 +622,20 @@ export class Query {
       query.order.push(order);
     });
 
+    return query;
+  }
+
+  /**
+   * Generates and returns the actual SPARQL query that would be `.execute()`d.
+   * Use it to preview the SPARQL query, to make sure your code generates what you
+   * think it does.
+   * @returns {Promise<string>} SPARQL query
+   */
+  public async toSparql(sparqlJS?: SelectQuery): Promise<string> {
+    const sparqlJSQuery = sparqlJS || await this.toSparqlJS();
+
     const generator = new SparqlGenerator({ allPrefixes: true });
-    return generator.stringify(query);
+    return generator.stringify(sparqlJSQuery);
   }
 
   private clone() {
