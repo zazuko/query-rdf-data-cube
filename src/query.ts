@@ -315,7 +315,20 @@ export class Query {
     self.state.offset = undefined;
     self.state.distinct = true;
     const query = await self.toSparql();
-    return self.fetcher.select(query);
+    const results = await self.fetcher.select(query);
+    if (!results.length) {
+      return [];
+    }
+    const keys = Object.keys(results[0]);
+    const labelKey = keys.find((key) => key.endsWith("Label"));
+    const valueKey = keys.find((key) => !key.endsWith("Label"));
+    return results.reduce((acc, row) => {
+      acc.push({
+        label: row[labelKey],
+        value: row[valueKey],
+      });
+      return acc;
+    }, []);
   }
 
   /**
