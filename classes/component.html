@@ -1068,6 +1068,12 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#serializeddatacubeentrypoint" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point</a>
 		</li>
+		<li class=" tsd-kind-variable tsd-is-not-exported">
+			<a href="../globals.html#cube" class="tsd-kind-icon">cube</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-not-exported">
+			<a href="../globals.html#isvariables" class="tsd-kind-icon">is<wbr>Variables</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
@@ -1077,6 +1083,13 @@ img { max-width: 100%; }
 				<dl class="tsd-comment-tags">
 					<dt>class</dt>
 					<dd><p><a href="component.html">Component</a> is implemented by <a href="dimension.html">Dimension</a>, <a href="attribute.html">Attribute</a> and <a href="measure.html">Measure</a>.</p>
+					</dd>
+					<dt>export</dt>
+					<dd></dd>
+					<dt>abstract</dt>
+					<dd></dd>
+					<dt>extends</dt>
+					<dd><p>{BaseExpr}</p>
 						<blockquote>
 							<p>A cube is organized according to a set of <em>dimensions</em>, <em>attributes</em> and <em>measures</em>.
 								We collectively call these <em>components</em>.
@@ -1090,7 +1103,7 @@ img { max-width: 100%; }
    { <span class="hljs-attr">value</span>: <span class="hljs-string">"Prix"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"fr"</span> },
 ]});
 
-<span class="hljs-keyword">const</span> query = datacube
+<span class="hljs-keyword">const</span> query = dataCube
   .query()
   .select({ <span class="hljs-attr">price</span>: priceMeasure })
   .filter(<span class="hljs-function">(<span class="hljs-params">{ price }</span>) =&gt;</span> price.lte(<span class="hljs-number">30.5</span>));</code></pre>
@@ -1194,32 +1207,33 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Component<span class="tsd-signature-symbol">(</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="component.html" class="tsd-signature-type">Component</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Component<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="component.html" class="tsd-signature-type">Component</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L65">components/component.ts:65</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L73">components/component.ts:73</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Classes <a href="dimension.html">Dimension</a>, <a href="attribute.html">Attribute</a> and <a href="measure.html">Measure</a> inherit from this <a href="component.html">Component</a> abstract class.</p>
-								<pre><code class="language-js"><span class="hljs-keyword">const</span> priceMeasure = <span class="hljs-keyword">new</span> Measure({
+								<p>Creates an instance of Component.
+								Classes <a href="dimension.html">Dimension</a>, <a href="attribute.html">Attribute</a> and <a href="measure.html">Measure</a> inherit from this <a href="component.html">Component</a> abstract class.</p>
+							</div>
+							<pre><code class="language-js"><span class="hljs-keyword">const</span> priceMeasure = <span class="hljs-keyword">new</span> Measure({
   <span class="hljs-attr">iri</span>: <span class="hljs-string">"http://example.com/price"</span>, <span class="hljs-attr">labels</span>: [{ <span class="hljs-attr">value</span>: <span class="hljs-string">"Price"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> }]
 });</code></pre>
-							</div>
+							<dl class="tsd-comment-tags">
+								<dt>memberof</dt>
+								<dd><p>Component</p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>args: <span class="tsd-signature-type">object</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>Arguments describing a component.</p>
-									</div>
-								</div>
+								<h5>options: <span class="tsd-signature-type">object</span></h5>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter">
 										<h5>iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Term</span></h5>
@@ -1230,7 +1244,8 @@ img { max-width: 100%; }
 									<li class="tsd-parameter">
 										<h5><span class="tsd-flag ts-flagOptional">Optional</span> labels<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Label[]</span></h5>
 										<div class="tsd-comment tsd-typography">
-											<p><a href="../interfaces/label.html">Label</a>s for the component.</p>
+											<p>(Optional) A list of labels for the DataCube in the following form:
+											<code>[ { value: &quot;Something&quot;, language: &quot;en&quot; }, { value: &quot;Etwas&quot;, language: &quot;de&quot; }, … ]</code></p>
 										</div>
 									</li>
 								</ul>
@@ -1249,7 +1264,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">aggregate<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L62">components/component.ts:62</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L70">components/component.ts:70</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1259,7 +1274,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">component<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L65">components/component.ts:65</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L73">components/component.ts:73</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1269,7 +1284,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">descending<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L64">components/component.ts:64</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L72">components/component.ts:72</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1279,7 +1294,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Term</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L61">components/component.ts:61</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L69">components/component.ts:69</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1289,7 +1304,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">is<wbr>Distinct<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L63">components/component.ts:63</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L71">components/component.ts:71</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1299,7 +1314,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">labels<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Label[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L60">components/component.ts:60</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L68">components/component.ts:68</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1319,7 +1334,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L131">components/component.ts:131</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L147">components/component.ts:147</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1331,9 +1346,14 @@ img { max-width: 100%; }
 							<pre><code class="language-js"><span class="hljs-keyword">const</span> priceMeasure = <span class="hljs-keyword">new</span> Measure({
   <span class="hljs-attr">iri</span>: <span class="hljs-string">"http://example.com/price"</span>, <span class="hljs-attr">labels</span>: [{ <span class="hljs-attr">value</span>: <span class="hljs-string">"Price"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> }]
 });
-datacube.query().select({
+dataCube.query().select({
   <span class="hljs-attr">price</span>: priceMeasure.avg(),
 });</code></pre>
+							<dl class="tsd-comment-tags">
+								<dt>memberof</dt>
+								<dd><p>Component</p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 					</li>
@@ -1349,7 +1369,7 @@ datacube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L167">components/component.ts:167</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L186">components/component.ts:186</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1359,9 +1379,14 @@ datacube.query().select({
 							<pre><code class="language-js"><span class="hljs-keyword">const</span> priceMeasure = <span class="hljs-keyword">new</span> Measure({
   <span class="hljs-attr">iri</span>: <span class="hljs-string">"http://example.com/price"</span>, <span class="hljs-attr">labels</span>: [{ <span class="hljs-attr">value</span>: <span class="hljs-string">"Price"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> }]
 });
-datacube.query().select({
+dataCube.query().select({
   <span class="hljs-attr">price</span>: priceMeasure
 }).orderBy(({ price } =&gt; price.lte(<span class="hljs-number">30.5</span>)));</code></pre>
+							<dl class="tsd-comment-tags">
+								<dt>memberof</dt>
+								<dd><p>Component</p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 					</li>
@@ -1377,7 +1402,7 @@ datacube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L149">components/component.ts:149</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L166">components/component.ts:166</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1387,9 +1412,14 @@ datacube.query().select({
 							<pre><code class="language-js"><span class="hljs-keyword">const</span> cityDimension = <span class="hljs-keyword">new</span> Dimension({
   <span class="hljs-attr">iri</span>: <span class="hljs-string">"http://example.com/city"</span>, <span class="hljs-attr">labels</span>: [{ <span class="hljs-attr">value</span>: <span class="hljs-string">"City"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> }]
 });
-datacube.query().select({
+dataCube.query().select({
   <span class="hljs-attr">city</span>: cityDimension.distinct(),
 });</code></pre>
+							<dl class="tsd-comment-tags">
+								<dt>memberof</dt>
+								<dd><p>Component</p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 					</li>
@@ -1406,9 +1436,19 @@ datacube.query().select({
 						<aside class="tsd-sources">
 							<p>Overrides BaseExpr.resolve</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L173">components/component.ts:173</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L199">components/component.ts:199</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Mechanism resolving a Component to the corresponding binding name, used when the SPARQL query gets generated.</p>
+							</div>
+							<dl class="tsd-comment-tags">
+								<dt>memberof</dt>
+								<dd><p>Component</p>
+								</dd>
+							</dl>
+						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
@@ -1429,7 +1469,7 @@ datacube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L95">components/component.ts:95</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L109">components/component.ts:109</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1437,6 +1477,11 @@ datacube.query().select({
 								<p>Serializes a Component to JSON in a way that makes it deserializable
 								by calling <a href="component.html#fromjson">fromJSON</a></p>
 							</div>
+							<dl class="tsd-comment-tags">
+								<dt>memberof</dt>
+								<dd><p>Component</p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 					</li>
@@ -1452,13 +1497,20 @@ datacube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L46">components/component.ts:46</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L54">components/component.ts:54</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Deserializes a Component from JSON generated by <a href="component.html#tojson">toJSON</a></p>
 							</div>
+							<dl class="tsd-comment-tags">
+								<dt>static</dt>
+								<dd></dd>
+								<dt>memberof</dt>
+								<dd><p>Component</p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">

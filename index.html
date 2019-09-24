@@ -973,6 +973,12 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-type-alias">
 			<a href="globals.html#serializeddatacubeentrypoint" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point</a>
 		</li>
+		<li class=" tsd-kind-variable tsd-is-not-exported">
+			<a href="globals.html#cube" class="tsd-kind-icon">cube</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-not-exported">
+			<a href="globals.html#isvariables" class="tsd-kind-icon">is<wbr>Variables</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
@@ -986,15 +992,49 @@ img { max-width: 100%; }
 			<a href="https://coveralls.io/github/zazuko/query-rdf-data-cube?branch=master"><img src="https://coveralls.io/repos/github/zazuko/query-rdf-data-cube/badge.svg?branch=master" alt="Coverage Status"></a></p>
 			<p>Query and explore <a href="https://www.w3.org/TR/vocab-data-cube/">RDF Data Cubes</a> with a JavaScript API,
 			without writing SPARQL.</p>
+			<ul>
+				<li><a href="#installation">Installation</a></li>
+				<li><a href="#concepts">Concepts</a></li>
+				<li><a href="#api-documentation">API Documentation</a></li>
+				<li><a href="#examples">Examples</a></li>
+				<li><a href="#working-locally">Working Locally</a></li>
+				<li><a href="#features-and-usage">Features and Usage</a></li>
+			</ul>
 			<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 				<h2>Installation</h2>
 			</a>
-			<p><code>npm install @zazuko/query-rdf-data-cube</code></p>
-			<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-				<h2>Documentation</h2>
+			<ul>
+				<li><code>npm install @zazuko/query-rdf-data-cube</code></li>
+				<li><a href="https://github.com/zazuko/query-rdf-data-cube/blob/master/CHANGELOG.md">CHANGELOG</a></li>
+			</ul>
+			<a href="#concepts" id="concepts" style="color: inherit; text-decoration: none;">
+				<h2>Concepts</h2>
+			</a>
+			<p>RDF Data Cubes are an implementation of the generic <a href="https://en.wikipedia.org/wiki/Online_analytical_processing">OLAP</a> concept and more specifically, <a href="https://en.wikipedia.org/wiki/OLAP_cube">OLAP cube</a>.
+			What RDF Data Cube calls <em>data structure definition</em> can be mapped to <em>dimension tables</em> in <a href="https://en.wikipedia.org/wiki/OLAP_cube#Terminology">OLAP cubes</a>, the <em>observations</em> in RDF Data Cube are called <em>fact tables</em>. </p>
+			<p>The main classes this library exposes are the following:</p>
+			<ul>
+				<li><p><a href="https://zazuko.github.io/query-rdf-data-cube/classes/datacubeentrypoint.html"><code>DataCubeEntryPoint</code></a><br>  The <em>EntryPoint</em> has a SPARQL endpoint.
+					It lets you discover and fetch Data Cubes available at this endpoint and their corresponding Dimensions, Attributes, and Measures.</p>
+				</li>
+				<li><p><a href="https://zazuko.github.io/query-rdf-data-cube/classes/datacube.html"><code>DataCube</code></a><br>  A Data Cube represents the <a href="https://www.w3.org/TR/vocab-data-cube/#cubes-model"><em>cube model</em></a>. It has Dimensions, Attributes and Measures and is initialized with an IRI and a graph IRI.<br>  Querying a DataCube starts with having a DataCube instance.</p>
+				</li>
+				<li><p><a href="https://zazuko.github.io/query-rdf-data-cube/classes/component.html"><code>Component</code></a><br>  An abstract class, parent of the following <a href="https://www.w3.org/TR/vocab-data-cube/#dsd-dimensions"><em>component properties</em></a>:</p>
+					<ul>
+						<li><p><a href="https://zazuko.github.io/query-rdf-data-cube/classes/dimension.html"><code>Dimension</code></a></p>
+						</li>
+						<li><p><a href="https://zazuko.github.io/query-rdf-data-cube/classes/attribute.html"><code>Attribute</code></a></p>
+						</li>
+						<li><p><a href="https://zazuko.github.io/query-rdf-data-cube/classes/measure.html"><code>Measure</code></a></p>
+							<p><a href="https://zazuko.github.io/query-rdf-data-cube/classes/baseexpr.html#bound">Filter operators</a> can be applied directly to components.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<a href="#api-documentation" id="api-documentation" style="color: inherit; text-decoration: none;">
+				<h2>API Documentation</h2>
 			</a>
 			<p>See <a href="https://zazuko.github.io/query-rdf-data-cube/">https://zazuko.github.io/query-rdf-data-cube/</a></p>
-			<p>Changelog: <a href="https://github.com/zazuko/query-rdf-data-cube/blob/master/CHANGELOG.md">https://github.com/zazuko/query-rdf-data-cube/blob/master/CHANGELOG.md</a></p>
 			<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 				<h2>Examples</h2>
 			</a>
@@ -1132,6 +1172,18 @@ img { max-width: 100%; }
 							<li class="tsd-kind-type-alias"><a href="globals.html#serializeddatacubeentrypoint" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point</a></li>
 						</ul>
 					</section>
+					<section class="tsd-index-section tsd-is-not-exported">
+						<h3>Variables</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#cube" class="tsd-kind-icon">cube</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section tsd-is-not-exported">
+						<h3>Functions</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#isvariables" class="tsd-kind-icon">is<wbr>Variables</a></li>
+						</ul>
+					</section>
 				</div>
 			</section>
 		</section>
@@ -1143,7 +1195,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Filter<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L15">query.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L16">query.ts:16</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1174,7 +1226,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Predicate<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L13">query.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L14">query.ts:14</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1205,7 +1257,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Predicates<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L14">query.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L15">query.ts:15</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1236,7 +1288,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Selects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="classes/component.html" class="tsd-signature-type">Component</a><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L16">query.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L17">query.ts:17</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1246,7 +1298,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/components/component.ts#L8">components/component.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/components/component.ts#L8">components/component.ts:8</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1270,7 +1322,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/datacube.ts#L24">datacube.ts:24</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/datacube.ts#L25">datacube.ts:25</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1314,7 +1366,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/entrypoint.ts#L14">entrypoint.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/entrypoint.ts#L14">entrypoint.ts:14</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1331,6 +1383,45 @@ img { max-width: 100%; }
 						</li>
 					</ul>
 				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<h2>Variables</h2>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="cube" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagConst">Const</span> cube</h3>
+				<div class="tsd-signature tsd-kind-icon">cube<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;namespace(&quot;http://purl.org/linked-data/cube#&quot;)</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/datacube.ts#L60">datacube.ts:60</a></li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<h2>Functions</h2>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
+				<a name="isvariables" class="tsd-anchor"></a>
+				<h3>is<wbr>Variables</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-is-not-exported">
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Variables<span class="tsd-signature-symbol">(</span>variables<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">VariableExpression</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Wildcard</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L50">query.ts:50</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>variables: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Variable</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">VariableExpression</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Wildcard</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

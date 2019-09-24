@@ -938,6 +938,15 @@ img { max-width: 100%; }
 					<a href="query.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="query.html#componentminmax" class="tsd-kind-icon">component<wbr>Min<wbr>Max</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="query.html#componentvalues" class="tsd-kind-icon">component<wbr>Values</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="query.html#distinct" class="tsd-kind-icon">distinct</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="query.html#execute" class="tsd-kind-icon">execute</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -963,6 +972,9 @@ img { max-width: 100%; }
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="query.html#tosparql" class="tsd-kind-icon">to<wbr>Sparql</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="query.html#tosparqljs" class="tsd-kind-icon">to<wbr>SparqlJS</a>
 				</li>
 			</ul>
 		</li>
@@ -1004,6 +1016,12 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#serializeddatacubeentrypoint" class="tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point</a>
+		</li>
+		<li class=" tsd-kind-variable tsd-is-not-exported">
+			<a href="../globals.html#cube" class="tsd-kind-icon">cube</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-not-exported">
+			<a href="../globals.html#isvariables" class="tsd-kind-icon">is<wbr>Variables</a>
 		</li>
 	</ul>
 </nav>
@@ -1049,6 +1067,9 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#componentminmax" class="tsd-kind-icon">component<wbr>Min<wbr>Max</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#componentvalues" class="tsd-kind-icon">component<wbr>Values</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#distinct" class="tsd-kind-icon">distinct</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#execute" class="tsd-kind-icon">execute</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#filter" class="tsd-kind-icon">filter</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#groupby" class="tsd-kind-icon">group<wbr>By</a></li>
@@ -1058,6 +1079,7 @@ img { max-width: 100%; }
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#orderby" class="tsd-kind-icon">order<wbr>By</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#select" class="tsd-kind-icon">select</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#tosparql" class="tsd-kind-icon">to<wbr>Sparql</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="query.html#tosparqljs" class="tsd-kind-icon">to<wbr>SparqlJS</a></li>
 						</ul>
 					</section>
 				</div>
@@ -1075,7 +1097,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L62">query.ts:62</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L69">query.ts:69</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1107,6 +1129,99 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="componentminmax" class="tsd-anchor"></a>
+				<h3>component<wbr>Min<wbr>Max</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">component<wbr>Min<wbr>Max<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L365">query.ts:365</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Retrieve the maximal and minimal values of a <a href="component.html">Component</a> (<a href="dimension.html">Dimension</a>, <a href="measure.html">Measure</a>, <a href="attribute.html">Attribute</a>).
+								See also <a href="datacube.html#componentminmax">DataCube.componentMinMax</a> and the examples folder.</p>
+								<pre><code class="language-js"><span class="hljs-keyword">const</span> values = <span class="hljs-keyword">await</span> dataCube.componentMinMax(sizeDimensions);
+<span class="hljs-comment">// values = { min: literal(10), max: literal(600) }</span>
+<span class="hljs-keyword">const</span> { <span class="hljs-attr">min</span>: sizeMin, <span class="hljs-attr">max</span>: sizeMax } = <span class="hljs-keyword">await</span> dataCube.query()
+  .select({ <span class="hljs-attr">size</span>: sizeDimension })
+  .filter(<span class="hljs-function">(<span class="hljs-params">{ size }</span>) =&gt;</span> size.gt(<span class="hljs-number">50</span>))
+  .filter(<span class="hljs-function">(<span class="hljs-params">{ size }</span>) =&gt;</span> size.lte(<span class="hljs-number">250</span>))
+  .componentMinMax();
+<span class="hljs-comment">// sizeMin = 60, sizeMax = 250</span></code></pre>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise&lt;{min: Literal|null, max: Literal|null}&gt;</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="componentvalues" class="tsd-anchor"></a>
+				<h3>component<wbr>Values</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">component<wbr>Values<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L327">query.ts:327</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Retrieve all the possible values a <a href="component.html">Component</a> (<a href="dimension.html">Dimension</a>, <a href="measure.html">Measure</a>, <a href="attribute.html">Attribute</a>) can have.
+								See also <a href="datacube.html#componentvalues">DataCube.componentValues</a> and the examples folder.</p>
+								<pre><code class="language-js"><span class="hljs-keyword">const</span> sizeValues = <span class="hljs-keyword">await</span> dataCube.query()
+  .select({ <span class="hljs-attr">size</span>: sizeDimension })
+  .filter(<span class="hljs-function">(<span class="hljs-params">{ size }</span>) =&gt;</span> size.gt(<span class="hljs-number">50</span>))
+  .filter(<span class="hljs-function">(<span class="hljs-params">{ size }</span>) =&gt;</span> size.lte(<span class="hljs-number">250</span>))
+  .componentValues();</code></pre>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<blockquote>
+							<blockquote>
+								<p>}</p>
+							</blockquote>
+						</blockquote>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="distinct" class="tsd-anchor"></a>
+				<h3>distinct</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">distinct<span class="tsd-signature-symbol">(</span>distinct<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="query.html" class="tsd-signature-type">Query</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L173">query.ts:173</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Only return distinct values.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> distinct: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="query.html" class="tsd-signature-type">Query</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="execute" class="tsd-anchor"></a>
 				<h3>execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1116,12 +1231,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L236">query.ts:236</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L254">query.ts:254</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Executes the SPARQL query against the datacube and returns the results.</p>
+								<p>Executes the SPARQL query against the dataCube and returns the results.</p>
 							</div>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1138,7 +1253,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L124">query.ts:124</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L131">query.ts:131</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1177,7 +1292,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L149">query.ts:149</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L156">query.ts:156</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1217,7 +1332,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L155">query.ts:155</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L162">query.ts:162</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1240,7 +1355,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L166">query.ts:166</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L184">query.ts:184</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1268,7 +1383,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L185">query.ts:185</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L203">query.ts:203</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1302,7 +1417,7 @@ myDataCube
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L210">query.ts:210</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L228">query.ts:228</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1343,7 +1458,7 @@ myDataCube
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L90">query.ts:90</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L97">query.ts:97</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1373,13 +1488,13 @@ myDataCube
 				<a name="tosparql" class="tsd-anchor"></a>
 				<h3>to<wbr>Sparql</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">to<wbr>Sparql<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">to<wbr>Sparql<span class="tsd-signature-symbol">(</span>sparqlJS<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">SelectQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/5066500/src/query.ts#L302">query.ts:302</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L634">query.ts:634</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1389,8 +1504,38 @@ myDataCube
 								think it does.</p>
 							</div>
 						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> sparqlJS: <span class="tsd-signature-type">SelectQuery</span></h5>
+							</li>
+						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						<p>SPARQL query</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="tosparqljs" class="tsd-anchor"></a>
+				<h3>to<wbr>SparqlJS</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">to<wbr>SparqlJS<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelectQuery</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/d4e68cc/src/query.ts#L422">query.ts:422</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Generates the sparql.js select query that will be stringified to a SPARQL
+								string by <a href="query.html#tosparql">toSparql</a>.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelectQuery</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>sparql.js select query</p>
 					</li>
 				</ul>
 			</section>
