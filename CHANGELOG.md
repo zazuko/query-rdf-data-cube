@@ -1,3 +1,22 @@
+<a name="0.0.11"></a>
+## [0.0.11](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.10...v0.0.11) (2019-09-24)
+
+
+### Bug Fixes
+
+* **case:** s/datacube/dataCube/ ([e756bde](https://github.com/zazuko/query-rdf-data-cube/commit/e756bde))
+* **operators:** xsd:dateTime is different than xsd:date ([66fddff](https://github.com/zazuko/query-rdf-data-cube/commit/66fddff))
+* **query:** distinct is mainly available on query objects ([43a813b](https://github.com/zazuko/query-rdf-data-cube/commit/43a813b))
+
+
+### Features
+
+* **component:** get component values and min/max values ([cefd4e5](https://github.com/zazuko/query-rdf-data-cube/commit/cefd4e5))
+* **query:** componentMinMax is available on queries ([85c0d96](https://github.com/zazuko/query-rdf-data-cube/commit/85c0d96))
+* **query:** componentValues is available on queries ([6ac3e73](https://github.com/zazuko/query-rdf-data-cube/commit/6ac3e73))
+
+
+
 <a name="0.0.10"></a>
 ## [0.0.10](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.9...v0.0.10) (2019-09-16)
 
