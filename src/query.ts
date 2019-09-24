@@ -231,7 +231,7 @@ export class Query {
   }
 
   /**
-   * Executes the SPARQL query against the datacube and returns the results.
+   * Executes the SPARQL query against the dataCube and returns the results.
    */
   public async execute(): Promise<any[]> {
     const query = await this.toSparql();

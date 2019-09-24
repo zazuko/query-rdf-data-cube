@@ -30,24 +30,24 @@ describe("entrypoint", () => {
   });
 });
 
-describe("datacube", () => {
+describe("dataCube", () => {
   beforeEach(async () => {
     await cubeEntryPoint.dataCubes();
   });
 
   it("serializes", async () => {
-    const datacube = (await cubeEntryPoint.dataCubes())[0];
-    const serialized = datacube.toJSON();
+    const dataCube = (await cubeEntryPoint.dataCubes())[0];
+    const serialized = dataCube.toJSON();
     expect(serialized).toMatchSnapshot();
   });
   it("serialization is idempotent", async () => {
-    const datacube = (await cubeEntryPoint.dataCubes())[0];
-    const serialized = datacube.toJSON();
+    const dataCube = (await cubeEntryPoint.dataCubes())[0];
+    const serialized = dataCube.toJSON();
     expect(DataCube.fromJSON(serialized).toJSON()).toBe(serialized);
   });
   it("deserializes", async () => {
-    const datacube = (await cubeEntryPoint.dataCubes())[0];
-    const serialized = datacube.toJSON();
+    const dataCube = (await cubeEntryPoint.dataCubes())[0];
+    const serialized = dataCube.toJSON();
     expect(DataCube.fromJSON(serialized)).toBeInstanceOf(DataCube);
   });
 });
@@ -58,24 +58,24 @@ describe("component", () => {
   });
 
   it("serializes", async () => {
-    const datacube = (await cubeEntryPoint.dataCubes())[0];
-    const components = (await datacube.dimensions())[0];
+    const dataCube = (await cubeEntryPoint.dataCubes())[0];
+    const components = (await dataCube.dimensions())[0];
     const serialized = components.toJSON();
     expect(serialized).toMatchSnapshot();
   });
   it("serialization is idempotent", async () => {
-    const datacube = (await cubeEntryPoint.dataCubes())[0];
-    const components = (await datacube.dimensions())[0];
+    const dataCube = (await cubeEntryPoint.dataCubes())[0];
+    const components = (await dataCube.dimensions())[0];
     const serialized = components.toJSON();
     expect(Component.fromJSON(serialized).toJSON()).toBe(serialized);
   });
   it("deserializes", async () => {
-    const datacube = (await cubeEntryPoint.dataCubes())[0];
-    const dimensions = (await datacube.dimensions())[0];
+    const dataCube = (await cubeEntryPoint.dataCubes())[0];
+    const dimensions = (await dataCube.dimensions())[0];
     expect(Dimension.fromJSON(dimensions.toJSON())).toBeInstanceOf(Dimension);
-    const measures = (await datacube.measures())[0];
+    const measures = (await dataCube.measures())[0];
     expect(Measure.fromJSON(measures.toJSON())).toBeInstanceOf(Measure);
-    const attributes = (await datacube.attributes())[0];
+    const attributes = (await dataCube.attributes())[0];
     expect(Attribute.fromJSON(attributes.toJSON())).toBeInstanceOf(Attribute);
 
     expect(Measure.fromJSON(dimensions.toJSON())).toBeInstanceOf(Dimension);

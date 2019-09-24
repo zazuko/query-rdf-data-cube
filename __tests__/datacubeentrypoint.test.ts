@@ -59,19 +59,19 @@ describe(".dataCubeByIri()", () => {
   it("takes an IRI", async () => {
     const cube = newCube("https://ld.stadt-zuerich.ch/query");
     const dataCubes = await cube.dataCubes();
-    for (const datacube of dataCubes) {
-      const iri = datacube.iri;
-      expect(await cube.dataCubeByIri(iri)).toMatchObject(datacube);
+    for (const dataCube of dataCubes) {
+      const iri = dataCube.iri;
+      expect(await cube.dataCubeByIri(iri)).toMatchObject(dataCube);
     }
   });
   it("caches the dataCubes", async () => {
     const cube = newCube("https://ld.stadt-zuerich.ch/query");
     const dataCubes = await cube.dataCubes();
     const cube2 = newCube("https://ld.stadt-zuerich.ch/query");
-    for (const datacube of dataCubes.slice(0, 2)) {
-      const dataCubeIri = datacube.iri;
-      const datacubeFound = await cube2.dataCubeByIri(dataCubeIri);
-      expect(datacubeFound.toJSON()).toBe(datacube.toJSON());
+    for (const dataCube of dataCubes.slice(0, 2)) {
+      const dataCubeIri = dataCube.iri;
+      const dataCubeFound = await cube2.dataCubeByIri(dataCubeIri);
+      expect(dataCubeFound.toJSON()).toBe(dataCube.toJSON());
     }
   });
 });
@@ -81,8 +81,8 @@ describe(".dataCubesByGraphIri()", () => {
     const cube = newCube("https://ld.stadt-zuerich.ch/query");
     const dataCubes = await cube.dataCubes();
     const cube2 = newCube("https://ld.stadt-zuerich.ch/query");
-    for (const datacube of dataCubes.slice(0, 3)) {
-      const graphIri = datacube.graphIri;
+    for (const dataCube of dataCubes.slice(0, 3)) {
+      const graphIri = dataCube.graphIri;
       const expecting = (await cube2.dataCubesByGraphIri(graphIri)).map((ds) =>
         ds.toJSON(),
       );
@@ -97,8 +97,8 @@ describe(".dataCubesByGraphIri()", () => {
     const graphs = await cube.graphs();
     for (const graphIri of graphs.slice(0, 2)) {
       const dataCubes = await cube.dataCubesByGraphIri(graphIri.value);
-      const datacube = dataCubes[0];
-      expect(datacube.graphIri).toBe(graphIri.value);
+      const dataCube = dataCubes[0];
+      expect(dataCube.graphIri).toBe(graphIri.value);
     }
   });
 });

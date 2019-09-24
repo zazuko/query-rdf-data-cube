@@ -16,14 +16,14 @@ function printTitle(str) {
     { languages: ["de"] },
   );
   const dataCubes = await entryPoint.dataCubes();
-  const datacube = dataCubes[0];
+  const dataCube = dataCubes[0];
 
-  const dimensions = await datacube.dimensions();
+  const dimensions = await dataCube.dimensions();
 
   const sizeClasses = dimensions[1];
   console.log(prettyPrint(sizeClasses));
 
-  const values = await datacube.componentValues(sizeClasses);
+  const values = await dataCube.componentValues(sizeClasses);
   console.log(prettyPrint(values));
   /*
   [

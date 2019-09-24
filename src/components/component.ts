@@ -31,7 +31,7 @@ export type SerializedComponent = {
  *    { value: "Prix", language: "fr" },
  * ]});
  *
- * const query = datacube
+ * const query = dataCube
  *   .query()
  *   .select({ price: priceMeasure })
  *   .filter(({ price }) => price.lte(30.5));
@@ -137,7 +137,7 @@ export abstract class Component extends BaseExpr {
    * const priceMeasure = new Measure({
    *   iri: "http://example.com/price", labels: [{ value: "Price", language: "en" }]
    * });
-   * datacube.query().select({
+   * dataCube.query().select({
    *   price: priceMeasure.avg(),
    * });
    * ```
@@ -157,7 +157,7 @@ export abstract class Component extends BaseExpr {
    * const cityDimension = new Dimension({
    *   iri: "http://example.com/city", labels: [{ value: "City", language: "en" }]
    * });
-   * datacube.query().select({
+   * dataCube.query().select({
    *   city: cityDimension.distinct(),
    * });
    * ```
@@ -176,7 +176,7 @@ export abstract class Component extends BaseExpr {
    * const priceMeasure = new Measure({
    *   iri: "http://example.com/price", labels: [{ value: "Price", language: "en" }]
    * });
-   * datacube.query().select({
+   * dataCube.query().select({
    *   price: priceMeasure
    * }).orderBy(({ price } => price.lte(30.5)));
    * ```

@@ -9,11 +9,11 @@ function prettyPrint(obj) {
 (async () => {
   const entryPoint = new DataCubeEntryPoint("https://ld.stadt-zuerich.ch/query");
   const dataCubes = await entryPoint.dataCubes();
-  const datacube = dataCubes.find((cube) => cube.iri.endsWith("BEW-RAUM-ZEIT"));
+  const dataCube = dataCubes.find((cube) => cube.iri.endsWith("BEW-RAUM-ZEIT"));
 
-  const dimensions = await datacube.dimensions();
+  const dimensions = await dataCube.dimensions();
   const time = dimensions.find((dimension) => dimension.iri.value.endsWith("/ZEIT"));
-  const timeMinMax = await datacube.componentMinMax(time);
+  const timeMinMax = await dataCube.componentMinMax(time);
   /*
   {
     min: Literal {

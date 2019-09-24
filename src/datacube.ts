@@ -68,21 +68,21 @@ export class DataCube {
    */
   public static fromJSON(json: string): DataCube {
     const obj: SerializedDataCube = JSON.parse(json);
-    const datacube = new DataCube(obj.endpoint, {
+    const dataCube = new DataCube(obj.endpoint, {
       iri: namedNode(obj.iri),
       graphIri: namedNode(obj.graphIri),
       labels: obj.labels,
       languages: obj.languages,
     });
     ["dimensions", "measures", "attributes"].forEach((componentTypes) => {
-      datacube.cachedComponents[componentTypes] = obj.components[componentTypes]
+      dataCube.cachedComponents[componentTypes] = obj.components[componentTypes]
         .map(Component.fromJSON)
         .reduce((cache: Map<string, Component>, component: Component) => {
           cache.set(component.iri.value, component);
           return cache;
         }, new Map());
     });
-    return datacube;
+    return dataCube;
   }
 
   public labels: Label[];
@@ -183,7 +183,7 @@ export class DataCube {
 
   public async componentValues(component: Component): Promise<Array<{label: Literal, value: NamedNode}>> {
     if (!component || !component.componentType) {
-      throw new Error(`datacube#componentValues expects valid component, got ${component} instead`);
+      throw new Error(`dataCube#componentValues expects valid component, got ${component} instead`);
     }
     const binding = variable("value");
     const labelBinding = variable("label");
@@ -229,7 +229,7 @@ export class DataCube {
 
   public async componentMinMax(component: Component): Promise<{min: Literal, max: Literal}|null> {
     if (!component || !component.componentType) {
-      throw new Error(`datacube#componentMinMax expects valid component, got ${component} instead`);
+      throw new Error(`dataCube#componentMinMax expects valid component, got ${component} instead`);
     }
     const binding = variable("value");
     const observation = variable("observation");

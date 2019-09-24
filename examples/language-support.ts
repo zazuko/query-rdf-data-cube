@@ -18,11 +18,11 @@ function printTitle(str) {
   // find all its dataCubes
   const dataCubes = await entryPoint.dataCubes();
   // we'll work with one of them
-  const datacube = dataCubes[0];
+  const dataCube = dataCubes[0];
 
-  const dimensions = await datacube.dimensions();
-  const measures = await datacube.measures();
-  const attributes = await datacube.attributes();
+  const dimensions = await dataCube.dimensions();
+  const measures = await dataCube.measures();
+  const attributes = await dataCube.attributes();
 
   const variable = dimensions[0];
   const size = dimensions[1];
@@ -35,7 +35,7 @@ function printTitle(str) {
   console.log(printTitle("measures"));
   console.log(prettyPrint(measures));
 
-  const query = datacube
+  const query = dataCube
     .query()
     // select has binding names as keys and Component (Dimension/Attribute/Measure) as values.
     .select({
