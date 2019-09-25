@@ -76,7 +76,7 @@ export class DataCube {
     });
     ["dimensions", "measures", "attributes"].forEach((componentTypes) => {
       dataCube.cachedComponents[componentTypes] = obj.components[componentTypes]
-        .map(Component.fromJSON)
+        .map((componentObject: object) => Component.fromJSON(JSON.stringify(componentObject)))
         .reduce((cache: Map<string, Component>, component: Component) => {
           cache.set(component.iri.value, component);
           return cache;
@@ -127,11 +127,11 @@ export class DataCube {
    */
   public toJSON(): string {
     const dimensions = Array.from(this.cachedComponents.dimensions.values())
-      .map((component) => component.toJSON());
+      .map((component) => JSON.parse(component.toJSON()));
     const measures = Array.from(this.cachedComponents.measures.values())
-      .map((component) => component.toJSON());
+      .map((component) => JSON.parse(component.toJSON()));
     const attributes = Array.from(this.cachedComponents.attributes.values())
-      .map((component) => component.toJSON());
+      .map((component) => JSON.parse(component.toJSON()));
     const obj: SerializedDataCube = {
       endpoint: this.endpoint,
       iri: this.iri,
