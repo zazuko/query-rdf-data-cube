@@ -1,5 +1,6 @@
 import { namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
+import nodeSlugify from "node-slugify";
 import { Literal, NamedNode, Variable } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
@@ -47,8 +48,24 @@ const baseState: QueryState = {
   order: [],
 };
 
+/**
+ * @ignore
+ */
 function isVariables(variables: Array<Variable|VariableExpression|Wildcard>): variables is Variable[] {
   return true;
+}
+
+/**
+ * Slugifies into camelCase
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+function slugify(str: string): string {
+  return nodeSlugify(str)
+    .split("-")
+    .map((part: string, i: number) => i === 0 ? part : part[0].toUpperCase() + part.substring(1))
+    .join("");
 }
 
 /**
@@ -483,7 +500,7 @@ export class Query {
     dimensions
       .filter(({ iri }) => !addedDimensionsIRIs.includes(iri.value))
       .forEach((component) => {
-        const tmpVar = this.newTmpVar();
+        const tmpVar = this.autoNameVariable(component);
         this.bindingToComponent.set(tmpVar.value, component);
         this.iriToBinding.set(component.iri.value, tmpVar.value);
         addedDimensionsIRIs.push(component.iri.value);
@@ -503,10 +520,10 @@ export class Query {
         this.bindingToComponent.set(bindingName, component);
         this.iriToBinding.set(component.iri.value, bindingName);
         if (component.aggregateType) {
-          const tmp = this.newTmpVar();
+          const tmpVar = this.autoNameVariable(component, component.aggregateType);
           query.variables.push({
             expression: {
-              expression: tmp,
+              expression: tmpVar,
               type: "aggregate",
               aggregation: component.aggregateType,
               distinct: component.isDistinct,
@@ -517,7 +534,7 @@ export class Query {
           mainWhereClauses.triples.push({
             subject: variable("observation"),
             predicate: component.iri,
-            object: tmp,
+            object: tmpVar,
           });
         } else {
           mainWhereClauses.triples.push({
@@ -566,9 +583,7 @@ export class Query {
         .map((selected: any) => {
           if (selected.hasOwnProperty("value")) {
             groupedOnBindingNames.push(selected.value);
-            return {
-              expression: selected,
-            };
+            return { expression: selected };
           }
         }).filter(Boolean);
       }
@@ -649,7 +664,36 @@ export class Query {
     return dsq;
   }
 
-  private newTmpVar() {
-    return variable(`tmpVar${this.tmpVarCount++}`);
+  private autoNameVariable(component: Component, suffix?: string) {
+    let potentialName = "";
+
+    // try to use the label
+    const language = this.languages.length ? this.languages[0] : "";
+    const label = component.labels.find((lab) => lab.language === language);
+    if (label && label.value) {
+      potentialName = label.value;
+    } else {
+      // otherwise use the part of component IRI after # or after the last /
+      const iri = component.iri.value;
+      const afterHash = iri.substr(iri.lastIndexOf("#") + 1);
+      const afterSlash = iri.substr(iri.lastIndexOf("/") + 1);
+      potentialName = afterHash !== iri ? afterHash : afterSlash;
+      potentialName = potentialName;
+    }
+    if (suffix) {
+      potentialName += ` ${suffix}`;
+    }
+    potentialName = slugify(potentialName);
+
+    // while the name conflicts with an existing binding, add a number at the end or increment existing number
+    while (this.bindingToComponent.has(potentialName)) {
+      const match = potentialName.match(/(\d+)$/);
+      if (!match) {
+        potentialName += "1";
+      } else {
+        potentialName = potentialName.replace(/(\d+)$/, String(parseInt(match[1], 10) + 1));
+      }
+    }
+    return variable(potentialName);
   }
 }

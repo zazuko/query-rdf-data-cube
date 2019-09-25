@@ -8,14 +8,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?raum ?raumLabel (AVG(?tmpVar3) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?raum ?raumLabel (AVG(?beschaeftigteAvg) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar3.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?beschaeftigteAvg.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
 }
@@ -31,14 +31,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?raum ?raumLabel (AVG(?tmpVar3) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?raum ?raumLabel (AVG(?beschaeftigteAvg) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar3.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?beschaeftigteAvg.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
   FILTER(?raum NOT IN(<http://foo>))
@@ -56,14 +56,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT DISTINCT ?betriebsart ?betriebsartLabel ?geschlecht ?geschlechtLabel ?raum ?raumLabel ?zeit ?zeitLabel (AVG(DISTINCT ?tmpVar0) AS ?bep) ?quelle ?glossar ?fussnote ?datenstand ?erwarteteAktualisierung ?korrektur FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT DISTINCT ?betriebsart ?betriebsartLabel ?geschlecht ?geschlechtLabel ?raum ?raumLabel ?zeit ?zeitLabel (AVG(DISTINCT ?beschaeftigteAvg) AS ?bep) ?quelle ?glossar ?fussnote ?datenstand ?erwarteteAktualisierung ?korrektur FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?betriebsart.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?geschlecht.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar0.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?beschaeftigteAvg.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR> ?glossar. }
@@ -123,9 +123,9 @@ SELECT DISTINCT ?raum ?raumLabel FROM <https://linked.opendata.swiss/graph/zh/st
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
 }
@@ -140,13 +140,13 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?tmpVar0 ?tmpVar1 ?tmpVar2 ?tmpVar3 FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?raum ?bta ?sex FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar2.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar3.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
 }
 LIMIT 10"
@@ -155,6 +155,15 @@ LIMIT 10"
 exports[`execute returns results 1`] = `
 Array [
   Object {
+    "annee": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2008",
+      },
+    },
     "canton": Object {
       "label": Literal {
         "datatype": NamedNode {
@@ -188,20 +197,6 @@ Array [
         "value": "http://example.org/anzahl-forstbetriebe/property/1/3",
       },
     },
-    "tmpVar0": Object {
-      "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/3/0",
-      },
-    },
-    "tmpVar1": Object {
-      "value": Literal {
-        "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#gYear",
-        },
-        "language": "",
-        "value": "2008",
-      },
-    },
     "variable": Object {
       "label": Literal {
         "datatype": NamedNode {
@@ -214,8 +209,22 @@ Array [
         "value": "http://example.org/anzahl-forstbetriebe/property/0/0",
       },
     },
+    "zoneForestiere": Object {
+      "value": NamedNode {
+        "value": "http://example.org/anzahl-forstbetriebe/property/3/0",
+      },
+    },
   },
   Object {
+    "annee": Object {
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2004",
+      },
+    },
     "canton": Object {
       "label": Literal {
         "datatype": NamedNode {
@@ -249,20 +258,6 @@ Array [
         "value": "http://example.org/anzahl-forstbetriebe/property/1/2",
       },
     },
-    "tmpVar0": Object {
-      "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/3/4",
-      },
-    },
-    "tmpVar1": Object {
-      "value": Literal {
-        "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#gYear",
-        },
-        "language": "",
-        "value": "2004",
-      },
-    },
     "variable": Object {
       "label": Literal {
         "datatype": NamedNode {
@@ -273,6 +268,11 @@ Array [
       },
       "value": NamedNode {
         "value": "http://example.org/anzahl-forstbetriebe/property/0/0",
+      },
+    },
+    "zoneForestiere": Object {
+      "value": NamedNode {
+        "value": "http://example.org/anzahl-forstbetriebe/property/3/4",
       },
     },
   },
@@ -375,14 +375,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT DISTINCT ?raum ?raumLabel ?zeit ?zeitLabel (AVG(DISTINCT ?tmpVar2) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT DISTINCT ?raum ?raumLabel ?zeit ?zeitLabel (AVG(DISTINCT ?beschaeftigteAvg) AS ?bep) FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?tmpVar2.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?beschaeftigteAvg.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?zeitLabel)
@@ -400,13 +400,13 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?zeit ?zeitLabel ?tmpVar0 ?tmpVar1 ?tmpVar2 ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?zeitLabel ?raum ?bta ?sex ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
@@ -427,13 +427,13 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?zeit ?zeitLabel ?tmpVar0 ?tmpVar1 ?tmpVar2 ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?zeitLabel ?raum ?bta ?sex ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }
@@ -466,22 +466,22 @@ Array [
         "value": "86.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
       },
@@ -513,22 +513,22 @@ Array [
         "value": "1.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
       },
@@ -560,22 +560,22 @@ Array [
         "value": "86.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
       },
@@ -607,22 +607,22 @@ Array [
         "value": "1.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
       },
@@ -654,22 +654,22 @@ Array [
         "value": "87.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
       },
@@ -701,22 +701,22 @@ Array [
         "value": "1.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
       },
@@ -748,22 +748,22 @@ Array [
         "value": "89.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
       },
@@ -795,22 +795,22 @@ Array [
         "value": "1.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
       },
@@ -842,22 +842,22 @@ Array [
         "value": "90.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0002",
       },
@@ -889,22 +889,22 @@ Array [
         "value": "1.0",
       },
     },
+    "bta1": Object {
+      "value": NamedNode {
+        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
+      },
+    },
     "quelle": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/quelle/SSD002",
       },
     },
-    "tmpVar3": Object {
+    "raum1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/R30000",
       },
     },
-    "tmpVar4": Object {
-      "value": NamedNode {
-        "value": "https://ld.stadt-zuerich.ch/statistics/code/BTA7100",
-      },
-    },
-    "tmpVar5": Object {
+    "sex1": Object {
       "value": NamedNode {
         "value": "https://ld.stadt-zuerich.ch/statistics/code/SEX0001",
       },
@@ -937,13 +937,13 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?zeit ?zeitLabel ?tmpVar0 ?tmpVar1 ?tmpVar2 ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?zeitLabel ?raum ?bta ?sex ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?tmpVar0.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?tmpVar1.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?tmpVar2.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   OPTIONAL { ?observation <https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE> ?quelle. }

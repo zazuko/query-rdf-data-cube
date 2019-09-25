@@ -76,7 +76,7 @@ export class DataCube {
     });
     ["dimensions", "measures", "attributes"].forEach((componentTypes) => {
       dataCube.cachedComponents[componentTypes] = obj.components[componentTypes]
-        .map(Component.fromJSON)
+        .map((componentObject: object) => Component.fromJSON(JSON.stringify(componentObject)))
         .reduce((cache: Map<string, Component>, component: Component) => {
           cache.set(component.iri.value, component);
           return cache;
@@ -127,11 +127,11 @@ export class DataCube {
    */
   public toJSON(): string {
     const dimensions = Array.from(this.cachedComponents.dimensions.values())
-      .map((component) => component.toJSON());
+      .map((component) => JSON.parse(component.toJSON()));
     const measures = Array.from(this.cachedComponents.measures.values())
-      .map((component) => component.toJSON());
+      .map((component) => JSON.parse(component.toJSON()));
     const attributes = Array.from(this.cachedComponents.attributes.values())
-      .map((component) => component.toJSON());
+      .map((component) => JSON.parse(component.toJSON()));
     const obj: SerializedDataCube = {
       endpoint: this.endpoint,
       iri: this.iri,
@@ -151,7 +151,9 @@ export class DataCube {
    * Fetch all [[Attribute]]s from the [[DataCube]].
    */
   public async attributes(): Promise<Attribute[]> {
-    await this.components();
+    if (!this.cachedComponents.attributes.size) {
+      await this.components();
+    }
     return Array.from(this.cachedComponents.attributes.values());
   }
 
@@ -159,7 +161,9 @@ export class DataCube {
    * Fetch all [[Dimension]]s from the [[DataCube]].
    */
   public async dimensions(): Promise<Dimension[]> {
-    await this.components();
+    if (!this.cachedComponents.dimensions.size) {
+      await this.components();
+    }
     return Array.from(this.cachedComponents.dimensions.values());
   }
 
@@ -167,7 +171,9 @@ export class DataCube {
    * Fetch all [[Measure]]s from the [[DataCube]].
    */
   public async measures(): Promise<Measure[]> {
-    await this.components();
+    if (!this.cachedComponents.measures.size) {
+      await this.components();
+    }
     return Array.from(this.cachedComponents.measures.values());
   }
 
@@ -406,23 +412,25 @@ export class DataCube {
       .reduce((componentsProp: ComponentsCache, { kind, labels, iri }) => {
         switch (kind.value) {
           case "http://purl.org/linked-data/cube#attribute":
-            componentsProp.attributes.set(iri.value, new Attribute({ labels, iri }));
+            if (!componentsProp.attributes.has(iri.value)) {
+              componentsProp.attributes.set(iri.value, new Attribute({ labels, iri }));
+            }
             break;
           case "http://purl.org/linked-data/cube#dimension":
-            componentsProp.dimensions.set(iri.value, new Dimension({ labels, iri }));
+            if (!componentsProp.dimensions.has(iri.value)) {
+              componentsProp.dimensions.set(iri.value, new Dimension({ labels, iri }));
+            }
             break;
           case "http://purl.org/linked-data/cube#measure":
-            componentsProp.measures.set(iri.value, new Measure({ labels, iri }));
+            if (!componentsProp.measures.has(iri.value)) {
+              componentsProp.measures.set(iri.value, new Measure({ labels, iri }));
+            }
             break;
           default:
             throw new Error(`Unknown component kind ${kind.value}`);
         }
         return componentsProp;
-      }, {
-        attributes: new Map(),
-        dimensions: new Map(),
-        measures: new Map(),
-      });
+      }, this.cachedComponents);
 
     this.componentsLoaded = true;
   }
