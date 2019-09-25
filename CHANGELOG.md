@@ -56,22 +56,6 @@
 * **lang:** remove test default languages ([10ed7c1](https://github.com/zazuko/query-rdf-data-cube/commit/10ed7c1))
 
 
-
-<a name="0.0.8"></a>
-## [0.0.8](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.7...v0.0.8) (2019-09-10)
-
-
-
-<a name="0.0.7"></a>
-## [0.0.7](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.6...v0.0.7) (2019-09-10)
-
-
-
-<a name="0.0.6"></a>
-## [0.0.6](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.5...v0.0.6) (2019-09-10)
-
-
-
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.4...v0.0.5) (2019-09-10)
 
@@ -79,12 +63,6 @@
 ### Features
 
 * **datacube:** fetch is configurable at datacube instantiation ([c93abff](https://github.com/zazuko/query-rdf-data-cube/commit/c93abff))
-
-
-
-<a name="0.0.4"></a>
-## [0.0.4](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.3...v0.0.4) (2019-09-09)
-
 
 
 <a name="0.0.3"></a>
