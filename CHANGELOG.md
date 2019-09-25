@@ -1,3 +1,19 @@
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.11...v0.1.0) (2019-09-25)
+
+
+### Bug Fixes
+
+* **caching:** components cached on cube don't get overridden ([d3f2081](https://github.com/zazuko/query-rdf-data-cube/commit/d3f2081))
+* **serialization:** serialized cubes have components as obj, not strings ([c48275e](https://github.com/zazuko/query-rdf-data-cube/commit/c48275e))
+
+
+### Features
+
+* **query:** create smarter names for SPARQL variables than ?tmpVar{n} ([df5770d](https://github.com/zazuko/query-rdf-data-cube/commit/df5770d))
+
+
+
 <a name="0.0.11"></a>
 ## [0.0.11](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.10...v0.0.11) (2019-09-24)
 
