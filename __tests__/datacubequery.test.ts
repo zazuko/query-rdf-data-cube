@@ -400,7 +400,26 @@ describe("handles languages", () => {
   });
 });
 
-describe.skip("execute", () => {
+describe("auto names variables", () => {
+  test("slugifies labels to camelCase", async () => {
+    const query = dataCube.query().select({ zeit: zeitDimension });
+    const sparql = await query.toSparql();
+    expect(sparql).toContain("SELECT ?zeit ?zeitLabel ?raum ?bta ?sex");
+  });
+
+  test("doesn't generate name conflicts", async () => {
+    // create a cube with a bunch of dimensions with the same label "time" but different IRI,
+    // we want to make sure they get bound to different names instead of all becoming `?time`
+    const cube = DataCube.fromJSON('{"endpoint":"https://ld.stadt-zuerich.ch/query","iri":"https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX","graphIri":"https://linked.opendata.swiss/graph/zh/statistics","labels":[{"value":"Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit","language":"de"}],"languages":[],"components":{"dimensions":[{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-c","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-d","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/RAUM","labels":[{"value":"","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/BTA","labels":[{"value":"something fön","language":""}]}],"measures":[],"attributes":[]}}');
+
+    const query = cube.query().select({});
+    const sparql = await query.toSparql();
+    expect(sparql).not.toContain("?time ?time ");
+    expect(sparql).toContain("?time ?time1 ?time2");
+  });
+});
+
+describe("execute", () => {
   it("returns results", async () => {
     const entryPoint = new DataCubeEntryPoint(
       "https://trifid-lindas.test.cluster.ldbar.ch/query",

@@ -3,9 +3,9 @@
     "vars" : [
       "zeit",
       "zeitLabel",
-      "tmpVar3",
-      "tmpVar4",
-      "tmpVar5",
+      "raum1",
+      "bta1",
+      "sex1",
       "bep",
       "quelle"
     ]
@@ -18,15 +18,15 @@
           "type" : "literal",
           "value" : "1966-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0002"
         },
@@ -50,15 +50,15 @@
           "type" : "literal",
           "value" : "1966-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0001"
         },
@@ -82,15 +82,15 @@
           "type" : "literal",
           "value" : "1967-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0002"
         },
@@ -114,15 +114,15 @@
           "type" : "literal",
           "value" : "1967-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0001"
         },
@@ -146,15 +146,15 @@
           "type" : "literal",
           "value" : "1968-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0002"
         },
@@ -178,15 +178,15 @@
           "type" : "literal",
           "value" : "1968-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0001"
         },
@@ -210,15 +210,15 @@
           "type" : "literal",
           "value" : "1969-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0002"
         },
@@ -242,15 +242,15 @@
           "type" : "literal",
           "value" : "1969-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0001"
         },
@@ -274,15 +274,15 @@
           "type" : "literal",
           "value" : "1970-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0002"
         },
@@ -306,15 +306,15 @@
           "type" : "literal",
           "value" : "1970-06-30"
         },
-        "tmpVar3" : {
+        "raum1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/R30000"
         },
-        "tmpVar4" : {
+        "bta1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/BTA7100"
         },
-        "tmpVar5" : {
+        "sex1" : {
           "type" : "uri",
           "value" : "https://ld.stadt-zuerich.ch/statistics/code/SEX0001"
         },
