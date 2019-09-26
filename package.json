@@ -82,9 +82,6 @@
       "/__tests__/utils/"
     ],
     "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/"
-    ],
     "roots": [
       "<rootDir>"
     ],
