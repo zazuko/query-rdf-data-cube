@@ -1,3 +1,13 @@
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/zazuko/query-rdf-data-cube/compare/v0.1.0...v0.1.1) (2019-09-26)
+
+
+### Bug Fixes
+
+* **query:** avoid naming variables ?1 ?2 ?3 ([538aac3](https://github.com/zazuko/query-rdf-data-cube/commit/538aac3))
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.0.11...v0.1.0) (2019-09-25)
 
