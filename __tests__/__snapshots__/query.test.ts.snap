@@ -152,7 +152,7 @@ WHERE {
 LIMIT 10"
 `;
 
-exports[`execute returns results 1`] = `
+exports[`execute returns results in a language 1`] = `
 Array [
   Object {
     "annee": Object {

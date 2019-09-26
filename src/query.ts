@@ -678,7 +678,14 @@ export class Query {
       const afterHash = iri.substr(iri.lastIndexOf("#") + 1);
       const afterSlash = iri.substr(iri.lastIndexOf("/") + 1);
       potentialName = afterHash !== iri ? afterHash : afterSlash;
-      potentialName = potentialName;
+      // in cases where the IRI is like one of these:
+      // http://example.org/foo/dimension/4
+      // http://example.org/foo/property#4
+      // naming the variable ?4 isn't helpful, prefix it with component type:
+      // ?dimension4
+      if (String(parseInt(potentialName, 10)) === potentialName) {
+        potentialName = component.componentType + potentialName;
+      }
     }
     if (suffix) {
       potentialName += ` ${suffix}`;

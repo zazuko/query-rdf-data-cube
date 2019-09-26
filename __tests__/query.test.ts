@@ -420,19 +420,14 @@ describe("auto names variables", () => {
 });
 
 describe("execute", () => {
-  it("returns results", async () => {
-    const entryPoint = new DataCubeEntryPoint(
-      "https://trifid-lindas.test.cluster.ldbar.ch/query",
-      {
-        languages: ["fr", "de"],
-        fetcher: {
-          fetch,
-        },
+  it("returns results in a language", async () => {
+    const entryPoint = new DataCubeEntryPoint("https://trifid-lindas.test.cluster.ldbar.ch/query", {
+      languages: ["fr", "de"],
+      fetcher: {
+        fetch,
       },
-    );
-    // find all its dataCubes
+    });
     const dataCubes = await entryPoint.dataCubes();
-    // we'll work with one of them
     const ds = dataCubes[0];
 
     const dimensions = await ds.dimensions();
@@ -452,5 +447,39 @@ describe("execute", () => {
       })
       .limit(2);
     expect(await query.execute()).toMatchSnapshot();
+  });
+
+  it("returns different results in different languages", async () => {
+    const results = [];
+    for (const languages of [[], ["fr"]]) {
+      const entryPoint = new DataCubeEntryPoint("https://trifid-lindas.test.cluster.ldbar.ch/query", {
+        languages,
+        fetcher: {
+          fetch,
+        },
+      });
+      const dataCubes = await entryPoint.dataCubes();
+      const ds = dataCubes[0];
+
+      const dimensions = await ds.dimensions();
+      const measures = await ds.measures();
+
+      const variable = dimensions[0];
+      const size = dimensions[1];
+      const canton = dimensions[2];
+
+      const query = ds
+        .query()
+        .select({
+          mes: measures[0],
+          variable,
+          size,
+          canton,
+        })
+        .limit(2);
+      const res = await query.execute();
+      results.push(res);
+    }
+    expect(results[0]).not.toEqual(results[1]);
   });
 });
