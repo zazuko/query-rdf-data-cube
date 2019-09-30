@@ -2,6 +2,7 @@ import { literal, namedNode } from "@rdfjs/data-model";
 import { Attribute, Dimension, Measure } from "../src/components";
 import { DataCube} from "../src/datacube";
 import { DataCubeEntryPoint } from "../src/entrypoint";
+import { extractFilter } from "./filter.test";
 import { fetch } from "./utils/fetch-mock";
 
 const betriebsartDimension = new Dimension({
@@ -397,6 +398,52 @@ describe("handles languages", () => {
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
     expect(await query.execute()).toMatchSnapshot();
+  });
+});
+
+describe("filter", () => {
+  it("applies 3 filters", async () => {
+    const base = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure,
+    });
+    const query = base
+      .filter(raumDimension.gte(literal("12")))
+      .filter(raumDimension.lte(literal("120")))
+      .filter(beschaeftigteMeasure.gte(literal("12")));
+    const sparql = await query.toSparql();
+    expect(extractFilter(sparql).split("&&")).toHaveLength(3);
+  });
+
+  it("applies 4 filters", async () => {
+    const base = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure,
+    });
+    const query = base
+      .filter(raumDimension.gte(literal("12")))
+      .filter(raumDimension.lte(literal("120")))
+      .filter(beschaeftigteMeasure.gte(literal("12")))
+      .filter(beschaeftigteMeasure.lt(literal("120")));
+    const sparql = await query.toSparql();
+    expect(extractFilter(sparql).split("&&")).toHaveLength(4);
+  });
+
+  it("builds filters in the order they were given", async () => {
+    const base = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure,
+    });
+    const filters = ["aaa", "bbb", "ccc", "ddd"];
+    const query = base
+      .filter(raumDimension.gte(literal(filters[0])))
+      .filter(raumDimension.lte(literal(filters[1])))
+      .filter(beschaeftigteMeasure.gte(literal(filters[2])))
+      .filter(beschaeftigteMeasure.lt(literal(filters[3])));
+    const sparql = await query.toSparql();
+    extractFilter(sparql).split("&&").forEach((part, index) => {
+      expect(part).toContain(filters[index]);
+    });
   });
 });
 

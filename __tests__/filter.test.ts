@@ -4,7 +4,7 @@ import { Dimension } from "../src/components";
 import { DataCube } from "../src/datacube";
 import { fetch } from "./utils/fetch-mock";
 
-function extractFilter(sparql: string) {
+export function extractFilter(sparql: string) {
   return sparql
     .split("\n")
     .filter((line: string) => line.trim().startsWith("FILTER"))
