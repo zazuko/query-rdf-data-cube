@@ -54,12 +54,19 @@ export function createOperationExpression(operator: Operator): OperationExpressi
  * @ignore
  */
 export function combineFilters(operations: OperationExpression[]): FilterPattern {
-  let combined;
+  let combined: OperationExpression;
   if (operations.length > 1) {
     combined = operations
       .reduce((acc, op) => {
-        acc.args.push(op);
-        return acc;
+        if (acc.args.length < 2) {
+          acc.args.push(op);
+          return acc;
+        }
+        return {
+          operator: "&&",
+          type: "operation",
+          args: [acc, op],
+        };
       }, {
         operator: "&&",
         type: "operation",
