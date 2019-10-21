@@ -47,7 +47,7 @@ See <https://zazuko.github.io/query-rdf-data-cube/>
 
 ## Examples
 
-See the `examples/` folder at the root of this repository.
+See the [`examples/`](https://github.com/zazuko/query-rdf-data-cube/tree/master/examples) folder at the root of this repository.
 
 ## Working Locally
 

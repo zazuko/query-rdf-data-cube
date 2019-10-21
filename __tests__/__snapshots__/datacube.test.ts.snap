@@ -1,6 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dataCube .componentValues() 1`] = `
+exports[`dataCube de/serialize de/serializes loaded components 1`] = `"{\\"endpoint\\":\\"https://ld.stadt-zuerich.ch/query\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/ubd28\\",\\"graphIri\\":\\"https://linked.opendata.swiss/graph/FOEN/UBD28\\",\\"labels\\":[{\\"value\\":\\"Luftqualität Schweiz (Jahreswerte)\\",\\"language\\":\\"de\\"}],\\"languages\\":[\\"de\\",\\"en\\"],\\"extraMetadata\\":{},\\"components\\":{\\"dimensions\\":[{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/station\\",\\"labels\\":[{\\"value\\":\\"Stationscode\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/refPeriod\\",\\"labels\\":[{\\"value\\":\\"Jahr\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/pollutant\\",\\"labels\\":[{\\"value\\":\\"Schadstoff\\",\\"language\\":\\"de\\"}]}],\\"measures\\":[{\\"componentType\\":\\"measure\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/measurement\\",\\"labels\\":[{\\"value\\":\\"Messung\\",\\"language\\":\\"de\\"}]}],\\"attributes\\":[{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/limitvalue\\",\\"labels\\":[{\\"value\\":\\"Limite\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/unit\\",\\"labels\\":[{\\"value\\":\\"Einheit\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/aggregation\\",\\"labels\\":[{\\"value\\":\\"Aggregation\\",\\"language\\":\\"de\\"}]}]}}"`;
+
+exports[`dataCube de/serialize serializes 1`] = `"{\\"endpoint\\":\\"https://ld.stadt-zuerich.ch/query\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/ubd28\\",\\"graphIri\\":\\"https://linked.opendata.swiss/graph/FOEN/UBD28\\",\\"labels\\":[{\\"value\\":\\"Luftqualität Schweiz (Jahreswerte)\\",\\"language\\":\\"de\\"}],\\"languages\\":[\\"de\\",\\"en\\"],\\"extraMetadata\\":{},\\"components\\":{\\"dimensions\\":[],\\"measures\\":[],\\"attributes\\":[]}}"`;
+
+exports[`dataCube de/serialize serializes with languages 1`] = `"{\\"endpoint\\":\\"https://ld.stadt-zuerich.ch/query\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/ubd28\\",\\"graphIri\\":\\"https://linked.opendata.swiss/graph/FOEN/UBD28\\",\\"labels\\":[{\\"value\\":\\"Luftqualität Schweiz (Jahreswerte)\\",\\"language\\":\\"de\\"}],\\"languages\\":[\\"de\\",\\"en\\"],\\"extraMetadata\\":{},\\"components\\":{\\"dimensions\\":[],\\"measures\\":[],\\"attributes\\":[]}}"`;
+
+exports[`dataCube de/serialize serializes with languages and metadata 1`] = `"{\\"endpoint\\":\\"https://trifid-lindas.test.cluster.ldbar.ch/query\\",\\"iri\\":\\"http://environment.ld.admin.ch/foen/px/0703030000_124/dataset\\",\\"graphIri\\":\\"https://lindas-data.ch/graph/bafu/wald\\",\\"labels\\":[{\\"value\\":\\"Investissements dans les exploitations forestières en francs selon Année, Zone forestière, Canton et Variable\\",\\"language\\":\\"fr\\"}],\\"languages\\":[\\"fr\\",\\"de\\"],\\"extraMetadata\\":{\\"contact\\":{\\"value\\":\\"OFS - Statistique forestière suisse - © OFS\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"fr\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\\",\\"termType\\":\\"NamedNode\\"}},\\"source\\":{\\"value\\":\\"Section Structure et analyses économiques, 058 463 62 00, e-mail: <a href=mailto:agrar@bfs.admin.ch>agrar@bfs.admin.ch</a>\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"fr\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\\",\\"termType\\":\\"NamedNode\\"}},\\"survey\\":{\\"value\\":\\"Statistique forestière suisse (FS)\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"fr\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\\",\\"termType\\":\\"NamedNode\\"}},\\"database\\":{\\"value\\":\\"OFS - STAT-TAB / Office fédéral de la statistique, 2010 Neuchâtel / Suisse / © Office fédéral de la statistique\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"fr\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\\",\\"termType\\":\\"NamedNode\\"}},\\"unit\\":{\\"value\\":\\"\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/2001/XMLSchema#string\\",\\"termType\\":\\"NamedNode\\"}},\\"note\\":{\\"value\\":\\"<B>Métainformation:</B>#Dernière modification: nouvelles données 2018#Etat de la base des données: 16.07.2019#Période de l'enquête: janvier - mai#Référence spatiale: cantons / 01.01.1997##<B>Nouvelle définition: exploitation forestière</B>#Le terme Exploitation forestière a été redéfini dans le cadre de la révision. Sont désormais considérées comme des exploitations forestières uniquement les unités disposant d'une surface forestière suffisamment grande, de droits de disposition sur la surface forestière et de comptes consolidés. La surface forestière minimale pour une exploitation forestière diffère selon la zone forestière:#- Jura 200 ha#- Plateau 150 ha#- Préalpes 250 ha#- Alpes et Sud des Alpes 500 ha##<B>Remarque</B>#Ce cube continue les données proposées dans le cube 2004-2014 avec un nouvel univers de base. Les deux cubes ne sont comparables que partiellement.#\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"fr\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\\",\\"termType\\":\\"NamedNode\\"}},\\"dateCreated\\":{\\"value\\":\\"2016-10-05T00:09:15Z\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/2001/XMLSchema#dateTime\\",\\"termType\\":\\"NamedNode\\"}},\\"dateModified\\":{\\"value\\":\\"2019-07-16T00:09:15Z\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/2001/XMLSchema#dateTime\\",\\"termType\\":\\"NamedNode\\"}},\\"temporalCoverage\\":{\\"value\\":\\"2018,2017,2016,2015\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"fr\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\\",\\"termType\\":\\"NamedNode\\"}},\\"description\\":{\\"value\\":\\"Investissements dans les exploitations forestières en francs, dès 2015\\",\\"termType\\":\\"Literal\\",\\"language\\":\\"fr\\",\\"datatype\\":{\\"value\\":\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#langString\\",\\"termType\\":\\"NamedNode\\"}}},\\"components\\":{\\"dimensions\\":[],\\"measures\\":[],\\"attributes\\":[]}}"`;
+
+exports[`dataCube gets extra metadata 1`] = `
+Map {
+  "contact" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+    },
+    "language": "fr",
+    "value": "OFS - Statistique forestière suisse - © OFS",
+  },
+  "source" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+    },
+    "language": "fr",
+    "value": "Section Structure et analyses économiques, 058 463 62 00, e-mail: <a href=mailto:agrar@bfs.admin.ch>agrar@bfs.admin.ch</a>",
+  },
+  "survey" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+    },
+    "language": "fr",
+    "value": "Statistique forestière suisse (FS)",
+  },
+  "database" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+    },
+    "language": "fr",
+    "value": "OFS - STAT-TAB / Office fédéral de la statistique, 2010 Neuchâtel / Suisse / © Office fédéral de la statistique",
+  },
+  "unit" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/2001/XMLSchema#string",
+    },
+    "language": "",
+    "value": "",
+  },
+  "note" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+    },
+    "language": "fr",
+    "value": "<B>Métainformation:</B>#Dernière modification: nouvelles données 2018#Etat de la base des données: 16.07.2019#Période de l'enquête: janvier - mai#Référence spatiale: cantons / 01.01.1997##<B>Nouvelle définition: exploitation forestière</B>#Le terme Exploitation forestière a été redéfini dans le cadre de la révision. Sont désormais considérées comme des exploitations forestières uniquement les unités disposant d'une surface forestière suffisamment grande, de droits de disposition sur la surface forestière et de comptes consolidés. La surface forestière minimale pour une exploitation forestière diffère selon la zone forestière:#- Jura 200 ha#- Plateau 150 ha#- Préalpes 250 ha#- Alpes et Sud des Alpes 500 ha##<B>Remarque</B>#Ce cube continue les données proposées dans le cube 2004-2014 avec un nouvel univers de base. Les deux cubes ne sont comparables que partiellement.#",
+  },
+  "dateCreated" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/2001/XMLSchema#dateTime",
+    },
+    "language": "",
+    "value": "2016-10-05T00:09:15Z",
+  },
+  "dateModified" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/2001/XMLSchema#dateTime",
+    },
+    "language": "",
+    "value": "2019-07-16T00:09:15Z",
+  },
+  "temporalCoverage" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+    },
+    "language": "fr",
+    "value": "2018,2017,2016,2015",
+  },
+  "description" => Literal {
+    "datatype": NamedNode {
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+    },
+    "language": "fr",
+    "value": "Investissements dans les exploitations forestières en francs, dès 2015",
+  },
+}
+`;
+
+exports[`dataCube methods .componentValues() 1`] = `
 Array [
   Object {
     "label": Literal {

@@ -30,35 +30,6 @@ describe("entrypoint", () => {
   });
 });
 
-describe("dataCube", () => {
-  beforeEach(async () => {
-    await cubeEntryPoint.dataCubes();
-  });
-
-  it("serializes", async () => {
-    const dataCube = (await cubeEntryPoint.dataCubes())[0];
-    const serialized = dataCube.toJSON();
-    expect(serialized).toMatchSnapshot();
-  });
-  it("de/serializes loaded components", async () => {
-    const dataCube = (await cubeEntryPoint.dataCubes())[0];
-    await dataCube.dimensions();
-    const serialized = dataCube.toJSON();
-    expect(serialized).toMatchSnapshot();
-    expect(DataCube.fromJSON(serialized).toJSON()).toBe(serialized);
-  });
-  it("serialization is idempotent", async () => {
-    const dataCube = (await cubeEntryPoint.dataCubes())[0];
-    const serialized = dataCube.toJSON();
-    expect(DataCube.fromJSON(serialized).toJSON()).toBe(serialized);
-  });
-  it("deserializes", async () => {
-    const dataCube = (await cubeEntryPoint.dataCubes())[0];
-    const serialized = dataCube.toJSON();
-    expect(DataCube.fromJSON(serialized)).toBeInstanceOf(DataCube);
-  });
-});
-
 describe("component", () => {
   beforeEach(async () => {
     await cubeEntryPoint.dataCubes();

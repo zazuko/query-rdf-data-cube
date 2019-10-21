@@ -1,14 +1,35 @@
 import { namedNode, variable } from "@rdfjs/data-model";
-import { NamedNode } from "rdf-js";
+import { NamedNode, Variable } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { DataCube, DataCubeOptions, Label } from "./datacube";
-import { generateLangCoalesce, generateLangOptionals, prefixes } from "./queryutils";
+import { generateLangCoalesce, generateLangOptionals, labelPredicate, prefixes } from "./queryutils";
 import { SparqlFetcher, SparqlFetcherOptions } from "./sparqlfetcher";
-import { SelectQuery } from "./sparqljs";
+import { BindPattern, BlockPattern, SelectQuery } from "./sparqljs";
 
-export interface EntryPointOptions {
+/**
+ * @ignore
+ */
+export interface ExtraMetadatum {
+  variable: string;
+  iri: string;
+  multilang?: boolean;
+}
+
+interface ExtraMetadata {
+  variables: Variable[];
+  iris: NamedNode[];
+  isMultilang: boolean[];
+  langOptionals: (variable: Variable) => BlockPattern[];
+  langCoalesce: () => BindPattern[];
+}
+
+export interface BaseOptions {
   languages?: string[];
   fetcher?: SparqlFetcherOptions;
+}
+
+export interface EntryPointOptions extends BaseOptions {
+  extraMetadata?: ExtraMetadatum[];
 }
 
 export type SerializedDataCubeEntryPoint = {
@@ -16,6 +37,13 @@ export type SerializedDataCubeEntryPoint = {
   languages: string[],
   dataCubes: string[],
 };
+
+/**
+ * ignore
+ */
+function flatten<T>(items: T[][]): T[] {
+  return items.reduce((prev, next) => prev.concat(next), []);
+}
 
 export class DataCubeEntryPoint {
   /**
@@ -41,6 +69,7 @@ export class DataCubeEntryPoint {
   private allDataCubesLoaded: boolean = false;
   private cachedGraphs: NamedNode[];
   private graphsLoaded: boolean = false;
+  private extraMetadata: ExtraMetadata;
 
   /**
    * A DataCubeEntryPoint queries a SPARQL endpoint and retrieves [[DataCube]]s and
@@ -50,6 +79,7 @@ export class DataCubeEntryPoint {
    * @param options Options
    * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
    * Passed down to [[DataCube]]s and [[Query]].
+   * @param options.extraMetadata Metadata to fetch, see examples/extra-metadata.ts
    */
   constructor(endpoint: string, options: EntryPointOptions = {}) {
     this.endpoint = endpoint;
@@ -57,6 +87,33 @@ export class DataCubeEntryPoint {
     this.fetcher = new SparqlFetcher(endpoint, options.fetcher || {});
     this.cachedDataCubes = new Map();
     this.cachedGraphs = [];
+
+    this.extraMetadata = {
+      variables: [],
+      iris: [],
+      isMultilang: [],
+      langOptionals: (iriBinding) => {
+        return flatten(this.extraMetadata.variables.map((variab, index) => {
+          const predicate = this.extraMetadata.iris[index];
+          const isMultilang = this.extraMetadata.isMultilang[index];
+          const languages = isMultilang ? this.languages : null;
+          return generateLangOptionals(iriBinding, variab, predicate, languages);
+        }));
+      },
+      langCoalesce: () => {
+        return this.extraMetadata.variables
+          .filter((metadata, index) => this.extraMetadata.isMultilang[index])
+          .map((variab, index) => {
+            return generateLangCoalesce(variab, this.languages);
+          });
+      },
+    };
+    const extraMetadata = options.extraMetadata || [];
+    extraMetadata.forEach((metadata) => {
+      this.extraMetadata.variables.push(variable(metadata.variable));
+      this.extraMetadata.iris.push(namedNode(metadata.iri));
+      this.extraMetadata.isMultilang.push(Boolean(metadata.multilang));
+    });
   }
 
   /**
@@ -153,13 +210,19 @@ export class DataCubeEntryPoint {
   }
 
   private cacheDataCubes(dataCubes: Array<{ iri: NamedNode, label: Label, graphIri: string }>) {
-    const dataCubesByIri = dataCubes.reduce((acc, { iri, label, graphIri }) => {
+    const dataCubesByIri = dataCubes.reduce((acc, obj) => {
+      const extraMetadata = new Map();
+      this.extraMetadata.variables.forEach((variab) => {
+        extraMetadata.set(variab.value, obj[variab.value]);
+      });
+      const { iri, label, graphIri } = obj;
       if (!acc[iri.value]) {
         acc[iri.value] = {
           iri,
           labels: [],
           graphIri,
           languages: this.languages,
+          extraMetadata,
         };
       }
       acc[iri.value].labels.push({
@@ -187,6 +250,7 @@ export class DataCubeEntryPoint {
         iriBinding,
         graphIriBinding,
         labelBinding,
+        ...this.extraMetadata.variables,
       ],
       where: [
         {
@@ -203,10 +267,12 @@ export class DataCubeEntryPoint {
                 },
               ],
             },
-            ...generateLangOptionals(iriBinding, labelBinding, this.languages),
+            ...generateLangOptionals(iriBinding, labelBinding, labelPredicate, this.languages),
+            ...this.extraMetadata.langOptionals(iriBinding),
           ],
         },
         generateLangCoalesce(labelBinding, this.languages),
+        ...this.extraMetadata.langCoalesce(),
       ],
       type: "query",
     };

@@ -1,8 +1,33 @@
 import { literal, namedNode, variable } from "@rdfjs/data-model";
-import { Variable } from "rdf-js";
+import { Literal, Variable } from "rdf-js";
 import { ArrayExpr, IExpr, isTerm, TermExpr } from "./expressions";
 import { Binding, into, Operator } from "./expressions/operator";
-import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, Tuple } from "./sparqljs";
+import { BindPattern, BlockPattern, Expression, FilterPattern, OperationExpression, PropertyPath, Triple, Tuple } from "./sparqljs";
+
+/**
+ * @ignore
+ */
+export const prefixes = {
+  rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+  rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+  xsd: "http://www.w3.org/2001/XMLSchema#",
+  qb: "http://purl.org/linked-data/cube#",
+  dc11: "http://purl.org/dc/elements/1.1/",
+  dcterms: "http://purl.org/dc/terms/",
+  skos: "http://www.w3.org/2004/02/skos/core#",
+};
+
+/**
+ * @ignore
+ */
+export const labelPredicate: PropertyPath = {
+  type: "path",
+  pathType: "|",
+  items: [
+    namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
+    namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
+  ],
+};
 
 /**
  * Convert [[Operator]] arguments into SPARQL.js `Expression`s
@@ -120,10 +145,36 @@ function langExactMatchExpression(lang = "", binding: Variable): OperationExpres
 /**
  * @ignore
  */
-export function generateLangOptionals(binding: Variable, labelBinding: Variable, langs: string[]): BlockPattern[] {
-  return langs.map((lang: string) => {
-    const labelLangBinding = variable(`${labelBinding.value}_${lang}`);
-    const findLabel: BlockPattern = {
+export function generateLangOptionals(
+  binding: Variable, labelBinding: Variable, predicate: Triple["predicate"], langs?: string[]): BlockPattern[] {
+  if (Array.isArray(langs)) {
+    return langs.map((lang: string) => {
+      const labelLangBinding = variable(`${labelBinding.value}_${lang}`);
+      const optionalStringInLang: BlockPattern = {
+        type: "optional",
+        patterns: [
+          {
+            type: "bgp",
+            triples: [
+              {
+                subject: binding,
+                predicate,
+                object: labelLangBinding,
+              },
+            ],
+          },
+          {
+            type: "filter",
+            expression: lang
+              ? langMatchExpression(lang, labelLangBinding)
+              : langExactMatchExpression("", labelLangBinding),
+          },
+        ],
+      };
+      return optionalStringInLang;
+    });
+  } else {
+    const optionalVar: BlockPattern = {
       type: "optional",
       patterns: [
         {
@@ -131,28 +182,15 @@ export function generateLangOptionals(binding: Variable, labelBinding: Variable,
           triples: [
             {
               subject: binding,
-              predicate: {
-                type: "path",
-                pathType: "|",
-                items: [
-                  namedNode("http://www.w3.org/2000/01/rdf-schema#label"),
-                  namedNode("http://www.w3.org/2004/02/skos/core#prefLabel"),
-                ],
-              },
-              object: labelLangBinding,
+              predicate,
+              object: labelBinding,
             },
           ],
         },
-        {
-          type: "filter",
-          expression: lang
-            ? langMatchExpression(lang, labelLangBinding)
-            : langExactMatchExpression("", labelLangBinding),
-        },
       ],
     };
-    return findLabel;
-  });
+    return [optionalVar];
+  }
 }
 
 /**
@@ -175,15 +213,37 @@ export function generateLangCoalesce(labelBinding: Variable, langs: string[]): B
   return coalesceLabel;
 }
 
+export interface SerializedLiteral {
+  value: string;
+  termType: string;
+  language: string;
+  datatype: {
+    value: string;
+    termType: string;
+  };
+}
+
 /**
- * @ignore
+ * Serialize a Literal to a POJO.
+ *
+ * @param {Literal} lit
+ * @returns SerializedLiteral
  */
-export const prefixes = {
-  rdfs: "http://www.w3.org/2000/01/rdf-schema#",
-  rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-  xsd: "http://www.w3.org/2001/XMLSchema#",
-  qb: "http://purl.org/linked-data/cube#",
-  dc11: "http://purl.org/dc/elements/1.1/",
-  dcterms: "http://purl.org/dc/terms/",
-  skos: "http://www.w3.org/2004/02/skos/core#",
-};
+export function literalToJSON(lit: Literal): SerializedLiteral {
+  return {
+    value: lit.value,
+    termType: lit.termType,
+    language: lit.language,
+    datatype: { value: lit.datatype.value, termType: lit.datatype.termType },
+  };
+}
+
+/**
+ * Deserialize a Literal from a POJO.
+ *
+ * @param {SerializedLiteral} lit
+ * @returns Literal
+ */
+export function literalFromJSON(lit: SerializedLiteral): Literal {
+  return literal(lit.value, lit.language || namedNode(lit.datatype.value));
+}
