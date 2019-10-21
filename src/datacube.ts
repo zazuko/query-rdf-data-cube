@@ -143,7 +143,9 @@ export class DataCube {
       .map((component) => JSON.parse(component.toJSON()));
     const extraMetadata = Array.from(this.extraMetadata.entries())
       .reduce((acc, [key, lit]) => {
-        acc[key] = literalToJSON(lit);
+        if (lit) {
+          acc[key] = literalToJSON(lit);
+        }
         return acc;
       }, {});
     const obj: SerializedDataCube = {

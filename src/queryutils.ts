@@ -222,6 +222,7 @@ export interface SerializedLiteral {
     termType: string;
   };
 }
+
 /**
  * Serialize a Literal to a POJO.
  *
