@@ -1,3 +1,13 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.1.2...v0.2.0) (2019-10-21)
+
+
+### Features
+
+* **datacube:** get extra metadata on datacubes ([8ee33f9](https://github.com/zazuko/query-rdf-data-cube/commit/8ee33f9))
+
+
+
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/zazuko/query-rdf-data-cube/compare/v0.1.1...v0.1.2) (2019-09-30)
 
