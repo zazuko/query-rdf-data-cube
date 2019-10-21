@@ -937,9 +937,15 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class">
 			<a href="../classes/sparqlfetcher.html" class="tsd-kind-icon">Sparql<wbr>Fetcher</a>
 		</li>
+		<li class=" tsd-kind-interface">
+			<a href="baseoptions.html" class="tsd-kind-icon">Base<wbr>Options</a>
+		</li>
 		<li class="current tsd-kind-interface">
 			<a href="datacubeoptions.html" class="tsd-kind-icon">Data<wbr>Cube<wbr>Options</a>
 			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="datacubeoptions.html#extrametadata" class="tsd-kind-icon">extra<wbr>Metadata</a>
+				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a href="datacubeoptions.html#fetcher" class="tsd-kind-icon">fetcher</a>
 				</li>
@@ -960,11 +966,17 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-interface">
 			<a href="entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a>
 		</li>
+		<li class=" tsd-kind-interface tsd-is-not-exported">
+			<a href="extrametadata.html" class="tsd-kind-icon">Extra<wbr>Metadata</a>
+		</li>
 		<li class=" tsd-kind-interface">
 			<a href="label.html" class="tsd-kind-icon">Label</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="queryoptions.html" class="tsd-kind-icon">Query<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="serializedliteral.html" class="tsd-kind-icon">Serialized<wbr>Literal</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="sparqlfetcheroptions.html" class="tsd-kind-icon">Sparql<wbr>Fetcher<wbr>Options</a>
@@ -993,6 +1005,15 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-variable tsd-is-not-exported">
 			<a href="../globals.html#cube" class="tsd-kind-icon">cube</a>
 		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-not-exported">
+			<a href="../globals.html#flatten" class="tsd-kind-icon">flatten</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#literalfromjson" class="tsd-kind-icon">literal<wbr>FromJSON</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#literaltojson" class="tsd-kind-icon">literal<wbr>ToJSON</a>
+		</li>
 		<li class=" tsd-kind-function tsd-is-not-exported">
 			<a href="../globals.html#slugify" class="tsd-kind-icon">slugify</a>
 		</li>
@@ -1004,7 +1025,7 @@ img { max-width: 100%; }
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<a href="entrypointoptions.html" class="tsd-signature-type">EntryPointOptions</a>
+					<a href="baseoptions.html" class="tsd-signature-type">BaseOptions</a>
 					<ul class="tsd-hierarchy">
 						<li>
 							<span class="target">DataCubeOptions</span>
@@ -1020,6 +1041,7 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="datacubeoptions.html#extrametadata" class="tsd-kind-icon">extra<wbr>Metadata</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="datacubeoptions.html#fetcher" class="tsd-kind-icon">fetcher</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="datacubeoptions.html#graphiri" class="tsd-kind-icon">graph<wbr>Iri</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="datacubeoptions.html#iri" class="tsd-kind-icon">iri</a></li>
@@ -1033,12 +1055,22 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="extrametadata" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> extra<wbr>Metadata</h3>
+				<div class="tsd-signature tsd-kind-icon">extra<wbr>Metadata<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/datacube.ts#L60">datacube.ts:60</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="graphiri" class="tsd-anchor"></a>
 				<h3>graph<wbr>Iri</h3>
 				<div class="tsd-signature tsd-kind-icon">graph<wbr>Iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NamedNode</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/datacube.ts#L57">datacube.ts:57</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/datacube.ts#L58">datacube.ts:58</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1048,7 +1080,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NamedNode</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/datacube.ts#L55">datacube.ts:55</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/datacube.ts#L57">datacube.ts:57</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1058,7 +1090,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">labels<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Label[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/datacube.ts#L56">datacube.ts:56</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/datacube.ts#L59">datacube.ts:59</a></li>
 					</ul>
 				</aside>
 			</section>

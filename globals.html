@@ -938,16 +938,25 @@ img { max-width: 100%; }
 			<a href="classes/sparqlfetcher.html" class="tsd-kind-icon">Sparql<wbr>Fetcher</a>
 		</li>
 		<li class=" tsd-kind-interface">
+			<a href="interfaces/baseoptions.html" class="tsd-kind-icon">Base<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface">
 			<a href="interfaces/datacubeoptions.html" class="tsd-kind-icon">Data<wbr>Cube<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface tsd-is-not-exported">
+			<a href="interfaces/extrametadata.html" class="tsd-kind-icon">Extra<wbr>Metadata</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/label.html" class="tsd-kind-icon">Label</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/queryoptions.html" class="tsd-kind-icon">Query<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="interfaces/serializedliteral.html" class="tsd-kind-icon">Serialized<wbr>Literal</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/sparqlfetcheroptions.html" class="tsd-kind-icon">Sparql<wbr>Fetcher<wbr>Options</a>
@@ -975,6 +984,15 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-variable tsd-is-not-exported">
 			<a href="globals.html#cube" class="tsd-kind-icon">cube</a>
+		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-not-exported">
+			<a href="globals.html#flatten" class="tsd-kind-icon">flatten</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#literalfromjson" class="tsd-kind-icon">literal<wbr>FromJSON</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#literaltojson" class="tsd-kind-icon">literal<wbr>ToJSON</a>
 		</li>
 		<li class=" tsd-kind-function tsd-is-not-exported">
 			<a href="globals.html#slugify" class="tsd-kind-icon">slugify</a>
@@ -1038,7 +1056,7 @@ img { max-width: 100%; }
 			<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 				<h2>Examples</h2>
 			</a>
-			<p>See the <code>examples/</code> folder at the root of this repository.</p>
+			<p>See the <a href="https://github.com/zazuko/query-rdf-data-cube/tree/master/examples"><code>examples/</code></a> folder at the root of this repository.</p>
 			<a href="#working-locally" id="working-locally" style="color: inherit; text-decoration: none;">
 				<h2>Working Locally</h2>
 			</a>
@@ -1152,10 +1170,13 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Interfaces</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-interface"><a href="interfaces/baseoptions.html" class="tsd-kind-icon">Base<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/datacubeoptions.html" class="tsd-kind-icon">Data<wbr>Cube<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/entrypointoptions.html" class="tsd-kind-icon">Entry<wbr>Point<wbr>Options</a></li>
+							<li class="tsd-kind-interface tsd-is-not-exported"><a href="interfaces/extrametadata.html" class="tsd-kind-icon">Extra<wbr>Metadata</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/label.html" class="tsd-kind-icon">Label</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/queryoptions.html" class="tsd-kind-icon">Query<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/serializedliteral.html" class="tsd-kind-icon">Serialized<wbr>Literal</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/sparqlfetcheroptions.html" class="tsd-kind-icon">Sparql<wbr>Fetcher<wbr>Options</a></li>
 						</ul>
 					</section>
@@ -1177,9 +1198,12 @@ img { max-width: 100%; }
 							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#cube" class="tsd-kind-icon">cube</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section tsd-is-not-exported">
+					<section class="tsd-index-section ">
 						<h3>Functions</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-function tsd-has-type-parameter tsd-is-not-exported"><a href="globals.html#flatten" class="tsd-kind-icon">flatten</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#literalfromjson" class="tsd-kind-icon">literal<wbr>FromJSON</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#literaltojson" class="tsd-kind-icon">literal<wbr>ToJSON</a></li>
 							<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#slugify" class="tsd-kind-icon">slugify</a></li>
 						</ul>
 					</section>
@@ -1194,7 +1218,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Filter<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/query.ts#L17">query.ts:17</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/query.ts#L17">query.ts:17</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1225,7 +1249,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Predicate<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/query.ts#L15">query.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/query.ts#L15">query.ts:15</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1256,7 +1280,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Predicates<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/query.ts#L16">query.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/query.ts#L16">query.ts:16</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1287,7 +1311,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Selects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="classes/component.html" class="tsd-signature-type">Component</a><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/query.ts#L18">query.ts:18</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/query.ts#L18">query.ts:18</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1297,7 +1321,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/components/component.ts#L8">components/component.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/components/component.ts#L8">components/component.ts:8</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1321,7 +1345,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/datacube.ts#L25">datacube.ts:25</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/datacube.ts#L26">datacube.ts:26</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1345,6 +1369,14 @@ img { max-width: 100%; }
 							<h5>endpoint<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 						</li>
 						<li class="tsd-parameter">
+							<h5>extra<wbr>Metadata<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-index-signature">
+									<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="interfaces/serializedliteral.html" class="tsd-signature-type">SerializedLiteral</a></h5>
+								</li>
+							</ul>
+						</li>
+						<li class="tsd-parameter">
 							<h5>graph<wbr>Iri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 						</li>
 						<li class="tsd-parameter">
@@ -1365,7 +1397,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">Serialized<wbr>Data<wbr>Cube<wbr>Entry<wbr>Point<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/entrypoint.ts#L14">entrypoint.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/entrypoint.ts#L35">entrypoint.ts:35</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1392,13 +1424,105 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">cube<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;namespace(&quot;http://purl.org/linked-data/cube#&quot;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/datacube.ts#L60">datacube.ts:60</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/datacube.ts#L63">datacube.ts:63</a></li>
 					</ul>
 				</aside>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Functions</h2>
+			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter tsd-is-not-exported">
+				<a name="flatten" class="tsd-anchor"></a>
+				<h3>flatten</h3>
+				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter tsd-is-not-exported">
+					<li class="tsd-signature tsd-kind-icon">flatten&lt;T&gt;<span class="tsd-signature-symbol">(</span>items<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T[][]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T[]</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/entrypoint.ts#L44">entrypoint.ts:44</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>ignore</p>
+							</div>
+						</div>
+						<h4 class="tsd-type-parameters-title">Type parameters</h4>
+						<ul class="tsd-type-parameters">
+							<li>
+								<h4>T</h4>
+							</li>
+						</ul>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>items: <span class="tsd-signature-type">T[][]</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T[]</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="literalfromjson" class="tsd-anchor"></a>
+				<h3>literal<wbr>FromJSON</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">literal<wbr>FromJSON<span class="tsd-signature-symbol">(</span>lit<span class="tsd-signature-symbol">: </span><a href="interfaces/serializedliteral.html" class="tsd-signature-type">SerializedLiteral</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Literal</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/queryutils.ts#L247">queryutils.ts:247</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Deserialize a Literal from a POJO.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>lit: <a href="interfaces/serializedliteral.html" class="tsd-signature-type">SerializedLiteral</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Literal</span></h4>
+						<p>Literal</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="literaltojson" class="tsd-anchor"></a>
+				<h3>literal<wbr>ToJSON</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">literal<wbr>ToJSON<span class="tsd-signature-symbol">(</span>lit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Literal</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/serializedliteral.html" class="tsd-signature-type">SerializedLiteral</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/queryutils.ts#L232">queryutils.ts:232</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Serialize a Literal to a POJO.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>lit: <span class="tsd-signature-type">Literal</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="interfaces/serializedliteral.html" class="tsd-signature-type">SerializedLiteral</a></h4>
+						<p>SerializedLiteral</p>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
 				<a name="slugify" class="tsd-anchor"></a>
 				<h3>slugify</h3>
@@ -1409,7 +1533,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/0ecf6d2/src/query.ts#L64">query.ts:64</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/eaa755d/src/query.ts#L64">query.ts:64</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
