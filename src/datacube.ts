@@ -3,9 +3,10 @@ import namespace from "@rdfjs/namespace";
 import { Literal, NamedNode, Term } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Attribute, Component, Dimension, Measure } from "./components";
-import { EntryPointOptions } from "./entrypoint";
+import { BaseOptions } from "./entrypoint";
 import { Query, QueryOptions } from "./query";
-import { generateLangCoalesce, generateLangOptionals, prefixes } from "./queryutils";
+import { generateLangCoalesce, generateLangOptionals, labelPredicate, literalFromJSON } from "./queryutils";
+import { literalToJSON, prefixes, SerializedLiteral } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
 import { SelectQuery } from "./sparqljs";
 
@@ -28,6 +29,7 @@ type SerializedDataCube = {
   graphIri: string,
   labels: Label[],
   languages: string[],
+  extraMetadata: { [key: string]: SerializedLiteral },
   components: {
     dimensions: string[],
     measures: string[],
@@ -51,10 +53,11 @@ export interface Label {
   language: string;
 }
 
-export interface DataCubeOptions extends EntryPointOptions {
+export interface DataCubeOptions extends BaseOptions {
   iri: NamedNode;
-  labels?: Label[];
   graphIri: NamedNode;
+  labels?: Label[];
+  extraMetadata?: Map<string, any>;
 }
 
 const cube = namespace("http://purl.org/linked-data/cube#");
@@ -73,6 +76,10 @@ export class DataCube {
       graphIri: namedNode(obj.graphIri),
       labels: obj.labels,
       languages: obj.languages,
+      extraMetadata: Object.entries(obj.extraMetadata || {}).reduce((acc, [key, serializedLit]) => {
+        acc.set(key, literalFromJSON(serializedLit));
+        return acc;
+      }, new Map()),
     });
     ["dimensions", "measures", "attributes"].forEach((componentTypes) => {
       dataCube.cachedComponents[componentTypes] = obj.components[componentTypes]
@@ -89,6 +96,7 @@ export class DataCube {
   public iri: string;
   public endpoint: string;
   public graphIri?: string;
+  public extraMetadata: Map<string, Literal>;
   private languages: string[];
   private fetcher: SparqlFetcher;
   private componentsLoaded: boolean = false;
@@ -107,13 +115,14 @@ export class DataCube {
     endpoint: string,
     options: DataCubeOptions,
   ) {
-    const { iri, labels, graphIri } = options;
+    const { iri, labels, graphIri, extraMetadata } = options;
     this.fetcher = new SparqlFetcher(endpoint);
     this.endpoint = endpoint;
     this.iri = iri.value;
     this.graphIri = graphIri.value;
     this.labels = labels || [];
     this.languages = options.languages || [];
+    this.extraMetadata = extraMetadata;
     this.cachedComponents = {
       dimensions: new Map(),
       measures: new Map(),
@@ -132,12 +141,18 @@ export class DataCube {
       .map((component) => JSON.parse(component.toJSON()));
     const attributes = Array.from(this.cachedComponents.attributes.values())
       .map((component) => JSON.parse(component.toJSON()));
+    const extraMetadata = Array.from(this.extraMetadata.entries())
+      .reduce((acc, [key, lit]) => {
+        acc[key] = literalToJSON(lit);
+        return acc;
+      }, {});
     const obj: SerializedDataCube = {
       endpoint: this.endpoint,
       iri: this.iri,
       graphIri: this.graphIri,
       labels: this.labels,
       languages: this.languages,
+      extraMetadata,
       components: {
         dimensions,
         measures,
@@ -231,7 +246,7 @@ export class DataCube {
             },
           ],
         },
-        ...generateLangOptionals(binding, labelBinding, this.languages),
+        ...generateLangOptionals(binding, labelBinding, labelPredicate, this.languages),
         generateLangCoalesce(labelBinding, this.languages),
       ],
       type: "query",
@@ -382,7 +397,7 @@ export class DataCube {
             ],
           },
         },
-        ...generateLangOptionals(binding, labelBinding, this.languages),
+        ...generateLangOptionals(binding, labelBinding, labelPredicate, this.languages),
         generateLangCoalesce(labelBinding, this.languages),
       ],
       type: "query",

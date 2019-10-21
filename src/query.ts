@@ -5,9 +5,9 @@ import { Literal, NamedNode, Variable } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
 import { DataCube } from "./datacube";
-import { EntryPointOptions } from "./entrypoint";
+import { BaseOptions } from "./entrypoint";
 import { IExpr, Operator } from "./expressions";
-import { combineFilters, createOperationExpression, prefixes } from "./queryutils";
+import { combineFilters, createOperationExpression, labelPredicate, prefixes } from "./queryutils";
 import { generateLangCoalesce, generateLangOptionals } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery, VariableExpression, Wildcard } from "./sparqljs";
@@ -32,7 +32,7 @@ interface QueryState {
 }
 
 // tslint:disable-next-line: no-empty-interface
-export interface QueryOptions extends EntryPointOptions {}
+export interface QueryOptions extends BaseOptions {}
 
 /**
  * @ignore
@@ -489,7 +489,7 @@ export class Query {
         });
 
         const labelBinding = variable(`${bindingName}Label`);
-        const langOptional = generateLangOptionals(binding, labelBinding, this.languages);
+        const langOptional = generateLangOptionals(binding, labelBinding, labelPredicate, this.languages);
         const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
         fetchLabels.push(...langOptional, langCoalesce);
         query.variables.push(binding, labelBinding);
