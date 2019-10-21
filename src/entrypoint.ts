@@ -79,6 +79,7 @@ export class DataCubeEntryPoint {
    * @param options Options
    * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
    * Passed down to [[DataCube]]s and [[Query]].
+   * @param options.extraMetadata Metadata to fetch, see examples/extra-metadata.ts
    */
   constructor(endpoint: string, options: EntryPointOptions = {}) {
     this.endpoint = endpoint;

@@ -1,4 +1,4 @@
-// run this example with: $ ts-node examples/language-support.ts
+// run this example with: $ ts-node examples/extra-metadata.ts
 import { inspect } from "util";
 import { DataCubeEntryPoint } from "../src/entrypoint";
 
@@ -25,7 +25,6 @@ function printTitle(str) {
 
         { variable: "dateCreated", iri: "http://schema.org/dateCreated", multilang: false },
         { variable: "dateModified", iri: "http://schema.org/dateModified" },
-        { variable: "temporalCoverage", iri: "http://schema.org/temporalCoverage", multilang: true },
         { variable: "description", iri: "http://www.w3.org/2000/01/rdf-schema#comment", multilang: true },
       ],
     },
@@ -33,5 +32,22 @@ function printTitle(str) {
   // find all its dataCubes
   const dataCubes = await entryPoint.dataCubes();
 
-  console.log(prettyPrint(dataCubes));
+  dataCubes.forEach((dataCube) => {
+    const extraMetadata = [...dataCube.extraMetadata.entries()].map(([key, value]) => {
+      const obj: any = { key };
+      if (!value) {
+        return obj;
+      }
+      obj.value = value.value;
+      if (value.datatype) {
+        obj.datatype = value.datatype.value;
+      }
+      if (value.language) {
+        obj.language = value.language;
+      }
+      return obj;
+    });
+    console.log("");
+    console.log(dataCube.iri, extraMetadata);
+  });
 })();
