@@ -6,15 +6,6 @@ import { generateLangCoalesce, generateLangOptionals, labelPredicate, prefixes }
 import { SparqlFetcher, SparqlFetcherOptions } from "./sparqlfetcher";
 import { BindPattern, BlockPattern, SelectQuery } from "./sparqljs";
 
-/**
- * @ignore
- */
-export interface ExtraMetadatum {
-  variable: string;
-  iri: string;
-  multilang?: boolean;
-}
-
 interface ExtraMetadata {
   variables: Variable[];
   iris: NamedNode[];
@@ -26,6 +17,12 @@ interface ExtraMetadata {
 export interface BaseOptions {
   languages?: string[];
   fetcher?: SparqlFetcherOptions;
+}
+
+export interface ExtraMetadatum {
+  variable: string;
+  iri: string;
+  multilang?: boolean;
 }
 
 export interface EntryPointOptions extends BaseOptions {

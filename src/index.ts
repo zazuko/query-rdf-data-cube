@@ -6,23 +6,25 @@ import { Binding, toLiteral } from "./expressions/operator";
 import { Query, QueryOptions } from "./query";
 
 import { DataCube, Label } from "./datacube";
-import { DataCubeEntryPoint, EntryPointOptions, SerializedDataCubeEntryPoint } from "./entrypoint";
+import { BaseOptions, DataCubeEntryPoint, EntryPointOptions, ExtraMetadatum, SerializedDataCubeEntryPoint } from "./entrypoint";
 import { SparqlFetcher, SparqlFetcherOptions } from "./sparqlfetcher";
 
 export {
   Attribute,
+  BaseOptions,
   Binding,
-  DataCubeEntryPoint,
   DataCube,
-  Query,
+  DataCubeEntryPoint,
   Dimension,
   EntryPointOptions,
-  QueryOptions,
-  SparqlFetcherOptions,
+  ExtraMetadatum,
   Label,
   Measure,
+  Query,
+  QueryOptions,
   SerializedComponent,
   SerializedDataCubeEntryPoint,
   SparqlFetcher,
+  SparqlFetcherOptions,
   toLiteral,
 };
