@@ -1,3 +1,13 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/zazuko/query-rdf-data-cube/compare/v0.2.0...v0.2.1) (2019-10-21)
+
+
+### Bug Fixes
+
+* export new types ([a25a2e3](https://github.com/zazuko/query-rdf-data-cube/commit/a25a2e3))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.1.2...v0.2.0) (2019-10-21)
 
