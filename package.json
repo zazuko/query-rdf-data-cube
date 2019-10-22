@@ -45,7 +45,7 @@
     "clone": "^2.1.2",
     "node-fetch": "^2.6.0",
     "node-slugify": "0.0.3",
-    "sparqljs": "^3.0.0-beta.0"
+    "sparqljs": "^3.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
@@ -55,7 +55,7 @@
     "@types/node-fetch": "^2.5.2",
     "conventional-changelog-cli": "^2.0.25",
     "coveralls": "^3.0.7",
-    "fetch-vcr": "^3.0.1",
+    "fetch-vcr": "~3.0.1",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
