@@ -14,7 +14,7 @@ function printTitle(str) {
   const entryPoint = new DataCubeEntryPoint(
     "https://trifid-lindas.test.cluster.ldbar.ch/query",
     {
-      languages: ["fr", "de"],
+      languages: ["de", ""],
       extraMetadata: [
         { variable: "contact", iri: "https://pcaxis.described.at/contact", multilang: true },
         { variable: "source", iri: "https://pcaxis.described.at/source", multilang: true },
@@ -50,4 +50,11 @@ function printTitle(str) {
     console.log("");
     console.log(dataCube.iri, extraMetadata);
   });
+
+  const cube = dataCubes[0];
+  const dimensions = await cube.dimensions();
+  for (const dimension of dimensions) {
+    console.log(`dimension: ${dimension.labels[0].value} ` +
+      `has scale of measure ${dimension.extraMetadata.scaleOfMeasure.value}`);
+  }
 })();

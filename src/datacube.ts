@@ -8,7 +8,7 @@ import { Query, QueryOptions } from "./query";
 import { generateLangCoalesce, generateLangOptionals, labelPredicate, literalFromJSON } from "./queryutils";
 import { literalToJSON, prefixes, SerializedLiteral } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
-import { SelectQuery } from "./sparqljs";
+import { BlockPattern, SelectQuery } from "./sparqljs";
 
 /**
  * @ignore
@@ -21,7 +21,7 @@ type ComponentsCache = {
 /**
  * @ignore
  */
-type GroupedComponents = { kind: Term, iri: Term, labels: Label[] };
+type GroupedComponents = { kind: Term, iri: Term, labels: Label[], extraMetadata?: object };
 
 type SerializedDataCube = {
   endpoint: string,
@@ -346,6 +346,22 @@ export class DataCube {
 
     const binding = variable("iri");
     const labelBinding = variable("label");
+    const scaleOfMeasureBinding = variable("scaleOfMeasure");
+    const scaleOfMeasureOptional: BlockPattern = {
+      type: "optional",
+      patterns: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: binding,
+              predicate: namedNode("http://ns.bergnet.org/cube/scale/scaleOfMeasure"),
+              object: scaleOfMeasureBinding,
+            },
+          ],
+        },
+      ],
+    };
 
     const query: SelectQuery = {
       prefixes,
@@ -354,6 +370,7 @@ export class DataCube {
         binding,
         variable("kind"),
         labelBinding,
+        scaleOfMeasureBinding,
       ],
       from: { default: [namedNode(this.graphIri)], named: [] },
       where: [
@@ -399,6 +416,7 @@ export class DataCube {
             ],
           },
         },
+        scaleOfMeasureOptional,
         ...generateLangOptionals(binding, labelBinding, labelPredicate, this.languages),
         generateLangCoalesce(labelBinding, this.languages),
       ],
@@ -409,13 +427,15 @@ export class DataCube {
     const sparql = generator.stringify(query);
 
     const components = await this.fetcher.select(sparql);
-    const componentsByIri = components.reduce((acc, { kind, label, iri }) => {
+    const componentsByIri = components.reduce((acc, { kind, label, iri, scaleOfMeasure }) => {
       if (!acc[iri.value]) {
-        acc[iri.value] = {
+        const groupedComponent: GroupedComponents = {
           kind,
           labels: [],
           iri,
+          extraMetadata: { scaleOfMeasure },
         };
+        acc[iri.value] = groupedComponent;
       }
       acc[iri.value].labels.push({
         value: label.value,
@@ -426,21 +446,21 @@ export class DataCube {
     const groupedComponents: GroupedComponents[] = Object.values(componentsByIri);
 
     this.cachedComponents = groupedComponents
-      .reduce((componentsProp: ComponentsCache, { kind, labels, iri }) => {
+      .reduce((componentsProp: ComponentsCache, { kind, labels, iri, extraMetadata }) => {
         switch (kind.value) {
           case "http://purl.org/linked-data/cube#attribute":
             if (!componentsProp.attributes.has(iri.value)) {
-              componentsProp.attributes.set(iri.value, new Attribute({ labels, iri }));
+              componentsProp.attributes.set(iri.value, new Attribute({ labels, iri, extraMetadata }));
             }
             break;
           case "http://purl.org/linked-data/cube#dimension":
             if (!componentsProp.dimensions.has(iri.value)) {
-              componentsProp.dimensions.set(iri.value, new Dimension({ labels, iri }));
+              componentsProp.dimensions.set(iri.value, new Dimension({ labels, iri, extraMetadata }));
             }
             break;
           case "http://purl.org/linked-data/cube#measure":
             if (!componentsProp.measures.has(iri.value)) {
-              componentsProp.measures.set(iri.value, new Measure({ labels, iri }));
+              componentsProp.measures.set(iri.value, new Measure({ labels, iri, extraMetadata }));
             }
             break;
           default:

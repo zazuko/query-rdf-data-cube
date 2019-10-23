@@ -9,6 +9,7 @@ export type SerializedComponent = {
   componentType: string,
   iri: string,
   labels: Label[],
+  extraMetadata: object,
 };
 
 /**
@@ -67,6 +68,7 @@ export abstract class Component extends BaseExpr {
 
   public labels: Label[];
   public iri: Term;
+  public extraMetadata: {[key: string]: Term} = {};
   public aggregateType: string;
   public isDistinct: boolean = false;
   public descending: boolean = false;
@@ -88,7 +90,7 @@ export abstract class Component extends BaseExpr {
    * `[ { value: "Something", language: "en" }, { value: "Etwas", language: "de" }, … ]`
    * @memberof Component
    */
-  constructor(options: { iri: string | Term, labels?: Label[] }) {
+  constructor(options: { iri: string | Term, labels?: Label[], extraMetadata?: object }) {
     super();
 
     const iri = options.iri;
@@ -97,6 +99,7 @@ export abstract class Component extends BaseExpr {
     } else {
       this.iri = iri;
     }
+    Object.assign(this.extraMetadata, options.extraMetadata || {});
 
     this.labels = options.labels || [];
   }
@@ -111,6 +114,7 @@ export abstract class Component extends BaseExpr {
       componentType: this.componentType,
       iri: this.iri.value,
       labels: this.labels,
+      extraMetadata: this.extraMetadata,
     };
     return JSON.stringify(obj);
   }
