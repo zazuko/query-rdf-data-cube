@@ -1,1 +1,1 @@
-{"head":{"vars":["iri","graphIri","label"]},"results":{"bindings":[{"iri":{"type":"uri","value":"http://example.org/anzahl-forstbetriebe/dataset"},"graphIri":{"type":"uri","value":"https://lindas-data.ch/graph/bafu/wald"},"label":{"type":"literal","value":""}},{"iri":{"type":"uri","value":"http://example.org/pflanzungen/dataset"},"graphIri":{"type":"uri","value":"https://lindas-data.ch/graph/bafu/wald"},"label":{"type":"literal","value":""}}]}}
+{}

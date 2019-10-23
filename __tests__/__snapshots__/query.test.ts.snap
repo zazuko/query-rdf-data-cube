@@ -155,34 +155,25 @@ LIMIT 10"
 exports[`execute returns results in a language 1`] = `
 Array [
   Object {
-    "annee": Object {
-      "value": Literal {
-        "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#gYear",
-        },
-        "language": "",
-        "value": "2008",
-      },
-    },
     "canton": Object {
       "label": Literal {
         "datatype": NamedNode {
           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
         },
         "language": "fr",
-        "value": "Zug",
+        "value": "Suisse",
       },
       "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/2/9",
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/0",
       },
     },
     "mes": Object {
       "value": Literal {
         "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#decimal",
+          "value": "http://www.w3.org/2001/XMLSchema#double",
         },
         "language": "",
-        "value": "2",
+        "value": "2.7186645E7",
       },
     },
     "size": Object {
@@ -191,59 +182,49 @@ Array [
           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
         },
         "language": "fr",
-        "value": "101 - 200 ha",
+        "value": "Suisse",
       },
       "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/1/3",
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/0",
       },
     },
     "variable": Object {
       "label": Literal {
         "datatype": NamedNode {
-          "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+          "value": "http://www.w3.org/2001/XMLSchema#string",
         },
-        "language": "fr",
-        "value": "Nombre d'exploitations",
+        "language": "",
+        "value": "",
       },
-      "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/0/0",
-      },
-    },
-    "zoneForestiere": Object {
-      "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/3/0",
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2015",
       },
     },
   },
   Object {
-    "annee": Object {
-      "value": Literal {
-        "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#gYear",
-        },
-        "language": "",
-        "value": "2004",
-      },
-    },
     "canton": Object {
       "label": Literal {
         "datatype": NamedNode {
           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
         },
         "language": "fr",
-        "value": "Glarus",
+        "value": "Zürich",
       },
       "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/2/8",
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/1",
       },
     },
     "mes": Object {
       "value": Literal {
         "datatype": NamedNode {
-          "value": "http://www.w3.org/2001/XMLSchema#decimal",
+          "value": "http://www.w3.org/2001/XMLSchema#double",
         },
         "language": "",
-        "value": "6",
+        "value": "310356.0",
       },
     },
     "size": Object {
@@ -252,27 +233,26 @@ Array [
           "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
         },
         "language": "fr",
-        "value": "50 - 100 ha",
+        "value": "Suisse",
       },
       "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/1/2",
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/0",
       },
     },
     "variable": Object {
       "label": Literal {
         "datatype": NamedNode {
-          "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+          "value": "http://www.w3.org/2001/XMLSchema#string",
         },
-        "language": "fr",
-        "value": "Nombre d'exploitations",
+        "language": "",
+        "value": "",
       },
-      "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/0/0",
-      },
-    },
-    "zoneForestiere": Object {
-      "value": NamedNode {
-        "value": "http://example.org/anzahl-forstbetriebe/property/3/4",
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2015",
       },
     },
   },

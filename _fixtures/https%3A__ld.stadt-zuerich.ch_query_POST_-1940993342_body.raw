@@ -3,7 +3,8 @@
     "vars" : [
       "iri",
       "kind",
-      "label"
+      "label",
+      "scaleOfMeasure"
     ]
   },
   "results" : {

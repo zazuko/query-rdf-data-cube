@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dataCube de/serialize de/serializes loaded components 1`] = `"{\\"endpoint\\":\\"https://ld.stadt-zuerich.ch/query\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/ubd28\\",\\"graphIri\\":\\"https://linked.opendata.swiss/graph/FOEN/UBD28\\",\\"labels\\":[{\\"value\\":\\"Luftqualität Schweiz (Jahreswerte)\\",\\"language\\":\\"de\\"}],\\"languages\\":[\\"de\\",\\"en\\"],\\"extraMetadata\\":{},\\"components\\":{\\"dimensions\\":[{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/station\\",\\"labels\\":[{\\"value\\":\\"Stationscode\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/refPeriod\\",\\"labels\\":[{\\"value\\":\\"Jahr\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/pollutant\\",\\"labels\\":[{\\"value\\":\\"Schadstoff\\",\\"language\\":\\"de\\"}]}],\\"measures\\":[{\\"componentType\\":\\"measure\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/measurement\\",\\"labels\\":[{\\"value\\":\\"Messung\\",\\"language\\":\\"de\\"}]}],\\"attributes\\":[{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/limitvalue\\",\\"labels\\":[{\\"value\\":\\"Limite\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/unit\\",\\"labels\\":[{\\"value\\":\\"Einheit\\",\\"language\\":\\"de\\"}]},{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/aggregation\\",\\"labels\\":[{\\"value\\":\\"Aggregation\\",\\"language\\":\\"de\\"}]}]}}"`;
+exports[`dataCube de/serialize de/serializes loaded components 1`] = `"{\\"endpoint\\":\\"https://ld.stadt-zuerich.ch/query\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/ubd28\\",\\"graphIri\\":\\"https://linked.opendata.swiss/graph/FOEN/UBD28\\",\\"labels\\":[{\\"value\\":\\"Luftqualität Schweiz (Jahreswerte)\\",\\"language\\":\\"de\\"}],\\"languages\\":[\\"de\\",\\"en\\"],\\"extraMetadata\\":{},\\"components\\":{\\"dimensions\\":[{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/station\\",\\"labels\\":[{\\"value\\":\\"Stationscode\\",\\"language\\":\\"de\\"}],\\"extraMetadata\\":{}},{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/refPeriod\\",\\"labels\\":[{\\"value\\":\\"Jahr\\",\\"language\\":\\"de\\"}],\\"extraMetadata\\":{}},{\\"componentType\\":\\"dimension\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/pollutant\\",\\"labels\\":[{\\"value\\":\\"Schadstoff\\",\\"language\\":\\"de\\"}],\\"extraMetadata\\":{}}],\\"measures\\":[{\\"componentType\\":\\"measure\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/measurement\\",\\"labels\\":[{\\"value\\":\\"Messung\\",\\"language\\":\\"de\\"}],\\"extraMetadata\\":{}}],\\"attributes\\":[{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/limitvalue\\",\\"labels\\":[{\\"value\\":\\"Limite\\",\\"language\\":\\"de\\"}],\\"extraMetadata\\":{}},{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/unit\\",\\"labels\\":[{\\"value\\":\\"Einheit\\",\\"language\\":\\"de\\"}],\\"extraMetadata\\":{}},{\\"componentType\\":\\"attribute\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/aggregation\\",\\"labels\\":[{\\"value\\":\\"Aggregation\\",\\"language\\":\\"de\\"}],\\"extraMetadata\\":{}}]}}"`;
 
 exports[`dataCube de/serialize serializes 1`] = `"{\\"endpoint\\":\\"https://ld.stadt-zuerich.ch/query\\",\\"iri\\":\\"http://environment.data.admin.ch/ubd/28/qb/ubd28\\",\\"graphIri\\":\\"https://linked.opendata.swiss/graph/FOEN/UBD28\\",\\"labels\\":[{\\"value\\":\\"Luftqualität Schweiz (Jahreswerte)\\",\\"language\\":\\"de\\"}],\\"languages\\":[\\"de\\",\\"en\\"],\\"extraMetadata\\":{},\\"components\\":{\\"dimensions\\":[],\\"measures\\":[],\\"attributes\\":[]}}"`;
 
@@ -94,7 +94,7 @@ Array [
       "value": "",
     },
     "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/0",
+      "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/0",
     },
   },
   Object {
@@ -106,7 +106,7 @@ Array [
       "value": "",
     },
     "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/1",
+      "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/1",
     },
   },
   Object {
@@ -118,7 +118,7 @@ Array [
       "value": "",
     },
     "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/2",
+      "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/2",
     },
   },
   Object {
@@ -130,7 +130,7 @@ Array [
       "value": "",
     },
     "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/3",
+      "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/3",
     },
   },
   Object {
@@ -142,7 +142,7 @@ Array [
       "value": "",
     },
     "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/4",
+      "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/4",
     },
   },
   Object {
@@ -154,31 +154,7 @@ Array [
       "value": "",
     },
     "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/5",
-    },
-  },
-  Object {
-    "label": Literal {
-      "datatype": NamedNode {
-        "value": "http://www.w3.org/2001/XMLSchema#string",
-      },
-      "language": "",
-      "value": "",
-    },
-    "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/6",
-    },
-  },
-  Object {
-    "label": Literal {
-      "datatype": NamedNode {
-        "value": "http://www.w3.org/2001/XMLSchema#string",
-      },
-      "language": "",
-      "value": "",
-    },
-    "value": NamedNode {
-      "value": "http://example.org/anzahl-forstbetriebe/property/1/7",
+      "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/5",
     },
   },
 ]

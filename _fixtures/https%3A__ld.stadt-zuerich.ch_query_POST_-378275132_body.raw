@@ -3,7 +3,8 @@
     "vars" : [
       "iri",
       "kind",
-      "label"
+      "label",
+      "scaleOfMeasure"
     ]
   },
   "results" : {
@@ -123,11 +124,39 @@
       {
         "kind" : {
           "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#dimension"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "https://ld.stadt-zuerich.ch/statistics/property/BTA"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
+          "value" : "http://purl.org/linked-data/cube#dimension"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "https://ld.stadt-zuerich.ch/statistics/property/SEX"
+        },
+        "label" : {
+          "type" : "literal",
+          "value" : ""
+        }
+      },
+      {
+        "kind" : {
+          "type" : "uri",
           "value" : "http://purl.org/linked-data/cube#measure"
         },
         "iri" : {
           "type" : "uri",
-          "value" : "https://ld.stadt-zuerich.ch/statistics/measure/BEW"
+          "value" : "https://ld.stadt-zuerich.ch/statistics/measure/BES"
         },
         "label" : {
           "type" : "literal",
