@@ -1,3 +1,13 @@
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/zazuko/query-rdf-data-cube/compare/v0.2.1...v0.2.2) (2019-10-23)
+
+
+### Features
+
+* **component:** query scale of measure ([0a422c6](https://github.com/zazuko/query-rdf-data-cube/commit/0a422c6))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/zazuko/query-rdf-data-cube/compare/v0.2.0...v0.2.1) (2019-10-21)
 
