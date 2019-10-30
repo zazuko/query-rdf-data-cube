@@ -2,7 +2,7 @@ import { literal, namedNode } from "@rdfjs/data-model";
 import { Attribute, Dimension, Measure } from "../src/components";
 import { DataCube } from "../src/datacube";
 import { DataCubeEntryPoint } from "../src/entrypoint";
-import { extractFilter, extractLimit } from "./filter.test";
+import { extractFilter, extractKeyword, extractLimit } from "./filter.test";
 import { fetch } from "./utils/fetch-mock";
 
 const betriebsartDimension = new Dimension({
@@ -102,6 +102,84 @@ describe("select", () => {
 \`.select({ raum: someFalsyValue })\`
                  ^^^^^^^^^^^^^^"
 `);
+  });
+
+  test("throws helpful message on non-string binding name", async () => {
+    const query = dataCube.query();
+    expect(() =>
+      query.select([
+        ["betriebsart", betriebsartDimension],
+        ["geschlecht", geschlechtDimension],
+        [raumDimension, "raum"],
+        ["zeit", zeitDimension],
+      ]),
+    ).toThrowErrorMatchingInlineSnapshot(`
+"Binding name should be a string in:
+\`.select([[bindingName, raum]])\`
+           ^^^^^^^^^^^"
+`);
+  });
+
+  test("throws helpful message on non-component component", async () => {
+    const query = dataCube.query();
+    expect(() =>
+      query.select([
+        ["betriebsart", betriebsartDimension],
+        ["geschlecht", geschlechtDimension],
+        ["raum", "raumDimension"],
+        ["zeit", zeitDimension],
+      ]),
+    ).toThrowErrorMatchingInlineSnapshot(`
+"'component' should be a Component in:
+\`.select([[\\"raum\\", component]])\`
+                   ^^^^^^^^^"
+`);
+  });
+
+  it("selects using an object", async () => {
+    const query = dataCube.query().select({
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
+
+      bep: beschaeftigteMeasure,
+
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+      datenstand: datenstandAttribute,
+      erwarteteAktualisierung: erwarteteAktualisierungAttribute,
+      korrektur: korrekturAttribute,
+    });
+    const sparql = await query.toSparql();
+    expect(extractKeyword("SELECT", sparql)).toMatchInlineSnapshot(
+      `"SELECT ?betriebsart ?betriebsartLabel ?geschlecht ?geschlechtLabel ?raum ?raumLabel ?zeit ?zeitLabel ?bep ?quelle ?glossar ?fussnote ?datenstand ?erwarteteAktualisierung ?korrektur FROM <https://linked.opendata.swiss/graph/zh/statistics>"`,
+    );
+  });
+
+  it("selects using an array", async () => {
+    const selectObj = {
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
+
+      bep: beschaeftigteMeasure,
+
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+      datenstand: datenstandAttribute,
+      erwarteteAktualisierung: erwarteteAktualisierungAttribute,
+      korrektur: korrekturAttribute,
+    };
+    const selectArr = Object.entries(selectObj);
+    const query1 = dataCube.query().select(selectObj);
+    const sparql1 = await query1.toSparql();
+    const query2 = dataCube.query().select(selectArr);
+    const sparql2 = await query2.toSparql();
+    expect(sparql1).toBe(sparql2);
   });
 });
 
@@ -495,13 +573,12 @@ describe("filter", () => {
     const sparql = await query.toSparql();
     expect(extractFilter(sparql).split("&&")).toHaveLength(4);
 
-    const query2 = base
-      .filter([
-        raumDimension.gte(literal("12")),
-        raumDimension.lte(literal("120")),
-        beschaeftigteMeasure.gte(literal("12")),
-        beschaeftigteMeasure.lt(literal("120")),
-      ]);
+    const query2 = base.filter([
+      raumDimension.gte(literal("12")),
+      raumDimension.lte(literal("120")),
+      beschaeftigteMeasure.gte(literal("12")),
+      beschaeftigteMeasure.lt(literal("120")),
+    ]);
     const sparql2 = await query2.toSparql();
     expect(sparql2).toBe(sparql);
   });

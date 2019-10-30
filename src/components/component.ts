@@ -216,3 +216,14 @@ export class Dimension extends Component {
 export class Measure extends Component {
   public componentType = "measure";
 }
+
+/**
+ * @ignore
+ */
+export function isComponent(component: any): component is Component {
+  return (
+    component instanceof Attribute ||
+    component instanceof Dimension ||
+    component instanceof Measure
+  );
+}

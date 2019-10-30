@@ -4,6 +4,7 @@ import nodeSlugify from "node-slugify";
 import { Literal, NamedNode, Variable } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
 import { Component } from "./components";
+import { isComponent } from "./components/component";
 import { DataCube } from "./datacube";
 import { BaseOptions } from "./entrypoint";
 import { IExpr, Operator } from "./expressions";
@@ -12,16 +13,17 @@ import { generateLangCoalesce, generateLangOptionals } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
 import { BgpPattern, FilterPattern, Ordering, SelectQuery, VariableExpression, Wildcard } from "./sparqljs";
 
-type PredicateFunction = (data: Selects) => Component;
-type PredicatesFunction = (data: Selects) => Component[];
-type FilterFunction = (data: Selects) => Operator;
-type Selects = Record<string, Component>;
+type PredicateFunction = (data: SelectsObj) => Component;
+type PredicatesFunction = (data: SelectsObj) => Component[];
+type FilterFunction = (data: SelectsObj) => Operator;
+type SelectsObj = Record<string, Component>;
+type SelectsArr = Array<Array<string | Component>>;
 
 /**
  * @ignore
  */
 interface QueryState {
-  selects: Selects;
+  selects: SelectsObj;
   filters: IExpr[];
   groupBys: Array<PredicateFunction | string>;
   havings: PredicateFunction[];
@@ -99,8 +101,7 @@ export class Query {
   }
 
   /**
-   * Decide what data needs to be returned by the query. An object with binding
-   * names as keys and [[Component]] ([[Dimension]]/[[Attribute]]/[[Measure]]) as values.
+   * Decide what data needs to be returned by the query.
    *
    * ```js
    * myDataCube
@@ -109,11 +110,37 @@ export class Query {
    *     someDate: dateDimension,
    *   });
    * ```
-   * @param {Selects} selects
+   * @param {SelectsObj | SelectsArr} selects Either object with binding names as keys
+   * and [[Component]] ([[Dimension]]/[[Attribute]]/[[Measure]]) as values,
+   * or an array of arrays: `[["bindingName", aComponent], …]`
    */
-  public select(selects: Selects) {
+  public select(selects: SelectsObj | SelectsArr) {
     const self = this.clone();
-    Object.assign(self.state.selects, selects);
+    let newSelects = {};
+    if (Array.isArray(selects)) {
+      selects.forEach(([bindingName, component]) => {
+        if (typeof bindingName !== "string") {
+          const errorMessage = [
+            "Binding name should be a string in:",
+            `\`.select([[bindingName, ${component}]])\``,
+            `           ^^^^^^^^^^^`,
+          ].join("\n");
+          throw new Error(errorMessage);
+        }
+        if (!isComponent(component)) {
+          const errorMessage = [
+            "'component' should be a Component in:",
+            `\`.select([["${bindingName}", component]])\``,
+            `               ${" ".repeat(bindingName.length)}^^^^^^^^^`,
+          ].join("\n");
+          throw new Error(errorMessage);
+        }
+        newSelects[bindingName] = component;
+      });
+    } else {
+      newSelects = selects;
+    }
+    Object.assign(self.state.selects, newSelects);
     Object.entries(self.state.selects).forEach(([bindingName, component]: [string, Component]) => {
       if (!component) {
         const errorMessage = [
