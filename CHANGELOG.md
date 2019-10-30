@@ -1,3 +1,14 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.2.3...v0.3.0) (2019-10-30)
+
+
+### Features
+
+* **query:** many filters can be applied at once ([63b867b](https://github.com/zazuko/query-rdf-data-cube/commit/63b867b))
+* **query:** select arg can be obj or array ([33bb231](https://github.com/zazuko/query-rdf-data-cube/commit/33bb231))
+
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/zazuko/query-rdf-data-cube/compare/v0.2.2...v0.2.3) (2019-10-30)
 
