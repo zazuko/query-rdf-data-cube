@@ -13,7 +13,7 @@
     "lint": "tslint --project tsconfig.json",
     "prepare": "npm run build",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "postversion": "npm run docs:compile && npm run docs:publish"
+    "prepublishOnly": "npm run docs:compile && npm run docs:publish"
   },
   "types": "dist/node/index.d.ts",
   "main": "dist/node/index.js",
