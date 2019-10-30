@@ -26,7 +26,7 @@ interface QueryState {
   groupBys: Array<PredicateFunction | string>;
   havings: PredicateFunction[];
   offset: number;
-  limit: number;
+  limit: number | null;
   distinct: boolean;
   order: Component[];
 }
@@ -194,11 +194,12 @@ export class Query {
   }
 
   /**
-   * Limit the number of results to return. Defaults to `10`.
+   * Limit the number of results to return. Defaults to `10`, even when `.limit()` is not used.
+   * Use `.limit(null)` to remove the default limit and get all results.
    *
-   * @param {number} How many results to return.
+   * @param {number|null} How many results to return. `null` removes the limit.
    */
-  public limit(limit: number) {
+  public limit(limit: number | null) {
     const self = this.clone();
     self.state.limit = limit;
     return self;

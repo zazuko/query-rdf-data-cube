@@ -4,12 +4,21 @@ import { Dimension } from "../src/components";
 import { DataCube } from "../src/datacube";
 import { fetch } from "./utils/fetch-mock";
 
-export function extractFilter(sparql: string) {
-  return sparql
+export function extractKeyword(sparql: string, keyword: string): string {
+  const lastMatchingLine = sparql
     .split("\n")
-    .filter((line: string) => line.trim().startsWith("FILTER"))
-    .slice(-1)[0]
-    .trim();
+    .filter((line: string) => line.trim().startsWith(keyword))
+    .slice(-1)[0];
+  if (lastMatchingLine) {
+    return lastMatchingLine.trim();
+  }
+  return "";
+}
+export function extractFilter(sparql: string) {
+  return extractKeyword(sparql, "FILTER");
+}
+export function extractLimit(sparql: string) {
+  return extractKeyword(sparql, "LIMIT");
 }
 
 const dataCube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
