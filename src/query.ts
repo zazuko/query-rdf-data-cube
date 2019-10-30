@@ -142,15 +142,25 @@ export class Query {
    *   .filter(({ someDate }) => someDate.not.equals("2019-08-29T07:27:56.241Z"));
    *   // syntax 2:
    *   .filter(dateDimension.not.equals("2019-08-29T07:27:56.241Z"));
+   *   // syntax 3:
+   *   .filter([dateDimension.not.equals("2019-08-29T07:27:56.241Z"), secondFilter, thirdFilter, moreFilters]);
    * ```
    * @param filter
    */
-  public filter(filter: IExpr | FilterFunction) {
+  public filter(filter: IExpr | FilterFunction | Array<IExpr | FilterFunction>) {
     const self = this.clone();
-    if (typeof filter === "function") {
-      filter = filter(this.state.selects);
+    let newFilters = [];
+    if (Array.isArray(filter)) {
+      newFilters = filter;
+    } else {
+      newFilters.push(filter);
     }
-    self.state.filters.push(filter);
+    newFilters.forEach((newFilter) => {
+      if (typeof filter === "function") {
+        newFilter = filter(this.state.selects);
+      }
+      self.state.filters.push(newFilter);
+    });
     return self;
   }
 
