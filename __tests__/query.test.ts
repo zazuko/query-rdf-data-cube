@@ -1,8 +1,8 @@
 import { literal, namedNode } from "@rdfjs/data-model";
 import { Attribute, Dimension, Measure } from "../src/components";
-import { DataCube} from "../src/datacube";
+import { DataCube } from "../src/datacube";
 import { DataCubeEntryPoint } from "../src/entrypoint";
-import { extractFilter } from "./filter.test";
+import { extractFilter, extractLimit } from "./filter.test";
 import { fetch } from "./utils/fetch-mock";
 
 const betriebsartDimension = new Dimension({
@@ -106,7 +106,8 @@ describe("select", () => {
 });
 
 test("distinct", async () => {
-  const query = dataCube.query()
+  const query = dataCube
+    .query()
     .select({
       raum: raumDimension,
     })
@@ -119,6 +120,37 @@ test("empty select", async () => {
   const query = dataCube.query();
   const sparql = await query.toSparql();
   expect(sparql).toMatchSnapshot();
+});
+
+describe("limit", () => {
+  test("defaults to 10 when not set", async () => {
+    const query = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure.avg(),
+    });
+    const sparql = await query.toSparql();
+    expect(extractLimit(sparql)).toMatchInlineSnapshot(`"LIMIT 10"`);
+  });
+
+  test("uses provided value", async () => {
+    const query = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure.avg(),
+    })
+    .limit(12377);
+    const sparql = await query.toSparql();
+    expect(extractLimit(sparql)).toMatchInlineSnapshot(`"LIMIT 12377"`);
+  });
+
+  test("can be explicitly removed using null", async () => {
+    const query = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure.avg(),
+    })
+    .limit(null);
+    const sparql = await query.toSparql();
+    expect(extractLimit(sparql)).toBe("");
+  });
 });
 
 describe("avg", () => {
@@ -165,21 +197,24 @@ describe("avg", () => {
   });
 
   test("avg distinct", async () => {
-    const query = dataCube.query().select({
-      betriebsart: betriebsartDimension,
-      geschlecht: geschlechtDimension,
-      raum: raumDimension,
-      zeit: zeitDimension,
+    const query = dataCube
+      .query()
+      .select({
+        betriebsart: betriebsartDimension,
+        geschlecht: geschlechtDimension,
+        raum: raumDimension,
+        zeit: zeitDimension,
 
-      bep: beschaeftigteMeasure.avg().distinct(),
+        bep: beschaeftigteMeasure.avg().distinct(),
 
-      quelle: quelleAttribute,
-      glossar: glossarAttribute,
-      fussnote: fussnoteAttribute,
-      datenstand: datenstandAttribute,
-      erwarteteAktualisierung: erwarteteAktualisierungAttribute,
-      korrektur: korrekturAttribute,
-    }).distinct();
+        quelle: quelleAttribute,
+        glossar: glossarAttribute,
+        fussnote: fussnoteAttribute,
+        datenstand: datenstandAttribute,
+        erwarteteAktualisierung: erwarteteAktualisierungAttribute,
+        korrektur: korrekturAttribute,
+      })
+      .distinct();
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
   });
@@ -441,9 +476,11 @@ describe("filter", () => {
       .filter(beschaeftigteMeasure.gte(literal(filters[2])))
       .filter(beschaeftigteMeasure.lt(literal(filters[3])));
     const sparql = await query.toSparql();
-    extractFilter(sparql).split("&&").forEach((part, index) => {
-      expect(part).toContain(filters[index]);
-    });
+    extractFilter(sparql)
+      .split("&&")
+      .forEach((part, index) => {
+        expect(part).toContain(filters[index]);
+      });
   });
 });
 
@@ -457,7 +494,9 @@ describe("auto names variables", () => {
   test("doesn't generate name conflicts", async () => {
     // create a cube with a bunch of dimensions with the same label "time" but different IRI,
     // we want to make sure they get bound to different names instead of all becoming `?time`
-    const cube = DataCube.fromJSON('{"endpoint":"https://ld.stadt-zuerich.ch/query","iri":"https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX","graphIri":"https://linked.opendata.swiss/graph/zh/statistics","labels":[{"value":"Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit","language":"de"}],"languages":[],"components":{"dimensions":[{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-c","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-d","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/RAUM","labels":[{"value":"","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/BTA","labels":[{"value":"something fön","language":""}]}],"measures":[],"attributes":[]}}');
+    const cube = DataCube.fromJSON(
+      '{"endpoint":"https://ld.stadt-zuerich.ch/query","iri":"https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX","graphIri":"https://linked.opendata.swiss/graph/zh/statistics","labels":[{"value":"Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit","language":"de"}],"languages":[],"components":{"dimensions":[{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-c","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-d","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/RAUM","labels":[{"value":"","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/BTA","labels":[{"value":"something fön","language":""}]}],"measures":[],"attributes":[]}}',
+    );
 
     const query = cube.query().select({});
     const sparql = await query.toSparql();
@@ -468,12 +507,15 @@ describe("auto names variables", () => {
 
 describe("execute", () => {
   it("returns results in a language", async () => {
-    const entryPoint = new DataCubeEntryPoint("https://trifid-lindas.test.cluster.ldbar.ch/query", {
-      languages: ["fr", "de"],
-      fetcher: {
-        fetch,
+    const entryPoint = new DataCubeEntryPoint(
+      "https://trifid-lindas.test.cluster.ldbar.ch/query",
+      {
+        languages: ["fr", "de"],
+        fetcher: {
+          fetch,
+        },
       },
-    });
+    );
     const dataCubes = await entryPoint.dataCubes();
     const ds = dataCubes[0];
 
@@ -499,12 +541,15 @@ describe("execute", () => {
   it("returns different results in different languages", async () => {
     const results = [];
     for (const languages of [[], ["fr"]]) {
-      const entryPoint = new DataCubeEntryPoint("https://trifid-lindas.test.cluster.ldbar.ch/query", {
-        languages,
-        fetcher: {
-          fetch,
+      const entryPoint = new DataCubeEntryPoint(
+        "https://trifid-lindas.test.cluster.ldbar.ch/query",
+        {
+          languages,
+          fetcher: {
+            fetch,
+          },
         },
-      });
+      );
       const dataCubes = await entryPoint.dataCubes();
       const ds = dataCubes[0];
 
