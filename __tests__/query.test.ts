@@ -2,7 +2,7 @@ import { literal, namedNode } from "@rdfjs/data-model";
 import { Attribute, Dimension, Measure } from "../src/components";
 import { DataCube } from "../src/datacube";
 import { DataCubeEntryPoint } from "../src/entrypoint";
-import { extractFilter, extractLimit } from "./filter.test";
+import { extractFilter, extractKeyword, extractLimit } from "./filter.test";
 import { fetch } from "./utils/fetch-mock";
 
 const betriebsartDimension = new Dimension({
@@ -103,6 +103,84 @@ describe("select", () => {
                  ^^^^^^^^^^^^^^"
 `);
   });
+
+  test("throws helpful message on non-string binding name", async () => {
+    const query = dataCube.query();
+    expect(() =>
+      query.select([
+        ["betriebsart", betriebsartDimension],
+        ["geschlecht", geschlechtDimension],
+        [raumDimension, "raum"],
+        ["zeit", zeitDimension],
+      ]),
+    ).toThrowErrorMatchingInlineSnapshot(`
+"Binding name should be a string in:
+\`.select([[bindingName, raum]])\`
+           ^^^^^^^^^^^"
+`);
+  });
+
+  test("throws helpful message on non-component component", async () => {
+    const query = dataCube.query();
+    expect(() =>
+      query.select([
+        ["betriebsart", betriebsartDimension],
+        ["geschlecht", geschlechtDimension],
+        ["raum", "raumDimension"],
+        ["zeit", zeitDimension],
+      ]),
+    ).toThrowErrorMatchingInlineSnapshot(`
+"'component' should be a Component in:
+\`.select([[\\"raum\\", component]])\`
+                   ^^^^^^^^^"
+`);
+  });
+
+  it("selects using an object", async () => {
+    const query = dataCube.query().select({
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
+
+      bep: beschaeftigteMeasure,
+
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+      datenstand: datenstandAttribute,
+      erwarteteAktualisierung: erwarteteAktualisierungAttribute,
+      korrektur: korrekturAttribute,
+    });
+    const sparql = await query.toSparql();
+    expect(extractKeyword("SELECT", sparql)).toMatchInlineSnapshot(
+      `"SELECT ?betriebsart ?betriebsartLabel ?geschlecht ?geschlechtLabel ?raum ?raumLabel ?zeit ?zeitLabel ?bep ?quelle ?glossar ?fussnote ?datenstand ?erwarteteAktualisierung ?korrektur FROM <https://linked.opendata.swiss/graph/zh/statistics>"`,
+    );
+  });
+
+  it("selects using an array", async () => {
+    const selectObj = {
+      betriebsart: betriebsartDimension,
+      geschlecht: geschlechtDimension,
+      raum: raumDimension,
+      zeit: zeitDimension,
+
+      bep: beschaeftigteMeasure,
+
+      quelle: quelleAttribute,
+      glossar: glossarAttribute,
+      fussnote: fussnoteAttribute,
+      datenstand: datenstandAttribute,
+      erwarteteAktualisierung: erwarteteAktualisierungAttribute,
+      korrektur: korrekturAttribute,
+    };
+    const selectArr = Object.entries(selectObj);
+    const query1 = dataCube.query().select(selectObj);
+    const sparql1 = await query1.toSparql();
+    const query2 = dataCube.query().select(selectArr);
+    const sparql2 = await query2.toSparql();
+    expect(sparql1).toBe(sparql2);
+  });
 });
 
 test("distinct", async () => {
@@ -133,21 +211,25 @@ describe("limit", () => {
   });
 
   test("uses provided value", async () => {
-    const query = dataCube.query().select({
-      raum: raumDimension,
-      bep: beschaeftigteMeasure.avg(),
-    })
-    .limit(12377);
+    const query = dataCube
+      .query()
+      .select({
+        raum: raumDimension,
+        bep: beschaeftigteMeasure.avg(),
+      })
+      .limit(12377);
     const sparql = await query.toSparql();
     expect(extractLimit(sparql)).toMatchInlineSnapshot(`"LIMIT 12377"`);
   });
 
   test("can be explicitly removed using null", async () => {
-    const query = dataCube.query().select({
-      raum: raumDimension,
-      bep: beschaeftigteMeasure.avg(),
-    })
-    .limit(null);
+    const query = dataCube
+      .query()
+      .select({
+        raum: raumDimension,
+        bep: beschaeftigteMeasure.avg(),
+      })
+      .limit(null);
     const sparql = await query.toSparql();
     expect(extractLimit(sparql)).toBe("");
   });
@@ -437,6 +519,34 @@ describe("handles languages", () => {
 });
 
 describe("filter", () => {
+  it("applies 1 filter", async () => {
+    const base = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure,
+    });
+    const query = base.filter(raumDimension.gte(literal("12")));
+    const sparql = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER(?raum >= \\"12\\"^^xsd:string)"`,
+    );
+  });
+
+  it("applies 1 filter as array", async () => {
+    const base = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure,
+    });
+    const query = base.filter([raumDimension.gte(literal("12"))]);
+    const sparql = await query.toSparql();
+    expect(extractFilter(sparql)).toMatchInlineSnapshot(
+      `"FILTER(?raum >= \\"12\\"^^xsd:string)"`,
+    );
+
+    const query2 = base.filter(raumDimension.gte(literal("12")));
+    const sparql2 = await query2.toSparql();
+    expect(sparql).toBe(sparql2);
+  });
+
   it("applies 3 filters", async () => {
     const base = dataCube.query().select({
       raum: raumDimension,
@@ -462,6 +572,15 @@ describe("filter", () => {
       .filter(beschaeftigteMeasure.lt(literal("120")));
     const sparql = await query.toSparql();
     expect(extractFilter(sparql).split("&&")).toHaveLength(4);
+
+    const query2 = base.filter([
+      raumDimension.gte(literal("12")),
+      raumDimension.lte(literal("120")),
+      beschaeftigteMeasure.gte(literal("12")),
+      beschaeftigteMeasure.lt(literal("120")),
+    ]);
+    const sparql2 = await query2.toSparql();
+    expect(sparql2).toBe(sparql);
   });
 
   it("builds filters in the order they were given", async () => {
@@ -475,6 +594,26 @@ describe("filter", () => {
       .filter(raumDimension.lte(literal(filters[1])))
       .filter(beschaeftigteMeasure.gte(literal(filters[2])))
       .filter(beschaeftigteMeasure.lt(literal(filters[3])));
+    const sparql = await query.toSparql();
+    extractFilter(sparql)
+      .split("&&")
+      .forEach((part, index) => {
+        expect(part).toContain(filters[index]);
+      });
+  });
+
+  it("builds filters as an array in the order they were given", async () => {
+    const base = dataCube.query().select({
+      raum: raumDimension,
+      bep: beschaeftigteMeasure,
+    });
+    const filters = ["aaa", "bbb", "ccc", "ddd"];
+    const query = base.filter([
+      raumDimension.gte(literal(filters[0])),
+      raumDimension.lte(literal(filters[1])),
+      beschaeftigteMeasure.gte(literal(filters[2])),
+      beschaeftigteMeasure.lt(literal(filters[3])),
+    ]);
     const sparql = await query.toSparql();
     extractFilter(sparql)
       .split("&&")

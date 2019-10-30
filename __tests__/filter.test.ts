@@ -4,7 +4,7 @@ import { Dimension } from "../src/components";
 import { DataCube } from "../src/datacube";
 import { fetch } from "./utils/fetch-mock";
 
-export function extractKeyword(sparql: string, keyword: string): string {
+export function extractKeyword(keyword: string, sparql: string): string {
   const lastMatchingLine = sparql
     .split("\n")
     .filter((line: string) => line.trim().startsWith(keyword))
@@ -15,10 +15,10 @@ export function extractKeyword(sparql: string, keyword: string): string {
   return "";
 }
 export function extractFilter(sparql: string) {
-  return extractKeyword(sparql, "FILTER");
+  return extractKeyword("FILTER", sparql);
 }
 export function extractLimit(sparql: string) {
-  return extractKeyword(sparql, "LIMIT");
+  return extractKeyword("LIMIT", sparql);
 }
 
 const dataCube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
