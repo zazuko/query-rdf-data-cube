@@ -1,3 +1,18 @@
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/zazuko/query-rdf-data-cube/compare/v0.2.2...v0.2.3) (2019-10-30)
+
+
+### Bug Fixes
+
+* **query:** no result is not interpreted as an error ([073b4dd](https://github.com/zazuko/query-rdf-data-cube/commit/073b4dd))
+
+
+### Features
+
+* **query:** limit can be explicitly removed ([5716e1b](https://github.com/zazuko/query-rdf-data-cube/commit/5716e1b))
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/zazuko/query-rdf-data-cube/compare/v0.2.1...v0.2.2) (2019-10-23)
 
