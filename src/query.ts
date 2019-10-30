@@ -17,7 +17,7 @@ type PredicateFunction = (data: SelectsObj) => Component;
 type PredicatesFunction = (data: SelectsObj) => Component[];
 type FilterFunction = (data: SelectsObj) => Operator;
 type SelectsObj = Record<string, Component>;
-type SelectsArr = Array<Array<string | Component>>;
+type SelectsArr = Array<[string, Component]>;
 
 /**
  * @ignore
