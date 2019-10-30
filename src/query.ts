@@ -272,7 +272,7 @@ export class Query {
   public async execute(): Promise<any[]> {
     const query = await this.toSparql();
     const results = await this.fetcher.select(query);
-    if (results.every((obj) => obj.key && obj.value)) {
+    if (results.length && results.every((obj) => obj.key && obj.value)) {
       const error = results.reduce((obj, {key, value}) => {
         obj[key] = value;
         return obj;
