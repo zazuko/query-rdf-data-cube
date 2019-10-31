@@ -21,5 +21,8 @@ function printTitle(str) {
   const dimensions = await dataCube.dimensions();
 
   const values = await dataCube.componentsValues(dimensions);
-  console.log(prettyPrint(values));
+  console.log(prettyPrint(dimensions.map((dim) => [dim.labels[0].value, values.get(dim)])));
+
+  const minMaxes = await dataCube.componentsMinMax(dimensions);
+  console.log(prettyPrint(dimensions.map((dim) => [dim.labels[0].value, minMaxes.get(dim)])));
 })();

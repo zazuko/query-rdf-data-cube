@@ -34,6 +34,18 @@ describe("dataCube", () => {
       expect(values).toMatchSnapshot();
     });
 
+    it(".componentsValues()", async () => {
+      const entryPoint = newCube("https://trifid-lindas.test.cluster.ldbar.ch/query");
+      const dataCubes = await entryPoint.dataCubes();
+      const dataCube = dataCubes[0];
+
+      const dimensions = await dataCube.dimensions();
+
+      const values = await dataCube.componentsValues(dimensions);
+
+      expect(dimensions.map((dim) => values.get(dim))).toMatchSnapshot();
+    });
+
     it(".componentValues() gets same result as Query.componentValues()", async () => {
       const entryPoint = newCube("https://trifid-lindas.test.cluster.ldbar.ch/query");
       const dataCubes = await entryPoint.dataCubes();
@@ -68,6 +80,31 @@ describe("dataCube", () => {
 
       Object.values(timeMinMax).forEach((value) => {
         expect(value.termType).toBe("Literal");
+      });
+    });
+
+    it(".componentsMinMax()", async () => {
+      const entryPoint = newCube("https://ld.stadt-zuerich.ch/query");
+      const dataCubes = await entryPoint.dataCubes();
+      const dataCube = dataCubes.find((cube) => cube.iri.endsWith("BEW-RAUM-ZEIT"));
+
+      const dimensions = await dataCube.dimensions();
+      const time = dimensions.find((dimension) => dimension.iri.value.endsWith("/ZEIT"));
+      const measures = await dataCube.measures();
+      const pop = measures.find((measure) => measure.iri.value.endsWith("/BEW"));
+
+      const components = [time, pop];
+
+      const minMaxes = await dataCube.componentsMinMax(components);
+
+      components.forEach((component) => {
+        const minMax = minMaxes.get(component);
+        expect(Object.keys(minMax)).toEqual(["min", "max"]);
+        expect(parseInt(minMax.min.value, 10)).toBeLessThan(parseInt(minMax.max.value, 10));
+
+        Object.values(minMax).forEach((value) => {
+          expect(value.termType).toBe("Literal");
+        });
       });
     });
 
