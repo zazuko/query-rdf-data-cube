@@ -213,6 +213,86 @@ export class DataCube {
    * @param {Component} component
    * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
    */
+  public async componentsValues(components: Component[]):
+    Promise<Map<Component, Array<{label: Literal, value: NamedNode}>>> {
+    const valueBinding = variable("value");
+    const labelBinding = variable("label");
+    const observation = variable("observation");
+    const componentBinding = variable("component");
+
+    const componentIRIs = components.map((comp) => comp.iri);
+
+    const query: SelectQuery = {
+      prefixes,
+      queryType: "SELECT",
+      variables: [componentBinding, valueBinding, labelBinding],
+      distinct: true,
+      from: { default: [namedNode(this.graphIri)], named: [] },
+      where: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: observation,
+              predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+              object: cube("Observation"),
+            },
+            {
+              subject: observation,
+              predicate: componentBinding,
+              object: valueBinding,
+            },
+            {
+              subject: observation,
+              predicate: cube("dataSet"),
+              object: namedNode(this.iri),
+            },
+          ],
+        },
+        {
+          type: "filter",
+          expression: {
+            type: "operation",
+            operator: "in",
+            args: [
+              componentBinding,
+              componentIRIs,
+            ],
+          },
+        },
+        ...generateLangOptionals(valueBinding, labelBinding, labelPredicate, this.languages),
+        generateLangCoalesce(labelBinding, this.languages),
+      ],
+      type: "query",
+    };
+
+    const generator = new SparqlGenerator({ allPrefixes: true });
+    const sparql = generator.stringify(query);
+    const rawResult: Array<{component: NamedNode, label: Literal, value: NamedNode}>
+      = await this.fetcher.select(sparql);
+    const resultMap = new Map();
+    components.forEach((comp) => {
+      const values = rawResult.reduce((acc, row) => {
+        if (row.component.equals(comp.iri)) {
+          acc.push({ label: row.label, value: row.value });
+        }
+        return acc;
+      }, []);
+      resultMap.set(comp, values);
+    });
+    return resultMap;
+  }
+
+  /**
+   * Retrieve all the possible values a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]) can have.
+   * Similar to [[DataCube.componentsValues]] but for a single Component.
+   * See also [[Query.componentValues]] and the examples folder.
+   * ```js
+   * const values = await dataCube.componentValues(sizeClasses);
+   * ```
+   * @param {Component} component
+   * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
+   */
   public async componentValues(component: Component): Promise<Array<{label: Literal, value: NamedNode}>> {
     if (!component || !component.componentType) {
       throw new Error(`dataCube#componentValues expects valid component, got ${component} instead`);
