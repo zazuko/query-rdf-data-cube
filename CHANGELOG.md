@@ -1,3 +1,14 @@
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.3.1...v0.4.0) (2019-10-31)
+
+
+### Features
+
+* **cube:** componentsMinMax: componentMinMax for many components ([0a11e83](https://github.com/zazuko/query-rdf-data-cube/commit/0a11e83))
+* **cube:** componentsValues: componentValues for many components ([10015f9](https://github.com/zazuko/query-rdf-data-cube/commit/10015f9))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/zazuko/query-rdf-data-cube/compare/v0.3.0...v0.3.1) (2019-10-30)
 
