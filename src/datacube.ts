@@ -205,15 +205,96 @@ export class DataCube {
   }
 
   /**
+   * Retrieve all the possible values several [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]) can have.
+   * Similar to [[DataCube.componentValues]] but for several components.
+   * See also [[Query.componentValues]] and the examples folder.
+   * ```js
+   * const values = await dataCube.componentsValues([timeDimension, sizeDimension, populationMeasure]);
+   * ```
+   * @param {Component[]} components
+   * @returns {Promise<Array<{label: Literal, value: NamedNode | Literal}>>}
+   */
+  public async componentsValues(components: Component[]):
+    Promise<WeakMap<Component, Array<{label: Literal, value: NamedNode | Literal}>>> {
+    const valueBinding = variable("value");
+    const labelBinding = variable("label");
+    const observation = variable("observation");
+    const componentBinding = variable("component");
+
+    const componentIRIs = components.map((comp) => comp.iri);
+
+    const query: SelectQuery = {
+      prefixes,
+      queryType: "SELECT",
+      variables: [componentBinding, valueBinding, labelBinding],
+      distinct: true,
+      from: { default: [namedNode(this.graphIri)], named: [] },
+      where: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: observation,
+              predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+              object: cube("Observation"),
+            },
+            {
+              subject: observation,
+              predicate: componentBinding,
+              object: valueBinding,
+            },
+            {
+              subject: observation,
+              predicate: cube("dataSet"),
+              object: namedNode(this.iri),
+            },
+          ],
+        },
+        {
+          type: "filter",
+          expression: {
+            type: "operation",
+            operator: "in",
+            args: [
+              componentBinding,
+              componentIRIs,
+            ],
+          },
+        },
+        ...generateLangOptionals(valueBinding, labelBinding, labelPredicate, this.languages),
+        generateLangCoalesce(labelBinding, this.languages),
+      ],
+      type: "query",
+    };
+
+    const generator = new SparqlGenerator({ allPrefixes: true });
+    const sparql = generator.stringify(query);
+    const rawResult: Array<{component: NamedNode, label: Literal, value: NamedNode | Literal}>
+      = await this.fetcher.select(sparql);
+    const resultMap = new WeakMap();
+    components.forEach((comp) => {
+      const values = rawResult.reduce((acc, row) => {
+        if (row.component.equals(comp.iri)) {
+          acc.push({ label: row.label, value: row.value });
+        }
+        return acc;
+      }, []);
+      resultMap.set(comp, values);
+    });
+    return resultMap;
+  }
+
+  /**
    * Retrieve all the possible values a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]) can have.
+   * Similar to [[DataCube.componentsValues]] but for a single Component.
    * See also [[Query.componentValues]] and the examples folder.
    * ```js
    * const values = await dataCube.componentValues(sizeClasses);
    * ```
    * @param {Component} component
-   * @returns {Promise<Array<{label: Literal, value: NamedNode}>>}
+   * @returns {Promise<Array<{label: Literal, value: NamedNode | Literal}>>}
    */
-  public async componentValues(component: Component): Promise<Array<{label: Literal, value: NamedNode}>> {
+  public async componentValues(component: Component): Promise<Array<{label: Literal, value: NamedNode | Literal}>> {
     if (!component || !component.componentType) {
       throw new Error(`dataCube#componentValues expects valid component, got ${component} instead`);
     }
@@ -260,7 +341,114 @@ export class DataCube {
   }
 
   /**
+   * Retrieve the maximal and minimal values of several [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]).
+   * Similar to [[DataCube.componentMinMax]] but for several Components.
+   * See also [[Query.componentMinMax]] and the examples folder.
+   *
+   * @param {Component[]} components
+   * @returns Promise<WeakMap<Component, {min: Literal|null, max: Literal|null}>>
+   */
+  public async componentsMinMax(components: Component[]):
+    Promise<WeakMap<Component, {min: Literal|null, max: Literal|null}>> {
+    const valueBinding = variable("value");
+    const observation = variable("observation");
+    const componentBinding = variable("component");
+
+    const componentIRIs = components.map((comp) => comp.iri);
+
+    const query: SelectQuery = {
+      prefixes,
+      queryType: "SELECT",
+      variables: [
+        componentBinding,
+        {
+          expression: {
+            expression: valueBinding,
+            type: "aggregate",
+            aggregation: "min",
+            distinct: false,
+          },
+          variable: variable("min"),
+        },
+        {
+          expression: {
+            expression: valueBinding,
+            type: "aggregate",
+            aggregation: "max",
+            distinct: false,
+          },
+          variable: variable("max"),
+        },
+      ],
+      from: { default: [namedNode(this.graphIri)], named: [] },
+      where: [
+        {
+          type: "bgp",
+          triples: [
+            {
+              subject: observation,
+              predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+              object: cube("Observation"),
+            },
+            {
+              subject: observation,
+              predicate: componentBinding,
+              object: valueBinding,
+            },
+            {
+              subject: observation,
+              predicate: cube("dataSet"),
+              object: namedNode(this.iri),
+            },
+          ],
+        },
+        {
+          type: "filter",
+          expression: {
+            type: "operation",
+            operator: "isliteral",
+            args: [valueBinding],
+          },
+        },
+        {
+          type: "filter",
+          expression: {
+            type: "operation",
+            operator: "in",
+            args: [
+              componentBinding,
+              componentIRIs,
+            ],
+          },
+        },
+      ],
+      group: [{ expression: componentBinding }],
+      type: "query",
+    };
+
+    const generator = new SparqlGenerator({ allPrefixes: true });
+    const sparql = generator.stringify(query);
+    const rawResult: Array<{component: NamedNode, min: Literal, max: Literal}>
+      = await this.fetcher.select(sparql);
+    const resultMap = new WeakMap();
+    components.forEach((comp) => {
+      const values = rawResult.reduce((acc, row) => {
+        if (row.component.equals(comp.iri)) {
+          return { min: row.min, max: row.max };
+        }
+        if (acc) {
+          return acc;
+        }
+        return { min: null, max: null };
+      }, null);
+      resultMap.set(comp, values);
+    });
+    return resultMap;
+  }
+
+  /**
    * Retrieve the maximal and minimal values of a [[Component]] ([[Dimension]], [[Measure]], [[Attribute]]).
+   * Similar to [[DataCube.componentsMinMax]] but for a single Component.
    * See also [[Query.componentMinMax]] and the examples folder.
    *
    * @param {Component} component

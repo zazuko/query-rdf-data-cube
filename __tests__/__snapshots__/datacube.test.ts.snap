@@ -159,3 +159,474 @@ Array [
   },
 ]
 `;
+
+exports[`dataCube methods .componentsValues() 1`] = `
+Array [
+  Array [
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2015",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2016",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2017",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#gYear",
+        },
+        "language": "",
+        "value": "2018",
+      },
+    },
+  ],
+  Array [
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/0",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/1",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/2",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/3",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/4",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/1/5",
+      },
+    },
+  ],
+  Array [
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/0",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/1",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/2",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/3",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/4",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/5",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/6",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/7",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/8",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/9",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/10",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/11",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/12",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/13",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/14",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/15",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/16",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/17",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/18",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/19",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/20",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/21",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/22",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/23",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/24",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/25",
+      },
+    },
+    Object {
+      "label": Literal {
+        "datatype": NamedNode {
+          "value": "http://www.w3.org/2001/XMLSchema#string",
+        },
+        "language": "",
+        "value": "",
+      },
+      "value": NamedNode {
+        "value": "http://environment.ld.admin.ch/foen/px/0703030000_124/dimension/2/26",
+      },
+    },
+  ],
+]
+`;
