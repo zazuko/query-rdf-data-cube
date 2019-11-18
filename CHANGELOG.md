@@ -1,3 +1,13 @@
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/zazuko/query-rdf-data-cube/compare/v0.4.0...v0.4.1) (2019-11-18)
+
+
+### Bug Fixes
+
+* **query:** enhance query.execute return type ([d2dba1c](https://github.com/zazuko/query-rdf-data-cube/commit/d2dba1c))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.3.1...v0.4.0) (2019-10-31)
 
