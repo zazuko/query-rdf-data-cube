@@ -18,6 +18,17 @@ type PredicatesFunction = (data: SelectsObj) => Component[];
 type FilterFunction = (data: SelectsObj) => Operator;
 type SelectsObj = Record<string, Component>;
 type SelectsArr = Array<[string, Component]>;
+type QueryResult = Promise<
+  Array<
+    Record<
+      string,
+      {
+        value: Literal | NamedNode;
+        label?: Literal;
+      }
+    >
+  >
+>;
 
 /**
  * @ignore
@@ -306,7 +317,7 @@ export class Query {
   /**
    * Executes the SPARQL query against the dataCube and returns the results.
    */
-  public async execute(): Promise<any[]> {
+  public async execute(): QueryResult {
     const query = await this.toSparql();
     const results = await this.fetcher.select(query);
     if (results.length && results.every((obj) => obj.key && obj.value)) {

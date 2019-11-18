@@ -514,7 +514,8 @@ describe("handles languages", () => {
     });
     const sparql = await query.toSparql();
     expect(sparql).toMatchSnapshot();
-    expect(await query.execute()).toMatchSnapshot();
+    const result = await query.execute();
+    expect(result).toMatchSnapshot();
   });
 });
 
