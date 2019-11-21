@@ -21,7 +21,7 @@ type ComponentsCache = {
 /**
  * @ignore
  */
-type GroupedComponents = { kind: Term, iri: Term, labels: Label[], extraMetadata?: object };
+type GroupedComponents = { kind: Term, iri: Term, label: Label, extraMetadata?: object };
 
 type SerializedDataCube = {
   endpoint: string,
@@ -615,40 +615,34 @@ export class DataCube {
     const sparql = generator.stringify(query);
 
     const components = await this.fetcher.select(sparql);
-    const componentsByIri = components.reduce((acc, { kind, label, iri, scaleOfMeasure }) => {
-      if (!acc[iri.value]) {
-        const groupedComponent: GroupedComponents = {
-          kind,
-          labels: [],
-          iri,
-          extraMetadata: { scaleOfMeasure },
-        };
-        acc[iri.value] = groupedComponent;
-      }
-      acc[iri.value].labels.push({
-        value: label.value,
-        language: label.language,
-      });
-      return acc;
-    }, {});
-    const groupedComponents: GroupedComponents[] = Object.values(componentsByIri);
+    const groupedComponents: GroupedComponents[] = components.map(({ kind, label, iri, scaleOfMeasure }) => {
+      return {
+        kind,
+        label: {
+          value: label.value,
+          language: label.language,
+        },
+        iri,
+        extraMetadata: { scaleOfMeasure },
+      };
+    });
 
     this.cachedComponents = groupedComponents
-      .reduce((componentsProp: ComponentsCache, { kind, labels, iri, extraMetadata }) => {
+      .reduce((componentsProp: ComponentsCache, { kind, label, iri, extraMetadata }) => {
         switch (kind.value) {
           case "http://purl.org/linked-data/cube#attribute":
             if (!componentsProp.attributes.has(iri.value)) {
-              componentsProp.attributes.set(iri.value, new Attribute({ labels, iri, extraMetadata }));
+              componentsProp.attributes.set(iri.value, new Attribute({ label, iri, extraMetadata }));
             }
             break;
           case "http://purl.org/linked-data/cube#dimension":
             if (!componentsProp.dimensions.has(iri.value)) {
-              componentsProp.dimensions.set(iri.value, new Dimension({ labels, iri, extraMetadata }));
+              componentsProp.dimensions.set(iri.value, new Dimension({ label, iri, extraMetadata }));
             }
             break;
           case "http://purl.org/linked-data/cube#measure":
             if (!componentsProp.measures.has(iri.value)) {
-              componentsProp.measures.set(iri.value, new Measure({ labels, iri, extraMetadata }));
+              componentsProp.measures.set(iri.value, new Measure({ label, iri, extraMetadata }));
             }
             break;
           default:

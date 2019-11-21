@@ -6,48 +6,48 @@ import { extractFilter, extractKeyword, extractLimit } from "./filter.test";
 import { fetch } from "./utils/fetch-mock";
 
 const betriebsartDimension = new Dimension({
-  labels: [{ value: "Betriebsart", language: "" }],
+  label: { value: "Betriebsart", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/property/BTA",
 });
 const geschlechtDimension = new Dimension({
-  labels: [{ value: "Geschlecht", language: "" }],
+  label: { value: "Geschlecht", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/property/SEX",
 });
 const raumDimension = new Dimension({
-  labels: [{ value: "Raum", language: "" }],
+  label: { value: "Raum", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/property/RAUM",
 });
 const zeitDimension = new Dimension({
-  labels: [{ value: "Zeit", language: "" }],
+  label: { value: "Zeit", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/property/ZEIT",
 });
 const beschaeftigteMeasure = new Measure({
-  labels: [{ value: "Beschäftigte", language: "" }],
+  label: { value: "Beschäftigte", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/measure/BES",
 });
 const quelleAttribute = new Attribute({
-  labels: [{ value: "Quelle", language: "" }],
+  label: { value: "Quelle", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/QUELLE",
 });
 const glossarAttribute = new Attribute({
-  labels: [{ value: "Glossar", language: "" }],
+  label: { value: "Glossar", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/GLOSSAR",
 });
 const fussnoteAttribute = new Attribute({
-  labels: [{ value: "Fussnote", language: "" }],
+  label: { value: "Fussnote", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/FUSSNOTE",
 });
 const datenstandAttribute = new Attribute({
-  labels: [{ value: "Datenstand", language: "" }],
+  label: { value: "Datenstand", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/DATENSTAND",
 });
 const erwarteteAktualisierungAttribute = new Attribute({
-  labels: [{ value: "Erwartete Aktualisierung", language: "" }],
+  label: { value: "Erwartete Aktualisierung", language: "" },
   iri:
     "https://ld.stadt-zuerich.ch/statistics/attribute/ERWARTETE_AKTUALISIERUNG",
 });
 const korrekturAttribute = new Attribute({
-  labels: [{ value: "Korrektur", language: "" }],
+  label: { value: "Korrektur", language: "" },
   iri: "https://ld.stadt-zuerich.ch/statistics/attribute/KORREKTUR",
 });
 
@@ -635,7 +635,7 @@ describe("auto names variables", () => {
     // create a cube with a bunch of dimensions with the same label "time" but different IRI,
     // we want to make sure they get bound to different names instead of all becoming `?time`
     const cube = DataCube.fromJSON(
-      '{"endpoint":"https://ld.stadt-zuerich.ch/query","iri":"https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX","graphIri":"https://linked.opendata.swiss/graph/zh/statistics","labels":[{"value":"Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit","language":"de"}],"languages":[],"components":{"dimensions":[{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-c","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-d","labels":[{"value":"time","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/RAUM","labels":[{"value":"","language":""}]},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/BTA","labels":[{"value":"something fön","language":""}]}],"measures":[],"attributes":[]}}',
+      '{"endpoint":"https://ld.stadt-zuerich.ch/query","iri":"https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX","graphIri":"https://linked.opendata.swiss/graph/zh/statistics","labels":[{"value":"Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit","language":"de"}],"languages":[],"components":{"dimensions":[{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","label":{"value":"time","language":""}},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT","label":{"value":"time","language":""}},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-c","label":{"value":"time","language":""}},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/ZEIT-d","label":{"value":"time","language":""}},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/RAUM","label":{"value":"","language":""}},{"componentType":"dimension","iri":"https://ld.stadt-zuerich.ch/statistics/property/BTA","label":{"value":"something fön","language":""}}],"measures":[],"attributes":[]}}',
     );
 
     const query = cube.query().select({});
