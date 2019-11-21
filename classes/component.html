@@ -941,7 +941,7 @@ img { max-width: 100%; }
 					<a href="component.html#isdistinct" class="tsd-kind-icon">is<wbr>Distinct</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="component.html#labels" class="tsd-kind-icon">labels</a>
+					<a href="component.html#label" class="tsd-kind-icon">label</a>
 				</li>
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a href="component.html#not" class="tsd-kind-icon">not</a>
@@ -1128,10 +1128,8 @@ img { max-width: 100%; }
 						<p>Each of them inherits from all filter operators:</p>
 						<pre><code class="language-js"><span class="hljs-keyword">const</span> priceMeasure = <span class="hljs-keyword">new</span> Measure({
   <span class="hljs-attr">iri</span>: <span class="hljs-string">"http://example.com/price"</span>,
- <span class="hljs-attr">labels</span>: [
-   { <span class="hljs-attr">value</span>: <span class="hljs-string">"Price"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> },
-   { <span class="hljs-attr">value</span>: <span class="hljs-string">"Prix"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"fr"</span> },
-]});
+  <span class="hljs-attr">label</span>: { <span class="hljs-attr">value</span>: <span class="hljs-string">"Price"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> },
+});
 
 <span class="hljs-keyword">const</span> query = dataCube
   .query()
@@ -1192,7 +1190,7 @@ img { max-width: 100%; }
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="component.html#extrametadata" class="tsd-kind-icon">extra<wbr>Metadata</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="component.html#iri" class="tsd-kind-icon">iri</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-class"><a href="component.html#isdistinct" class="tsd-kind-icon">is<wbr>Distinct</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="component.html#labels" class="tsd-kind-icon">labels</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="component.html#label" class="tsd-kind-icon">label</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section tsd-is-inherited">
@@ -1244,7 +1242,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L75">components/component.ts:75</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L73">components/component.ts:73</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1253,7 +1251,7 @@ img { max-width: 100%; }
 								Classes <a href="dimension.html">Dimension</a>, <a href="attribute.html">Attribute</a> and <a href="measure.html">Measure</a> inherit from this <a href="component.html">Component</a> abstract class.</p>
 							</div>
 							<pre><code class="language-js"><span class="hljs-keyword">const</span> priceMeasure = <span class="hljs-keyword">new</span> Measure({
-  <span class="hljs-attr">iri</span>: <span class="hljs-string">"http://example.com/price"</span>, <span class="hljs-attr">labels</span>: [{ <span class="hljs-attr">value</span>: <span class="hljs-string">"Price"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> }]
+  <span class="hljs-attr">iri</span>: <span class="hljs-string">"http://example.com/price"</span>, <span class="hljs-attr">label</span>: { <span class="hljs-attr">value</span>: <span class="hljs-string">"Price"</span>, <span class="hljs-attr">language</span>: <span class="hljs-string">"en"</span> }
 });</code></pre>
 							<dl class="tsd-comment-tags">
 								<dt>memberof</dt>
@@ -1276,10 +1274,10 @@ img { max-width: 100%; }
 										</div>
 									</li>
 									<li class="tsd-parameter">
-										<h5><span class="tsd-flag ts-flagOptional">Optional</span> labels<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Label[]</span></h5>
+										<h5><span class="tsd-flag ts-flagOptional">Optional</span> label<span class="tsd-signature-symbol">?: </span><a href="../interfaces/label.html" class="tsd-signature-type">Label</a></h5>
 										<div class="tsd-comment tsd-typography">
-											<p>(Optional) A list of labels for the DataCube in the following form:
-											<code>[ { value: &quot;Something&quot;, language: &quot;en&quot; }, { value: &quot;Etwas&quot;, language: &quot;de&quot; }, … ]</code></p>
+											<p>(Optional) A label for the DataCube in the following form:
+											<code>{ value: &quot;Something&quot;, language: &quot;en&quot; }</code></p>
 										</div>
 									</li>
 								</ul>
@@ -1298,7 +1296,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">aggregate<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L72">components/component.ts:72</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L70">components/component.ts:70</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1308,7 +1306,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">component<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L75">components/component.ts:75</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L73">components/component.ts:73</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1318,7 +1316,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">descending<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L74">components/component.ts:74</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L72">components/component.ts:72</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1328,7 +1326,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">extra<wbr>Metadata<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L71">components/component.ts:71</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L69">components/component.ts:69</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1346,7 +1344,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">iri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Term</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L70">components/component.ts:70</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L68">components/component.ts:68</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1356,17 +1354,17 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">is<wbr>Distinct<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L73">components/component.ts:73</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L71">components/component.ts:71</a></li>
 					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="labels" class="tsd-anchor"></a>
-				<h3>labels</h3>
-				<div class="tsd-signature tsd-kind-icon">labels<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Label[]</span></div>
+				<a name="label" class="tsd-anchor"></a>
+				<h3>label</h3>
+				<div class="tsd-signature tsd-kind-icon">label<span class="tsd-signature-symbol">:</span> <a href="../interfaces/label.html" class="tsd-signature-type">Label</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L69">components/component.ts:69</a></li>
+						<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L67">components/component.ts:67</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1386,7 +1384,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L151">components/component.ts:151</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L149">components/component.ts:149</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1421,7 +1419,7 @@ dataCube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L190">components/component.ts:190</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L188">components/component.ts:188</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1454,7 +1452,7 @@ dataCube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L170">components/component.ts:170</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L168">components/component.ts:168</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1488,7 +1486,7 @@ dataCube.query().select({
 						<aside class="tsd-sources">
 							<p>Overrides BaseExpr.resolve</p>
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L203">components/component.ts:203</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L201">components/component.ts:201</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1521,7 +1519,7 @@ dataCube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L112">components/component.ts:112</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L110">components/component.ts:110</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1549,7 +1547,7 @@ dataCube.query().select({
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/bc42a4f/src/components/component.ts#L55">components/component.ts:55</a></li>
+								<li>Defined in <a href="https://github.com/zazuko/query-rdf-data-cube/blob/1ecf187/src/components/component.ts#L53">components/component.ts:53</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
