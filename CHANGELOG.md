@@ -1,3 +1,13 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.4.1...v0.5.0) (2019-11-21)
+
+
+### Bug Fixes
+
+* **component:** components have a single label ([ecfb90b](https://github.com/zazuko/query-rdf-data-cube/commit/ecfb90b))
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/zazuko/query-rdf-data-cube/compare/v0.4.0...v0.4.1) (2019-11-18)
 
