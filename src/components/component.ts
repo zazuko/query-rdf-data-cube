@@ -8,7 +8,7 @@ import { BaseExpr, Binding, IExpr } from "../expressions";
 export type SerializedComponent = {
   componentType: string,
   iri: string,
-  labels: Label[],
+  label: Label,
   extraMetadata: object,
 };
 
@@ -27,10 +27,8 @@ export type SerializedComponent = {
  * ```js
  * const priceMeasure = new Measure({
  *   iri: "http://example.com/price",
- *  labels: [
- *    { value: "Price", language: "en" },
- *    { value: "Prix", language: "fr" },
- * ]});
+ *   label: { value: "Price", language: "en" },
+ * });
  *
  * const query = dataCube
  *   .query()
@@ -66,7 +64,7 @@ export abstract class Component extends BaseExpr {
     throw new Error(`Unknown component type '${obj.componentType}'`);
   }
 
-  public labels: Label[];
+  public label: Label;
   public iri: Term;
   public extraMetadata: {[key: string]: Term} = {};
   public aggregateType: string;
@@ -80,17 +78,17 @@ export abstract class Component extends BaseExpr {
    *
    * ```js
    * const priceMeasure = new Measure({
-   *   iri: "http://example.com/price", labels: [{ value: "Price", language: "en" }]
+   *   iri: "http://example.com/price", label: { value: "Price", language: "en" }
    * });
    * ```
    *
-   * @param {({ labels?: Label[], iri: string | Term})} options Additional info about the component.
+   * @param {({ label?: Label, iri: string | Term})} options Additional info about the component.
    * @param options.iri - The IRI of the Component.
-   * @param options.labels (Optional) A list of labels for the DataCube in the following form:
-   * `[ { value: "Something", language: "en" }, { value: "Etwas", language: "de" }, … ]`
+   * @param options.label (Optional) A label for the DataCube in the following form:
+   * `{ value: "Something", language: "en" }`
    * @memberof Component
    */
-  constructor(options: { iri: string | Term, labels?: Label[], extraMetadata?: object }) {
+  constructor(options: { iri: string | Term, label?: Label, extraMetadata?: object }) {
     super();
 
     const iri = options.iri;
@@ -101,7 +99,7 @@ export abstract class Component extends BaseExpr {
     }
     Object.assign(this.extraMetadata, options.extraMetadata || {});
 
-    this.labels = options.labels || [];
+    this.label = options.label;
   }
 
   /**
@@ -113,7 +111,7 @@ export abstract class Component extends BaseExpr {
     const obj: SerializedComponent = {
       componentType: this.componentType,
       iri: this.iri.value,
-      labels: this.labels,
+      label: this.label,
       extraMetadata: this.extraMetadata,
     };
     return JSON.stringify(obj);
@@ -124,7 +122,7 @@ export abstract class Component extends BaseExpr {
    */
   public clone() {
     const Constructor = Object.getPrototypeOf(this).constructor;
-    const state = {labels: clone(this.labels), iri: this.iri};
+    const state = {label: clone(this.label), iri: this.iri};
     const instance = new Constructor(state);
     instance.aggregateType = this.aggregateType;
     instance.isDistinct = this.isDistinct;

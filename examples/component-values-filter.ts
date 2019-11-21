@@ -20,7 +20,7 @@ function printTitle(str) {
     .find((cube) => cube.iri === "https://ld.stadt-zuerich.ch/statistics/dataset/BEW-RAUM-ZEIT");
 
   const zeitDimension = new Dimension({
-    labels: [{ value: "Zeit", language: "de" }],
+    label: { value: "Zeit", language: "de" },
     iri: "https://ld.stadt-zuerich.ch/statistics/property/ZEIT",
   });
 

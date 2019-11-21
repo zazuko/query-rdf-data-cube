@@ -717,8 +717,7 @@ export class Query {
     let potentialName = "";
 
     // try to use the label
-    const language = this.languages.length ? this.languages[0] : "";
-    const label = component.labels.find((lab) => lab.language === language);
+    const label = component.label;
     if (label && label.value) {
       potentialName = label.value;
     } else {

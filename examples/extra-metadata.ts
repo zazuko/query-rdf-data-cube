@@ -54,7 +54,7 @@ function printTitle(str) {
   const cube = dataCubes[0];
   const dimensions = await cube.dimensions();
   for (const dimension of dimensions) {
-    console.log(`dimension: ${dimension.labels[0].value} ` +
+    console.log(`dimension: ${dimension.label.value} ` +
       `has scale of measure ${dimension.extraMetadata.scaleOfMeasure.value}`);
   }
 })();

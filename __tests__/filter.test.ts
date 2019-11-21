@@ -38,19 +38,19 @@ const dataCube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
 });
 
 const componentA = new Dimension({
-  labels: [{ value: "aaaa", language: "" }],
+  label: { value: "aaaa", language: "" },
   iri: "http://aaaa.aa"
 });
 const componentB = new Dimension({
-  labels: [{ value: "bbbb", language: "" }],
+  label: { value: "bbbb", language: "" },
   iri: "http://bbbb.bb"
 });
 const componentC = new Dimension({
-  labels: [{ value: "cccc", language: "" }],
+  label: { value: "cccc", language: "" },
   iri: "http://cccc.cc"
 });
 const componentD = new Dimension({
-  labels: [{ value: "dddd", language: "" }],
+  label: { value: "dddd", language: "" },
   iri: "http://dddd.dd"
 });
 
