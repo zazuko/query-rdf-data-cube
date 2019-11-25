@@ -213,19 +213,16 @@ export class DataCubeEntryPoint {
         extraMetadata.set(variab.value, obj[variab.value]);
       });
       const { iri, label, graphIri } = obj;
-      if (!acc[iri.value]) {
-        acc[iri.value] = {
-          iri,
-          labels: [],
-          graphIri,
-          languages: this.languages,
-          extraMetadata,
-        };
-      }
-      acc[iri.value].labels.push({
-        value: label.value,
-        language: label.language,
-      });
+      acc[iri.value] = {
+        iri,
+        label: {
+          value: label.value,
+          language: label.language,
+        },
+        graphIri,
+        languages: this.languages,
+        extraMetadata,
+      };
       return acc;
     }, {});
 
