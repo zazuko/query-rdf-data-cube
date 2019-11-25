@@ -1,3 +1,13 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.5.0...v0.6.0) (2019-11-25)
+
+
+### Bug Fixes
+
+* **datacube:** datacubes have a single label ([99aedf6](https://github.com/zazuko/query-rdf-data-cube/commit/99aedf6))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.4.1...v0.5.0) (2019-11-21)
 
