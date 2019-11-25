@@ -27,7 +27,7 @@ type SerializedDataCube = {
   endpoint: string,
   iri: string,
   graphIri: string,
-  labels: Label[],
+  label: Label,
   languages: string[],
   extraMetadata: { [key: string]: SerializedLiteral },
   components: {
@@ -56,7 +56,7 @@ export interface Label {
 export interface DataCubeOptions extends BaseOptions {
   iri: NamedNode;
   graphIri: NamedNode;
-  labels?: Label[];
+  label?: Label;
   extraMetadata?: Map<string, any>;
 }
 
@@ -74,7 +74,7 @@ export class DataCube {
     const dataCube = new DataCube(obj.endpoint, {
       iri: namedNode(obj.iri),
       graphIri: namedNode(obj.graphIri),
-      labels: obj.labels,
+      label: obj.label,
       languages: obj.languages,
       extraMetadata: Object.entries(obj.extraMetadata || {}).reduce((acc, [key, serializedLit]) => {
         acc.set(key, literalFromJSON(serializedLit));
@@ -92,7 +92,7 @@ export class DataCube {
     return dataCube;
   }
 
-  public labels: Label[];
+  public label: Label;
   public iri: string;
   public endpoint: string;
   public graphIri?: string;
@@ -107,20 +107,20 @@ export class DataCube {
     * @param options Additional info about the DataCube.
     * @param options.iri The IRI of the DataCube.
     * @param options.graphIri The IRI of the graph from which the data will be fetched.
-    * @param options.labels (Optional) A list of labels for the DataCube in the following form:
-    * `[ { value: "Something", language: "en" }, { value: "Etwas", language: "de" }, … ]`
-    * @param options.languages Languages in which to get the labels, by priority, e.g. `["de", "en"]`.
+    * @param options.label (Optional) A label for the DataCube in the following form:
+    * `{ value: "Something", language: "en" }`
+    * @param options.languages Languages in which to get the label, by priority, e.g. `["de", "en"]`.
     */
   constructor(
     endpoint: string,
     options: DataCubeOptions,
   ) {
-    const { iri, labels, graphIri, extraMetadata } = options;
+    const { iri, label, graphIri, extraMetadata } = options;
     this.fetcher = new SparqlFetcher(endpoint);
     this.endpoint = endpoint;
     this.iri = iri.value;
     this.graphIri = graphIri.value;
-    this.labels = labels || [];
+    this.label = label;
     this.languages = options.languages || [];
     this.extraMetadata = extraMetadata;
     this.cachedComponents = {
@@ -152,7 +152,7 @@ export class DataCube {
       endpoint: this.endpoint,
       iri: this.iri,
       graphIri: this.graphIri,
-      labels: this.labels,
+      label: this.label,
       languages: this.languages,
       extraMetadata,
       components: {
@@ -433,6 +433,9 @@ export class DataCube {
     const resultMap = new WeakMap();
     components.forEach((comp) => {
       const values = rawResult.reduce((acc, row) => {
+        if (!row.component) {
+          return acc;
+        }
         if (row.component.equals(comp.iri)) {
           return { min: row.min, max: row.max };
         }
