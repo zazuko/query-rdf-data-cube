@@ -55,12 +55,10 @@ const dataCube: DataCube = new DataCube("https://ld.stadt-zuerich.ch/query", {
   iri: namedNode(
     "https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX",
   ),
-  labels: [
-    {
-      value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit",
-      language: "de",
-    },
-  ],
+  label: {
+    value: "Beschäftigte nach Betriebsart, Raum, Geschlecht, Zeit",
+    language: "de",
+  },
   graphIri: namedNode("https://linked.opendata.swiss/graph/zh/statistics"),
   fetcher: {
     fetch,
