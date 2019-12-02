@@ -22,13 +22,9 @@ describe("dataCube", () => {
   describe("methods", () => {
     it(".componentValues()", async () => {
       const entryPoint = newCube("https://trifid-lindas.test.cluster.ldbar.ch/query");
-      const dataCubes = await entryPoint.dataCubes();
-      const dataCube = dataCubes[0];
-
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
       const dimensions = await dataCube.dimensions();
-
       const sizeClasses = dimensions[1];
-
       const values = await dataCube.componentValues(sizeClasses);
 
       expect(values).toMatchSnapshot();
@@ -36,11 +32,8 @@ describe("dataCube", () => {
 
     it(".componentsValues()", async () => {
       const entryPoint = newCube("https://trifid-lindas.test.cluster.ldbar.ch/query");
-      const dataCubes = await entryPoint.dataCubes();
-      const dataCube = dataCubes[0];
-
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
       const dimensions = await dataCube.dimensions();
-
       const values = await dataCube.componentsValues(dimensions);
 
       expect(dimensions.map((dim) => values.get(dim))).toMatchSnapshot();
@@ -48,8 +41,7 @@ describe("dataCube", () => {
 
     it(".componentValues() gets same result as Query.componentValues()", async () => {
       const entryPoint = newCube("https://trifid-lindas.test.cluster.ldbar.ch/query");
-      const dataCubes = await entryPoint.dataCubes();
-      const dataCube = dataCubes[0];
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
 
       const dimensions = await dataCube.dimensions();
 
@@ -163,14 +155,14 @@ describe("dataCube", () => {
         { variable: "temporalCoverage", iri: "http://schema.org/temporalCoverage", multilang: true },
         { variable: "description", iri: "http://www.w3.org/2000/01/rdf-schema#comment", multilang: true },
       ]);
-      const dataCube = (await entryPoint.dataCubes())[0];
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
       const serialized = dataCube.toJSON();
       expect(serialized).toMatchSnapshot();
     });
 
     it("de/serializes loaded components", async () => {
       const entryPoint = newCube("https://ld.stadt-zuerich.ch/query", ["de", "en"]);
-      const dataCube = (await entryPoint.dataCubes())[0];
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.data.admin.ch/ubd/28/qb/ubd28");
       await dataCube.dimensions();
       const serialized = dataCube.toJSON();
       expect(serialized).toMatchSnapshot();
@@ -191,7 +183,7 @@ describe("dataCube", () => {
         { variable: "temporalCoverage", iri: "http://schema.org/temporalCoverage", multilang: true },
         { variable: "description", iri: "http://www.w3.org/2000/01/rdf-schema#comment", multilang: true },
       ]);
-      const dataCube = (await entryPoint.dataCubes())[0];
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
       const serialized = dataCube.toJSON();
       expect(DataCube.fromJSON(serialized).toJSON()).toBe(serialized);
     });
@@ -210,7 +202,7 @@ describe("dataCube", () => {
         { variable: "temporalCoverage", iri: "http://schema.org/temporalCoverage", multilang: true },
         { variable: "description", iri: "http://www.w3.org/2000/01/rdf-schema#comment", multilang: true },
       ]);
-      const dataCube = (await entryPoint.dataCubes())[0];
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
       const serialized = dataCube.toJSON();
       expect(DataCube.fromJSON(serialized)).toBeInstanceOf(DataCube);
     });
@@ -236,13 +228,15 @@ describe("dataCube", () => {
       ["fr", "de"],
       extraMetadata);
     const dataCubes = await entryPoint.dataCubes();
-    dataCubes.forEach((dataCube) => {
-      expect(Array.from(dataCube.extraMetadata.keys())).toEqual(extraMetadataKeys);
+    dataCubes.forEach((cube) => {
+      expect(Array.from(cube.extraMetadata.keys())).toEqual(extraMetadataKeys);
     });
-    expect(dataCubes[0].extraMetadata).toMatchSnapshot();
+
+    const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
+    expect(dataCube.extraMetadata).toMatchSnapshot();
 
     extraMetadataKeys.forEach((key) => {
-      expect(dataCubes[0].extraMetadata.get(key)).toBeInstanceOf(literal("").constructor);
+      expect(dataCube.extraMetadata.get(key)).toBeInstanceOf(literal("").constructor);
     });
   });
 });

@@ -1,0 +1,28 @@
+{
+  "head" : {
+    "vars" : [
+      "iri",
+      "graphIri",
+      "label"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "graphIri" : {
+          "type" : "uri",
+          "value" : "https://linked.opendata.swiss/graph/FOEN/UBD28"
+        },
+        "iri" : {
+          "type" : "uri",
+          "value" : "http://environment.data.admin.ch/ubd/28/qb/ubd28"
+        },
+        "label" : {
+          "xml:lang" : "de",
+          "type" : "literal",
+          "value" : "Luftqualität Schweiz (Jahreswerte)"
+        }
+      }
+    ]
+  }
+}
