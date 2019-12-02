@@ -4,15 +4,24 @@ import { Dimension } from "../src/components";
 import { DataCube } from "../src/datacube";
 import { fetch } from "./utils/fetch-mock";
 
-export function extractKeyword(keyword: string, sparql: string): string {
-  const lastMatchingLine = sparql
+export function extractKeywords(keyword: string, sparql: string, includes = false): string[] {
+  return sparql
     .split("\n")
-    .filter((line: string) => line.trim().startsWith(keyword))
+    .filter((line: string) => {
+      if (includes) {
+        return line.trim().includes(keyword);
+      }
+      return line.trim().startsWith(keyword);
+    })
+    .map((line) => line.trim());
+}
+export function extractKeyword(keyword: string, sparql: string, includes = false): string {
+  const lastMatchingLine = extractKeywords(keyword, sparql, includes)
     .slice(-1)[0];
-  if (lastMatchingLine) {
-    return lastMatchingLine.trim();
-  }
-  return "";
+  return lastMatchingLine || "";
+}
+export function extractSelect(sparql: string) {
+  return extractKeyword("SELECT", sparql);
 }
 export function extractFilter(sparql: string) {
   return extractKeyword("FILTER", sparql);

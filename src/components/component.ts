@@ -71,6 +71,8 @@ export abstract class Component extends BaseExpr {
   public isDistinct: boolean = false;
   public descending: boolean = false;
   public componentType: string = "";
+  public broaderComponent?: Component;
+  public narrowerComponent?: Component;
 
   /**
    * Creates an instance of Component.
@@ -189,6 +191,26 @@ export abstract class Component extends BaseExpr {
     const self = this.clone();
     self.descending = true;
     return self;
+  }
+
+  public broader(iri: string = "") {
+    let component: Attribute | Dimension | Measure;
+    switch (this.componentType) {
+      case "attribute":
+        component = new Attribute({ iri });
+        break;
+      case "dimension":
+        component = new Dimension({ iri });
+        break;
+      case "measure":
+        component = new Measure({ iri });
+        break;
+      default:
+        throw new Error("Cannot get broader of abstract Component");
+    }
+    this.broaderComponent = component;
+    component.narrowerComponent = this;
+    return component;
   }
 
   /**

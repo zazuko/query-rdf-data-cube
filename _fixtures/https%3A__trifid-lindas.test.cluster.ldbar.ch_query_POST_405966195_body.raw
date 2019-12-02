@@ -1,0 +1,1 @@
+{"head":{"vars":["iri","graphIri","label"]},"results":{"bindings":[{"iri":{"type":"uri","value":"http://ld.zazuko.com/animalpest/dataset"},"label":{"xml:lang":"de","type":"literal","value":"Tierseuchen"}}]}}
