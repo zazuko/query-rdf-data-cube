@@ -496,7 +496,6 @@ export class Query {
     });
     const groupedOnBindingNames = [];
     const addedDimensionsIRIs = [];
-    const fetchLabels = [];
 
     const query: SelectQuery = {
       prefixes,
@@ -509,20 +508,20 @@ export class Query {
         named: [],
       },
       distinct: hasDistinct,
-      where: [],
+      where: [{
+        type: "bgp",
+        triples: [{
+          subject: variable("observation"),
+          predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+          object: namedNode("http://purl.org/linked-data/cube#Observation"),
+        }],
+      }],
       offset: this.state.offset,
       limit: this.state.limit,
       type: "query",
     };
 
-    const mainWhereClauses: BgpPattern = {
-      type: "bgp",
-      triples: [{
-        subject: variable("observation"),
-        predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
-        object: namedNode("http://purl.org/linked-data/cube#Observation"),
-      }],
-    };
+    const mainWhereClauses = query.where[0] as BgpPattern;
 
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "dimension" && !Boolean(component.narrowerComponent))
@@ -542,72 +541,11 @@ export class Query {
         const labelBinding = variable(`${bindingName}Label`);
         const langOptional = generateLangOptionals(binding, labelBinding, labelPredicate, this.languages);
         const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
-        fetchLabels.push(...langOptional, langCoalesce);
+        query.where.push(...langOptional, langCoalesce);
         query.variables.push(binding, labelBinding);
       });
 
-    Object.entries(this.state.selects)
-      .filter(([, component]) => component.componentType === "dimension" && Boolean(component.narrowerComponent))
-      .forEach(([bindingName, component]) => {
-        this.bindingToComponent.set(bindingName, component);
-        this.componentToBinding.set(component, bindingName);
-
-        const narrower = component.narrowerComponent;
-        const binding = variable(bindingName);
-        const broader = component;
-        const subject = variable(this.componentToBinding.get(narrower));
-        if (subject.value) {
-          mainWhereClauses.triples.push({
-            subject,
-            predicate: namedNode("http://www.w3.org/2004/02/skos/core#broader"),
-            object: broader.iri.value ? broader.iri : binding,
-          });
-
-          const labelBinding = variable(`${bindingName}Label`);
-          const langOptional = generateLangOptionals(binding, labelBinding, labelPredicate, this.languages);
-          const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
-          fetchLabels.push(...langOptional, langCoalesce);
-          query.variables.push(binding, labelBinding);
-        } else {
-          const narrowing: Component[] = [];
-          let current = component;
-          while (current) {
-            narrowing.push(current);
-            current = current.narrowerComponent;
-          }
-
-          let previousNarrower = narrowing.pop();
-          let previousName = this.iriToBinding.get(previousNarrower.iri.value);
-          let currentBroader = narrowing.pop();
-          while (currentBroader) {
-            const currentName = this.componentToBinding.has(currentBroader)
-              ? this.componentToBinding.get(currentBroader)
-              : this.autoNameVariable(currentBroader, previousName).value;
-            const currentBinding = variable(currentName);
-
-            this.bindingToComponent.set(currentName, current);
-            this.componentToBinding.set(current, currentName);
-
-            mainWhereClauses.triples.push({
-              subject: variable(previousName),
-              predicate: namedNode("http://www.w3.org/2004/02/skos/core#broader"),
-              object: currentBroader.iri.value ? currentBroader.iri : currentBinding,
-            });
-
-            if (this.componentToBinding.has(currentBroader)) {
-              const labelBinding = variable(`${currentName}Label`);
-              const langOptional = generateLangOptionals(currentBinding, labelBinding, labelPredicate, this.languages);
-              const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
-              fetchLabels.push(...langOptional, langCoalesce);
-              query.variables.push(currentBinding, labelBinding);
-            }
-
-            previousName = currentName;
-            previousNarrower = currentBroader;
-            currentBroader = narrowing.pop();
-          }
-        }
-      });
+    this._handleBroaderNarrower(query);
 
     // add dimensions that haven't been explicitly selected
     const dimensions = await this.dataCube.dimensions();
@@ -666,7 +604,6 @@ export class Query {
       predicate: namedNode("http://purl.org/linked-data/cube#dataSet"),
       object: namedNode(this.dataCube.iri),
     });
-    query.where.push(mainWhereClauses);
 
     Object.entries(this.state.selects)
       .filter(([, component]) => component.componentType === "attribute")
@@ -687,8 +624,6 @@ export class Query {
           }],
         });
       });
-
-    query.where.push(...fetchLabels);
 
     if (this.state.filters.length) {
       query.where.push(this.applyFilters());
@@ -820,5 +755,72 @@ export class Query {
       }
     }
     return variable(potentialName);
+  }
+
+  private _handleBroaderNarrower(query: SelectQuery) {
+    const mainWhereClauses = query.where[0] as BgpPattern;
+
+    Object.entries(this.state.selects)
+      .filter(([, component]) => Boolean(component.narrowerComponent))
+      .forEach(([bindingName, component]) => {
+        this.bindingToComponent.set(bindingName, component);
+        this.componentToBinding.set(component, bindingName);
+
+        const narrower = component.narrowerComponent;
+        const binding = variable(bindingName);
+        const broader = component;
+        const subject = variable(this.componentToBinding.get(narrower));
+        if (subject.value) {
+          mainWhereClauses.triples.push({
+            subject,
+            predicate: namedNode("http://www.w3.org/2004/02/skos/core#broader"),
+            object: broader.iri.value ? broader.iri : binding,
+          });
+
+          const labelBinding = variable(`${bindingName}Label`);
+          const langOptional = generateLangOptionals(binding, labelBinding, labelPredicate, this.languages);
+          const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
+          query.where.push(...langOptional, langCoalesce);
+          query.variables.push(binding, labelBinding);
+        } else {
+          const narrowing: Component[] = [];
+          let current = component;
+          while (current) {
+            narrowing.push(current);
+            current = current.narrowerComponent;
+          }
+
+          let previousNarrower = narrowing.pop();
+          let previousName = this.iriToBinding.get(previousNarrower.iri.value);
+          let currentBroader = narrowing.pop();
+          while (currentBroader) {
+            const currentName = this.componentToBinding.has(currentBroader)
+              ? this.componentToBinding.get(currentBroader)
+              : this.autoNameVariable(currentBroader, previousName).value;
+            const currentBinding = variable(currentName);
+
+            this.bindingToComponent.set(currentName, current);
+            this.componentToBinding.set(current, currentName);
+
+            mainWhereClauses.triples.push({
+              subject: variable(previousName),
+              predicate: namedNode("http://www.w3.org/2004/02/skos/core#broader"),
+              object: currentBroader.iri.value ? currentBroader.iri : currentBinding,
+            });
+
+            if (this.componentToBinding.has(currentBroader)) {
+              const labelBinding = variable(`${currentName}Label`);
+              const langOptional = generateLangOptionals(currentBinding, labelBinding, labelPredicate, this.languages);
+              const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
+              query.where.push(...langOptional, langCoalesce);
+              query.variables.push(currentBinding, labelBinding);
+            }
+
+            previousName = currentName;
+            previousNarrower = currentBroader;
+            currentBroader = narrowing.pop();
+          }
+        }
+      });
   }
 }
