@@ -1,12 +1,9 @@
-// run this example with: $(npm bin)/ts-node examples/component-levels.ts
+// run this example with: $(npm bin)/ts-node examples/component-broader.ts
 import { inspect } from "util";
 import { DataCubeEntryPoint } from "../src/entrypoint";
 
 function prettyPrint(obj) {
   return inspect(obj, false, 10000, true);
-}
-function printTitle(str) {
-  return `\n\n---- ${str} ----\n`;
 }
 
 (async () => {
@@ -26,20 +23,17 @@ function printTitle(str) {
   const gemeinde = kreis.broader();
   const kanton = gemeinde.broader();
   const land = kanton.broader();
-  // const kontinent = land.broader();
-  const kontinent = raum.broader().broader().broader().broader().broader().broader().broader("https://ld.stadt-zuerich.ch/statistics/code/Kontinent");
   const query = dataCube
     .query()
     .select({
       zeit,
       raum,
-      // raumIn,
-      // quartier,
-      // kreis,
-      // gemeinde,
-      // kanton,
-      // land,
-      kontinent,
+      raumIn,
+      quartier,
+      kreis,
+      gemeinde,
+      kanton,
+      land,
     })
     .limit(1);
   const sparql = await query.toSparql();
@@ -48,7 +42,6 @@ function printTitle(str) {
 
   const results = await query.execute();
 
-  // console.log(printTitle("RESULTS"));
   console.log(prettyPrint(results));
 
 })();

@@ -31,7 +31,7 @@ function printTitle(str) {
   // const raumDimension = dimensions[1];
   // dimensions, measures and attributes can also be constructed from scratch:
   const raumDimension = new Dimension({
-    labels: [{ value: "Raum", language: "de" }],
+    label: { value: "Raum", language: "de" },
     iri: "https://ld.stadt-zuerich.ch/statistics/property/RAUM"
   });
   const betriebsartDimension = dimensions[2];
