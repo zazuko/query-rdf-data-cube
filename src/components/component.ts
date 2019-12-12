@@ -71,6 +71,8 @@ export abstract class Component extends BaseExpr {
   public isDistinct: boolean = false;
   public descending: boolean = false;
   public componentType: string = "";
+  public broaderComponent?: Component;
+  public narrowerComponent?: Component;
 
   /**
    * Creates an instance of Component.
@@ -82,7 +84,7 @@ export abstract class Component extends BaseExpr {
    * });
    * ```
    *
-   * @param {({ label?: Label, iri: string | Term})} options Additional info about the component.
+   * @param { label?: Label, iri: string | Term} options Additional info about the component.
    * @param options.iri - The IRI of the Component.
    * @param options.label (Optional) A label for the DataCube in the following form:
    * `{ value: "Something", language: "en" }`
@@ -137,7 +139,7 @@ export abstract class Component extends BaseExpr {
    *
    * ```js
    * const priceMeasure = new Measure({
-   *   iri: "http://example.com/price", labels: [{ value: "Price", language: "en" }]
+   *   iri: "http://example.com/price", labels: { value: "Price", language: "en" }
    * });
    * dataCube.query().select({
    *   price: priceMeasure.avg(),
@@ -157,7 +159,7 @@ export abstract class Component extends BaseExpr {
    *
    * ```js
    * const cityDimension = new Dimension({
-   *   iri: "http://example.com/city", labels: [{ value: "City", language: "en" }]
+   *   iri: "http://example.com/city", labels: { value: "City", language: "en" }
    * });
    * dataCube.query().select({
    *   city: cityDimension.distinct(),
@@ -172,15 +174,15 @@ export abstract class Component extends BaseExpr {
   }
 
   /**
-   * Used in [[select]], [[distinct]] asks for distinct values.
+   * Used in [[orderBy]], [[desc]] orders by descending order of this component.
    *
    * ```js
    * const priceMeasure = new Measure({
-   *   iri: "http://example.com/price", labels: [{ value: "Price", language: "en" }]
+   *   iri: "http://example.com/price", labels: { value: "Price", language: "en" }
    * });
    * dataCube.query().select({
    *   price: priceMeasure
-   * }).orderBy(({ price } => price.lte(30.5)));
+   * }).orderBy(price.desc());
    * ```
    *
    * @memberof Component
@@ -189,6 +191,46 @@ export abstract class Component extends BaseExpr {
     const self = this.clone();
     self.descending = true;
     return self;
+  }
+
+  /**
+   * Used in [[select]], lets the query use `skos:broader` relations with [[Component]]s
+   *
+   * ```js
+   * const street = new Dimension({
+   *   iri: "http://example.com/street", labels: { value: "Street", language: "en" }
+   * });
+   * const city = street.broader()
+   * const country = city.broader()
+   * // alternatively, to get streets in cities in a specific country:
+   * const country = city.broader("http://example.com/country/iceland")
+   * // retrieves all streets and their country (or all streets in Iceland) in alphabetical order
+   * dataCube.query().select({
+   *   street,
+   *   country,
+   * }).orderBy(street);
+   * ```
+   *
+   * @memberof Component
+   */
+  public broader(iri: string = "") {
+    let component: Attribute | Dimension | Measure;
+    switch (this.componentType) {
+      case "attribute":
+        component = new Attribute({ iri });
+        break;
+      case "dimension":
+        component = new Dimension({ iri });
+        break;
+      case "measure":
+        component = new Measure({ iri });
+        break;
+      default:
+        throw new Error("Cannot get broader of abstract Component");
+    }
+    this.broaderComponent = component;
+    component.narrowerComponent = this;
+    return component;
   }
 
   /**

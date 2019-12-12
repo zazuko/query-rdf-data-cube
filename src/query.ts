@@ -11,7 +11,7 @@ import { IExpr, Operator } from "./expressions";
 import { combineFilters, createOperationExpression, labelPredicate, prefixes } from "./queryutils";
 import { generateLangCoalesce, generateLangOptionals } from "./queryutils";
 import { SparqlFetcher } from "./sparqlfetcher";
-import { BgpPattern, FilterPattern, Ordering, SelectQuery, VariableExpression, Wildcard } from "./sparqljs";
+import { BgpPattern, FilterPattern, Ordering, SelectQuery, Triple, VariableExpression, Wildcard } from "./sparqljs";
 
 type PredicateFunction = (data: SelectsObj) => Component;
 type PredicatesFunction = (data: SelectsObj) => Component[];
@@ -93,6 +93,7 @@ export class Query {
   // one map from bindingName to Component, one from component IRI to bindingName
   private bindingToComponent: Map<string, Component> = new Map();
   private iriToBinding: Map<string, string> = new Map();
+  private componentToBinding: Map<Component, string> = new Map();
   private state: QueryState;
   private fetcher: SparqlFetcher;
   private tmpVarCount: number = 0;
@@ -487,15 +488,9 @@ export class Query {
    */
   public async toSparqlJS(): Promise<SelectQuery> {
     const hasDistinct = this.state.distinct;
-    let hasAggregate = false;
-    Object.values(this.state.selects).forEach((component) => {
-      if (component.aggregateType) {
-        hasAggregate = true;
-      }
-    });
-    const groupedOnBindingNames = [];
-    const addedDimensionsIRIs = [];
-    const fetchLabels = [];
+    const hasAggregate = Object.values(this.state.selects).some((component) => Boolean(component.aggregateType));
+    const groupedOnBindingNames: Set<string> = new Set([]);
+    const addedDimensionsIRIs: Set<string> = new Set([]);
 
     const query: SelectQuery = {
       prefixes,
@@ -508,183 +503,42 @@ export class Query {
         named: [],
       },
       distinct: hasDistinct,
-      where: [],
+      where: [{
+        type: "bgp",
+        triples: [{
+          subject: variable("observation"),
+          predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
+          object: namedNode("http://purl.org/linked-data/cube#Observation"),
+        }, {
+          subject: variable("observation"),
+          predicate: namedNode("http://purl.org/linked-data/cube#dataSet"),
+          object: namedNode(this.dataCube.iri),
+        }],
+      }],
       offset: this.state.offset,
       limit: this.state.limit,
       type: "query",
     };
 
-    const mainWhereClauses: BgpPattern = {
-      type: "bgp",
-      triples: [{
-        subject: variable("observation"),
-        predicate: namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
-        object: namedNode("http://purl.org/linked-data/cube#Observation"),
-      }],
-    };
+    const mainWhereClauses = query.where[0] as BgpPattern;
 
-    Object.entries(this.state.selects)
-      .filter(([, component]) => component.componentType === "dimension")
-      .forEach(([bindingName, component]) => {
-        this.bindingToComponent.set(bindingName, component);
-        this.iriToBinding.set(component.iri.value, bindingName);
-        const binding = variable(bindingName);
+    this._handleSelectedDimensions(query, addedDimensionsIRIs);
+    this._handleBroaderNarrower(query);
+    await this._handleImplicitlySelectedDimensions(query, addedDimensionsIRIs, hasAggregate, hasDistinct);
 
-        addedDimensionsIRIs.push(component.iri.value);
-        mainWhereClauses.triples.push({
-          subject: variable("observation"),
-          predicate: component.iri,
-          object: binding,
-        });
+    this._handleSelectedMeasures(query);
 
-        const labelBinding = variable(`${bindingName}Label`);
-        const langOptional = generateLangOptionals(binding, labelBinding, labelPredicate, this.languages);
-        const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
-        fetchLabels.push(...langOptional, langCoalesce);
-        query.variables.push(binding, labelBinding);
-      });
-
-    // add dimensions that haven't been explicitly selected
-    const dimensions = await this.dataCube.dimensions();
-    dimensions
-      .filter(({ iri }) => !addedDimensionsIRIs.includes(iri.value))
-      .forEach((component) => {
-        const tmpVar = this.autoNameVariable(component);
-        this.bindingToComponent.set(tmpVar.value, component);
-        this.iriToBinding.set(component.iri.value, tmpVar.value);
-        addedDimensionsIRIs.push(component.iri.value);
-        mainWhereClauses.triples.push({
-          subject: variable("observation"),
-          predicate: component.iri,
-          object: tmpVar,
-        });
-        if (!hasAggregate && !hasDistinct) {
-          query.variables.push(variable(tmpVar.value));
-        }
-      });
-
-    Object.entries(this.state.selects)
-      .filter(([, component]) => component.componentType === "measure")
-      .forEach(([bindingName, component]) => {
-        this.bindingToComponent.set(bindingName, component);
-        this.iriToBinding.set(component.iri.value, bindingName);
-        if (component.aggregateType) {
-          const tmpVar = this.autoNameVariable(component, component.aggregateType);
-          query.variables.push({
-            expression: {
-              expression: tmpVar,
-              type: "aggregate",
-              aggregation: component.aggregateType,
-              distinct: component.isDistinct,
-            },
-            variable: variable(bindingName),
-          });
-
-          mainWhereClauses.triples.push({
-            subject: variable("observation"),
-            predicate: component.iri,
-            object: tmpVar,
-          });
-        } else {
-          mainWhereClauses.triples.push({
-            subject: variable("observation"),
-            predicate: component.iri,
-            object: variable(bindingName),
-          });
-          query.variables.push(variable(bindingName));
-        }
-      });
-
-    mainWhereClauses.triples.push({
-      subject: variable("observation"),
-      predicate: namedNode("http://purl.org/linked-data/cube#dataSet"),
-      object: namedNode(this.dataCube.iri),
-    });
-    query.where.push(mainWhereClauses);
-
-    Object.entries(this.state.selects)
-      .filter(([, component]) => component.componentType === "attribute")
-      .forEach(([bindingName, component]) => {
-        this.bindingToComponent.set(bindingName, component);
-        this.iriToBinding.set(component.iri.value, bindingName);
-        query.variables.push(variable(bindingName));
-        query.where.push({
-          type: "optional",
-          patterns: [{
-            type: "bgp",
-            triples: [{
-              subject: variable("observation"),
-              predicate: component.iri,
-              object: variable(bindingName),
-            }],
-          }],
-        });
-      });
-
-    query.where.push(...fetchLabels);
+    this._handleSelectedAttributes(query);
 
     if (this.state.filters.length) {
       query.where.push(this.applyFilters());
     }
 
     if (hasAggregate) {
-      query.group = query.variables
-        .map((selected: any) => {
-          if (selected.hasOwnProperty("value")) {
-            groupedOnBindingNames.push(selected.value);
-            return { expression: selected };
-          }
-        }).filter(Boolean);
-      }
-
-    if (this.state.groupBys.length) {
-      if (!query.group) {
-        query.group = [];
-      }
-      this.state.groupBys.forEach((groupBy) => {
-        let component: Component;
-        if (typeof groupBy === "function") {
-          component = groupBy(this.state.selects);
-        } else {
-          component = this.bindingToComponent.get(groupBy);
-        }
-        if (!component) {
-          throw new Error(`Cannot group on '${groupBy}': no component with this name.`);
-        }
-        const bindingName = this.iriToBinding.get(component.iri.value);
-        if (!groupedOnBindingNames.includes(bindingName)) {
-          groupedOnBindingNames.push(bindingName);
-          query.group.push({
-            expression: variable(bindingName),
-          });
-        }
-      });
-      // all variables in projection should be present in GROUP BY
-      query.variables
-        .forEach((selected: any) => {
-          if (selected.hasOwnProperty("value") && !groupedOnBindingNames.includes(selected.value)) {
-            groupedOnBindingNames.push(selected.value);
-            query.group.push({
-              expression: variable(selected.value),
-            });
-          }
-        });
+      this._handleAggregates(query, groupedOnBindingNames);
     }
-
-    // order by
-    if (this.state.order.length) {
-      query.order = [];
-    }
-    this.state.order.forEach((component) => {
-      const bindingName = this.iriToBinding.get(component.iri.value);
-      const order: Ordering = {
-        expression: variable(bindingName),
-      };
-      if (component.descending) {
-        order.descending = true;
-      }
-      query.order.push(order);
-    });
+    this._handleGroupBys(query, groupedOnBindingNames);
+    this._handleOrderBys(query);
 
     return query;
   }
@@ -738,6 +592,9 @@ export class Query {
     if (suffix) {
       potentialName += ` ${suffix}`;
     }
+    if (!potentialName) {
+      potentialName = "tmp var1";
+    }
     potentialName = slugify(potentialName);
 
     // while the name conflicts with an existing binding, add a number at the end or increment existing number
@@ -750,5 +607,243 @@ export class Query {
       }
     }
     return variable(potentialName);
+  }
+
+  private _handleSelectedDimensions(query: SelectQuery, addedDimensionsIRIs: Set<string>) {
+    const mainWhereClauses = query.where[0] as BgpPattern;
+    Object.entries(this.state.selects)
+      .filter(([, component]) => component.componentType === "dimension" && !Boolean(component.narrowerComponent))
+      .forEach(([bindingName, component]) => {
+        this.bindingToComponent.set(bindingName, component);
+        this.componentToBinding.set(component, bindingName);
+        this.iriToBinding.set(component.iri.value, bindingName);
+
+        const binding = variable(bindingName);
+        addedDimensionsIRIs.add(component.iri.value);
+        mainWhereClauses.triples.push({
+          subject: variable("observation"),
+          predicate: component.iri,
+          object: binding,
+        });
+
+        const labelBinding = variable(`${bindingName}Label`);
+        const langOptional = generateLangOptionals(binding, labelBinding, labelPredicate, this.languages);
+        const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
+        query.where.push(...langOptional, langCoalesce);
+        query.variables.push(binding, labelBinding);
+      });
+  }
+
+  private _handleBroaderNarrower(query: SelectQuery) {
+    const mainWhereClauses = query.where[0] as BgpPattern;
+
+    Object.entries(this.state.selects)
+      .filter(([, component]) => Boolean(component.narrowerComponent))
+      .forEach(([bindingName, component]) => {
+        this.bindingToComponent.set(bindingName, component);
+        this.componentToBinding.set(component, bindingName);
+
+        const narrower = component.narrowerComponent;
+        const binding = variable(bindingName);
+        const broader = component;
+        const subject = variable(this.componentToBinding.get(narrower));
+        if (subject.value) {
+          mainWhereClauses.triples.push({
+            subject,
+            predicate: namedNode("http://www.w3.org/2004/02/skos/core#broader"),
+            object: broader.iri.value ? broader.iri : binding,
+          });
+
+          const labelBinding = variable(`${bindingName}Label`);
+          const langOptional = generateLangOptionals(binding, labelBinding, labelPredicate, this.languages);
+          const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
+          query.where.push(...langOptional, langCoalesce);
+          query.variables.push(binding, labelBinding);
+        } else {
+          const narrowing: Component[] = [];
+          let current = component;
+          while (current) {
+            narrowing.push(current);
+            current = current.narrowerComponent;
+          }
+
+          let previousNarrower = narrowing.pop();
+          let previousName = this.iriToBinding.get(previousNarrower.iri.value);
+          let currentBroader = narrowing.pop();
+          while (currentBroader) {
+            const currentName = this.componentToBinding.has(currentBroader)
+              ? this.componentToBinding.get(currentBroader)
+              : this.autoNameVariable(currentBroader, previousName).value;
+            const currentBinding = variable(currentName);
+
+            this.bindingToComponent.set(currentName, current);
+            this.componentToBinding.set(current, currentName);
+
+            mainWhereClauses.triples.push({
+              subject: variable(previousName),
+              predicate: namedNode("http://www.w3.org/2004/02/skos/core#broader"),
+              object: currentBroader.iri.value ? currentBroader.iri : currentBinding,
+            });
+
+            if (this.componentToBinding.has(currentBroader)) {
+              const labelBinding = variable(`${currentName}Label`);
+              const langOptional = generateLangOptionals(currentBinding, labelBinding, labelPredicate, this.languages);
+              const langCoalesce = generateLangCoalesce(labelBinding, this.languages);
+              query.where.push(...langOptional, langCoalesce);
+              query.variables.push(currentBinding, labelBinding);
+            }
+
+            previousName = currentName;
+            previousNarrower = currentBroader;
+            currentBroader = narrowing.pop();
+          }
+        }
+      });
+  }
+
+  private async _handleImplicitlySelectedDimensions(
+    query: SelectQuery, addedDimensionsIRIs: Set<string>, hasAggregate: boolean, hasDistinct: boolean,
+  ) {
+    // we always want all Dimensions to be selected, this takes care of the ones that
+    // haven't manually been added to `.select`
+    const mainWhereClauses = query.where[0] as BgpPattern;
+
+    const dimensions = await this.dataCube.dimensions();
+    dimensions
+      .filter(({ iri }) => !addedDimensionsIRIs.has(iri.value))
+      .forEach((component) => {
+        const tmpVar = this.autoNameVariable(component);
+        this.bindingToComponent.set(tmpVar.value, component);
+        this.iriToBinding.set(component.iri.value, tmpVar.value);
+        addedDimensionsIRIs.add(component.iri.value);
+        mainWhereClauses.triples.push({
+          subject: variable("observation"),
+          predicate: component.iri,
+          object: tmpVar,
+        });
+        if (!hasAggregate && !hasDistinct) {
+          query.variables.push(variable(tmpVar.value));
+        }
+      });
+  }
+
+  private _handleSelectedMeasures(query: SelectQuery) {
+    const mainWhereClauses = query.where[0] as BgpPattern;
+    Object.entries(this.state.selects)
+      .filter(([, component]) => component.componentType === "measure")
+      .forEach(([bindingName, component]) => {
+        this.bindingToComponent.set(bindingName, component);
+        this.componentToBinding.set(component, bindingName);
+        this.iriToBinding.set(component.iri.value, bindingName);
+        if (component.aggregateType) {
+          const tmpVar = this.autoNameVariable(component, component.aggregateType);
+          query.variables.push({
+            expression: {
+              expression: tmpVar,
+              type: "aggregate",
+              aggregation: component.aggregateType,
+              distinct: component.isDistinct,
+            },
+            variable: variable(bindingName),
+          });
+
+          mainWhereClauses.triples.push({
+            subject: variable("observation"),
+            predicate: component.iri,
+            object: tmpVar,
+          });
+        } else {
+          mainWhereClauses.triples.push({
+            subject: variable("observation"),
+            predicate: component.iri,
+            object: variable(bindingName),
+          });
+          query.variables.push(variable(bindingName));
+        }
+      });
+  }
+
+  private _handleSelectedAttributes(query: SelectQuery) {
+    Object.entries(this.state.selects)
+      .filter(([, component]) => component.componentType === "attribute")
+      .forEach(([bindingName, component]) => {
+        this.bindingToComponent.set(bindingName, component);
+        this.componentToBinding.set(component, bindingName);
+        this.iriToBinding.set(component.iri.value, bindingName);
+        query.variables.push(variable(bindingName));
+        query.where.push({
+          type: "optional",
+          patterns: [{
+            type: "bgp",
+            triples: [{
+              subject: variable("observation"),
+              predicate: component.iri,
+              object: variable(bindingName),
+            }],
+          }],
+        });
+      });
+  }
+
+  private _handleAggregates(query: SelectQuery, groupedOnBindingNames: Set<string>) {
+    query.group = query.variables
+      .map((selected: any) => {
+        if (selected.hasOwnProperty("value")) {
+          groupedOnBindingNames.add(selected.value);
+          return { expression: selected };
+        }
+      }).filter(Boolean);
+  }
+
+  private _handleGroupBys(query: SelectQuery, groupedOnBindingNames: Set<string>) {
+    if (this.state.groupBys.length) {
+      if (!query.group) {
+        query.group = [];
+      }
+      this.state.groupBys.forEach((groupBy) => {
+        let component: Component;
+        if (typeof groupBy === "function") {
+          component = groupBy(this.state.selects);
+        } else {
+          component = this.bindingToComponent.get(groupBy);
+        }
+        if (!component) {
+          throw new Error(`Cannot group on '${groupBy}': no component with this name.`);
+        }
+        const bindingName = this.iriToBinding.get(component.iri.value);
+        if (!groupedOnBindingNames.has(bindingName)) {
+          groupedOnBindingNames.add(bindingName);
+          query.group.push({
+            expression: variable(bindingName),
+          });
+        }
+      });
+      // all variables in projection should be present in GROUP BY
+      query.variables
+        .forEach((selected: any) => {
+          if (selected.hasOwnProperty("value") && !groupedOnBindingNames.has(selected.value)) {
+            groupedOnBindingNames.add(selected.value);
+            query.group.push({
+              expression: variable(selected.value),
+            });
+          }
+        });
+    }
+  }
+
+  private _handleOrderBys(query: SelectQuery) {
+    if (this.state.order.length) {
+      query.order = [];
+    }
+    this.state.order.forEach((component) => {
+      const bindingName = this.iriToBinding.get(component.iri.value);
+      const order: Ordering = {
+        expression: variable(bindingName),
+      };
+      if (component.descending) {
+        order.descending = true;
+      }
+      query.order.push(order);
+    });
   }
 }

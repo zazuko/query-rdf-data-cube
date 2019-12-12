@@ -654,8 +654,7 @@ describe("execute", () => {
         },
       },
     );
-    const dataCubes = await entryPoint.dataCubes();
-    const ds = dataCubes[0];
+    const ds = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
 
     const dimensions = await ds.dimensions();
     const measures = await ds.measures();
@@ -688,8 +687,7 @@ describe("execute", () => {
           },
         },
       );
-      const dataCubes = await entryPoint.dataCubes();
-      const ds = dataCubes[0];
+      const ds = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
 
       const dimensions = await ds.dimensions();
       const measures = await ds.measures();
