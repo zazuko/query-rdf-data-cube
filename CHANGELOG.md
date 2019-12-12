@@ -1,3 +1,13 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.6.0...v0.7.0) (2019-12-12)
+
+
+### Features
+
+* **query:** skos:broader support to fetch or fix a parent dimension ([784cf5c](https://github.com/zazuko/query-rdf-data-cube/commit/784cf5c))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.5.0...v0.6.0) (2019-11-25)
 
