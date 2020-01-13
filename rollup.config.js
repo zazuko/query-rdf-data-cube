@@ -1,5 +1,6 @@
-import typescript from 'rollup-plugin-typescript2';
+import copy from 'rollup-plugin-copy'
 import pkg from './package.json';
+import typescript from 'rollup-plugin-typescript2';
 
 export default {
   input: 'src/index.ts',
@@ -18,8 +19,15 @@ export default {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
-    typescript({
-      typescript: require('typescript'),
+    copy({
+      targets: [
+        { src: 'src/sparqljs.d.ts', dest: 'dist/node' },
+        { src: 'src/sparqljs.d.ts', dest: 'dist/es' },
+      ]
     }),
+    typescript({
+      objectHashIgnoreUnknownHack: true,
+      typescript: require('typescript'),
+    })
   ],
 };
