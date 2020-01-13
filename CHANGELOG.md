@@ -1,3 +1,13 @@
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/zazuko/query-rdf-data-cube/compare/v0.7.0...v0.7.1) (2020-01-13)
+
+
+### Bug Fixes
+
+* **types:** sparqljs.d.ts is part of npm package ([0c422fc](https://github.com/zazuko/query-rdf-data-cube/commit/0c422fc))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/zazuko/query-rdf-data-cube/compare/v0.6.0...v0.7.0) (2019-12-12)
 

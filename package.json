@@ -1,6 +1,6 @@
 {
   "name": "@zazuko/query-rdf-data-cube",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Query (or introspect) [RDF Data Cubes](https://www.w3.org/TR/vocab-data-cube/) with a JavaScript API, without writing SPARQL.",
   "scripts": {
     "build": "rimraf dist; rollup -c",
