@@ -1,5 +1,4 @@
 import { blankNode, literal, namedNode } from "@rdfjs/data-model";
-import clone from "clone";
 import fetch, { BodyInit, RequestInit, Response } from "node-fetch";
 import { Term } from "rdf-js";
 
@@ -74,11 +73,7 @@ export class SparqlFetcher {
   }
 
   private options(body: BodyInit = ""): RequestInit {
-    const options = clone(this.fetchOptions);
-    if (body) {
-      options.body = body;
-    }
-    return options;
+    return { ...this.options, body };
   }
 }
 
