@@ -109,7 +109,7 @@ export class Query {
     this.languages = options.languages || [];
     this.dataCube = dataCube;
     this.state = baseState;
-    this.fetcher = new SparqlFetcher(this.dataCube.endpoint);
+    this.fetcher = dataCube.fetcher;
   }
 
   /**
