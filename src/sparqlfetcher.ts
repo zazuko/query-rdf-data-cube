@@ -73,7 +73,11 @@ export class SparqlFetcher {
   }
 
   private options(body: BodyInit = ""): RequestInit {
-    return { ...this.options, body };
+    const options: RequestInit = { ...this.fetchOptions };
+    if (body) {
+      options.body = body;
+    }
+    return options;
   }
 }
 
