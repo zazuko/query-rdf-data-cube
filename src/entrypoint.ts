@@ -228,7 +228,7 @@ export class DataCubeEntryPoint {
 
     Object.entries(dataCubesByIri)
       .forEach(([iri, dataCube]: [string, DataCubeOptions]) => {
-        this.cachedDataCubes.set(iri, new DataCube(this.endpoint, dataCube));
+        this.cachedDataCubes.set(iri, new DataCube(this.endpoint, dataCube, this.fetcher));
       });
   }
 
