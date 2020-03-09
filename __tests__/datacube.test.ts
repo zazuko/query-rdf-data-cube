@@ -82,10 +82,10 @@ describe("dataCube", () => {
 
       const dimensions = await dataCube.dimensions();
       const time = dimensions.find((dimension) => dimension.iri.value.endsWith("/ZEIT"));
-      // const measures = await dataCube.measures();
-      // const pop = measures.find((measure) => measure.iri.value.endsWith("/BEW"));
+      const measures = await dataCube.measures();
+      const pop = measures.find((measure) => measure.iri.value.endsWith("/BEW"));
 
-      const components = [time];
+      const components = [time, pop];
 
       const minMaxes = await dataCube.componentsMinMax(components);
 

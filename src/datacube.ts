@@ -1,4 +1,4 @@
-import { namedNode, variable } from "@rdfjs/data-model";
+import { literal, namedNode, variable } from "@rdfjs/data-model";
 import namespace from "@rdfjs/namespace";
 import { Literal, NamedNode, Term } from "rdf-js";
 import { Generator as SparqlGenerator } from "sparqljs";
@@ -409,6 +409,15 @@ export class DataCube {
             type: "operation",
             operator: "isliteral",
             args: [valueBinding],
+          },
+        },
+        // we don't want MAX to be NaN
+        {
+          type: "filter",
+          expression: {
+            type: "operation",
+            operator: "<",
+            args: [valueBinding, literal("INF", "http://www.w3.org/2001/XMLSchema#float")],
           },
         },
         {

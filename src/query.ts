@@ -1,4 +1,4 @@
-import { namedNode, variable } from "@rdfjs/data-model";
+import { literal, namedNode, variable } from "@rdfjs/data-model";
 import clone from "clone";
 import nodeSlugify from "node-slugify";
 import { Literal, NamedNode, Variable } from "rdf-js";
@@ -465,12 +465,22 @@ export class Query {
       }
       return true;
     });
+    // min/max only makes sense for literal values
     query.where.push({
       type: "filter",
       expression: {
         type: "operation",
         operator: "isliteral",
         args: [binding],
+      },
+    });
+    // we don't want MAX to be NaN
+    query.where.push({
+      type: "filter",
+      expression: {
+        type: "operation",
+        operator: "<",
+        args: [binding, literal("INF", "http://www.w3.org/2001/XMLSchema#float")],
       },
     });
 
