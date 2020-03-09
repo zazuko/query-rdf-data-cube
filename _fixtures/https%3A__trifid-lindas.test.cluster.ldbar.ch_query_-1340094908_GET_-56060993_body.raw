@@ -1,0 +1,1 @@
+{"head":{"vars":["iri","graphIri","label"]},"results":{"bindings":[{"iri":{"type":"uri","value":"http://environment.ld.admin.ch/foen/px/0703030000_124/dataset"},"graphIri":{"type":"uri","value":"https://lindas-data.ch/graph/bafu/wald"},"label":{"xml:lang":"de","type":"literal","value":"Investitionen in den Forstbetrieben in Franken nach Jahr, Forstzone, Kanton und Variable"}}]}}

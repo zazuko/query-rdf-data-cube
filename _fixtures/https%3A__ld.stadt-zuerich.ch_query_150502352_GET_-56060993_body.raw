@@ -1,0 +1,1 @@
+{"head":{"vars":["iri","graphIri","label"]},"results":{"bindings":[{"iri":{"type":"uri","value":"https://ld.stadt-zuerich.ch/statistics/dataset/GBR-RAUM-ZEIT-ARA"},"graphIri":{"type":"uri","value":"https://linked.opendata.swiss/graph/zh/statistics"},"label":{"type":"literal","value":""}}]}}

@@ -82,10 +82,10 @@ describe("dataCube", () => {
 
       const dimensions = await dataCube.dimensions();
       const time = dimensions.find((dimension) => dimension.iri.value.endsWith("/ZEIT"));
-      const measures = await dataCube.measures();
-      const pop = measures.find((measure) => measure.iri.value.endsWith("/BEW"));
+      // const measures = await dataCube.measures();
+      // const pop = measures.find((measure) => measure.iri.value.endsWith("/BEW"));
 
-      const components = [time, pop];
+      const components = [time];
 
       const minMaxes = await dataCube.componentsMinMax(components);
 
@@ -161,8 +161,8 @@ describe("dataCube", () => {
     });
 
     it("de/serializes loaded components", async () => {
-      const entryPoint = newCube("https://ld.stadt-zuerich.ch/query", ["de", "en"]);
-      const dataCube = await entryPoint.dataCubeByIri("http://environment.data.admin.ch/ubd/28/qb/ubd28");
+      const entryPoint = newCube("https://trifid-lindas.test.cluster.ldbar.ch/query", ["de", "en"]);
+      const dataCube = await entryPoint.dataCubeByIri("http://environment.ld.admin.ch/foen/px/0703030000_124/dataset");
       await dataCube.dimensions();
       const serialized = dataCube.toJSON();
       expect(serialized).toMatchSnapshot();

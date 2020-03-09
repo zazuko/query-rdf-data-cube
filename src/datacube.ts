@@ -97,8 +97,8 @@ export class DataCube {
   public endpoint: string;
   public graphIri?: string;
   public extraMetadata: Map<string, Literal>;
-  private languages: string[];
   public fetcher: SparqlFetcher;
+  private languages: string[];
   private componentsLoaded: boolean = false;
   private cachedComponents: ComponentsCache;
 
@@ -114,7 +114,7 @@ export class DataCube {
   constructor(
     endpoint: string,
     options: DataCubeOptions,
-    fetcher?: SparqlFetcher
+    fetcher?: SparqlFetcher,
   ) {
     const { iri, label, graphIri, extraMetadata } = options;
     this.fetcher = fetcher || new SparqlFetcher(endpoint, options.fetcher);

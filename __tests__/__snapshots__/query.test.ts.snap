@@ -14,8 +14,8 @@ WHERE {
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?beschaeftigteAvg.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
 }
@@ -37,8 +37,8 @@ WHERE {
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?beschaeftigteAvg.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
   FILTER(?raum NOT IN(<http://foo>))
@@ -125,8 +125,8 @@ WHERE {
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
 }
 LIMIT 10"
@@ -140,14 +140,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?zeit ?raum ?bta ?sex FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?raum ?sex ?bta FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
 }
 LIMIT 10"
 `;
@@ -361,8 +361,8 @@ WHERE {
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?beschaeftigteAvg.
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?raumLabel)
   BIND(COALESCE(\\"\\"^^xsd:string) AS ?zeitLabel)
@@ -380,14 +380,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?zeit ?zeitLabel ?raum ?bta ?sex ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?zeitLabel ?raum ?sex ?bta ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
   OPTIONAL {
     ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_en.
@@ -407,14 +407,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?zeit ?zeitLabel ?raum ?bta ?sex ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?zeitLabel ?raum ?sex ?bta ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
   OPTIONAL {
     ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_fr.
@@ -917,14 +917,14 @@ PREFIX qb: <http://purl.org/linked-data/cube#>
 PREFIX dc11: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-SELECT ?zeit ?zeitLabel ?raum ?bta ?sex ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
+SELECT ?zeit ?zeitLabel ?raum ?sex ?bta ?bep ?quelle FROM <https://linked.opendata.swiss/graph/zh/statistics>
 WHERE {
   ?observation rdf:type qb:Observation.
   ?observation qb:dataSet <https://ld.stadt-zuerich.ch/statistics/dataset/BES-RAUM-ZEIT-BTA-SEX>.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/ZEIT> ?zeit.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/RAUM> ?raum.
-  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/property/SEX> ?sex.
+  ?observation <https://ld.stadt-zuerich.ch/statistics/property/BTA> ?bta.
   ?observation <https://ld.stadt-zuerich.ch/statistics/measure/BES> ?bep.
   OPTIONAL {
     ?zeit (rdfs:label|skos:prefLabel) ?zeitLabel_en.

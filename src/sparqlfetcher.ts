@@ -1,5 +1,5 @@
 import { blankNode, literal, namedNode } from "@rdfjs/data-model";
-import fetch, { BodyInit, RequestInit, Response } from "node-fetch";
+import fetch, { RequestInit, Response } from "node-fetch";
 import { Term } from "rdf-js";
 
 /**
@@ -35,7 +35,7 @@ export class SparqlFetcher {
       this.fetch = window.fetch.bind(window);
     }
     this.fetchOptions = options.fetchOptions || {
-      method: "POST",
+      method: "GET",
       headers: {
         "Accept": "application/sparql-results+json",
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
@@ -44,9 +44,15 @@ export class SparqlFetcher {
   }
 
   public async select(query: string): Promise<any[]> {
-    const options = this.options(`query=${encodeURIComponent(query)}`);
-
-    return this.fetch(this.endpoint, options)
+    const queryString = `query=${encodeURIComponent(query)}`;
+    const options = this.options(queryString);
+    let href = this.endpoint;
+    if (options.method === "GET") {
+      const endpointURL = new URL(this.endpoint);
+      endpointURL.search = queryString;
+      href = endpointURL.toString();
+    }
+    return this.fetch(href, options)
       .then((r: Response) => {
         if (r.ok) {
           return r.json();
@@ -72,9 +78,12 @@ export class SparqlFetcher {
       });
   }
 
-  private options(body: BodyInit = ""): RequestInit {
+  private options(body: string = ""): RequestInit {
     const options: RequestInit = { ...this.fetchOptions };
-    if (body) {
+    // Stardog SPARQL endpoints return HTTP400 for large GET queries, use POST instead.
+    // GET is used by default to allow browser caching.
+    if (body && this.endpoint.length + body.length > 6000) {
+      options.method = "POST";
       options.body = body;
     }
     return options;

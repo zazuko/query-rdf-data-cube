@@ -1,0 +1,1 @@
+{"head":{"vars":["iri","graphIri","label"]},"results":{"bindings":[{"iri":{"type":"uri","value":"https://ld.stadt-zuerich.ch/statistics/dataset/WHG-RAUM-ZEIT-ARA-ZIM"},"graphIri":{"type":"uri","value":"https://linked.opendata.swiss/graph/zh/statistics"},"label":{"type":"literal","value":""}}]}}

@@ -626,7 +626,7 @@ describe("auto names variables", () => {
   test("slugifies labels to camelCase", async () => {
     const query = dataCube.query().select({ zeit: zeitDimension });
     const sparql = await query.toSparql();
-    expect(sparql).toContain("SELECT ?zeit ?zeitLabel ?raum ?bta ?sex");
+    expect(sparql).toContain("SELECT ?zeit ?zeitLabel ?raum ?sex ?bta");
   });
 
   test("doesn't generate name conflicts", async () => {
