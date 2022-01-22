@@ -47,7 +47,7 @@
     "@types/node-fetch": "^2.5.4",
     "@types/rdfjs__namespace": "^1.1.1",
     "clone": "^2.1.2",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "node-slugify": "0.0.3",
     "sparqljs": "^3.0.1"
   },
